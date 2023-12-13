@@ -149,7 +149,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Welcome Back',
+                                      'เข้าสู่ระบบ',
                                       style: FlutterFlowTheme.of(context)
                                           .headlineLarge,
                                     ),
@@ -172,11 +172,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                               _model.emailAddressController,
                                           focusNode:
                                               _model.emailAddressFocusNode,
-                                          autofocus: true,
                                           autofillHints: [AutofillHints.email],
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: 'Email',
+                                            labelText: 'อีเมล',
                                             labelStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelLarge,
@@ -244,14 +243,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         child: TextFormField(
                                           controller: _model.passwordController,
                                           focusNode: _model.passwordFocusNode,
-                                          autofocus: true,
-                                          autofillHints: [
-                                            AutofillHints.password
-                                          ],
                                           obscureText:
                                               !_model.passwordVisibility,
                                           decoration: InputDecoration(
-                                            labelText: 'Password',
+                                            labelText: 'รหัสผ่าน',
                                             labelStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelLarge,
@@ -355,7 +350,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           context.goNamedAuth(
                                               'HomePage', context.mounted);
                                         },
-                                        text: 'Sign In',
+                                        text: 'เข้าสู่ระบบ',
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 44.0,
@@ -399,12 +394,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           text: TextSpan(
                                             children: [
                                               TextSpan(
-                                                text:
-                                                    'Don\'t have an account? ',
+                                                text: 'ยังไม่มีบัญชี ? ',
                                                 style: TextStyle(),
                                               ),
                                               TextSpan(
-                                                text: 'Sign Up here',
+                                                text: 'ลงทะเบียน',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
