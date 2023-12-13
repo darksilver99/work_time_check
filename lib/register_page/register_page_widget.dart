@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -663,6 +664,24 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           if (user == null) {
                                             return;
                                           }
+
+                                          await UsersRecord.collection
+                                              .doc(user.uid)
+                                              .update(createUsersRecordData(
+                                                email: _model
+                                                    .emailAddressController
+                                                    .text,
+                                                displayName:
+                                                    '${_model.firstNameController.text} ${_model.lastNameController.text}',
+                                                createdTime:
+                                                    getCurrentTimestamp,
+                                                phoneNumber:
+                                                    _model.phoneController.text,
+                                                firstName: _model
+                                                    .firstNameController.text,
+                                                lastName: _model
+                                                    .lastNameController.text,
+                                              ));
 
                                           context.goNamedAuth(
                                               'HomePage', context.mounted);
