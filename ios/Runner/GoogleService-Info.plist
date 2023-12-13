@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDwjuMc0jPb2gJyGo8rz31PZQOxt7J5REQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>659036957134</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.silver.worktimecheck</string>
+	<key>PROJECT_ID</key>
+	<string>worktimecheck-465e2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>worktimecheck-465e2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:659036957134:ios:45e48fee6cdec9b89c639f</string>
+</dict>
+</plist>

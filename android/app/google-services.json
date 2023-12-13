@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "659036957134",
+    "project_id": "worktimecheck-465e2",
+    "storage_bucket": "worktimecheck-465e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659036957134:android:a883d02f0d10961f9c639f",
+        "android_client_info": {
+          "package_name": "com.silver.worktimecheck"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALWqRzrd69LqZGELsU4GyLR7JRFSTbXWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
