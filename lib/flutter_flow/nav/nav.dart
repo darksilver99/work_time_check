@@ -110,6 +110,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'SettingPage')
               : SettingPageWidget(),
+        ),
+        FFRoute(
+          name: 'ResetPasswordPage',
+          path: '/resetPasswordPage',
+          builder: (context, params) => ResetPasswordPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
