@@ -221,27 +221,22 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
                                                 .emailAddressController.text,
                                             context: context,
                                           );
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'ส่งข้อมูลเรียบร้อยแล้ว',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLarge
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .info,
-                                                        ),
-                                              ),
-                                              duration:
-                                                  Duration(milliseconds: 2000),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .success,
-                                            ),
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'ระบบได้ส่งข้อมูลการรีเซ็ตรหัสผ่านไปยังอีเมล ${_model.emailAddressController.text} แล้ว'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('ตกลง'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
                                           );
                                           context.safePop();
                                         },
