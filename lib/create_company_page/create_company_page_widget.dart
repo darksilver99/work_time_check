@@ -168,43 +168,43 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
 
                                 var companyListRecordReference =
                                     CompanyListRecord.collection.doc();
-                                await companyListRecordReference.set({
-                                  ...createCompanyListRecordData(
-                                    createDate: getCurrentTimestamp,
-                                    createBy: currentUserReference,
-                                    status: 1,
-                                    companyName: _model.textController.text,
-                                    companyCode: _model.companyCode,
-                                  ),
-                                  ...mapToFirestore(
-                                    {
-                                      'admin_list': [currentUserReference],
-                                    },
-                                  ),
-                                });
+                                await companyListRecordReference
+                                    .set(createCompanyListRecordData(
+                                  createDate: getCurrentTimestamp,
+                                  createBy: currentUserReference,
+                                  status: 1,
+                                  companyName: _model.textController.text,
+                                  companyCode: _model.companyCode,
+                                ));
                                 _model.rs =
-                                    CompanyListRecord.getDocumentFromData({
-                                  ...createCompanyListRecordData(
-                                    createDate: getCurrentTimestamp,
-                                    createBy: currentUserReference,
-                                    status: 1,
-                                    companyName: _model.textController.text,
-                                    companyCode: _model.companyCode,
-                                  ),
-                                  ...mapToFirestore(
-                                    {
-                                      'admin_list': [currentUserReference],
-                                    },
-                                  ),
-                                }, companyListRecordReference);
+                                    CompanyListRecord.getDocumentFromData(
+                                        createCompanyListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          createBy: currentUserReference,
+                                          status: 1,
+                                          companyName:
+                                              _model.textController.text,
+                                          companyCode: _model.companyCode,
+                                        ),
+                                        companyListRecordReference);
 
-                                await MyCompanyListRecord.collection
+                                await EmployeeListRecord.collection
                                     .doc()
-                                    .set(createMyCompanyListRecordData(
+                                    .set(createEmployeeListRecordData(
                                       createDate: getCurrentTimestamp,
                                       createBy: currentUserReference,
                                       status: 1,
                                       companyRef: _model.rs?.reference,
+                                    ));
+
+                                await AdminListRecord.collection
+                                    .doc()
+                                    .set(createAdminListRecordData(
+                                      createDate: getCurrentTimestamp,
+                                      createBy: currentUserReference,
+                                      status: 1,
+                                      companyRef: _model.rs?.reference,
+                                      userRef: currentUserReference,
                                     ));
                                 FFAppState().currentCompany =
                                     _model.rs?.reference;

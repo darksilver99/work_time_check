@@ -8,7 +8,8 @@ import 'schema/util/firestore_util.dart';
 import 'schema/users_record.dart';
 import 'schema/time_check_list_record.dart';
 import 'schema/company_list_record.dart';
-import 'schema/my_company_list_record.dart';
+import 'schema/admin_list_record.dart';
+import 'schema/employee_list_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,7 +20,8 @@ export 'schema/util/schema_util.dart';
 export 'schema/users_record.dart';
 export 'schema/time_check_list_record.dart';
 export 'schema/company_list_record.dart';
-export 'schema/my_company_list_record.dart';
+export 'schema/admin_list_record.dart';
+export 'schema/employee_list_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -132,38 +134,75 @@ Future<List<CompanyListRecord>> queryCompanyListRecordOnce({
       singleRecord: singleRecord,
     );
 
-/// Functions to query MyCompanyListRecords (as a Stream and as a Future).
-Future<int> queryMyCompanyListRecordCount({
+/// Functions to query AdminListRecords (as a Stream and as a Future).
+Future<int> queryAdminListRecordCount({
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) =>
     queryCollectionCount(
-      MyCompanyListRecord.collection,
+      AdminListRecord.collection,
       queryBuilder: queryBuilder,
       limit: limit,
     );
 
-Stream<List<MyCompanyListRecord>> queryMyCompanyListRecord({
+Stream<List<AdminListRecord>> queryAdminListRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      MyCompanyListRecord.collection,
-      MyCompanyListRecord.fromSnapshot,
+      AdminListRecord.collection,
+      AdminListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 
-Future<List<MyCompanyListRecord>> queryMyCompanyListRecordOnce({
+Future<List<AdminListRecord>> queryAdminListRecordOnce({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      MyCompanyListRecord.collection,
-      MyCompanyListRecord.fromSnapshot,
+      AdminListRecord.collection,
+      AdminListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query EmployeeListRecords (as a Stream and as a Future).
+Future<int> queryEmployeeListRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      EmployeeListRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<EmployeeListRecord>> queryEmployeeListRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      EmployeeListRecord.collection,
+      EmployeeListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<EmployeeListRecord>> queryEmployeeListRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      EmployeeListRecord.collection,
+      EmployeeListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

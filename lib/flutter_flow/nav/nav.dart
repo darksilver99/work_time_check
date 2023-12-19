@@ -166,9 +166,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'EmployeeListPage',
           path: '/employeeListPage',
+          asyncParams: {
+            'companyParameter':
+                getDoc(['company_list'], CompanyListRecord.fromSnapshot),
+          },
           builder: (context, params) => EmployeeListPageWidget(
-            companyParameter: params.getParam('companyParameter',
-                ParamType.DocumentReference, false, ['company_list']),
+            companyParameter:
+                params.getParam('companyParameter', ParamType.Document),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

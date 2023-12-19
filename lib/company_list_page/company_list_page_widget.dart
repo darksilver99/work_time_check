@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/still_no_company_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -94,17 +93,14 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                  child: StreamBuilder<List<MyCompanyListRecord>>(
-                    stream: queryMyCompanyListRecord(
-                      queryBuilder: (myCompanyListRecord) => myCompanyListRecord
+                  child: StreamBuilder<List<EmployeeListRecord>>(
+                    stream: queryEmployeeListRecord(
+                      queryBuilder: (employeeListRecord) => employeeListRecord
                           .where(
                             'create_by',
                             isEqualTo: currentUserReference,
                           )
-                          .where(
-                            'status',
-                            isEqualTo: 1,
-                          ),
+                          .orderBy('create_date', descending: true),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -121,25 +117,22 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                           ),
                         );
                       }
-                      List<MyCompanyListRecord>
-                          listViewMyCompanyListRecordList = snapshot.data!;
-                      if (listViewMyCompanyListRecordList.isEmpty) {
-                        return StillNoCompanyViewWidget();
-                      }
+                      List<EmployeeListRecord> listViewEmployeeListRecordList =
+                          snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemCount: listViewMyCompanyListRecordList.length,
+                        itemCount: listViewEmployeeListRecordList.length,
                         itemBuilder: (context, listViewIndex) {
-                          final listViewMyCompanyListRecord =
-                              listViewMyCompanyListRecordList[listViewIndex];
+                          final listViewEmployeeListRecord =
+                              listViewEmployeeListRecordList[listViewIndex];
                           return Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
                             child: StreamBuilder<CompanyListRecord>(
                               stream: CompanyListRecord.getDocument(
-                                  listViewMyCompanyListRecord.companyRef!),
+                                  listViewEmployeeListRecord.companyRef!),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -166,8 +159,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                   onTap: () async {
                                     setState(() {
                                       FFAppState().currentCompany =
-                                          listViewMyCompanyListRecord
-                                              .companyRef;
+                                          listViewEmployeeListRecord.companyRef;
                                     });
                                   },
                                   child: Material(
@@ -215,7 +207,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                               ),
                                             ),
                                             if (FFAppState().currentCompany ==
-                                                listViewMyCompanyListRecord
+                                                listViewEmployeeListRecord
                                                     .companyRef)
                                               Icon(
                                                 Icons.check_circle,

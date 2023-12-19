@@ -185,18 +185,13 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                             if (_model.rs?.reference != null) {
                               FFAppState().currentCompany =
                                   _model.rs?.reference;
-                              _model.rsMyCompany =
-                                  await queryMyCompanyListRecordOnce(
-                                queryBuilder: (myCompanyListRecord) =>
-                                    myCompanyListRecord
+                              _model.rsEmployee =
+                                  await queryEmployeeListRecordOnce(
+                                queryBuilder: (employeeListRecord) =>
+                                    employeeListRecord
                                         .where(
                                           'create_by',
                                           isEqualTo: currentUserReference,
-                                        )
-                                        .where(
-                                          'company_ref',
-                                          isEqualTo:
-                                              FFAppState().currentCompany,
                                         )
                                         .where(
                                           'status',
@@ -204,14 +199,13 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                         ),
                                 singleRecord: true,
                               ).then((s) => s.firstOrNull);
-                              if (!(_model.rsMyCompany?.reference != null)) {
-                                await MyCompanyListRecord.collection
+                              if (!(_model.rsEmployee?.reference != null)) {
+                                await EmployeeListRecord.collection
                                     .doc()
-                                    .set(createMyCompanyListRecordData(
+                                    .set(createEmployeeListRecordData(
                                       createDate: getCurrentTimestamp,
                                       createBy: currentUserReference,
                                       status: 0,
-                                      companyRef: FFAppState().currentCompany,
                                     ));
                               }
                               ScaffoldMessenger.of(context).showSnackBar(

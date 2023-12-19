@@ -19,25 +19,25 @@
       ]
     },
     {
-      "collectionGroup": "company_list",
+      "collectionGroup": "employee_list",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "status",
+          "fieldPath": "create_by",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "admin_list",
-          "arrayConfig": "CONTAINS"
+          "fieldPath": "create_date",
+          "order": "DESCENDING"
         }
       ]
     },
     {
-      "collectionGroup": "my_company_list",
+      "collectionGroup": "admin_list",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "company_ref",
+          "fieldPath": "user_ref",
           "order": "ASCENDING"
         },
         {
@@ -47,15 +47,29 @@
       ]
     },
     {
-      "collectionGroup": "my_company_list",
+      "collectionGroup": "employee_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "company_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "create_date",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "employee_list",
       "queryScope": "COLLECTION",
       "fields": [
         {
           "fieldPath": "create_by",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "company_ref",
           "order": "ASCENDING"
         },
         {
