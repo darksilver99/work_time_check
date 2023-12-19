@@ -45,6 +45,8 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -97,6 +99,30 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                     width: 1.0,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              Material(
+                color: Colors.transparent,
+                elevation: 3.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  width: 60.0,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Text(
+                      'Hello World',
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: FlutterFlowTheme.of(context).bodyMedium,
+                    ),
+                  ),
                 ),
               ),
             ],
