@@ -194,6 +194,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                       createDate: getCurrentTimestamp,
                                       createBy: currentUserReference,
                                       status: 1,
+                                      companyRef: _model.rs?.reference,
                                     ));
 
                                 await AdminListRecord.collection
@@ -202,6 +203,8 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                       createDate: getCurrentTimestamp,
                                       createBy: currentUserReference,
                                       status: 1,
+                                      companyRef: _model.rs?.reference,
+                                      userRef: currentUserReference,
                                     ));
                                 FFAppState().currentCompany =
                                     _model.rs?.reference;
