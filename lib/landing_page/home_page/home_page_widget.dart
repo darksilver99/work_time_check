@@ -79,25 +79,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
         FadeEffect(
           curve: Curves.easeInOut,
           delay: 0.ms,
-          duration: 500.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 500.ms,
-          begin: Offset(60.0, 60.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'containerOnPageLoadAnimation4': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
           duration: 600.ms,
           begin: 0.0,
           end: 1.0,
@@ -111,7 +92,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         ),
       ],
     ),
-    'containerOnPageLoadAnimation5': AnimationInfo(
+    'containerOnPageLoadAnimation4': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
         FadeEffect(
@@ -218,7 +199,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     ),
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
-                    itemCount: 5,
+                    itemCount: 4,
                     itemBuilder: (context, index) {
                       return [
                         () => Builder(
@@ -488,43 +469,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed('CompanyListPage');
-                                },
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 3.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 200.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Text(
-                                        'ฉั',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ).animateOnPageLoad(animationsMap[
-                                  'containerOnPageLoadAnimation3']!),
-                            ),
-                        () => Padding(
-                              padding: EdgeInsets.all(6.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
                                   context.pushNamed('CompanyManageListPage');
                                 },
                                 child: Material(
@@ -552,7 +496,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                 ),
                               ).animateOnPageLoad(animationsMap[
-                                  'containerOnPageLoadAnimation4']!),
+                                  'containerOnPageLoadAnimation3']!),
                             ),
                         () => Padding(
                               padding: EdgeInsets.all(6.0),
@@ -572,15 +516,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                   child: Align(
                                     alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      '5',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
+                                    child: AuthUserStreamWidget(
+                                      builder: (context) => Text(
+                                        '${currentUserDisplayName} ${currentUserEmail}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ).animateOnPageLoad(animationsMap[
-                                  'containerOnPageLoadAnimation5']!),
+                                  'containerOnPageLoadAnimation4']!),
                             ),
                       ][index]();
                     },
