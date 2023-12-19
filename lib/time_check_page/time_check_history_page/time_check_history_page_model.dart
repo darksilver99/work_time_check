@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/loading_view_widget.dart';
 import '/components/no_data_view_widget.dart';
-import '/components/still_no_company_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -28,22 +27,21 @@ class TimeCheckHistoryPageModel
   final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - getFirstDayOfMonth] action in TimeCheckHistoryPage widget.
   DateTime? firstDate;
-  // Model for StillNoCompanyView component.
-  late StillNoCompanyViewModel stillNoCompanyViewModel;
+  // Model for NoDataView component.
+  late NoDataViewModel noDataViewModel;
   // Model for LoadingView component.
   late LoadingViewModel loadingViewModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    stillNoCompanyViewModel =
-        createModel(context, () => StillNoCompanyViewModel());
+    noDataViewModel = createModel(context, () => NoDataViewModel());
     loadingViewModel = createModel(context, () => LoadingViewModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    stillNoCompanyViewModel.dispose();
+    noDataViewModel.dispose();
     loadingViewModel.dispose();
   }
 

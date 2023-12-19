@@ -61,6 +61,11 @@ class CompanyListRecord extends FirestoreRecord {
   String get companyCode => _companyCode ?? '';
   bool hasCompanyCode() => _companyCode != null;
 
+  // "admin_list" field.
+  List<DocumentReference>? _adminList;
+  List<DocumentReference> get adminList => _adminList ?? const [];
+  bool hasAdminList() => _adminList != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -71,6 +76,7 @@ class CompanyListRecord extends FirestoreRecord {
     _status = castToType<int>(snapshotData['status']);
     _companyName = snapshotData['company_name'] as String?;
     _companyCode = snapshotData['company_code'] as String?;
+    _adminList = getDataList(snapshotData['admin_list']);
   }
 
   static CollectionReference get collection =>
@@ -140,6 +146,7 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
 
   @override
   bool equals(CompanyListRecord? e1, CompanyListRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.createDate == e2?.createDate &&
         e1?.createBy == e2?.createBy &&
         e1?.updateDate == e2?.updateDate &&
@@ -148,7 +155,8 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
         e1?.deleteBy == e2?.deleteBy &&
         e1?.status == e2?.status &&
         e1?.companyName == e2?.companyName &&
-        e1?.companyCode == e2?.companyCode;
+        e1?.companyCode == e2?.companyCode &&
+        listEquality.equals(e1?.adminList, e2?.adminList);
   }
 
   @override
@@ -161,7 +169,8 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
         e?.deleteBy,
         e?.status,
         e?.companyName,
-        e?.companyCode
+        e?.companyCode,
+        e?.adminList
       ]);
 
   @override
