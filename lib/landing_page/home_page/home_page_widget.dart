@@ -243,6 +243,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               .where(
                                                 'photo_out',
                                                 isEqualTo: ' ',
+                                              )
+                                              .where(
+                                                'company_ref',
+                                                isEqualTo:
+                                                    FFAppState().currentCompany,
                                               ),
                                       singleRecord: true,
                                     ).then((s) => s.firstOrNull);
