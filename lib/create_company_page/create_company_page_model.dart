@@ -31,6 +31,8 @@ class CreateCompanyPageModel extends FlutterFlowModel<CreateCompanyPageWidget> {
 
   // Stores action output result for [Custom Action - generateCompanyCode] action in Button widget.
   String? companyCode;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  CompanyListRecord? rs;
 
   /// Initialization and disposal methods.
 

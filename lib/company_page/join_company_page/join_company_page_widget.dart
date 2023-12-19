@@ -179,6 +179,48 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                             if (_model.rs?.reference != null) {
                               FFAppState().currentCompany =
                                   _model.rs?.reference;
+                              _model.rsMyCompany =
+                                  await queryMyCompanyListRecordOnce(
+                                queryBuilder: (myCompanyListRecord) =>
+                                    myCompanyListRecord
+                                        .where(
+                                          'create_by',
+                                          isEqualTo: currentUserReference,
+                                        )
+                                        .where(
+                                          'company_ref',
+                                          isEqualTo:
+                                              FFAppState().currentCompany,
+                                        ),
+                                singleRecord: true,
+                              ).then((s) => s.firstOrNull);
+                              if (!(_model.rsMyCompany?.reference != null)) {
+                                await MyCompanyListRecord.collection
+                                    .doc()
+                                    .set(createMyCompanyListRecordData(
+                                      createDate: getCurrentTimestamp,
+                                      createBy: currentUserReference,
+                                      status: 1,
+                                      companyRef: FFAppState().currentCompany,
+                                    ));
+                              }
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'เข้าร่วมองค์กรเรียบร้อยแล้ว',
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color:
+                                              FlutterFlowTheme.of(context).info,
+                                        ),
+                                  ),
+                                  duration: Duration(milliseconds: 2000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).success,
+                                ),
+                              );
 
                               context.goNamed('HomePage');
                             } else {
