@@ -407,7 +407,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
                                       if ((_model.rsDialog != null) &&
                                           _model.rsDialog!) {
-                                        context.pushNamed('JoinCompanyPage');
+                                        context.pushNamed('CompanyListPage');
                                       }
                                     }
 

@@ -183,8 +183,6 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                               singleRecord: true,
                             ).then((s) => s.firstOrNull);
                             if (_model.rs?.reference != null) {
-                              FFAppState().currentCompany =
-                                  _model.rs?.reference;
                               _model.rsEmployee =
                                   await queryEmployeeListRecordOnce(
                                 queryBuilder: (employeeListRecord) =>
