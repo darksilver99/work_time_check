@@ -165,30 +165,36 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    setState(() {
-                                      FFAppState().currentCompany =
-                                          listViewEmployeeListRecord.companyRef;
-                                    });
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'เปลี่ยนองค์กรเป็น \"${containerCompanyListRecord.companyName}\" เรียบร้อยแล้ว',
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .info,
-                                              ),
+                                    if (containerCompanyListRecord.reference !=
+                                        FFAppState().currentCompany) {
+                                      setState(() {
+                                        FFAppState().currentCompany =
+                                            listViewEmployeeListRecord
+                                                .companyRef;
+                                      });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'เปลี่ยนองค์กรเป็น \"${containerCompanyListRecord.companyName}\" เรียบร้อยแล้ว',
+                                            style: FlutterFlowTheme.of(context)
+                                                .headlineMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .info,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .success,
                                         ),
-                                        duration: Duration(milliseconds: 2000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .success,
-                                      ),
-                                    );
-                                    context.safePop();
+                                      );
+                                      context.safePop();
+                                    }
                                   },
                                   child: Material(
                                     color: Colors.transparent,
