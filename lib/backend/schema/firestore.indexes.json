@@ -17,6 +17,34 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "company_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "admin_list",
+          "arrayConfig": "CONTAINS"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "my_company_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "company_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "create_date",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ]
 }

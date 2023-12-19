@@ -18,3 +18,7 @@ export '/company_list_page/company_list_page_widget.dart'
     show CompanyListPageWidget;
 export '/time_check_out_page/time_check_out_page_widget.dart'
     show TimeCheckOutPageWidget;
+export '/company_page/company_manage_list_page/company_manage_list_page_widget.dart'
+    show CompanyManageListPageWidget;
+export '/employee_list_page/employee_list_page_widget.dart'
+    show EmployeeListPageWidget;

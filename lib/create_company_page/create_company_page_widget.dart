@@ -168,25 +168,35 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
 
                                 var companyListRecordReference =
                                     CompanyListRecord.collection.doc();
-                                await companyListRecordReference
-                                    .set(createCompanyListRecordData(
-                                  createDate: getCurrentTimestamp,
-                                  createBy: currentUserReference,
-                                  status: 1,
-                                  companyName: _model.textController.text,
-                                  companyCode: _model.companyCode,
-                                ));
+                                await companyListRecordReference.set({
+                                  ...createCompanyListRecordData(
+                                    createDate: getCurrentTimestamp,
+                                    createBy: currentUserReference,
+                                    status: 1,
+                                    companyName: _model.textController.text,
+                                    companyCode: _model.companyCode,
+                                  ),
+                                  ...mapToFirestore(
+                                    {
+                                      'admin_list': [currentUserReference],
+                                    },
+                                  ),
+                                });
                                 _model.rs =
-                                    CompanyListRecord.getDocumentFromData(
-                                        createCompanyListRecordData(
-                                          createDate: getCurrentTimestamp,
-                                          createBy: currentUserReference,
-                                          status: 1,
-                                          companyName:
-                                              _model.textController.text,
-                                          companyCode: _model.companyCode,
-                                        ),
-                                        companyListRecordReference);
+                                    CompanyListRecord.getDocumentFromData({
+                                  ...createCompanyListRecordData(
+                                    createDate: getCurrentTimestamp,
+                                    createBy: currentUserReference,
+                                    status: 1,
+                                    companyName: _model.textController.text,
+                                    companyCode: _model.companyCode,
+                                  ),
+                                  ...mapToFirestore(
+                                    {
+                                      'admin_list': [currentUserReference],
+                                    },
+                                  ),
+                                }, companyListRecordReference);
 
                                 await MyCompanyListRecord.collection
                                     .doc()
