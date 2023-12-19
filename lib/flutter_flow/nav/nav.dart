@@ -138,6 +138,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             photoPath: params.getParam('photoPath', ParamType.String),
             currentTime: params.getParam('currentTime', ParamType.DateTime),
           ),
+        ),
+        FFRoute(
+          name: 'CompanyListPage',
+          path: '/companyListPage',
+          builder: (context, params) => CompanyListPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

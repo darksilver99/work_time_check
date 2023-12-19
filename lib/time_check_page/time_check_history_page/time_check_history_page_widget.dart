@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/loading_view_widget.dart';
+import '/components/still_no_company_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -38,6 +39,7 @@ class _TimeCheckHistoryPageWidgetState
       _model.firstDate = await actions.getFirstDayOfMonth();
       setState(() {
         _model.startDate = _model.firstDate;
+        _model.isLoading = false;
       });
     });
   }
@@ -107,43 +109,10 @@ class _TimeCheckHistoryPageWidgetState
               children: [
                 if (FFAppState().currentCompany == null)
                   Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FFButtonWidget(
-                              onPressed: () async {
-                                context.pushNamed('JoinCompanyPage');
-                              },
-                              text: 'เข้าร่วมองค์กร',
-                              options: FFButtonOptions(
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      color: Colors.white,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: wrapWithModel(
+                      model: _model.stillNoCompanyViewModel,
+                      updateCallback: () => setState(() {}),
+                      child: StillNoCompanyViewWidget(),
                     ),
                   ),
                 if (_model.isLoading)
