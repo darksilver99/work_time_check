@@ -32,6 +32,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
   late TimeCheckTodayPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -229,7 +230,6 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                               child: TextFormField(
                                 controller: _model.textController,
                                 focusNode: _model.textFieldFocusNode,
-                                autofocus: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'รายละเอียด',
@@ -281,6 +281,10 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  currentUserLocationValue =
+                                      await getCurrentUserLocation(
+                                          defaultLocation: LatLng(0.0, 0.0));
+
                                   await TimeCheckListRecord.collection
                                       .doc()
                                       .set(createTimeCheckListRecordData(
@@ -290,7 +294,8 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                         photoIn: widget.photoPath,
                                         detailIn: _model.textController.text,
                                         companyRef: FFAppState().currentCompany,
-                                        photoOut: '',
+                                        photoOut: ' ',
+                                        locationIn: currentUserLocationValue,
                                       ));
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

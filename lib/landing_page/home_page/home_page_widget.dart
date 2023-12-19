@@ -251,6 +251,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ),
                                       singleRecord: true,
                                     ).then((s) => s.firstOrNull);
+                                    setState(() {
+                                      _model.isDataUploading = false;
+                                      _model.uploadedLocalFile = FFUploadedFile(
+                                          bytes: Uint8List.fromList([]));
+                                      _model.uploadedFileUrl = '';
+                                    });
+
                                     final selectedMedia = await selectMedia(
                                       maxWidth: 600.00,
                                       imageQuality: 80,
@@ -267,6 +274,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
                                       var downloadUrls = <String>[];
                                       try {
+                                        showUploadMessage(
+                                          context,
+                                          'Uploading file...',
+                                          showLoading: true,
+                                        );
                                         selectedUploadedFiles = selectedMedia
                                             .map((m) => FFUploadedFile(
                                                   name: m.storagePath
@@ -289,6 +301,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             .map((u) => u!)
                                             .toList();
                                       } finally {
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
                                         _model.isDataUploading = false;
                                       }
                                       if (selectedUploadedFiles.length ==
@@ -301,8 +315,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           _model.uploadedFileUrl =
                                               downloadUrls.first;
                                         });
+                                        showUploadMessage(context, 'Success!');
                                       } else {
                                         setState(() {});
+                                        showUploadMessage(
+                                            context, 'Failed to upload data');
                                         return;
                                       }
                                     }

@@ -33,6 +33,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
   late TimeCheckOutPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -282,12 +283,17 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  currentUserLocationValue =
+                                      await getCurrentUserLocation(
+                                          defaultLocation: LatLng(0.0, 0.0));
+
                                   await widget.timeCheckParameter!.reference
                                       .update(createTimeCheckListRecordData(
                                     updateDate: getCurrentTimestamp,
                                     updateBy: currentUserReference,
                                     photoOut: widget.photoPath,
                                     detailOut: _model.textController.text,
+                                    locationOut: currentUserLocationValue,
                                   ));
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
