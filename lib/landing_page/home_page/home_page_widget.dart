@@ -405,7 +405,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ).then((value) => safeSetState(
                                           () => _model.rsDialog = value));
 
-                                      if (_model.rsDialog!) {
+                                      if ((_model.rsDialog != null) &&
+                                          _model.rsDialog!) {
                                         context.pushNamed('JoinCompanyPage');
                                       }
                                     }
