@@ -1,11 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/information_dialog_view_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -219,199 +221,223 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     itemCount: 5,
                     itemBuilder: (context, index) {
                       return [
-                        () => Padding(
-                              padding: EdgeInsets.all(6.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  if (FFAppState().currentCompany != null) {
-                                    _model.rs =
-                                        await queryTimeCheckListRecordOnce(
-                                      queryBuilder: (timeCheckListRecord) =>
-                                          timeCheckListRecord
-                                              .where(
-                                                'create_by',
-                                                isEqualTo: currentUserReference,
-                                              )
-                                              .where(
-                                                'status',
-                                                isEqualTo: 1,
-                                              )
-                                              .where(
-                                                'photo_out',
-                                                isEqualTo: ' ',
-                                              )
-                                              .where(
-                                                'company_ref',
-                                                isEqualTo:
-                                                    FFAppState().currentCompany,
-                                              ),
-                                      singleRecord: true,
-                                    ).then((s) => s.firstOrNull);
-                                    setState(() {
-                                      _model.isDataUploading = false;
-                                      _model.uploadedLocalFile = FFUploadedFile(
-                                          bytes: Uint8List.fromList([]));
-                                      _model.uploadedFileUrl = '';
-                                    });
-
-                                    final selectedMedia = await selectMedia(
-                                      maxWidth: 600.00,
-                                      imageQuality: 80,
-                                      multiImage: false,
-                                    );
-                                    if (selectedMedia != null &&
-                                        selectedMedia.every((m) =>
-                                            validateFileFormat(
-                                                m.storagePath, context))) {
-                                      setState(
-                                          () => _model.isDataUploading = true);
-                                      var selectedUploadedFiles =
-                                          <FFUploadedFile>[];
-
-                                      var downloadUrls = <String>[];
-                                      try {
-                                        showUploadMessage(
-                                          context,
-                                          'Uploading file...',
-                                          showLoading: true,
-                                        );
-                                        selectedUploadedFiles = selectedMedia
-                                            .map((m) => FFUploadedFile(
-                                                  name: m.storagePath
-                                                      .split('/')
-                                                      .last,
-                                                  bytes: m.bytes,
-                                                  height: m.dimensions?.height,
-                                                  width: m.dimensions?.width,
-                                                  blurHash: m.blurHash,
-                                                ))
-                                            .toList();
-
-                                        downloadUrls = (await Future.wait(
-                                          selectedMedia.map(
-                                            (m) async => await uploadData(
-                                                m.storagePath, m.bytes),
-                                          ),
-                                        ))
-                                            .where((u) => u != null)
-                                            .map((u) => u!)
-                                            .toList();
-                                      } finally {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
+                        () => Builder(
+                              builder: (context) => Padding(
+                                padding: EdgeInsets.all(6.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    if (FFAppState().currentCompany != null) {
+                                      _model.rs =
+                                          await queryTimeCheckListRecordOnce(
+                                        queryBuilder: (timeCheckListRecord) =>
+                                            timeCheckListRecord
+                                                .where(
+                                                  'create_by',
+                                                  isEqualTo:
+                                                      currentUserReference,
+                                                )
+                                                .where(
+                                                  'status',
+                                                  isEqualTo: 1,
+                                                )
+                                                .where(
+                                                  'photo_out',
+                                                  isEqualTo: ' ',
+                                                )
+                                                .where(
+                                                  'company_ref',
+                                                  isEqualTo: FFAppState()
+                                                      .currentCompany,
+                                                ),
+                                        singleRecord: true,
+                                      ).then((s) => s.firstOrNull);
+                                      setState(() {
                                         _model.isDataUploading = false;
+                                        _model.uploadedLocalFile =
+                                            FFUploadedFile(
+                                                bytes: Uint8List.fromList([]));
+                                        _model.uploadedFileUrl = '';
+                                      });
+
+                                      final selectedMedia = await selectMedia(
+                                        maxWidth: 600.00,
+                                        imageQuality: 80,
+                                        multiImage: false,
+                                      );
+                                      if (selectedMedia != null &&
+                                          selectedMedia.every((m) =>
+                                              validateFileFormat(
+                                                  m.storagePath, context))) {
+                                        setState(() =>
+                                            _model.isDataUploading = true);
+                                        var selectedUploadedFiles =
+                                            <FFUploadedFile>[];
+
+                                        var downloadUrls = <String>[];
+                                        try {
+                                          showUploadMessage(
+                                            context,
+                                            'Uploading file...',
+                                            showLoading: true,
+                                          );
+                                          selectedUploadedFiles = selectedMedia
+                                              .map((m) => FFUploadedFile(
+                                                    name: m.storagePath
+                                                        .split('/')
+                                                        .last,
+                                                    bytes: m.bytes,
+                                                    height:
+                                                        m.dimensions?.height,
+                                                    width: m.dimensions?.width,
+                                                    blurHash: m.blurHash,
+                                                  ))
+                                              .toList();
+
+                                          downloadUrls = (await Future.wait(
+                                            selectedMedia.map(
+                                              (m) async => await uploadData(
+                                                  m.storagePath, m.bytes),
+                                            ),
+                                          ))
+                                              .where((u) => u != null)
+                                              .map((u) => u!)
+                                              .toList();
+                                        } finally {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          _model.isDataUploading = false;
+                                        }
+                                        if (selectedUploadedFiles.length ==
+                                                selectedMedia.length &&
+                                            downloadUrls.length ==
+                                                selectedMedia.length) {
+                                          setState(() {
+                                            _model.uploadedLocalFile =
+                                                selectedUploadedFiles.first;
+                                            _model.uploadedFileUrl =
+                                                downloadUrls.first;
+                                          });
+                                          showUploadMessage(
+                                              context, 'Success!');
+                                        } else {
+                                          setState(() {});
+                                          showUploadMessage(
+                                              context, 'Failed to upload data');
+                                          return;
+                                        }
                                       }
-                                      if (selectedUploadedFiles.length ==
-                                              selectedMedia.length &&
-                                          downloadUrls.length ==
-                                              selectedMedia.length) {
-                                        setState(() {
-                                          _model.uploadedLocalFile =
-                                              selectedUploadedFiles.first;
-                                          _model.uploadedFileUrl =
-                                              downloadUrls.first;
-                                        });
-                                        showUploadMessage(context, 'Success!');
-                                      } else {
-                                        setState(() {});
-                                        showUploadMessage(
-                                            context, 'Failed to upload data');
-                                        return;
+
+                                      if (_model.uploadedFileUrl != null &&
+                                          _model.uploadedFileUrl != '') {
+                                        if (_model.rs?.reference != null) {
+                                          context.pushNamed(
+                                            'TimeCheckOutPage',
+                                            queryParameters: {
+                                              'photoPath': serializeParam(
+                                                _model.uploadedFileUrl,
+                                                ParamType.String,
+                                              ),
+                                              'currentTime': serializeParam(
+                                                getCurrentTimestamp,
+                                                ParamType.DateTime,
+                                              ),
+                                              'timeCheckParameter':
+                                                  serializeParam(
+                                                _model.rs,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'timeCheckParameter': _model.rs,
+                                            },
+                                          );
+                                        } else {
+                                          context.pushNamed(
+                                            'TimeCheckTodayPage',
+                                            queryParameters: {
+                                              'photoPath': serializeParam(
+                                                _model.uploadedFileUrl,
+                                                ParamType.String,
+                                              ),
+                                              'currentTime': serializeParam(
+                                                getCurrentTimestamp,
+                                                ParamType.DateTime,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        }
                                       }
+                                    } else {
+                                      await showAlignedDialog(
+                                        context: context,
+                                        isGlobal: true,
+                                        avoidOverflow: false,
+                                        targetAnchor:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        followerAnchor:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        builder: (dialogContext) {
+                                          return Material(
+                                            color: Colors.transparent,
+                                            child: GestureDetector(
+                                              onTap: () => _model.unfocusNode
+                                                      .canRequestFocus
+                                                  ? FocusScope.of(context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode)
+                                                  : FocusScope.of(context)
+                                                      .unfocus(),
+                                              child:
+                                                  InformationDialogViewWidget(
+                                                msg: 'กรุณาเข้าร่วมองค์กรก่อน',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => setState(() {}));
+
+                                      context.pushNamed('CompanyListPage');
                                     }
 
-                                    if (_model.uploadedFileUrl != null &&
-                                        _model.uploadedFileUrl != '') {
-                                      if (_model.rs?.reference != null) {
-                                        context.pushNamed(
-                                          'TimeCheckOutPage',
-                                          queryParameters: {
-                                            'photoPath': serializeParam(
-                                              _model.uploadedFileUrl,
-                                              ParamType.String,
-                                            ),
-                                            'currentTime': serializeParam(
-                                              getCurrentTimestamp,
-                                              ParamType.DateTime,
-                                            ),
-                                            'timeCheckParameter':
-                                                serializeParam(
-                                              _model.rs,
-                                              ParamType.Document,
-                                            ),
-                                          }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            'timeCheckParameter': _model.rs,
-                                          },
-                                        );
-                                      } else {
-                                        context.pushNamed(
-                                          'TimeCheckTodayPage',
-                                          queryParameters: {
-                                            'photoPath': serializeParam(
-                                              _model.uploadedFileUrl,
-                                              ParamType.String,
-                                            ),
-                                            'currentTime': serializeParam(
-                                              getCurrentTimestamp,
-                                              ParamType.DateTime,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      }
-                                    }
-                                  } else {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          title: Text('กรุณาเลือกองค์กร'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('ตกลง'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-
-                                    context.pushNamed('CompanyListPage');
-                                  }
-
-                                  setState(() {});
-                                },
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 3.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 200.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                    setState(() {});
+                                  },
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    elevation: 3.0,
+                                    shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),
-                                    child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: Text(
-                                        'ลง',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 200.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          'ลง',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ).animateOnPageLoad(animationsMap[
-                                  'containerOnPageLoadAnimation1']!),
+                                ).animateOnPageLoad(animationsMap[
+                                    'containerOnPageLoadAnimation1']!),
+                              ),
                             ),
                         () => Padding(
                               padding: EdgeInsets.all(6.0),

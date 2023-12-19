@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/loading_view_widget.dart';
+import '/components/no_data_view_widget.dart';
 import '/components/still_no_company_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -163,6 +164,9 @@ class _TimeCheckHistoryPageWidgetState
                           }
                           List<TimeCheckListRecord>
                               listViewTimeCheckListRecordList = snapshot.data!;
+                          if (listViewTimeCheckListRecordList.isEmpty) {
+                            return NoDataViewWidget();
+                          }
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
