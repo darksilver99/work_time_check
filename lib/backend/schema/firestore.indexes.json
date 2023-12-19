@@ -27,6 +27,10 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "create_date",
           "order": "DESCENDING"
         }
