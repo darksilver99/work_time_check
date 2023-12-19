@@ -112,7 +112,6 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                             child: TextFormField(
                               controller: _model.textController,
                               focusNode: _model.textFieldFocusNode,
-                              autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'กรอกรหัสองค์กรของท่าน',
@@ -120,32 +119,32 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                     FlutterFlowTheme.of(context).labelMedium,
                                 hintStyle:
                                     FlutterFlowTheme.of(context).labelMedium,
-                                enabledBorder: UnderlineInputBorder(
+                                enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color:
                                         FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
+                                    width: 0.0,
                                   ),
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
+                                focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
+                                    width: 0.0,
                                   ),
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),
-                                errorBorder: UnderlineInputBorder(
+                                errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
+                                    width: 0.0,
                                   ),
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),
-                                focusedErrorBorder: UnderlineInputBorder(
+                                focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
+                                    width: 0.0,
                                   ),
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),

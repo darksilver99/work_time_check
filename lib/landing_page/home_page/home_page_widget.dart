@@ -402,9 +402,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                           );
                                         },
-                                      ).then((value) => setState(() {}));
+                                      ).then((value) => safeSetState(
+                                          () => _model.rsDialog = value));
 
-                                      context.pushNamed('CompanyListPage');
+                                      if (_model.rsDialog!) {
+                                        context.pushNamed('JoinCompanyPage');
+                                      }
                                     }
 
                                     setState(() {});
