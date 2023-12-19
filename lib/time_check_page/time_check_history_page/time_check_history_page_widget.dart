@@ -108,10 +108,12 @@ class _TimeCheckHistoryPageWidgetState
               mainAxisSize: MainAxisSize.max,
               children: [
                 if (FFAppState().currentCompany == null)
-                  wrapWithModel(
-                    model: _model.noDataViewModel,
-                    updateCallback: () => setState(() {}),
-                    child: NoDataViewWidget(),
+                  Expanded(
+                    child: wrapWithModel(
+                      model: _model.noDataViewModel,
+                      updateCallback: () => setState(() {}),
+                      child: NoDataViewWidget(),
+                    ),
                   ),
                 if (_model.isLoading)
                   Expanded(
