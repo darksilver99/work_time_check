@@ -188,8 +188,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                                 .success,
                                       ),
                                     );
-
-                                    context.goNamed('HomePage');
+                                    context.safePop();
                                   },
                                   child: Material(
                                     color: Colors.transparent,
