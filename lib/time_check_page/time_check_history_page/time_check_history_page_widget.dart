@@ -125,61 +125,154 @@ class _TimeCheckHistoryPageWidgetState
                   ),
                 if (!_model.isLoading && (FFAppState().currentCompany != null))
                   Expanded(
-                    child: StreamBuilder<List<TimeCheckListRecord>>(
-                      stream: queryTimeCheckListRecord(
-                        queryBuilder: (timeCheckListRecord) =>
-                            timeCheckListRecord
-                                .where(
-                                  'company_ref',
-                                  isEqualTo: FFAppState().currentCompany,
-                                )
-                                .where(
-                                  'create_by',
-                                  isEqualTo: currentUserReference,
-                                )
-                                .where(
-                                  'create_date',
-                                  isGreaterThanOrEqualTo: _model.startDate,
-                                )
-                                .orderBy('create_date', descending: true),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                      child: StreamBuilder<List<TimeCheckListRecord>>(
+                        stream: queryTimeCheckListRecord(
+                          queryBuilder: (timeCheckListRecord) =>
+                              timeCheckListRecord
+                                  .where(
+                                    'company_ref',
+                                    isEqualTo: FFAppState().currentCompany,
+                                  )
+                                  .where(
+                                    'create_by',
+                                    isEqualTo: currentUserReference,
+                                  )
+                                  .where(
+                                    'create_date',
+                                    isGreaterThanOrEqualTo: _model.startDate,
+                                  )
+                                  .orderBy('create_date', descending: true),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }
-                        List<TimeCheckListRecord>
-                            listViewTimeCheckListRecordList = snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listViewTimeCheckListRecordList.length,
-                          itemBuilder: (context, listViewIndex) {
-                            final listViewTimeCheckListRecord =
-                                listViewTimeCheckListRecordList[listViewIndex];
-                            return Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              elevation: 4.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
                             );
-                          },
-                        );
-                      },
+                          }
+                          List<TimeCheckListRecord>
+                              listViewTimeCheckListRecordList = snapshot.data!;
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewTimeCheckListRecordList.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewTimeCheckListRecord =
+                                  listViewTimeCheckListRecordList[
+                                      listViewIndex];
+                              return Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 8.0),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  elevation: 3.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(16.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'เวลาเข้า',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium,
+                                                ),
+                                                Text(
+                                                  '${dateTimeFormat('Hm', listViewTimeCheckListRecord.createDate)} ${dateTimeFormat('d/M/y', listViewTimeCheckListRecord.createDate)}',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 100.0,
+                                            child: VerticalDivider(
+                                              thickness: 1.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'เวลาออก',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium,
+                                                ),
+                                                if (listViewTimeCheckListRecord
+                                                        .endDate ==
+                                                    null)
+                                                  Text(
+                                                    '-',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium,
+                                                  ),
+                                                if (listViewTimeCheckListRecord
+                                                        .endDate !=
+                                                    null)
+                                                  Text(
+                                                    '${dateTimeFormat('Hm', listViewTimeCheckListRecord.endDate)} ${dateTimeFormat('d/M/y', listViewTimeCheckListRecord.endDate)}',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium,
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
               ],
