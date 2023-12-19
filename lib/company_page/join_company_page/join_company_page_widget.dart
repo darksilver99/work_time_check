@@ -206,6 +206,7 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                       createDate: getCurrentTimestamp,
                                       createBy: currentUserReference,
                                       status: 0,
+                                      companyRef: _model.rs?.reference,
                                     ));
                               }
                               ScaffoldMessenger.of(context).showSnackBar(
