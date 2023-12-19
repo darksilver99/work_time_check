@@ -198,7 +198,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           }
                           final textCompanyListRecord = snapshot.data!;
                           return Text(
-                            textCompanyListRecord.companyName,
+                            '${textCompanyListRecord.companyName} : ${textCompanyListRecord.companyCode}',
                             style: FlutterFlowTheme.of(context).bodyMedium,
                           );
                         },
