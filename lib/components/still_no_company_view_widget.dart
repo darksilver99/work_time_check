@@ -46,33 +46,57 @@ class _StillNoCompanyViewWidgetState extends State<StillNoCompanyViewWidget> {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Icon(
+          Icons.info_rounded,
+          color: FlutterFlowTheme.of(context).secondaryText,
+          size: 48.0,
+        ),
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FFButtonWidget(
-              onPressed: () async {
-                context.pushNamed('JoinCompanyPage');
-              },
-              text: 'เข้าร่วมองค์กร',
-              options: FFButtonOptions(
-                height: 40.0,
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                color: FlutterFlowTheme.of(context).primary,
-                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: 'Kanit',
-                      color: Colors.white,
-                    ),
-                elevation: 3.0,
-                borderSide: BorderSide(
-                  color: Colors.transparent,
-                  width: 1.0,
-                ),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
+            Text(
+              'คุณยังไม่ได้อยู่ในองค์กร',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Kanit',
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    fontSize: 18.0,
+                  ),
             ),
           ],
+        ),
+        Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FFButtonWidget(
+                onPressed: () async {
+                  context.pushNamed('JoinCompanyPage');
+                },
+                text: 'เข้าร่วมองค์กร',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).alternate,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Kanit',
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        fontSize: 18.0,
+                      ),
+                  elevation: 3.0,
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

@@ -149,6 +149,8 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),
                                 filled: true,
+                                fillColor:
+                                    FlutterFlowTheme.of(context).alternate,
                               ),
                               style: FlutterFlowTheme.of(context).bodyMedium,
                               keyboardType: TextInputType.number,
@@ -255,7 +257,7 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                           },
                           text: 'ตกลง',
                           options: FFButtonOptions(
-                            height: 50.0,
+                            height: 52.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
