@@ -32,7 +32,7 @@ class JoinCompanyPageModel extends FlutterFlowModel<JoinCompanyPageWidget> {
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   CompanyListRecord? rs;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  MyCompanyListRecord? rsMyCompany;
+  EmployeeListRecord? rsEmployee;
 
   /// Initialization and disposal methods.
 

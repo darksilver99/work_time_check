@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +16,7 @@ class EmployeeListPageWidget extends StatefulWidget {
     required this.companyParameter,
   }) : super(key: key);
 
-  final DocumentReference? companyParameter;
+  final CompanyListRecord? companyParameter;
 
   @override
   _EmployeeListPageWidgetState createState() => _EmployeeListPageWidgetState();
@@ -97,13 +96,18 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                StreamBuilder<List<MyCompanyListRecord>>(
-                  stream: queryMyCompanyListRecord(
-                    queryBuilder: (myCompanyListRecord) => myCompanyListRecord
+                StreamBuilder<List<EmployeeListRecord>>(
+                  stream: queryEmployeeListRecord(
+                    queryBuilder: (employeeListRecord) => employeeListRecord
+                        .where(
+                          'status',
+                          isNotEqualTo: 2,
+                        )
                         .where(
                           'company_ref',
-                          isEqualTo: widget.companyParameter,
+                          isEqualTo: widget.companyParameter?.reference,
                         )
+                        .orderBy('status')
                         .orderBy('create_date'),
                   ),
                   builder: (context, snapshot) {
@@ -121,22 +125,22 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                         ),
                       );
                     }
-                    List<MyCompanyListRecord> listViewMyCompanyListRecordList =
+                    List<EmployeeListRecord> listViewEmployeeListRecordList =
                         snapshot.data!;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: listViewMyCompanyListRecordList.length,
+                      itemCount: listViewEmployeeListRecordList.length,
                       itemBuilder: (context, listViewIndex) {
-                        final listViewMyCompanyListRecord =
-                            listViewMyCompanyListRecordList[listViewIndex];
+                        final listViewEmployeeListRecord =
+                            listViewEmployeeListRecordList[listViewIndex];
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
                           child: StreamBuilder<UsersRecord>(
                             stream: UsersRecord.getDocument(
-                                listViewMyCompanyListRecord.createBy!),
+                                listViewEmployeeListRecord.createBy!),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {

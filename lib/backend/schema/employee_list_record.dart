@@ -8,8 +8,8 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class MyCompanyListRecord extends FirestoreRecord {
-  MyCompanyListRecord._(
+class EmployeeListRecord extends FirestoreRecord {
+  EmployeeListRecord._(
     DocumentReference reference,
     Map<String, dynamic> data,
   ) : super(reference, data) {
@@ -25,6 +25,16 @@ class MyCompanyListRecord extends FirestoreRecord {
   DocumentReference? _createBy;
   DocumentReference? get createBy => _createBy;
   bool hasCreateBy() => _createBy != null;
+
+  // "update_date" field.
+  DateTime? _updateDate;
+  DateTime? get updateDate => _updateDate;
+  bool hasUpdateDate() => _updateDate != null;
+
+  // "update_by" field.
+  DocumentReference? _updateBy;
+  DocumentReference? get updateBy => _updateBy;
+  bool hasUpdateBy() => _updateBy != null;
 
   // "delete_date" field.
   DateTime? _deleteDate;
@@ -49,6 +59,8 @@ class MyCompanyListRecord extends FirestoreRecord {
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
+    _updateDate = snapshotData['update_date'] as DateTime?;
+    _updateBy = snapshotData['update_by'] as DocumentReference?;
     _deleteDate = snapshotData['delete_date'] as DateTime?;
     _deleteBy = snapshotData['delete_by'] as DocumentReference?;
     _status = castToType<int>(snapshotData['status']);
@@ -56,42 +68,44 @@ class MyCompanyListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('my_company_list');
+      FirebaseFirestore.instance.collection('employee_list');
 
-  static Stream<MyCompanyListRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => MyCompanyListRecord.fromSnapshot(s));
+  static Stream<EmployeeListRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => EmployeeListRecord.fromSnapshot(s));
 
-  static Future<MyCompanyListRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => MyCompanyListRecord.fromSnapshot(s));
+  static Future<EmployeeListRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => EmployeeListRecord.fromSnapshot(s));
 
-  static MyCompanyListRecord fromSnapshot(DocumentSnapshot snapshot) =>
-      MyCompanyListRecord._(
+  static EmployeeListRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      EmployeeListRecord._(
         snapshot.reference,
         mapFromFirestore(snapshot.data() as Map<String, dynamic>),
       );
 
-  static MyCompanyListRecord getDocumentFromData(
+  static EmployeeListRecord getDocumentFromData(
     Map<String, dynamic> data,
     DocumentReference reference,
   ) =>
-      MyCompanyListRecord._(reference, mapFromFirestore(data));
+      EmployeeListRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
-      'MyCompanyListRecord(reference: ${reference.path}, data: $snapshotData)';
+      'EmployeeListRecord(reference: ${reference.path}, data: $snapshotData)';
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
   bool operator ==(other) =>
-      other is MyCompanyListRecord &&
+      other is EmployeeListRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
 }
 
-Map<String, dynamic> createMyCompanyListRecordData({
+Map<String, dynamic> createEmployeeListRecordData({
   DateTime? createDate,
   DocumentReference? createBy,
+  DateTime? updateDate,
+  DocumentReference? updateBy,
   DateTime? deleteDate,
   DocumentReference? deleteBy,
   int? status,
@@ -101,6 +115,8 @@ Map<String, dynamic> createMyCompanyListRecordData({
     <String, dynamic>{
       'create_date': createDate,
       'create_by': createBy,
+      'update_date': updateDate,
+      'update_by': updateBy,
       'delete_date': deleteDate,
       'delete_by': deleteBy,
       'status': status,
@@ -111,14 +127,16 @@ Map<String, dynamic> createMyCompanyListRecordData({
   return firestoreData;
 }
 
-class MyCompanyListRecordDocumentEquality
-    implements Equality<MyCompanyListRecord> {
-  const MyCompanyListRecordDocumentEquality();
+class EmployeeListRecordDocumentEquality
+    implements Equality<EmployeeListRecord> {
+  const EmployeeListRecordDocumentEquality();
 
   @override
-  bool equals(MyCompanyListRecord? e1, MyCompanyListRecord? e2) {
+  bool equals(EmployeeListRecord? e1, EmployeeListRecord? e2) {
     return e1?.createDate == e2?.createDate &&
         e1?.createBy == e2?.createBy &&
+        e1?.updateDate == e2?.updateDate &&
+        e1?.updateBy == e2?.updateBy &&
         e1?.deleteDate == e2?.deleteDate &&
         e1?.deleteBy == e2?.deleteBy &&
         e1?.status == e2?.status &&
@@ -126,9 +144,11 @@ class MyCompanyListRecordDocumentEquality
   }
 
   @override
-  int hash(MyCompanyListRecord? e) => const ListEquality().hash([
+  int hash(EmployeeListRecord? e) => const ListEquality().hash([
         e?.createDate,
         e?.createBy,
+        e?.updateDate,
+        e?.updateBy,
         e?.deleteDate,
         e?.deleteBy,
         e?.status,
@@ -136,5 +156,5 @@ class MyCompanyListRecordDocumentEquality
       ]);
 
   @override
-  bool isValidKey(Object? o) => o is MyCompanyListRecord;
+  bool isValidKey(Object? o) => o is EmployeeListRecord;
 }
