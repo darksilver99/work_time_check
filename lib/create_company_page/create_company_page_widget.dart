@@ -203,7 +203,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                     .set(createMyCompanyListRecordData(
                                       createDate: getCurrentTimestamp,
                                       createBy: currentUserReference,
-                                      status: 0,
+                                      status: 1,
                                       companyRef: _model.rs?.reference,
                                     ));
                                 FFAppState().currentCompany =

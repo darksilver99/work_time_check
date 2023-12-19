@@ -1,50 +1,38 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'register_page_model.dart';
-export 'register_page_model.dart';
+import 'login_page_model.dart';
+export 'login_page_model.dart';
 
-class RegisterPageWidget extends StatefulWidget {
-  const RegisterPageWidget({Key? key}) : super(key: key);
+class LoginPageWidget extends StatefulWidget {
+  const LoginPageWidget({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageWidgetState createState() => _RegisterPageWidgetState();
+  _LoginPageWidgetState createState() => _LoginPageWidgetState();
 }
 
-class _RegisterPageWidgetState extends State<RegisterPageWidget> {
-  late RegisterPageModel _model;
+class _LoginPageWidgetState extends State<LoginPageWidget> {
+  late LoginPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => RegisterPageModel());
+    _model = createModel(context, () => LoginPageModel());
 
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
-    _model.password2Controller ??= TextEditingController();
-    _model.password2FocusNode ??= FocusNode();
-
     _model.passwordController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
-
-    _model.firstNameController ??= TextEditingController();
-    _model.firstNameFocusNode ??= FocusNode();
-
-    _model.lastNameController ??= TextEditingController();
-    _model.lastNameFocusNode ??= FocusNode();
-
-    _model.phoneController ??= TextEditingController();
-    _model.phoneFocusNode ??= FocusNode();
   }
 
   @override
@@ -73,7 +61,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: SafeArea(
           top: true,
           child: Row(
@@ -162,7 +150,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'ลงทะเบียน',
+                                      'เข้าสู่ระบบ',
                                       style: FlutterFlowTheme.of(context)
                                           .headlineLarge,
                                     ),
@@ -185,6 +173,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                               _model.emailAddressController,
                                           focusNode:
                                               _model.emailAddressFocusNode,
+                                          autofillHints: [AutofillHints.email],
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'อีเมล',
@@ -249,96 +238,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        child: TextFormField(
-                                          controller:
-                                              _model.password2Controller,
-                                          focusNode: _model.password2FocusNode,
-                                          obscureText:
-                                              !_model.password2Visibility,
-                                          decoration: InputDecoration(
-                                            labelText: 'รหัสผ่าน',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                            suffixIcon: InkWell(
-                                              onTap: () => setState(
-                                                () => _model
-                                                        .password2Visibility =
-                                                    !_model.password2Visibility,
-                                              ),
-                                              focusNode: FocusNode(
-                                                  skipTraversal: true),
-                                              child: Icon(
-                                                _model.password2Visibility
-                                                    ? Icons.visibility_outlined
-                                                    : Icons
-                                                        .visibility_off_outlined,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                            ),
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyLarge,
-                                          validator: _model
-                                              .password2ControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
+                                          0.0, 0.0, 0.0, 8.0),
                                       child: Container(
                                         width: double.infinity,
                                         child: TextFormField(
@@ -347,7 +247,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           obscureText:
                                               !_model.passwordVisibility,
                                           decoration: InputDecoration(
-                                            labelText: 'ยืนยันรหัสผ่าน',
+                                            labelText: 'รหัสผ่าน',
                                             labelStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelLarge,
@@ -424,215 +324,33 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        child: TextFormField(
-                                          controller:
-                                              _model.firstNameController,
-                                          focusNode: _model.firstNameFocusNode,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'ชื่อ',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                    Align(
+                                      alignment: AlignmentDirectional(1.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context
+                                              .pushNamed('ResetPasswordPage');
+                                        },
+                                        child: Text(
+                                          'ลืมรหัสผ่าน ?',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                width: 2.0,
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyLarge,
-                                          validator: _model
-                                              .firstNameControllerValidator
-                                              .asValidator(context),
                                         ),
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        child: TextFormField(
-                                          controller: _model.lastNameController,
-                                          focusNode: _model.lastNameFocusNode,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'นามสกุล',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyLarge,
-                                          validator: _model
-                                              .lastNameControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Container(
-                                        width: double.infinity,
-                                        child: TextFormField(
-                                          controller: _model.phoneController,
-                                          focusNode: _model.phoneFocusNode,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'เบอร์โทรศัพท์',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyLarge,
-                                          keyboardType: TextInputType.phone,
-                                          validator: _model
-                                              .phoneControllerValidator
-                                              .asValidator(context),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
+                                          0.0, 16.0, 0.0, 16.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           if (_model.formKey.currentState ==
@@ -641,23 +359,12 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                   .validate()) {
                                             return;
                                           }
+                                          FFAppState().currentCompany = null;
                                           GoRouter.of(context)
                                               .prepareAuthEvent();
-                                          if (_model.passwordController.text !=
-                                              _model.password2Controller.text) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'Passwords don\'t match!',
-                                                ),
-                                              ),
-                                            );
-                                            return;
-                                          }
 
-                                          final user = await authManager
-                                              .createAccountWithEmail(
+                                          final user =
+                                              await authManager.signInWithEmail(
                                             context,
                                             _model.emailAddressController.text,
                                             _model.passwordController.text,
@@ -666,28 +373,10 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                             return;
                                           }
 
-                                          await UsersRecord.collection
-                                              .doc(user.uid)
-                                              .update(createUsersRecordData(
-                                                email: _model
-                                                    .emailAddressController
-                                                    .text,
-                                                displayName:
-                                                    '${_model.firstNameController.text} ${_model.lastNameController.text}',
-                                                createdTime:
-                                                    getCurrentTimestamp,
-                                                phoneNumber:
-                                                    _model.phoneController.text,
-                                                firstName: _model
-                                                    .firstNameController.text,
-                                                lastName: _model
-                                                    .lastNameController.text,
-                                              ));
-
                                           context.goNamedAuth(
                                               'HomePage', context.mounted);
                                         },
-                                        text: 'ลงทะเบียน',
+                                        text: 'เข้าสู่ระบบ',
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 44.0,
@@ -713,6 +402,52 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                    ),
+
+                                    // You will have to add an action on this rich text to go to your login page.
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 12.0),
+                                        child: RichText(
+                                          textScaleFactor:
+                                              MediaQuery.of(context)
+                                                  .textScaleFactor,
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: 'ยังไม่มีบัญชี ? ',
+                                                style: TextStyle(),
+                                              ),
+                                              TextSpan(
+                                                text: 'ลงทะเบียน',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                mouseCursor:
+                                                    SystemMouseCursors.click,
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () async {
+                                                        context.pushNamed(
+                                                            'RegisterPage');
+                                                      },
+                                              )
+                                            ],
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium,
+                                          ),
                                         ),
                                       ),
                                     ),

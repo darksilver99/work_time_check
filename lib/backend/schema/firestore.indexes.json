@@ -45,6 +45,24 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "my_company_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "create_by",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "company_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ]
 }

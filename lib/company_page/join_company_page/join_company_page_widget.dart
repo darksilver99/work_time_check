@@ -123,28 +123,28 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                   borderSide: BorderSide(
                                     color:
                                         FlutterFlowTheme.of(context).alternate,
-                                    width: 0.0,
+                                    width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).primary,
-                                    width: 0.0,
+                                    width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
-                                    width: 0.0,
+                                    width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
-                                    width: 0.0,
+                                    width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(0.0),
                                 ),
@@ -195,6 +195,10 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                           'company_ref',
                                           isEqualTo:
                                               FFAppState().currentCompany,
+                                        )
+                                        .where(
+                                          'status',
+                                          isNotEqualTo: 2,
                                         ),
                                 singleRecord: true,
                               ).then((s) => s.firstOrNull);
@@ -204,7 +208,7 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                     .set(createMyCompanyListRecordData(
                                       createDate: getCurrentTimestamp,
                                       createBy: currentUserReference,
-                                      status: 1,
+                                      status: 0,
                                       companyRef: FFAppState().currentCompany,
                                     ));
                               }
