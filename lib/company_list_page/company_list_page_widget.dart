@@ -169,6 +169,27 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                       FFAppState().currentCompany =
                                           listViewEmployeeListRecord.companyRef;
                                     });
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'เปลี่ยนองค์กรเป็น \"${containerCompanyListRecord.companyName}\" เรียบร้อยแล้ว',
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
+                                              ),
+                                        ),
+                                        duration: Duration(milliseconds: 2000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .success,
+                                      ),
+                                    );
+
+                                    context.goNamed('HomePage');
                                   },
                                   child: Material(
                                     color: Colors.transparent,
