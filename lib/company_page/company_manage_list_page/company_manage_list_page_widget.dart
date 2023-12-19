@@ -95,179 +95,225 @@ class _CompanyManageListPageWidgetState
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Expanded(
-                  child: StreamBuilder<List<AdminListRecord>>(
-                    stream: queryAdminListRecord(
-                      queryBuilder: (adminListRecord) => adminListRecord
-                          .where(
-                            'user_ref',
-                            isEqualTo: currentUserReference,
-                          )
-                          .orderBy('create_date'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FFButtonWidget(
+                      onPressed: () async {
+                        context.pushNamed('CreateCompanyPage');
+                      },
+                      text: 'สร้างองค์กร',
+                      icon: Icon(
+                        Icons.add_rounded,
+                        size: 15.0,
+                      ),
+                      options: FFButtonOptions(
+                        height: 40.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Kanit',
+                                  color: Colors.white,
+                                ),
+                        elevation: 3.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    child: StreamBuilder<List<AdminListRecord>>(
+                      stream: queryAdminListRecord(
+                        queryBuilder: (adminListRecord) => adminListRecord
+                            .where(
+                              'user_ref',
+                              isEqualTo: currentUserReference,
+                            )
+                            .orderBy('create_date'),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }
-                      List<AdminListRecord> listViewAdminListRecordList =
-                          snapshot.data!;
-                      if (listViewAdminListRecordList.isEmpty) {
-                        return StillNoCompanyViewWidget();
-                      }
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewAdminListRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewAdminListRecord =
-                              listViewAdminListRecordList[listViewIndex];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 16.0),
-                            child: StreamBuilder<CompanyListRecord>(
-                              stream: CompanyListRecord.getDocument(
-                                  listViewAdminListRecord.companyRef!),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
+                          );
+                        }
+                        List<AdminListRecord> listViewAdminListRecordList =
+                            snapshot.data!;
+                        if (listViewAdminListRecordList.isEmpty) {
+                          return StillNoCompanyViewWidget();
+                        }
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listViewAdminListRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewAdminListRecord =
+                                listViewAdminListRecordList[listViewIndex];
+                            return Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: StreamBuilder<CompanyListRecord>(
+                                stream: CompanyListRecord.getDocument(
+                                    listViewAdminListRecord.companyRef!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final containerCompanyListRecord =
+                                      snapshot.data!;
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        'EmployeeListPage',
+                                        queryParameters: {
+                                          'companyParameter': serializeParam(
+                                            containerCompanyListRecord,
+                                            ParamType.Document,
+                                          ),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          'companyParameter':
+                                              containerCompanyListRecord,
+                                        },
+                                      );
+                                    },
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 3.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      containerCompanyListRecord
+                                                          .companyName,
+                                                      maxLines: 1,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            fontSize: 20.0,
+                                                          ),
+                                                    ),
+                                                    Text(
+                                                      '(${containerCompanyListRecord.companyCode})',
+                                                      maxLines: 1,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Kanit',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 12.0,
+                                                              ),
+                                                    ),
+                                                    Text(
+                                                      'จำนวนพนักงาน 5 คน',
+                                                      maxLines: 1,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Kanit',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                fontSize: 12.0,
+                                                              ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Icon(
+                                                Icons.navigate_next_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 32.0,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   );
-                                }
-                                final containerCompanyListRecord =
-                                    snapshot.data!;
-                                return InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.pushNamed(
-                                      'EmployeeListPage',
-                                      queryParameters: {
-                                        'companyParameter': serializeParam(
-                                          containerCompanyListRecord,
-                                          ParamType.Document,
-                                        ),
-                                      }.withoutNulls,
-                                      extra: <String, dynamic>{
-                                        'companyParameter':
-                                            containerCompanyListRecord,
-                                      },
-                                    );
-                                  },
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 3.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    containerCompanyListRecord
-                                                        .companyName,
-                                                    maxLines: 1,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          fontSize: 20.0,
-                                                        ),
-                                                  ),
-                                                  Text(
-                                                    '(${containerCompanyListRecord.companyCode})',
-                                                    maxLines: 1,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 12.0,
-                                                        ),
-                                                  ),
-                                                  Text(
-                                                    'จำนวนพนักงาน 5 คน',
-                                                    maxLines: 1,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          fontSize: 12.0,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Icon(
-                                              Icons.navigate_next_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 32.0,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      );
-                    },
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

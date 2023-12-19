@@ -75,7 +75,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
             },
           ),
           title: Text(
-            'องค์กรของฉัน',
+            'เลือกองค์กร',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Kanit',
                   color: Colors.white,
@@ -222,6 +222,16 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
+                                                size: 32.0,
+                                              ),
+                                            if (FFAppState().currentCompany !=
+                                                listViewEmployeeListRecord
+                                                    .companyRef)
+                                              Icon(
+                                                Icons.check_circle,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
                                                 size: 32.0,
                                               ),
                                           ],
