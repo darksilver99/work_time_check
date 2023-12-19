@@ -51,11 +51,6 @@ class TimeCheckListRecord extends FirestoreRecord {
   String get detailIn => _detailIn ?? '';
   bool hasDetailIn() => _detailIn != null;
 
-  // "end_date" field.
-  DateTime? _endDate;
-  DateTime? get endDate => _endDate;
-  bool hasEndDate() => _endDate != null;
-
   // "photo_out" field.
   String? _photoOut;
   String get photoOut => _photoOut ?? '';
@@ -79,7 +74,6 @@ class TimeCheckListRecord extends FirestoreRecord {
     _status = castToType<int>(snapshotData['status']);
     _photoIn = snapshotData['photo_in'] as String?;
     _detailIn = snapshotData['detail_in'] as String?;
-    _endDate = snapshotData['end_date'] as DateTime?;
     _photoOut = snapshotData['photo_out'] as String?;
     _detailOut = snapshotData['detail_out'] as String?;
     _companyRef = snapshotData['company_ref'] as DocumentReference?;
@@ -127,7 +121,6 @@ Map<String, dynamic> createTimeCheckListRecordData({
   int? status,
   String? photoIn,
   String? detailIn,
-  DateTime? endDate,
   String? photoOut,
   String? detailOut,
   DocumentReference? companyRef,
@@ -141,7 +134,6 @@ Map<String, dynamic> createTimeCheckListRecordData({
       'status': status,
       'photo_in': photoIn,
       'detail_in': detailIn,
-      'end_date': endDate,
       'photo_out': photoOut,
       'detail_out': detailOut,
       'company_ref': companyRef,
@@ -164,7 +156,6 @@ class TimeCheckListRecordDocumentEquality
         e1?.status == e2?.status &&
         e1?.photoIn == e2?.photoIn &&
         e1?.detailIn == e2?.detailIn &&
-        e1?.endDate == e2?.endDate &&
         e1?.photoOut == e2?.photoOut &&
         e1?.detailOut == e2?.detailOut &&
         e1?.companyRef == e2?.companyRef;
@@ -179,7 +170,6 @@ class TimeCheckListRecordDocumentEquality
         e?.status,
         e?.photoIn,
         e?.detailIn,
-        e?.endDate,
         e?.photoOut,
         e?.detailOut,
         e?.companyRef

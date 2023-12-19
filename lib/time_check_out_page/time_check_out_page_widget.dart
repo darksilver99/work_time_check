@@ -10,33 +10,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'time_check_today_page_model.dart';
-export 'time_check_today_page_model.dart';
+import 'time_check_out_page_model.dart';
+export 'time_check_out_page_model.dart';
 
-class TimeCheckTodayPageWidget extends StatefulWidget {
-  const TimeCheckTodayPageWidget({
+class TimeCheckOutPageWidget extends StatefulWidget {
+  const TimeCheckOutPageWidget({
     Key? key,
     required this.photoPath,
     required this.currentTime,
+    required this.timeCheckParameter,
   }) : super(key: key);
 
   final String? photoPath;
   final DateTime? currentTime;
+  final TimeCheckListRecord? timeCheckParameter;
 
   @override
-  _TimeCheckTodayPageWidgetState createState() =>
-      _TimeCheckTodayPageWidgetState();
+  _TimeCheckOutPageWidgetState createState() => _TimeCheckOutPageWidgetState();
 }
 
-class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
-  late TimeCheckTodayPageModel _model;
+class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
+  late TimeCheckOutPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TimeCheckTodayPageModel());
+    _model = createModel(context, () => TimeCheckOutPageModel());
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
@@ -87,7 +88,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
             },
           ),
           title: Text(
-            'ลงเวลาเข้างาน',
+            'ลงเวลาออกงาน',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Kanit',
                   color: Colors.white,
@@ -193,14 +194,14 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: 'เวลาเข้า : ',
+                                        text: 'เวลาออก : ',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Kanit',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .error,
                                               fontSize: 22.0,
                                               fontWeight: FontWeight.bold,
                                             ),
@@ -281,21 +282,17 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  await TimeCheckListRecord.collection
-                                      .doc()
-                                      .set(createTimeCheckListRecordData(
-                                        createDate: widget.currentTime,
-                                        createBy: currentUserReference,
-                                        status: 1,
-                                        photoIn: widget.photoPath,
-                                        detailIn: _model.textController.text,
-                                        companyRef: FFAppState().currentCompany,
-                                        photoOut: '',
-                                      ));
+                                  await widget.timeCheckParameter!.reference
+                                      .update(createTimeCheckListRecordData(
+                                    updateDate: getCurrentTimestamp,
+                                    updateBy: currentUserReference,
+                                    photoOut: widget.photoPath,
+                                    detailOut: _model.textController.text,
+                                  ));
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'ลงเวลาเข้างานเรียบร้อยแล้ว',
+                                        'ลงเวลาออกงานเรียบร้อยแล้ว',
                                         style: FlutterFlowTheme.of(context)
                                             .headlineMedium
                                             .override(
@@ -313,7 +310,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
 
                                   context.goNamed('HomePage');
                                 },
-                                text: 'ลงเวลา',
+                                text: 'ลงเวลาออก',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 55.0,
@@ -321,7 +318,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                       24.0, 0.0, 24.0, 0.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: FlutterFlowTheme.of(context).error,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
