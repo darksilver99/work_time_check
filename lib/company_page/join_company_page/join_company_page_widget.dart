@@ -170,10 +170,15 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                             }
                             _model.rs = await queryCompanyListRecordOnce(
                               queryBuilder: (companyListRecord) =>
-                                  companyListRecord.where(
-                                'company_code',
-                                isEqualTo: _model.textController.text,
-                              ),
+                                  companyListRecord
+                                      .where(
+                                        'company_code',
+                                        isEqualTo: _model.textController.text,
+                                      )
+                                      .where(
+                                        'status',
+                                        isEqualTo: 1,
+                                      ),
                               singleRecord: true,
                             ).then((s) => s.firstOrNull);
                             if (_model.rs?.reference != null) {
