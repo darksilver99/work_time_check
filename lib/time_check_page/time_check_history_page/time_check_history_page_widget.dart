@@ -243,7 +243,7 @@ class _TimeCheckHistoryPageWidgetState
                                                       .bodyMedium,
                                                 ),
                                                 if (listViewTimeCheckListRecord
-                                                        .endDate ==
+                                                        .updateDate ==
                                                     null)
                                                   Text(
                                                     '-',
@@ -252,10 +252,10 @@ class _TimeCheckHistoryPageWidgetState
                                                         .bodyMedium,
                                                   ),
                                                 if (listViewTimeCheckListRecord
-                                                        .endDate !=
+                                                        .updateDate !=
                                                     null)
                                                   Text(
-                                                    '${dateTimeFormat('Hm', listViewTimeCheckListRecord.endDate)} ${dateTimeFormat('d/M/y', listViewTimeCheckListRecord.endDate)}',
+                                                    '${dateTimeFormat('Hm', listViewTimeCheckListRecord.updateDate)} ${dateTimeFormat('d/M/y', listViewTimeCheckListRecord.updateDate)}',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium,

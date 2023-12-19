@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -5,6 +6,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -225,6 +228,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   if (FFAppState().currentCompany != null) {
+                                    _model.rs =
+                                        await queryTimeCheckListRecordOnce(
+                                      queryBuilder: (timeCheckListRecord) =>
+                                          timeCheckListRecord
+                                              .where(
+                                                'create_by',
+                                                isEqualTo: currentUserReference,
+                                              )
+                                              .where(
+                                                'status',
+                                                isEqualTo: 1,
+                                              )
+                                              .where(
+                                                'photo_out',
+                                                isEqualTo: ' ',
+                                              ),
+                                      singleRecord: true,
+                                    ).then((s) => s.firstOrNull);
                                     final selectedMedia = await selectMedia(
                                       maxWidth: 600.00,
                                       imageQuality: 80,
@@ -283,19 +304,43 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
                                     if (_model.uploadedFileUrl != null &&
                                         _model.uploadedFileUrl != '') {
-                                      context.pushNamed(
-                                        'TimeCheckTodayPage',
-                                        queryParameters: {
-                                          'photoPath': serializeParam(
-                                            _model.uploadedFileUrl,
-                                            ParamType.String,
-                                          ),
-                                          'currentTime': serializeParam(
-                                            getCurrentTimestamp,
-                                            ParamType.DateTime,
-                                          ),
-                                        }.withoutNulls,
-                                      );
+                                      if (_model.rs?.reference != null) {
+                                        context.pushNamed(
+                                          'TimeCheckOutPage',
+                                          queryParameters: {
+                                            'photoPath': serializeParam(
+                                              _model.uploadedFileUrl,
+                                              ParamType.String,
+                                            ),
+                                            'currentTime': serializeParam(
+                                              getCurrentTimestamp,
+                                              ParamType.DateTime,
+                                            ),
+                                            'timeCheckParameter':
+                                                serializeParam(
+                                              _model.rs,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'timeCheckParameter': _model.rs,
+                                          },
+                                        );
+                                      } else {
+                                        context.pushNamed(
+                                          'TimeCheckTodayPage',
+                                          queryParameters: {
+                                            'photoPath': serializeParam(
+                                              _model.uploadedFileUrl,
+                                              ParamType.String,
+                                            ),
+                                            'currentTime': serializeParam(
+                                              getCurrentTimestamp,
+                                              ParamType.DateTime,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      }
                                     }
                                   } else {
                                     await showDialog(
@@ -316,6 +361,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
                                     context.pushNamed('CompanyListPage');
                                   }
+
+                                  setState(() {});
                                 },
                                 child: Material(
                                   color: Colors.transparent,

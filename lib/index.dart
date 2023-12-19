@@ -16,3 +16,5 @@ export '/time_check_today_page/time_check_today_page_widget.dart'
     show TimeCheckTodayPageWidget;
 export '/company_list_page/company_list_page_widget.dart'
     show CompanyListPageWidget;
+export '/time_check_out_page/time_check_out_page_widget.dart'
+    show TimeCheckOutPageWidget;

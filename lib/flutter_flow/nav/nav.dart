@@ -143,6 +143,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'CompanyListPage',
           path: '/companyListPage',
           builder: (context, params) => CompanyListPageWidget(),
+        ),
+        FFRoute(
+          name: 'TimeCheckOutPage',
+          path: '/timeCheckOutPage',
+          asyncParams: {
+            'timeCheckParameter':
+                getDoc(['time_check_list'], TimeCheckListRecord.fromSnapshot),
+          },
+          builder: (context, params) => TimeCheckOutPageWidget(
+            photoPath: params.getParam('photoPath', ParamType.String),
+            currentTime: params.getParam('currentTime', ParamType.DateTime),
+            timeCheckParameter:
+                params.getParam('timeCheckParameter', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
