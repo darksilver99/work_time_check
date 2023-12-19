@@ -14,3 +14,5 @@ export '/create_company_page/create_company_page_widget.dart'
     show CreateCompanyPageWidget;
 export '/time_check_today_page/time_check_today_page_widget.dart'
     show TimeCheckTodayPageWidget;
+export '/company_list_page/company_list_page_widget.dart'
+    show CompanyListPageWidget;

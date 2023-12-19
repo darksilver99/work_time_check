@@ -251,6 +251,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                 }.withoutNulls,
                               );
+                            } else {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('กรุณาเลือกองค์กร'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('ตกลง'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+                              context.pushNamed('CompanyListPage');
                             }
                           },
                           child: Material(
