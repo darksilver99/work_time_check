@@ -9,5 +9,8 @@ import 'package:flutter/material.dart';
 
 Future<DateTime> getFirstDayOfMonth() async {
   // Add your function code here!
-  return getCurrentTimestamp;
+  DateTime currentDate = DateTime.now();
+  DateTime firstDayOfCurrentMonth =
+      DateTime(currentDate.year, currentDate.month, 1);
+  return firstDayOfCurrentMonth;
 }

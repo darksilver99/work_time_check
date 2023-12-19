@@ -238,19 +238,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 }
                               }
 
-                              context.pushNamed(
-                                'TimeCheckTodayPage',
-                                queryParameters: {
-                                  'photoPath': serializeParam(
-                                    _model.uploadedFileUrl,
-                                    ParamType.String,
-                                  ),
-                                  'currentTime': serializeParam(
-                                    getCurrentTimestamp,
-                                    ParamType.DateTime,
-                                  ),
-                                }.withoutNulls,
-                              );
+                              if (_model.uploadedFileUrl != null &&
+                                  _model.uploadedFileUrl != '') {
+                                context.pushNamed(
+                                  'TimeCheckTodayPage',
+                                  queryParameters: {
+                                    'photoPath': serializeParam(
+                                      _model.uploadedFileUrl,
+                                      ParamType.String,
+                                    ),
+                                    'currentTime': serializeParam(
+                                      getCurrentTimestamp,
+                                      ParamType.DateTime,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              }
                             } else {
                               await showDialog(
                                 context: context,
@@ -337,25 +340,35 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       ),
                   () => Padding(
                         padding: EdgeInsets.all(6.0),
-                        child: Material(
-                          color: Colors.transparent,
-                          elevation: 3.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          child: Container(
-                            width: double.infinity,
-                            height: 200.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed('CompanyListPage');
+                          },
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 3.0,
+                            shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            child: Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Text(
-                                '3',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                            child: Container(
+                              width: double.infinity,
+                              height: 200.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Text(
+                                  '3',
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                ),
                               ),
                             ),
                           ),
