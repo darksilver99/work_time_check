@@ -66,6 +66,16 @@ class TimeCheckListRecord extends FirestoreRecord {
   DocumentReference? get companyRef => _companyRef;
   bool hasCompanyRef() => _companyRef != null;
 
+  // "location_in" field.
+  LatLng? _locationIn;
+  LatLng? get locationIn => _locationIn;
+  bool hasLocationIn() => _locationIn != null;
+
+  // "location_out" field.
+  LatLng? _locationOut;
+  LatLng? get locationOut => _locationOut;
+  bool hasLocationOut() => _locationOut != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -77,6 +87,8 @@ class TimeCheckListRecord extends FirestoreRecord {
     _photoOut = snapshotData['photo_out'] as String?;
     _detailOut = snapshotData['detail_out'] as String?;
     _companyRef = snapshotData['company_ref'] as DocumentReference?;
+    _locationIn = snapshotData['location_in'] as LatLng?;
+    _locationOut = snapshotData['location_out'] as LatLng?;
   }
 
   static CollectionReference get collection =>
@@ -124,6 +136,8 @@ Map<String, dynamic> createTimeCheckListRecordData({
   String? photoOut,
   String? detailOut,
   DocumentReference? companyRef,
+  LatLng? locationIn,
+  LatLng? locationOut,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -137,6 +151,8 @@ Map<String, dynamic> createTimeCheckListRecordData({
       'photo_out': photoOut,
       'detail_out': detailOut,
       'company_ref': companyRef,
+      'location_in': locationIn,
+      'location_out': locationOut,
     }.withoutNulls,
   );
 
@@ -158,7 +174,9 @@ class TimeCheckListRecordDocumentEquality
         e1?.detailIn == e2?.detailIn &&
         e1?.photoOut == e2?.photoOut &&
         e1?.detailOut == e2?.detailOut &&
-        e1?.companyRef == e2?.companyRef;
+        e1?.companyRef == e2?.companyRef &&
+        e1?.locationIn == e2?.locationIn &&
+        e1?.locationOut == e2?.locationOut;
   }
 
   @override
@@ -172,7 +190,9 @@ class TimeCheckListRecordDocumentEquality
         e?.detailIn,
         e?.photoOut,
         e?.detailOut,
-        e?.companyRef
+        e?.companyRef,
+        e?.locationIn,
+        e?.locationOut
       ]);
 
   @override
