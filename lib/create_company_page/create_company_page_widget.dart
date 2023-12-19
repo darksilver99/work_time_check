@@ -187,6 +187,15 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                           companyCode: _model.companyCode,
                                         ),
                                         companyListRecordReference);
+
+                                await MyCompanyListRecord.collection
+                                    .doc()
+                                    .set(createMyCompanyListRecordData(
+                                      createDate: getCurrentTimestamp,
+                                      createBy: currentUserReference,
+                                      status: 0,
+                                      companyRef: _model.rs?.reference,
+                                    ));
                                 FFAppState().currentCompany =
                                     _model.rs?.reference;
                                 ScaffoldMessenger.of(context).showSnackBar(

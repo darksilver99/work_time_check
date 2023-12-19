@@ -101,6 +101,31 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
+              FFButtonWidget(
+                onPressed: () async {
+                  setState(() {
+                    FFAppState().currentCompany = null;
+                  });
+                },
+                text: 'clear com',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Kanit',
+                        color: Colors.white,
+                      ),
+                  elevation: 3.0,
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
               Material(
                 color: Colors.transparent,
                 elevation: 3.0,
