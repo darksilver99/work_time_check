@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/still_no_company_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -100,6 +101,10 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                             'create_by',
                             isEqualTo: currentUserReference,
                           )
+                          .where(
+                            'status',
+                            isEqualTo: 1,
+                          )
                           .orderBy('create_date', descending: true),
                     ),
                     builder: (context, snapshot) {
@@ -119,6 +124,9 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                       }
                       List<EmployeeListRecord> listViewEmployeeListRecordList =
                           snapshot.data!;
+                      if (listViewEmployeeListRecordList.isEmpty) {
+                        return StillNoCompanyViewWidget();
+                      }
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
