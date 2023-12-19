@@ -7,5 +7,19 @@ service cloud.firestore {
       allow write: if true;
       allow delete: if true;
     }
+
+    match /time_check_list/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /company_list/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
   }
 }

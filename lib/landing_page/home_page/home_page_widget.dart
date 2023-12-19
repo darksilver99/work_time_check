@@ -1,7 +1,9 @@
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +26,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   final animationsMap = {
     'containerOnPageLoadAnimation1': AnimationInfo(
@@ -127,6 +130,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      FFAppState().currentLocation = currentUserLocationValue;
+    });
   }
 
   @override
@@ -147,6 +157,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -154,21 +166,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          title: Text(
-            'Home',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Kanit',
-                  color: Colors.white,
-                  fontSize: 22.0,
-                ),
-          ),
-          actions: [],
-          centerTitle: false,
-          elevation: 2.0,
-        ),
         body: SafeArea(
           top: true,
           child: Padding(
@@ -183,27 +180,100 @@ class _HomePageWidgetState extends State<HomePageWidget>
               itemBuilder: (context, index) {
                 return [
                   () => Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
-                        child: Material(
-                          color: Colors.transparent,
-                          elevation: 3.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          child: Container(
-                            width: double.infinity,
-                            height: 200.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                        padding: EdgeInsets.all(6.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            if (FFAppState().currentCompany != null) {
+                              final selectedMedia = await selectMedia(
+                                maxWidth: 600.00,
+                                imageQuality: 80,
+                                multiImage: false,
+                              );
+                              if (selectedMedia != null &&
+                                  selectedMedia.every((m) => validateFileFormat(
+                                      m.storagePath, context))) {
+                                setState(() => _model.isDataUploading = true);
+                                var selectedUploadedFiles = <FFUploadedFile>[];
+
+                                var downloadUrls = <String>[];
+                                try {
+                                  selectedUploadedFiles = selectedMedia
+                                      .map((m) => FFUploadedFile(
+                                            name: m.storagePath.split('/').last,
+                                            bytes: m.bytes,
+                                            height: m.dimensions?.height,
+                                            width: m.dimensions?.width,
+                                            blurHash: m.blurHash,
+                                          ))
+                                      .toList();
+
+                                  downloadUrls = (await Future.wait(
+                                    selectedMedia.map(
+                                      (m) async => await uploadData(
+                                          m.storagePath, m.bytes),
+                                    ),
+                                  ))
+                                      .where((u) => u != null)
+                                      .map((u) => u!)
+                                      .toList();
+                                } finally {
+                                  _model.isDataUploading = false;
+                                }
+                                if (selectedUploadedFiles.length ==
+                                        selectedMedia.length &&
+                                    downloadUrls.length ==
+                                        selectedMedia.length) {
+                                  setState(() {
+                                    _model.uploadedLocalFile =
+                                        selectedUploadedFiles.first;
+                                    _model.uploadedFileUrl = downloadUrls.first;
+                                  });
+                                } else {
+                                  setState(() {});
+                                  return;
+                                }
+                              }
+
+                              context.pushNamed(
+                                'TimeCheckTodayPage',
+                                queryParameters: {
+                                  'photoPath': serializeParam(
+                                    _model.uploadedFileUrl,
+                                    ParamType.String,
+                                  ),
+                                  'currentTime': serializeParam(
+                                    getCurrentTimestamp,
+                                    ParamType.DateTime,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            }
+                          },
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 3.0,
+                            shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            child: Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
-                              child: Text(
-                                '1',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                            child: Container(
+                              width: double.infinity,
+                              height: 200.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Text(
+                                  'ลง',
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                ),
                               ),
                             ),
                           ),
@@ -211,27 +281,36 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             animationsMap['containerOnPageLoadAnimation1']!),
                       ),
                   () => Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
-                        child: Material(
-                          color: Colors.transparent,
-                          elevation: 3.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          child: Container(
-                            width: double.infinity,
-                            height: 120.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                        padding: EdgeInsets.all(6.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed('TimeCheckHistoryPage');
+                          },
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 3.0,
+                            shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            child: Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
-                              child: Text(
-                                '2',
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                            child: Container(
+                              width: double.infinity,
+                              height: 120.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Text(
+                                  'ประ',
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                ),
                               ),
                             ),
                           ),
@@ -239,8 +318,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             animationsMap['containerOnPageLoadAnimation2']!),
                       ),
                   () => Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
+                        padding: EdgeInsets.all(6.0),
                         child: Material(
                           color: Colors.transparent,
                           elevation: 3.0,
@@ -256,7 +334,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               borderRadius: BorderRadius.circular(16.0),
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Text(
                                 '3',
                                 style: FlutterFlowTheme.of(context).bodyMedium,
@@ -267,8 +345,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             animationsMap['containerOnPageLoadAnimation3']!),
                       ),
                   () => Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
+                        padding: EdgeInsets.all(6.0),
                         child: Material(
                           color: Colors.transparent,
                           elevation: 3.0,
@@ -284,7 +361,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               borderRadius: BorderRadius.circular(16.0),
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Text(
                                 '4',
                                 style: FlutterFlowTheme.of(context).bodyMedium,
@@ -295,8 +372,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             animationsMap['containerOnPageLoadAnimation4']!),
                       ),
                   () => Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
+                        padding: EdgeInsets.all(6.0),
                         child: Material(
                           color: Colors.transparent,
                           elevation: 3.0,
@@ -312,7 +388,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               borderRadius: BorderRadius.circular(16.0),
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Text(
                                 '5',
                                 style: FlutterFlowTheme.of(context).bodyMedium,
