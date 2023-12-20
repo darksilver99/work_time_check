@@ -231,7 +231,6 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                               child: TextFormField(
                                 controller: _model.textController,
                                 focusNode: _model.textFieldFocusNode,
-                                autofocus: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'รายละเอียด',
