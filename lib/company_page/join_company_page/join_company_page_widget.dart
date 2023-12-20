@@ -210,7 +210,7 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'เข้าร่วมองค์กรเรียบร้อยแล้ว',
+                                    'ส่งคำขอเข้าร่วมองค์กรเรียบร้อยแล้ว รอเจ้าหน้าที่แอดมินตรวจสอบ',
                                     style: FlutterFlowTheme.of(context)
                                         .headlineMedium
                                         .override(

@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -149,27 +150,63 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 ) ??
                                 false;
                             if (confirmDialogResponse) {
-                              await widget.employeeParameter!.reference
-                                  .delete();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'ลบข้อมูลเรียบร้อยแล้ว',
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
+                              _model.totalAdmin =
+                                  await queryAdminListRecordCount(
+                                queryBuilder: (adminListRecord) =>
+                                    adminListRecord
+                                        .where(
+                                          'status',
+                                          isEqualTo: 1,
+                                        )
+                                        .where(
+                                          'company_ref',
+                                          isEqualTo: widget
+                                              .employeeParameter?.companyRef,
                                         ),
-                                  ),
-                                  duration: Duration(milliseconds: 2000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).error,
-                                ),
                               );
-                              Navigator.pop(context);
+                              if (_model.totalAdmin! <= 1) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'ไม่สามารถลบข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                      style: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                          ),
+                                    ),
+                                    duration: Duration(milliseconds: 2000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).error,
+                                  ),
+                                );
+                              } else {
+                                await widget.employeeParameter!.reference
+                                    .delete();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'ลบข้อมูลเรียบร้อยแล้ว',
+                                      style: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                          ),
+                                    ),
+                                    duration: Duration(milliseconds: 2000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).error,
+                                  ),
+                                );
+                                Navigator.pop(context);
+                              }
                             }
+
+                            setState(() {});
                           },
                           child: Text(
                             'ลบพนักงาน',
