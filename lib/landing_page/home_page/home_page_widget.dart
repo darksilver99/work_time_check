@@ -1,3 +1,5 @@
+import 'package:work_time_check/solo/CustomCameraPage.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
@@ -244,11 +246,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         _model.uploadedFileUrl = '';
                                       });
 
-                                      final selectedMedia = await selectMedia(
+                                      /*final selectedMedia = await selectMedia(
                                         maxWidth: 600.00,
                                         imageQuality: 80,
                                         multiImage: false,
+                                      );*/
+
+                                      List<SelectedFile>? selectedMedia = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const CustomCameraPage()),
                                       );
+
                                       if (selectedMedia != null &&
                                           selectedMedia.every((m) =>
                                               validateFileFormat(
