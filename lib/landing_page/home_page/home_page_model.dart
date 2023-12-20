@@ -24,6 +24,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
+  EmployeeListRecord? rsCompany;
+  // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
   TimeCheckListRecord? rs;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =

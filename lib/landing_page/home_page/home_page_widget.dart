@@ -212,8 +212,23 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     if (FFAppState().currentCompany != null) {
-                                      if (currentUserDocument?.currentCompany ==
-                                          FFAppState().currentCompany) {
+                                      _model.rsCompany =
+                                          await queryEmployeeListRecordOnce(
+                                        queryBuilder: (employeeListRecord) =>
+                                            employeeListRecord
+                                                .where(
+                                                  'create_by',
+                                                  isEqualTo:
+                                                      currentUserReference,
+                                                )
+                                                .where(
+                                                  'company_ref',
+                                                  isEqualTo: FFAppState()
+                                                      .currentCompany,
+                                                ),
+                                        singleRecord: true,
+                                      ).then((s) => s.firstOrNull);
+                                      if (_model.rsCompany?.reference != null) {
                                         _model.rs =
                                             await queryTimeCheckListRecordOnce(
                                           queryBuilder: (timeCheckListRecord) =>
@@ -360,6 +375,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       } else {
                                         setState(() {
                                           FFAppState().currentCompany = null;
+                                        });
+
+                                        await currentUserReference!.update({
+                                          ...mapToFirestore(
+                                            {
+                                              'currentCompany':
+                                                  FieldValue.delete(),
+                                            },
+                                          ),
                                         });
                                         await showAlignedDialog(
                                           context: context,
