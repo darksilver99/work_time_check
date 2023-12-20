@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/employee_setting_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -217,7 +216,8 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                                   .where(
                                                                     'user_ref',
                                                                     isEqualTo:
-                                                                        currentUserReference,
+                                                                        containerUsersRecord
+                                                                            .reference,
                                                                   )
                                                                   .where(
                                                                     'company_ref',
@@ -283,25 +283,12 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Kanit',
-                                                                  color: () {
-                                                                    if (listViewEmployeeListRecord
-                                                                            .status ==
-                                                                        0) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .warning;
-                                                                    } else if (listViewEmployeeListRecord
-                                                                            .status ==
-                                                                        1) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .success;
-                                                                    } else {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText;
-                                                                    }
-                                                                  }(),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
                                                                 ),
                                                           ),
                                                         ),
