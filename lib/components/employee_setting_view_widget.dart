@@ -150,8 +150,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 ) ??
                                 false;
                             if (confirmDialogResponse) {
-                              _model.totalAdmin =
-                                  await queryAdminListRecordCount(
+                              _model.rsAdmin = await queryAdminListRecordOnce(
                                 queryBuilder: (adminListRecord) =>
                                     adminListRecord
                                         .where(
@@ -162,37 +161,19 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                           'company_ref',
                                           isEqualTo: widget
                                               .employeeParameter?.companyRef,
+                                        )
+                                        .where(
+                                          'user_ref',
+                                          isEqualTo:
+                                              widget.userParameter?.reference,
                                         ),
-                              );
-                              if (_model.totalAdmin! <= 1) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'ไม่สามารถลบข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineMedium
-                                          .override(
-                                            fontFamily: 'Kanit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .info,
-                                          ),
-                                    ),
-                                    duration: Duration(milliseconds: 2000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).error,
-                                  ),
-                                );
-                              } else {
-                                await widget.employeeParameter!.reference
-                                    .delete();
-                                _model.isAdmin = await queryAdminListRecordOnce(
+                                singleRecord: true,
+                              ).then((s) => s.firstOrNull);
+                              if (_model.rsAdmin != null) {
+                                _model.totalAdmin =
+                                    await queryAdminListRecordCount(
                                   queryBuilder: (adminListRecord) =>
                                       adminListRecord
-                                          .where(
-                                            'user_ref',
-                                            isEqualTo:
-                                                widget.userParameter?.reference,
-                                          )
                                           .where(
                                             'status',
                                             isEqualTo: 1,
@@ -202,11 +183,52 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                             isEqualTo: widget
                                                 .employeeParameter?.companyRef,
                                           ),
-                                  singleRecord: true,
-                                ).then((s) => s.firstOrNull);
-                                if (_model.isAdmin?.reference != null) {
-                                  await _model.isAdmin!.reference.delete();
+                                );
+                                if (_model.totalAdmin! <= 1) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'ไม่สามารถลบข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                            ),
+                                      ),
+                                      duration: Duration(milliseconds: 2000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).error,
+                                    ),
+                                  );
+                                } else {
+                                  await widget.employeeParameter!.reference
+                                      .delete();
+                                  await _model.rsAdmin!.reference.delete();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'ลบข้อมูลเรียบร้อยแล้ว',
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                            ),
+                                      ),
+                                      duration: Duration(milliseconds: 2000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).error,
+                                    ),
+                                  );
                                 }
+                              } else {
+                                await widget.employeeParameter!.reference
+                                    .delete();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
@@ -224,8 +246,9 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                         FlutterFlowTheme.of(context).error,
                                   ),
                                 );
-                                Navigator.pop(context);
                               }
+
+                              Navigator.pop(context);
                             }
 
                             setState(() {});
