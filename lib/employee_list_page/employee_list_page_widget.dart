@@ -1,8 +1,10 @@
 import '/backend/backend.dart';
+import '/components/employee_setting_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -197,11 +199,13 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                           fontSize: 20.0,
                                                         ),
                                               ),
-                                              Text(
-                                                containerUsersRecord
-                                                    .phoneNumber,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'โทร ${containerUsersRecord.phoneNumber}',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Kanit',
@@ -209,15 +213,53 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                                   .of(context)
                                                               .secondaryText,
                                                         ),
+                                                  ),
+                                                  Text(
+                                                    ' สถานะ ',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    '${functions.getEmployeeStatus(listViewEmployeeListRecord.status)}',
+                                                    style:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Kanit',
+                                                              color: () {
+                                                                if (listViewEmployeeListRecord
+                                                                        .status ==
+                                                                    0) {
+                                                                  return FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .warning;
+                                                                } else if (listViewEmployeeListRecord
+                                                                        .status ==
+                                                                    1) {
+                                                                  return FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .success;
+                                                                } else {
+                                                                  return FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText;
+                                                                }
+                                                              }(),
+                                                            ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        Icon(
-                                          Icons.settings_outlined,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
                                         ),
                                         InkWell(
                                           splashColor: Colors.transparent,
@@ -225,69 +267,43 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            var confirmDialogResponse =
-                                                await showDialog<bool>(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title: Text(
-                                                              'ต้องการลบ ${containerUsersRecord.displayName} ออกจากองค์กร?'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext,
-                                                                      false),
-                                                              child: Text(
-                                                                  'ยกเลิก'),
-                                                            ),
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext,
-                                                                      true),
-                                                              child:
-                                                                  Text('ตกลง'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    ) ??
-                                                    false;
-                                            if (confirmDialogResponse) {
-                                              await listViewEmployeeListRecord
-                                                  .reference
-                                                  .delete();
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'ลบข้อมูลเรียบร้อยแล้ว',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .headlineMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .info,
-                                                        ),
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child:
+                                                        EmployeeSettingViewWidget(
+                                                      employeeParameter:
+                                                          listViewEmployeeListRecord,
+                                                      userParameter:
+                                                          containerUsersRecord,
+                                                    ),
                                                   ),
-                                                  duration: Duration(
-                                                      milliseconds: 2000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .error,
-                                                ),
-                                              );
-                                            }
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
                                           },
                                           child: Icon(
-                                            Icons.delete_rounded,
+                                            Icons.settings_outlined,
                                             color: FlutterFlowTheme.of(context)
-                                                .error,
+                                                .secondaryText,
                                             size: 24.0,
                                           ),
                                         ),
