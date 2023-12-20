@@ -227,6 +227,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   'company_ref',
                                                   isEqualTo: FFAppState()
                                                       .currentCompany,
+                                                )
+                                                .where(
+                                                  'status',
+                                                  isEqualTo: 1,
                                                 ),
                                         singleRecord: true,
                                       ).then((s) => s.firstOrNull);
