@@ -31,6 +31,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   String uploadedFileUrl = '';
 
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
+  bool? rsDialog2;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
   bool? rsDialog;
 
   /// Initialization and disposal methods.

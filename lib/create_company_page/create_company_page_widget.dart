@@ -208,6 +208,11 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                     ));
                                 FFAppState().currentCompany =
                                     _model.rs?.reference;
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  currentCompany: FFAppState().currentCompany,
+                                ));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
