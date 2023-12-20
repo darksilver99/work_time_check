@@ -22,6 +22,8 @@ class EmployeeSettingViewModel
   FormFieldController<int>? dropDownValueController;
   // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
   int? totalAdmin;
+  // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
+  AdminListRecord? isAdmin;
 
   /// Initialization and disposal methods.
 

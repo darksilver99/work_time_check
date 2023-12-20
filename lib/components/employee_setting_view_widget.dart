@@ -185,6 +185,28 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                               } else {
                                 await widget.employeeParameter!.reference
                                     .delete();
+                                _model.isAdmin = await queryAdminListRecordOnce(
+                                  queryBuilder: (adminListRecord) =>
+                                      adminListRecord
+                                          .where(
+                                            'user_ref',
+                                            isEqualTo:
+                                                widget.userParameter?.reference,
+                                          )
+                                          .where(
+                                            'status',
+                                            isEqualTo: 1,
+                                          )
+                                          .where(
+                                            'company_ref',
+                                            isEqualTo: widget
+                                                .employeeParameter?.companyRef,
+                                          ),
+                                  singleRecord: true,
+                                ).then((s) => s.firstOrNull);
+                                if (_model.isAdmin?.reference != null) {
+                                  await _model.isAdmin!.reference.delete();
+                                }
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
