@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/employee_setting_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -187,17 +188,158 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                containerUsersRecord
-                                                    .displayName,
-                                                maxLines: 1,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          fontSize: 20.0,
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      containerUsersRecord
+                                                          .displayName,
+                                                      maxLines: 1,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            fontSize: 20.0,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                  StreamBuilder<
+                                                      List<AdminListRecord>>(
+                                                    stream:
+                                                        queryAdminListRecord(
+                                                      queryBuilder:
+                                                          (adminListRecord) =>
+                                                              adminListRecord
+                                                                  .where(
+                                                                    'user_ref',
+                                                                    isEqualTo:
+                                                                        currentUserReference,
+                                                                  )
+                                                                  .where(
+                                                                    'company_ref',
+                                                                    isEqualTo: widget
+                                                                        .companyParameter
+                                                                        ?.reference,
+                                                                  )
+                                                                  .where(
+                                                                    'status',
+                                                                    isEqualTo:
+                                                                        1,
+                                                                  ),
+                                                      singleRecord: true,
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      List<AdminListRecord>
+                                                          containerAdminListRecordList =
+                                                          snapshot.data!;
+                                                      // Return an empty Container when the item does not exist.
+                                                      if (snapshot
+                                                          .data!.isEmpty) {
+                                                        return Container();
+                                                      }
+                                                      final containerAdminListRecord =
+                                                          containerAdminListRecordList
+                                                                  .isNotEmpty
+                                                              ? containerAdminListRecordList
+                                                                  .first
+                                                              : null;
+                                                      return Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Visibility(
+                                                          visible:
+                                                              containerAdminListRecord
+                                                                      ?.reference !=
+                                                                  null,
+                                                          child: Text(
+                                                            ' (แอดมิน)',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  color: () {
+                                                                    if (listViewEmployeeListRecord
+                                                                            .status ==
+                                                                        0) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .warning;
+                                                                    } else if (listViewEmployeeListRecord
+                                                                            .status ==
+                                                                        1) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .success;
+                                                                    } else {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText;
+                                                                    }
+                                                                  }(),
+                                                                ),
+                                                          ),
                                                         ),
+                                                      );
+                                                    },
+                                                  ),
+                                                  if (listViewEmployeeListRecord
+                                                          .status ==
+                                                      0)
+                                                    Text(
+                                                      ' ${functions.getEmployeeStatus(listViewEmployeeListRecord.status)}',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            color: () {
+                                                              if (listViewEmployeeListRecord
+                                                                      .status ==
+                                                                  0) {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .warning;
+                                                              } else if (listViewEmployeeListRecord
+                                                                      .status ==
+                                                                  1) {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .success;
+                                                              } else {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText;
+                                                              }
+                                                            }(),
+                                                          ),
+                                                    ),
+                                                ],
                                               ),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -214,97 +356,61 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                               .secondaryText,
                                                         ),
                                                   ),
-                                                  Text(
-                                                    ' สถานะ ',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                        ),
-                                                  ),
-                                                  Text(
-                                                    '${functions.getEmployeeStatus(listViewEmployeeListRecord.status)}',
-                                                    style:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Kanit',
-                                                              color: () {
-                                                                if (listViewEmployeeListRecord
-                                                                        .status ==
-                                                                    0) {
-                                                                  return FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .warning;
-                                                                } else if (listViewEmployeeListRecord
-                                                                        .status ==
-                                                                    1) {
-                                                                  return FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .success;
-                                                                } else {
-                                                                  return FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText;
-                                                                }
-                                                              }(),
-                                                            ),
-                                                  ),
                                                 ],
                                               ),
                                             ],
                                           ),
                                         ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child:
-                                                        EmployeeSettingViewWidget(
-                                                      employeeParameter:
-                                                          listViewEmployeeListRecord,
-                                                      userParameter:
-                                                          containerUsersRecord,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 0.0, 0.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return GestureDetector(
+                                                    onTap: () => _model
+                                                            .unfocusNode
+                                                            .canRequestFocus
+                                                        ? FocusScope.of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode)
+                                                        : FocusScope.of(context)
+                                                            .unfocus(),
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child:
+                                                          EmployeeSettingViewWidget(
+                                                        employeeParameter:
+                                                            listViewEmployeeListRecord,
+                                                        userParameter:
+                                                            containerUsersRecord,
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then(
-                                                (value) => safeSetState(() {}));
-                                          },
-                                          child: Icon(
-                                            Icons.settings_outlined,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            },
+                                            child: Icon(
+                                              Icons.settings_outlined,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
                                           ),
                                         ),
                                       ],
