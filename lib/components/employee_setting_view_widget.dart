@@ -85,7 +85,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 widget.employeeParameter?.status,
                           ),
                           options: List<int>.from([0, 1]),
-                          optionLabels: ['รออนุมัติ', 'อนุมัติแล้ว'],
+                          optionLabels: ['รออนุมัติ', 'อนุมัติ'],
                           onChanged: (val) =>
                               setState(() => _model.dropDownValue = val),
                           width: 300.0,
