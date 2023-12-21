@@ -8,8 +8,8 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class CompanyListRecord extends FirestoreRecord {
-  CompanyListRecord._(
+class BossListRecord extends FirestoreRecord {
+  BossListRecord._(
     DocumentReference reference,
     Map<String, dynamic> data,
   ) : super(reference, data) {
@@ -51,25 +51,15 @@ class CompanyListRecord extends FirestoreRecord {
   int get status => _status ?? 0;
   bool hasStatus() => _status != null;
 
-  // "company_name" field.
-  String? _companyName;
-  String get companyName => _companyName ?? '';
-  bool hasCompanyName() => _companyName != null;
+  // "company_ref" field.
+  DocumentReference? _companyRef;
+  DocumentReference? get companyRef => _companyRef;
+  bool hasCompanyRef() => _companyRef != null;
 
-  // "company_code" field.
-  String? _companyCode;
-  String get companyCode => _companyCode ?? '';
-  bool hasCompanyCode() => _companyCode != null;
-
-  // "start_date" field.
-  String? _startDate;
-  String get startDate => _startDate ?? '';
-  bool hasStartDate() => _startDate != null;
-
-  // "end_date" field.
-  String? _endDate;
-  String get endDate => _endDate ?? '';
-  bool hasEndDate() => _endDate != null;
+  // "user_ref" field.
+  DocumentReference? _userRef;
+  DocumentReference? get userRef => _userRef;
+  bool hasUserRef() => _userRef != null;
 
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
@@ -79,47 +69,45 @@ class CompanyListRecord extends FirestoreRecord {
     _deleteDate = snapshotData['delete_date'] as DateTime?;
     _deleteBy = snapshotData['delete_by'] as DocumentReference?;
     _status = castToType<int>(snapshotData['status']);
-    _companyName = snapshotData['company_name'] as String?;
-    _companyCode = snapshotData['company_code'] as String?;
-    _startDate = snapshotData['start_date'] as String?;
-    _endDate = snapshotData['end_date'] as String?;
+    _companyRef = snapshotData['company_ref'] as DocumentReference?;
+    _userRef = snapshotData['user_ref'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('company_list');
+      FirebaseFirestore.instance.collection('boss_list');
 
-  static Stream<CompanyListRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => CompanyListRecord.fromSnapshot(s));
+  static Stream<BossListRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => BossListRecord.fromSnapshot(s));
 
-  static Future<CompanyListRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => CompanyListRecord.fromSnapshot(s));
+  static Future<BossListRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => BossListRecord.fromSnapshot(s));
 
-  static CompanyListRecord fromSnapshot(DocumentSnapshot snapshot) =>
-      CompanyListRecord._(
+  static BossListRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      BossListRecord._(
         snapshot.reference,
         mapFromFirestore(snapshot.data() as Map<String, dynamic>),
       );
 
-  static CompanyListRecord getDocumentFromData(
+  static BossListRecord getDocumentFromData(
     Map<String, dynamic> data,
     DocumentReference reference,
   ) =>
-      CompanyListRecord._(reference, mapFromFirestore(data));
+      BossListRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
-      'CompanyListRecord(reference: ${reference.path}, data: $snapshotData)';
+      'BossListRecord(reference: ${reference.path}, data: $snapshotData)';
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
   bool operator ==(other) =>
-      other is CompanyListRecord &&
+      other is BossListRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
 }
 
-Map<String, dynamic> createCompanyListRecordData({
+Map<String, dynamic> createBossListRecordData({
   DateTime? createDate,
   DocumentReference? createBy,
   DateTime? updateDate,
@@ -127,10 +115,8 @@ Map<String, dynamic> createCompanyListRecordData({
   DateTime? deleteDate,
   DocumentReference? deleteBy,
   int? status,
-  String? companyName,
-  String? companyCode,
-  String? startDate,
-  String? endDate,
+  DocumentReference? companyRef,
+  DocumentReference? userRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -141,21 +127,19 @@ Map<String, dynamic> createCompanyListRecordData({
       'delete_date': deleteDate,
       'delete_by': deleteBy,
       'status': status,
-      'company_name': companyName,
-      'company_code': companyCode,
-      'start_date': startDate,
-      'end_date': endDate,
+      'company_ref': companyRef,
+      'user_ref': userRef,
     }.withoutNulls,
   );
 
   return firestoreData;
 }
 
-class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
-  const CompanyListRecordDocumentEquality();
+class BossListRecordDocumentEquality implements Equality<BossListRecord> {
+  const BossListRecordDocumentEquality();
 
   @override
-  bool equals(CompanyListRecord? e1, CompanyListRecord? e2) {
+  bool equals(BossListRecord? e1, BossListRecord? e2) {
     return e1?.createDate == e2?.createDate &&
         e1?.createBy == e2?.createBy &&
         e1?.updateDate == e2?.updateDate &&
@@ -163,14 +147,12 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
         e1?.deleteDate == e2?.deleteDate &&
         e1?.deleteBy == e2?.deleteBy &&
         e1?.status == e2?.status &&
-        e1?.companyName == e2?.companyName &&
-        e1?.companyCode == e2?.companyCode &&
-        e1?.startDate == e2?.startDate &&
-        e1?.endDate == e2?.endDate;
+        e1?.companyRef == e2?.companyRef &&
+        e1?.userRef == e2?.userRef;
   }
 
   @override
-  int hash(CompanyListRecord? e) => const ListEquality().hash([
+  int hash(BossListRecord? e) => const ListEquality().hash([
         e?.createDate,
         e?.createBy,
         e?.updateDate,
@@ -178,12 +160,10 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
         e?.deleteDate,
         e?.deleteBy,
         e?.status,
-        e?.companyName,
-        e?.companyCode,
-        e?.startDate,
-        e?.endDate
+        e?.companyRef,
+        e?.userRef
       ]);
 
   @override
-  bool isValidKey(Object? o) => o is CompanyListRecord;
+  bool isValidKey(Object? o) => o is BossListRecord;
 }

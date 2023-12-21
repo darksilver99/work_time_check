@@ -5,7 +5,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -120,31 +122,31 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   FlutterFlowTheme.of(context).labelMedium,
                               hintStyle:
                                   FlutterFlowTheme.of(context).labelMedium,
-                              enabledBorder: UnderlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).alternate,
-                                  width: 2.0,
+                                  width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(0.0),
                               ),
-                              focusedBorder: UnderlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).primary,
-                                  width: 2.0,
+                                  width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(0.0),
                               ),
-                              errorBorder: UnderlineInputBorder(
+                              errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).error,
-                                  width: 2.0,
+                                  width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(0.0),
                               ),
-                              focusedErrorBorder: UnderlineInputBorder(
+                              focusedErrorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: FlutterFlowTheme.of(context).error,
-                                  width: 2.0,
+                                  width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(0.0),
                               ),
@@ -156,11 +158,235 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 8.0, 0.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                final _datePicked1Time = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.fromDateTime(
+                                      getCurrentTimestamp),
+                                  builder: (context, child) {
+                                    return wrapInMaterialTimePickerTheme(
+                                      context,
+                                      child!,
+                                      headerBackgroundColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      headerForegroundColor:
+                                          FlutterFlowTheme.of(context).info,
+                                      headerTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .headlineLarge
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 32.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                      pickerBackgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      pickerForegroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                      selectedDateTimeBackgroundColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      selectedDateTimeForegroundColor:
+                                          FlutterFlowTheme.of(context).info,
+                                      actionButtonForegroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                      iconSize: 24.0,
+                                    );
+                                  },
+                                );
+                                if (_datePicked1Time != null) {
+                                  safeSetState(() {
+                                    _model.datePicked1 = DateTime(
+                                      getCurrentTimestamp.year,
+                                      getCurrentTimestamp.month,
+                                      getCurrentTimestamp.day,
+                                      _datePicked1Time.hour,
+                                      _datePicked1Time.minute,
+                                    );
+                                  });
+                                }
+                                setState(() {
+                                  _model.startTime =
+                                      functions.getTime(_model.datePicked1);
+                                });
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                height: 55.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        valueOrDefault<String>(
+                                          _model.startTime,
+                                          'เลือกเวลาเริ่มงาน',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 8.0, 0.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                final _datePicked2Time = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.fromDateTime(
+                                      getCurrentTimestamp),
+                                  builder: (context, child) {
+                                    return wrapInMaterialTimePickerTheme(
+                                      context,
+                                      child!,
+                                      headerBackgroundColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      headerForegroundColor:
+                                          FlutterFlowTheme.of(context).info,
+                                      headerTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .headlineLarge
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 32.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                      pickerBackgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      pickerForegroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                      selectedDateTimeBackgroundColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      selectedDateTimeForegroundColor:
+                                          FlutterFlowTheme.of(context).info,
+                                      actionButtonForegroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                      iconSize: 24.0,
+                                    );
+                                  },
+                                );
+                                if (_datePicked2Time != null) {
+                                  safeSetState(() {
+                                    _model.datePicked2 = DateTime(
+                                      getCurrentTimestamp.year,
+                                      getCurrentTimestamp.month,
+                                      getCurrentTimestamp.day,
+                                      _datePicked2Time.hour,
+                                      _datePicked2Time.minute,
+                                    );
+                                  });
+                                }
+                                setState(() {
+                                  _model.startTime =
+                                      functions.getTime(_model.datePicked2);
+                                });
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                height: 55.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        valueOrDefault<String>(
+                                          _model.endTime,
+                                          'เลือกเวลาเลิกงาน',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 16.0, 0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 if (_model.formKey.currentState == null ||
                                     !_model.formKey.currentState!.validate()) {
+                                  return;
+                                }
+                                if (_model.datePicked1 == null) {
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Field is required',
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                            ),
+                                      ),
+                                      duration: Duration(milliseconds: 2000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).error,
+                                    ),
+                                  );
+                                  return;
+                                }
+                                if (_model.datePicked2 == null) {
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Field is required',
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                            ),
+                                      ),
+                                      duration: Duration(milliseconds: 2000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).error,
+                                    ),
+                                  );
                                   return;
                                 }
                                 _model.companyCode =
@@ -175,6 +401,8 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   status: 1,
                                   companyName: _model.textController.text,
                                   companyCode: _model.companyCode,
+                                  startDate: _model.startTime,
+                                  endDate: _model.endTime,
                                 ));
                                 _model.rs =
                                     CompanyListRecord.getDocumentFromData(
@@ -185,6 +413,8 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                           companyName:
                                               _model.textController.text,
                                           companyCode: _model.companyCode,
+                                          startDate: _model.startTime,
+                                          endDate: _model.endTime,
                                         ),
                                         companyListRecordReference);
 

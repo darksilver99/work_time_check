@@ -21,3 +21,7 @@ String? getEmployeeStatus(int? status) {
     return "-";
   }
 }
+
+String? getTime(DateTime? dateTime) {
+  return '08.00';
+}
