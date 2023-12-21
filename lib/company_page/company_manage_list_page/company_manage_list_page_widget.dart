@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/no_data_view_widget.dart';
 import '/components/total_employee_view_widget.dart';
+import '/components/total_waiting_employee_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -284,6 +285,12 @@ class _CompanyManageListPageWidgetState
                                                     ),
                                                   ],
                                                 ),
+                                              ),
+                                              TotalWaitingEmployeeViewWidget(
+                                                key: Key(
+                                                    'Keyuf4_${listViewIndex}_of_${listViewAdminListRecordList.length}'),
+                                                companyParameter:
+                                                    containerCompanyListRecord,
                                               ),
                                               Icon(
                                                 Icons.navigate_next_rounded,
