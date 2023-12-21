@@ -303,8 +303,8 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   });
                                 }
                                 setState(() {
-                                  _model.startTime =
-                                      functions.getTime(_model.datePicked2);
+                                  _model.endTime =
+                                      functions.getTime(_model.datePicked2)!;
                                 });
                               },
                               child: Container(
