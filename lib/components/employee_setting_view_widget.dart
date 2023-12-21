@@ -602,6 +602,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                             );
                           }
 
+                          Navigator.pop(context);
                           if (_shouldSetState) setState(() {});
                         },
                         text: 'ตกลง',
