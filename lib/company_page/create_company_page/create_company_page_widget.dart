@@ -349,7 +349,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Field is required',
+                                        'เลือกเวลาเริ่มงาน',
                                         style: FlutterFlowTheme.of(context)
                                             .headlineMedium
                                             .override(
@@ -372,7 +372,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Field is required',
+                                        'เลือกเวลาเลิกงาน',
                                         style: FlutterFlowTheme.of(context)
                                             .headlineMedium
                                             .override(
