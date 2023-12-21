@@ -36,6 +36,12 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   bool? rsDialog2;
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
   bool? rsDialog;
+  // Stores action output result for [Backend Call - Read Document] action in Container widget.
+  UsersRecord? rsUser;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
+  bool? rsDialog3;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
+  bool? rsDialog4;
 
   /// Initialization and disposal methods.
 
