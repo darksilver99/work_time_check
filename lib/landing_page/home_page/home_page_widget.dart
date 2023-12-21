@@ -113,6 +113,25 @@ class _HomePageWidgetState extends State<HomePageWidget>
         ),
       ],
     ),
+    'containerOnPageLoadAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(-60.0, -60.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
   };
 
   @override
@@ -201,7 +220,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     ),
                     crossAxisSpacing: 10.0,
                     mainAxisSpacing: 10.0,
-                    itemCount: 4,
+                    itemCount: 5,
                     itemBuilder: (context, index) {
                       return [
                         () => Builder(
@@ -582,6 +601,138 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               ).animateOnPageLoad(animationsMap[
                                   'containerOnPageLoadAnimation3']!),
                             ),
+                        () => Builder(
+                              builder: (context) => Padding(
+                                padding: EdgeInsets.all(6.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    if (FFAppState().currentCompany != null) {
+                                      _model.rsUser =
+                                          await UsersRecord.getDocumentOnce(
+                                              currentUserReference!);
+                                      if (_model.rsUser?.currentCompany ==
+                                          FFAppState().currentCompany) {
+                                        context.pushNamed(
+                                            'TimeCheckEmployeeListPage');
+                                      } else {
+                                        await showAlignedDialog(
+                                          context: context,
+                                          isGlobal: true,
+                                          avoidOverflow: false,
+                                          targetAnchor: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          followerAnchor: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          builder: (dialogContext) {
+                                            return Material(
+                                              color: Colors.transparent,
+                                              child: GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child:
+                                                    InformationDialogViewWidget(
+                                                  msg:
+                                                      'กรุณาเข้าร่วมองค์กรก่อน',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => safeSetState(
+                                            () => _model.rsDialog3 = value));
+
+                                        setState(() {
+                                          FFAppState().currentCompany = null;
+                                        });
+                                        if ((_model.rsDialog3 != null) &&
+                                            _model.rsDialog3!) {
+                                          context.pushNamed('CompanyListPage');
+                                        }
+                                      }
+                                    } else {
+                                      await showAlignedDialog(
+                                        context: context,
+                                        isGlobal: true,
+                                        avoidOverflow: false,
+                                        targetAnchor:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        followerAnchor:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        builder: (dialogContext) {
+                                          return Material(
+                                            color: Colors.transparent,
+                                            child: GestureDetector(
+                                              onTap: () => _model.unfocusNode
+                                                      .canRequestFocus
+                                                  ? FocusScope.of(context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode)
+                                                  : FocusScope.of(context)
+                                                      .unfocus(),
+                                              child:
+                                                  InformationDialogViewWidget(
+                                                msg: 'กรุณาเข้าร่วมองค์กรก่อน',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(
+                                          () => _model.rsDialog4 = value));
+
+                                      if ((_model.rsDialog4 != null) &&
+                                          _model.rsDialog4!) {
+                                        context.pushNamed('CompanyListPage');
+                                      }
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    elevation: 3.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 120.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Text(
+                                          'all',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ).animateOnPageLoad(animationsMap[
+                                    'containerOnPageLoadAnimation4']!),
+                              ),
+                            ),
                         () => Padding(
                               padding: EdgeInsets.all(6.0),
                               child: Material(
@@ -592,7 +743,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 ),
                                 child: Container(
                                   width: double.infinity,
-                                  height: 120.0,
+                                  height: 200.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -610,7 +761,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                 ),
                               ).animateOnPageLoad(animationsMap[
-                                  'containerOnPageLoadAnimation4']!),
+                                  'containerOnPageLoadAnimation5']!),
                             ),
                       ][index]();
                     },
