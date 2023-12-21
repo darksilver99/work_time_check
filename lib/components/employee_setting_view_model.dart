@@ -29,13 +29,9 @@ class EmployeeSettingViewModel
   // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
   int? totalAdmin;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  AdminListRecord? rsAdmin4;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  AdminListRecord? rsAdmin2;
+  AdminListRecord? rsAdmin1;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   int? totalAdmin2;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  AdminListRecord? rsAdmin3;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   int? totalAdmin3;
 
