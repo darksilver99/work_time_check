@@ -23,5 +23,6 @@ String? getEmployeeStatus(int? status) {
 }
 
 String? getTime(DateTime? dateTime) {
-  return '08.00';
+  var time = dateTime.toString().split(" ")[1].replaceAll(":00.000", "");
+  return time;
 }
