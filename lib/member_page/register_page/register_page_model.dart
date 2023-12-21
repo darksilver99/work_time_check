@@ -85,6 +85,18 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
     return null;
   }
 
+  // State field(s) for nickName widget.
+  FocusNode? nickNameFocusNode;
+  TextEditingController? nickNameController;
+  String? Function(BuildContext, String?)? nickNameControllerValidator;
+  String? _nickNameControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
   TextEditingController? phoneController;
@@ -107,6 +119,7 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
     passwordControllerValidator = _passwordControllerValidator;
     firstNameControllerValidator = _firstNameControllerValidator;
     lastNameControllerValidator = _lastNameControllerValidator;
+    nickNameControllerValidator = _nickNameControllerValidator;
     phoneControllerValidator = _phoneControllerValidator;
   }
 
@@ -126,6 +139,9 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
 
     lastNameFocusNode?.dispose();
     lastNameController?.dispose();
+
+    nickNameFocusNode?.dispose();
+    nickNameController?.dispose();
 
     phoneFocusNode?.dispose();
     phoneController?.dispose();
