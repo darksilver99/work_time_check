@@ -114,7 +114,6 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                           TextFormField(
                             controller: _model.textController,
                             focusNode: _model.textFieldFocusNode,
-                            autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'ตั้งชื่อองค์กร',
@@ -124,14 +123,14 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   FlutterFlowTheme.of(context).labelMedium,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: Color(0x00000000),
                                   width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(0.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: Color(0x00000000),
                                   width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(0.0),
@@ -151,6 +150,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                 borderRadius: BorderRadius.circular(0.0),
                               ),
                               filled: true,
+                              fillColor: FlutterFlowTheme.of(context).alternate,
                             ),
                             style: FlutterFlowTheme.of(context).bodyMedium,
                             validator: _model.textControllerValidator
@@ -349,7 +349,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Field is required',
+                                        'เลือกเวลาเริ่มงาน',
                                         style: FlutterFlowTheme.of(context)
                                             .headlineMedium
                                             .override(
@@ -372,7 +372,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Field is required',
+                                        'เลือกเวลาเลิกงาน',
                                         style: FlutterFlowTheme.of(context)
                                             .headlineMedium
                                             .override(
