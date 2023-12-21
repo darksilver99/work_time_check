@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/no_data_view_widget.dart';
+import '/components/total_employee_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -275,21 +276,11 @@ class _CompanyManageListPageWidgetState
                                                                 fontSize: 12.0,
                                                               ),
                                                     ),
-                                                    Text(
-                                                      'จำนวนพนักงาน 5 คน',
-                                                      maxLines: 1,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Kanit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                fontSize: 12.0,
-                                                              ),
+                                                    TotalEmployeeViewWidget(
+                                                      key: Key(
+                                                          'Keyusp_${listViewIndex}_of_${listViewAdminListRecordList.length}'),
+                                                      companyParameter:
+                                                          containerCompanyListRecord,
                                                     ),
                                                   ],
                                                 ),
