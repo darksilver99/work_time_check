@@ -43,6 +43,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     _model.lastNameController ??= TextEditingController();
     _model.lastNameFocusNode ??= FocusNode();
 
+    _model.nickNameController ??= TextEditingController();
+    _model.nickNameFocusNode ??= FocusNode();
+
     _model.phoneController ??= TextEditingController();
     _model.phoneFocusNode ??= FocusNode();
   }
@@ -567,6 +570,74 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       child: Container(
                                         width: double.infinity,
                                         child: TextFormField(
+                                          controller: _model.nickNameController,
+                                          focusNode: _model.nickNameFocusNode,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'ชื่อเล่น',
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge,
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryBackground,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge,
+                                          validator: _model
+                                              .nickNameControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 16.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        child: TextFormField(
                                           controller: _model.phoneController,
                                           focusNode: _model.phoneFocusNode,
                                           obscureText: false,
@@ -673,8 +744,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                 email: _model
                                                     .emailAddressController
                                                     .text,
-                                                displayName:
-                                                    '${_model.firstNameController.text} ${_model.lastNameController.text}',
+                                                displayName: _model
+                                                    .nickNameController.text,
                                                 createdTime:
                                                     getCurrentTimestamp,
                                                 phoneNumber:

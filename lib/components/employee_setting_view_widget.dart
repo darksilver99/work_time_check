@@ -117,6 +117,90 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                     ],
                   ),
                   Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    child: StreamBuilder<List<AdminListRecord>>(
+                      stream: queryAdminListRecord(
+                        queryBuilder: (adminListRecord) => adminListRecord
+                            .where(
+                              'user_ref',
+                              isEqualTo: widget.userParameter?.reference,
+                            )
+                            .where(
+                              'status',
+                              isEqualTo: 1,
+                            ),
+                        singleRecord: true,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        List<AdminListRecord> rowAdminListRecordList =
+                            snapshot.data!;
+                        final rowAdminListRecord =
+                            rowAdminListRecordList.isNotEmpty
+                                ? rowAdminListRecordList.first
+                                : null;
+                        return Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Theme(
+                                data: ThemeData(
+                                  checkboxTheme: CheckboxThemeData(
+                                    visualDensity: VisualDensity.compact,
+                                    materialTapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                  unselectedWidgetColor:
+                                      FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                ),
+                                child: CheckboxListTile(
+                                  value: _model.checkboxListTileValue ??=
+                                      rowAdminListRecord?.reference != null,
+                                  onChanged: (newValue) async {
+                                    setState(() => _model
+                                        .checkboxListTileValue = newValue!);
+                                  },
+                                  title: Text(
+                                    'แอดมิน',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                  tileColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  activeColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                  checkColor: FlutterFlowTheme.of(context).info,
+                                  dense: false,
+                                  controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: Row(
@@ -282,8 +366,121 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          if (_model.dropDownValue == 0) {
-                            _model.rsAdmin2 = await queryAdminListRecordOnce(
+                          if (!_model.checkboxListTileValue!) {
+                            if (_model.dropDownValue == 1) {
+                              _model.rsAdmin3 = await queryAdminListRecordOnce(
+                                queryBuilder: (adminListRecord) =>
+                                    adminListRecord
+                                        .where(
+                                          'user_ref',
+                                          isEqualTo:
+                                              widget.userParameter?.reference,
+                                        )
+                                        .where(
+                                          'status',
+                                          isEqualTo: 1,
+                                        )
+                                        .where(
+                                          'company_ref',
+                                          isEqualTo: widget
+                                              .employeeParameter?.companyRef,
+                                        ),
+                                singleRecord: true,
+                              ).then((s) => s.firstOrNull);
+                              if (_model.rsAdmin3 != null) {
+                                _model.totalAdmin3 =
+                                    await queryAdminListRecordCount(
+                                  queryBuilder: (adminListRecord) =>
+                                      adminListRecord
+                                          .where(
+                                            'status',
+                                            isEqualTo: 1,
+                                          )
+                                          .where(
+                                            'company_ref',
+                                            isEqualTo: widget
+                                                .employeeParameter?.companyRef,
+                                          ),
+                                );
+                                if (_model.totalAdmin3! <= 1) {
+                                  await showAlignedDialog(
+                                    context: context,
+                                    isGlobal: true,
+                                    avoidOverflow: false,
+                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    followerAnchor: AlignmentDirectional(
+                                            0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    builder: (dialogContext) {
+                                      return Material(
+                                        color: Colors.transparent,
+                                        child: InformationDialogViewWidget(
+                                          msg:
+                                              'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => setState(() {}));
+                                }
+                              } else {
+                                await AdminListRecord.collection
+                                    .doc()
+                                    .set(createAdminListRecordData(
+                                      createDate: getCurrentTimestamp,
+                                      createBy: currentUserReference,
+                                      status: 1,
+                                      companyRef:
+                                          widget.employeeParameter?.companyRef,
+                                      userRef: widget.userParameter?.reference,
+                                    ));
+
+                                await widget.employeeParameter!.reference
+                                    .update(createEmployeeListRecordData(
+                                  updateDate: getCurrentTimestamp,
+                                  updateBy: currentUserReference,
+                                  status: 1,
+                                ));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                      style: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                          ),
+                                    ),
+                                    duration: Duration(milliseconds: 2000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).success,
+                                  ),
+                                );
+                              }
+                            } else {
+                              await showAlignedDialog(
+                                context: context,
+                                isGlobal: true,
+                                avoidOverflow: false,
+                                targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                builder: (dialogContext) {
+                                  return Material(
+                                    color: Colors.transparent,
+                                    child: InformationDialogViewWidget(
+                                      msg:
+                                          'กรุณาอนุมัติพนักงานก่อนแต่งตั้งสถานะแอดมิน',
+                                    ),
+                                  );
+                                },
+                              ).then((value) => setState(() {}));
+                            }
+                          } else {
+                            _model.rsAdmin4 = await queryAdminListRecordOnce(
                               queryBuilder: (adminListRecord) => adminListRecord
                                   .where(
                                     'status',
@@ -300,9 +497,8 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                   ),
                               singleRecord: true,
                             ).then((s) => s.firstOrNull);
-                            if (_model.rsAdmin2 != null) {
-                              _model.totalAdmin2 =
-                                  await queryAdminListRecordCount(
+                            if (_model.dropDownValue == 0) {
+                              _model.rsAdmin2 = await queryAdminListRecordOnce(
                                 queryBuilder: (adminListRecord) =>
                                     adminListRecord
                                         .where(
@@ -313,28 +509,65 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                           'company_ref',
                                           isEqualTo: widget
                                               .employeeParameter?.companyRef,
+                                        )
+                                        .where(
+                                          'user_ref',
+                                          isEqualTo:
+                                              widget.userParameter?.reference,
                                         ),
-                              );
-                              if (_model.totalAdmin2! <= 1) {
-                                await showAlignedDialog(
-                                  context: context,
-                                  isGlobal: true,
-                                  avoidOverflow: false,
-                                  targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                      .resolve(Directionality.of(context)),
-                                  followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                      .resolve(Directionality.of(context)),
-                                  builder: (dialogContext) {
-                                    return Material(
-                                      color: Colors.transparent,
-                                      child: InformationDialogViewWidget(
-                                        msg:
-                                            'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
+                                singleRecord: true,
+                              ).then((s) => s.firstOrNull);
+                              if (_model.rsAdmin2 != null) {
+                                _model.totalAdmin2 =
+                                    await queryAdminListRecordCount(
+                                  queryBuilder: (adminListRecord) =>
+                                      adminListRecord
+                                          .where(
+                                            'status',
+                                            isEqualTo: 1,
+                                          )
+                                          .where(
+                                            'company_ref',
+                                            isEqualTo: widget
+                                                .employeeParameter?.companyRef,
+                                          ),
+                                );
+                                if (_model.totalAdmin2! <= 1) {
+                                  await showAlignedDialog(
+                                    context: context,
+                                    isGlobal: true,
+                                    avoidOverflow: false,
+                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    followerAnchor: AlignmentDirectional(
+                                            0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    builder: (dialogContext) {
+                                      return Material(
+                                        color: Colors.transparent,
+                                        child: InformationDialogViewWidget(
+                                          msg:
+                                              'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => setState(() {}));
+                                }
                               } else {
+                                if (_model.rsAdmin4 == null) {
+                                  await AdminListRecord.collection
+                                      .doc()
+                                      .set(createAdminListRecordData(
+                                        createDate: getCurrentTimestamp,
+                                        createBy: currentUserReference,
+                                        status: 1,
+                                        companyRef: widget
+                                            .employeeParameter?.companyRef,
+                                        userRef:
+                                            widget.userParameter?.reference,
+                                      ));
+                                }
+
                                 await widget.employeeParameter!.reference
                                     .update(createEmployeeListRecordData(
                                   updateDate: getCurrentTimestamp,
@@ -360,6 +593,19 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 );
                               }
                             } else {
+                              if (_model.rsAdmin4 == null) {
+                                await AdminListRecord.collection
+                                    .doc()
+                                    .set(createAdminListRecordData(
+                                      createDate: getCurrentTimestamp,
+                                      createBy: currentUserReference,
+                                      status: 1,
+                                      companyRef:
+                                          widget.employeeParameter?.companyRef,
+                                      userRef: widget.userParameter?.reference,
+                                    ));
+                              }
+
                               await widget.employeeParameter!.reference
                                   .update(createEmployeeListRecordData(
                                 updateDate: getCurrentTimestamp,
@@ -384,31 +630,6 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 ),
                               );
                             }
-                          } else {
-                            await widget.employeeParameter!.reference
-                                .update(createEmployeeListRecordData(
-                              updateDate: getCurrentTimestamp,
-                              updateBy: currentUserReference,
-                              status: _model.dropDownValue,
-                            ));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                  style: FlutterFlowTheme.of(context)
-                                      .headlineMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color:
-                                            FlutterFlowTheme.of(context).info,
-                                      ),
-                                ),
-                                duration: Duration(milliseconds: 2000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).success,
-                              ),
-                            );
-                            Navigator.pop(context);
                           }
 
                           Navigator.pop(context);
