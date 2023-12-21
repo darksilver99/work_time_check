@@ -28,3 +28,5 @@ export '/time_check_page/time_check_employee_list_page/time_check_employee_list_
 export '/time_check_page/time_check_employee_history_page/time_check_employee_history_page_widget.dart'
     show TimeCheckEmployeeHistoryPageWidget;
 export '/graph_page/graph_page_widget.dart' show GraphPageWidget;
+export '/export_excel_page/export_excel_page_widget.dart'
+    show ExportExcelPageWidget;

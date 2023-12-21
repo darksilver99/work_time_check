@@ -129,10 +129,38 @@ class _TimeCheckEmployeeListPageWidgetState
                             return Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Text(
-                                  rowCompanyListRecord.companyName,
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                Expanded(
+                                  child: Text(
+                                    rowCompanyListRecord.companyName,
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyMedium,
+                                  ),
+                                ),
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    context.pushNamed('ExportExcelPage');
+                                  },
+                                  text: 'Export',
+                                  options: FFButtonOptions(
+                                    height: 40.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 24.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: Colors.white,
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
                                 ),
                               ],
                             );

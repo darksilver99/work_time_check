@@ -194,6 +194,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'GraphPage',
           path: '/graphPage',
           builder: (context, params) => GraphPageWidget(),
+        ),
+        FFRoute(
+          name: 'ExportExcelPage',
+          path: '/exportExcelPage',
+          builder: (context, params) => ExportExcelPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
