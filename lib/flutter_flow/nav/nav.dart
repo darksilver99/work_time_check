@@ -189,6 +189,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TimeCheckEmployeeHistoryPageWidget(
             userParameter: params.getParam('userParameter', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'GraphPage',
+          path: '/graphPage',
+          builder: (context, params) => GraphPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

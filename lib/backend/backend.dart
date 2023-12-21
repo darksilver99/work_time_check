@@ -10,6 +10,7 @@ import 'schema/time_check_list_record.dart';
 import 'schema/company_list_record.dart';
 import 'schema/admin_list_record.dart';
 import 'schema/employee_list_record.dart';
+import 'schema/boss_list_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +23,7 @@ export 'schema/time_check_list_record.dart';
 export 'schema/company_list_record.dart';
 export 'schema/admin_list_record.dart';
 export 'schema/employee_list_record.dart';
+export 'schema/boss_list_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -203,6 +205,43 @@ Future<List<EmployeeListRecord>> queryEmployeeListRecordOnce({
     queryCollectionOnce(
       EmployeeListRecord.collection,
       EmployeeListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query BossListRecords (as a Stream and as a Future).
+Future<int> queryBossListRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      BossListRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<BossListRecord>> queryBossListRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      BossListRecord.collection,
+      BossListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<BossListRecord>> queryBossListRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      BossListRecord.collection,
+      BossListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
