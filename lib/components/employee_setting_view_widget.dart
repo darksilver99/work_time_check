@@ -463,6 +463,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                       userRef: widget.userParameter?.reference,
                                       companyRef:
                                           widget.employeeParameter?.companyRef,
+                                      status: 1,
                                     ));
                               }
                             } else {
