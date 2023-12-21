@@ -76,10 +76,10 @@ class _TotalEmployeeViewWidgetState extends State<TotalEmployeeViewWidget> {
         }
         int textCount = snapshot.data!;
         return Text(
-          'จำนวนพนักงาน${valueOrDefault<String>(
+          'จำนวนพนักงาน ${valueOrDefault<String>(
             textCount.toString(),
             '0',
-          )}',
+          )} คน',
           maxLines: 1,
           style: FlutterFlowTheme.of(context).bodyMedium.override(
                 fontFamily: 'Kanit',
