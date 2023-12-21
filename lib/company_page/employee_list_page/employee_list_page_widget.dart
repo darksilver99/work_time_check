@@ -194,8 +194,7 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                 children: [
                                                   Flexible(
                                                     child: Text(
-                                                      containerUsersRecord
-                                                          .displayName,
+                                                      '${containerUsersRecord.firstName} ${containerUsersRecord.lastName}',
                                                       maxLines: 1,
                                                       style: FlutterFlowTheme
                                                               .of(context)

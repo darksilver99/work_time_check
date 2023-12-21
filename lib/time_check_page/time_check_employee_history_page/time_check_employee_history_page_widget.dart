@@ -1,6 +1,4 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/loading_view_widget.dart';
 import '/components/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -12,34 +10,38 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'time_check_history_page_model.dart';
-export 'time_check_history_page_model.dart';
+import 'time_check_employee_history_page_model.dart';
+export 'time_check_employee_history_page_model.dart';
 
-class TimeCheckHistoryPageWidget extends StatefulWidget {
-  const TimeCheckHistoryPageWidget({Key? key}) : super(key: key);
+class TimeCheckEmployeeHistoryPageWidget extends StatefulWidget {
+  const TimeCheckEmployeeHistoryPageWidget({
+    Key? key,
+    required this.userParameter,
+  }) : super(key: key);
+
+  final UsersRecord? userParameter;
 
   @override
-  _TimeCheckHistoryPageWidgetState createState() =>
-      _TimeCheckHistoryPageWidgetState();
+  _TimeCheckEmployeeHistoryPageWidgetState createState() =>
+      _TimeCheckEmployeeHistoryPageWidgetState();
 }
 
-class _TimeCheckHistoryPageWidgetState
-    extends State<TimeCheckHistoryPageWidget> {
-  late TimeCheckHistoryPageModel _model;
+class _TimeCheckEmployeeHistoryPageWidgetState
+    extends State<TimeCheckEmployeeHistoryPageWidget> {
+  late TimeCheckEmployeeHistoryPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TimeCheckHistoryPageModel());
+    _model = createModel(context, () => TimeCheckEmployeeHistoryPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.firstDate = await actions.getFirstDayOfMonth();
       setState(() {
         _model.startDate = _model.firstDate;
-        _model.isLoading = false;
       });
     });
   }
@@ -107,24 +109,18 @@ class _TimeCheckHistoryPageWidgetState
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                if (FFAppState().currentCompany == null)
-                  Expanded(
-                    child: wrapWithModel(
-                      model: _model.noDataViewModel,
-                      updateCallback: () => setState(() {}),
-                      child: NoDataViewWidget(),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      '${widget.userParameter?.firstName} ${widget.userParameter?.lastName} (${widget.userParameter?.displayName})',
+                      style: FlutterFlowTheme.of(context).bodyMedium,
                     ),
-                  ),
-                if (_model.isLoading)
-                  Expanded(
-                    child: wrapWithModel(
-                      model: _model.loadingViewModel,
-                      updateCallback: () => setState(() {}),
-                      child: LoadingViewWidget(),
-                    ),
-                  ),
-                if (!_model.isLoading && (FFAppState().currentCompany != null))
-                  Expanded(
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: StreamBuilder<List<TimeCheckListRecord>>(
                       stream: queryTimeCheckListRecord(
                         queryBuilder: (timeCheckListRecord) =>
@@ -135,7 +131,7 @@ class _TimeCheckHistoryPageWidgetState
                                 )
                                 .where(
                                   'create_by',
-                                  isEqualTo: currentUserReference,
+                                  isEqualTo: widget.userParameter?.reference,
                                 )
                                 .where(
                                   'create_date',
@@ -272,6 +268,7 @@ class _TimeCheckHistoryPageWidgetState
                       },
                     ),
                   ),
+                ),
               ],
             ),
           ),
