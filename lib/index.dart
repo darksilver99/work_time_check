@@ -11,15 +11,19 @@ export '/time_check_page/time_check_history_page/time_check_history_page_widget.
     show TimeCheckHistoryPageWidget;
 export '/company_page/join_company_page/join_company_page_widget.dart'
     show JoinCompanyPageWidget;
-export '/create_company_page/create_company_page_widget.dart'
+export '/company_page/create_company_page/create_company_page_widget.dart'
     show CreateCompanyPageWidget;
-export '/time_check_today_page/time_check_today_page_widget.dart'
+export '/time_check_page/time_check_today_page/time_check_today_page_widget.dart'
     show TimeCheckTodayPageWidget;
-export '/company_list_page/company_list_page_widget.dart'
+export '/company_page/company_list_page/company_list_page_widget.dart'
     show CompanyListPageWidget;
-export '/time_check_out_page/time_check_out_page_widget.dart'
+export '/time_check_page/time_check_out_page/time_check_out_page_widget.dart'
     show TimeCheckOutPageWidget;
 export '/company_page/company_manage_list_page/company_manage_list_page_widget.dart'
     show CompanyManageListPageWidget;
-export '/employee_list_page/employee_list_page_widget.dart'
+export '/company_page/employee_list_page/employee_list_page_widget.dart'
     show EmployeeListPageWidget;
+export '/time_check_page/time_check_employee_list_page/time_check_employee_list_page_widget.dart'
+    show TimeCheckEmployeeListPageWidget;
+export '/time_check_page/time_check_employee_history_page/time_check_employee_history_page_widget.dart'
+    show TimeCheckEmployeeHistoryPageWidget;

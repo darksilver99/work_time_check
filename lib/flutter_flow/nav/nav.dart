@@ -174,6 +174,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             companyParameter:
                 params.getParam('companyParameter', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'TimeCheckEmployeeListPage',
+          path: '/timeCheckEmployeeListPage',
+          builder: (context, params) => TimeCheckEmployeeListPageWidget(),
+        ),
+        FFRoute(
+          name: 'TimeCheckEmployeeHistoryPage',
+          path: '/timeCheckEmployeeHistoryPage',
+          asyncParams: {
+            'userParameter': getDoc(['users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => TimeCheckEmployeeHistoryPageWidget(
+            userParameter: params.getParam('userParameter', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
