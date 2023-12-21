@@ -261,7 +261,7 @@ class _CompanyManageListPageWidgetState
                                                           ),
                                                     ),
                                                     Text(
-                                                      '(${containerCompanyListRecord.companyCode})',
+                                                      'รหัสองค์กร ${containerCompanyListRecord.companyCode}',
                                                       maxLines: 1,
                                                       style:
                                                           FlutterFlowTheme.of(
