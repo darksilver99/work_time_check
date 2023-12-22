@@ -30,3 +30,4 @@ export '/time_check_page/time_check_employee_history_page/time_check_employee_hi
 export '/graph_page/graph_page_widget.dart' show GraphPageWidget;
 export '/export_excel_page/export_excel_page_widget.dart'
     show ExportExcelPageWidget;
+export '/full_photo_page/full_photo_page_widget.dart' show FullPhotoPageWidget;

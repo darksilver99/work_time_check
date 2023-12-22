@@ -52,7 +52,7 @@ class _InformationTimeCheckDialogViewWidgetState
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Container(
-        width: MediaQuery.sizeOf(context).width * 0.65,
+        width: MediaQuery.sizeOf(context).width * 0.75,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.circular(8.0),
@@ -67,19 +67,44 @@ class _InformationTimeCheckDialogViewWidgetState
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 100.0,
-                    height: 100.0,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      widget.timeCheckParameter!.photoIn,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Image.asset(
-                        'assets/images/error_image.jpg',
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed(
+                        'FullPhotoPage',
+                        queryParameters: {
+                          'imagePath': serializeParam(
+                            widget.timeCheckParameter?.photoIn,
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.scale,
+                            alignment: Alignment.bottomCenter,
+                          ),
+                        },
+                      );
+                    },
+                    child: Container(
+                      width: 100.0,
+                      height: 100.0,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.network(
+                        widget.timeCheckParameter!.photoIn,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(
+                          'assets/images/error_image.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -101,7 +126,7 @@ class _InformationTimeCheckDialogViewWidgetState
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Kanit',
-                      fontSize: 22.0,
+                      fontSize: 18.0,
                     ),
               ),
               Divider(
@@ -112,19 +137,44 @@ class _InformationTimeCheckDialogViewWidgetState
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 100.0,
-                    height: 100.0,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      widget.timeCheckParameter!.photoOut,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Image.asset(
-                        'assets/images/error_image.jpg',
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed(
+                        'FullPhotoPage',
+                        queryParameters: {
+                          'imagePath': serializeParam(
+                            widget.timeCheckParameter?.photoOut,
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.scale,
+                            alignment: Alignment.bottomCenter,
+                          ),
+                        },
+                      );
+                    },
+                    child: Container(
+                      width: 100.0,
+                      height: 100.0,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.network(
+                        widget.timeCheckParameter!.photoOut,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(
+                          'assets/images/error_image.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -149,7 +199,7 @@ class _InformationTimeCheckDialogViewWidgetState
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Kanit',
-                      fontSize: 22.0,
+                      fontSize: 18.0,
                     ),
               ),
               Padding(
