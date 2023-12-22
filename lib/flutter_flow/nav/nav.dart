@@ -199,6 +199,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ExportExcelPage',
           path: '/exportExcelPage',
           builder: (context, params) => ExportExcelPageWidget(),
+        ),
+        FFRoute(
+          name: 'FullPhotoPage',
+          path: '/fullPhotoPage',
+          builder: (context, params) => FullPhotoPageWidget(
+            imagePath: params.getParam('imagePath', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
