@@ -56,6 +56,10 @@ Future<String> exportExcel(
       .orderBy('create_date', descending: false)
       .get();
 
+  var rsCompany = await FirebaseFirestore.instance
+      .doc(FFAppState().currentCompany!.path)
+      .get();
+
   var excel = Excel.createExcel();
   Sheet sheetObject = excel['Sheet1'];
 
@@ -77,13 +81,23 @@ Future<String> exportExcel(
     return 'youshallnotpass';
   }
 
+  // title
+  var workStart = rsCompany.data()!["start_date"];
+  var workEnd = rsCompany.data()!["end_date"];
+  sheetObject.merge(
+    CellIndex.indexByString('A1'),
+    CellIndex.indexByString('C1'),
+    customValue: TextCellValue(
+        'รายชื่อพนักงาน เข้า-ออกงาน ประจำวันที่ ${(dateTimeFormat('dd/MM/yyyy', startDate)).replaceAll("/", '-')} ถึง ${(dateTimeFormat('dd/MM/yyyy', endDate)).replaceAll("/", '-')}\nเวลาทำงาน $workStart-$workEnd'),
+  );
+
   for (var i = 0; i < dateRange.length; i++) {
     header.add(dateRange[i]);
   }
 
   for (var i = 0; i < header.length; i++) {
     var cell = sheetObject
-        .cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0));
+        .cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 1));
     cell.value = TextCellValue(header[i]);
     cell.cellStyle = cellStyle;
   }
@@ -96,27 +110,52 @@ Future<String> exportExcel(
 
     for (int j = 0; j < header.length; j++) {
       var cell = sheetObject
-          .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: i + 1));
-      cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Center);
-      cell.value = TextCellValue(rsUser.data()!["first_name"]);
+          .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: i + 2));
+      cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+      cell.value = TextCellValue(
+          '${rsUser.data()!["first_name"]} ${rsUser.data()!["last_name"]}(${rsUser.data()!["display_name"]})');
 
       if (dateTimeFormat(
               'dd/MM/yyyy', rs.docs[i].data()["create_date"].toDate()) ==
           header[j]) {
         var cell = sheetObject
-            .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 1));
+            .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2));
         var dateIn =
             dateTimeFormat('Hm', rs.docs[i].data()["create_date"].toDate());
         var dateOut = rs.docs[i].data().containsKey("update_date")
             ? dateTimeFormat('Hm', rs.docs[i].data()["update_date"].toDate())
             : "-";
-        cell.value = TextCellValue("เข้างาน : $dateIn | ออกงาน : $dateOut");
+
+        cell.cellStyle = CellStyle(textWrapping: TextWrapping.WrapText);
+
+        DateTime? tmpUpdateDate = rs.docs[i].data().containsKey("update_date")
+            ? rs.docs[i].data()["update_date"].toDate()
+            : null;
+        if (isLate(rsCompany, rs.docs[i].data()["create_date"].toDate(),
+            tmpUpdateDate)) {
+          cell.cellStyle = CellStyle(
+              fontColorHex: "#ff0000", textWrapping: TextWrapping.WrapText);
+        }
+
+        var detailIn = rs.docs[i].data().containsKey("detail_in")
+            ? rs.docs[i].data()["detail_in"]
+            : " -";
+        var detailOut = rs.docs[i].data().containsKey("detail_out")
+            ? rs.docs[i].data()["detail_out"]
+            : " -";
+
+        var startEndTimeText = "เข้างาน : $dateIn | ออกงาน : $dateOut";
+        var startEndDetailText =
+            "รายละเอียด(เข้างาน) : ${(detailIn != '') ? detailIn : " -"}\n รายละเอียด(ออกงาน) :${(detailOut != '') ? detailOut : " -"}";
+        //var photoIn = "รูปเข้างาน : ${rs.docs[i].data()["photo_in"]}";
+        //var photoOut = "รูปออกงาน : ${rs.docs[i].data().containsKey("photo_out") && rs.docs[i].data()["photo_out"].trim() != "" ? rs.docs[i].data()["photo_out"] : " -"}";
+        cell.value = TextCellValue("$startEndTimeText\n$startEndDetailText");
       }
 
       //เสาทิตใส่สี
       if (isWeekend(header[j])) {
         var cell2 = sheetObject
-            .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 1));
+            .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2));
         cell2.cellStyle = CellStyle(backgroundColorHex: "#ffdfdf");
       }
     }
@@ -124,14 +163,16 @@ Future<String> exportExcel(
 
   // Auto-size columns
   for (int col = 0; col < 60; col++) {
-    //sheetObject.setColumnWidth(col, 50);
-    sheetObject.setColumnAutoFit(col);
+    //sheetObject.setColumnWidth(col, 2000);
+    sheetObject.setDefaultColumnWidth(25);
+    //sheetObject.setColumnAutoFit(col);
   }
 
   Directory dir = await getApplicationDocumentsDirectory();
   //Directory dir = Directory('/storage/emulated/0/Download');
   List<int>? fileBytes = excel.save();
-  var path = File('${dir.path}/test.xlsx')
+  var path = File(
+      '${dir.path}/เข้างาน${(dateTimeFormat('dd/MM/yyyy', startDate)).replaceAll("/", '-')}ถึง${(dateTimeFormat('dd/MM/yyyy', endDate)).replaceAll("/", '-')}.xlsx')
     ..createSync(recursive: true)
     ..writeAsBytesSync(fileBytes!);
 
