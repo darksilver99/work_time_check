@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/information_dialog_view_widget.dart';
 import '/components/information_time_check_dialog_view_widget.dart';
 import '/components/loading_view_widget.dart';
 import '/components/no_data_view_widget.dart';
@@ -379,9 +378,9 @@ class _TimeCheckHistoryPageWidgetState
                                                                         context)
                                                                     .unfocus(),
                                                             child:
-                                                                InformationDialogViewWidget(
-                                                              msg: listViewTimeCheckListRecord
-                                                                  .detailOut,
+                                                                InformationTimeCheckDialogViewWidget(
+                                                              timeCheckParameter:
+                                                                  listViewTimeCheckListRecord,
                                                             ),
                                                           ),
                                                         );
