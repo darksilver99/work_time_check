@@ -1,5 +1,6 @@
 import '/backend/backend.dart';
 import '/components/information_dialog_view_widget.dart';
+import '/components/information_time_check_dialog_view_widget.dart';
 import '/components/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -265,9 +266,9 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                                                                           context)
                                                                       .unfocus(),
                                                               child:
-                                                                  InformationDialogViewWidget(
-                                                                msg: listViewTimeCheckListRecord
-                                                                    .detailIn,
+                                                                  InformationTimeCheckDialogViewWidget(
+                                                                timeCheckParameter:
+                                                                    listViewTimeCheckListRecord,
                                                               ),
                                                             ),
                                                           );
