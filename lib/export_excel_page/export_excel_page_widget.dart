@@ -313,9 +313,33 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                       _model.startDate,
                                       _model.endDate,
                                     );
-                                    await actions.shareFile(
-                                      _model.path,
-                                    );
+                                    if (_model.path == 'youshallnotpass') {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'เลือกช่วงเวลาสูงสุดไม่เกิน 60 วัน',
+                                            style: FlutterFlowTheme.of(context)
+                                                .headlineMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .info,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                    } else {
+                                      await actions.shareFile(
+                                        _model.path,
+                                      );
+                                    }
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
@@ -327,7 +351,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                                 fontFamily: 'Kanit',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                        .info,
                                               ),
                                         ),
                                         duration: Duration(milliseconds: 2000),
