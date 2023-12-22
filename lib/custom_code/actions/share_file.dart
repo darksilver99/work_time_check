@@ -12,5 +12,7 @@ import 'package:share_extend/share_extend.dart';
 
 Future shareFile(String? path) async {
   // Add your function code here!
-  ShareExtend.share(path!, "file");
+  if (path != '') {
+    ShareExtend.share(path!, "file");
+  }
 }
