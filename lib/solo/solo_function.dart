@@ -44,8 +44,34 @@ bool isWeekend(date) {
   if (date == "ชื่อ-สกุล") {
     return false;
   }
-  print("date : $date");
+  //print("date : $date");
   var tmpDate = date.toString().split("/");
   DateTime newDate = DateTime.parse("${tmpDate[2]}-${tmpDate[1]}-${tmpDate[0]}");
   return newDate.weekday == DateTime.saturday || newDate.weekday == DateTime.sunday;
+}
+
+bool isLate(rsCompany, DateTime startDate, DateTime? endDate) {
+  var tmpStartDate = rsCompany.data()["start_date"].toString().split(":");
+  var tmpEndDate = rsCompany.data()["end_date"].toString().split(":");
+  var newCompanyStartDate = DateTime(startDate.year, startDate.month, startDate.day, int.parse(tmpStartDate[0]), int.parse(tmpStartDate[1]), 00, 000);
+  var newCompanyEndDate = DateTime(startDate.year, startDate.month, startDate.day, int.parse(tmpEndDate[0]), int.parse(tmpEndDate[1]), 00, 000);
+
+  bool isLate = startDate > newCompanyStartDate ? true : false;
+  bool isBefore = false;
+
+  if (endDate != null) {
+    isBefore = endDate < newCompanyEndDate ? true : false;
+  }
+
+  if (!isLate && !isBefore) {
+    return false; // ไม่สาย ออกหลัง
+  } else if (!isLate && isBefore) {
+    return true; // ไม่สาย ออกก่อน
+  } else if (isLate && !isBefore) {
+    return true; // สาย ออกหลัง
+  } else if (isLate && isBefore) {
+    return true; // สาย ออกก่อน
+  } else {
+    return false;
+  }
 }
