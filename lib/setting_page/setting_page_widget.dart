@@ -99,76 +99,98 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Builder(
-                        builder: (context) => FFButtonWidget(
-                          onPressed: () async {
-                            Function() _navigate = () {};
-                            await showAlignedDialog(
-                              context: context,
-                              isGlobal: true,
-                              avoidOverflow: false,
-                              targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                  .resolve(Directionality.of(context)),
-                              builder: (dialogContext) {
-                                return Material(
-                                  color: Colors.transparent,
-                                  child: GestureDetector(
-                                    onTap: () => _model
-                                            .unfocusNode.canRequestFocus
-                                        ? FocusScope.of(context)
-                                            .requestFocus(_model.unfocusNode)
-                                        : FocusScope.of(context).unfocus(),
-                                    child: ConfirmLogoutDialogViewWidget(),
-                                  ),
-                                );
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Builder(
+                            builder: (context) => FFButtonWidget(
+                              onPressed: () async {
+                                Function() _navigate = () {};
+                                await showAlignedDialog(
+                                  context: context,
+                                  isGlobal: true,
+                                  avoidOverflow: false,
+                                  targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  builder: (dialogContext) {
+                                    return Material(
+                                      color: Colors.transparent,
+                                      child: GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: ConfirmLogoutDialogViewWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(
+                                    () => _model.rsLogout = value));
+
+                                if ((_model.rsLogout != null) &&
+                                    _model.rsLogout!) {
+                                  GoRouter.of(context).prepareAuthEvent();
+                                  await authManager.signOut();
+                                  GoRouter.of(context).clearRedirectLocation();
+
+                                  _navigate = () => context.goNamedAuth(
+                                      'LoginPage', context.mounted);
+                                } else {
+                                  setState(() {});
+                                }
+
+                                _navigate();
+
+                                setState(() {});
                               },
-                            ).then((value) =>
-                                safeSetState(() => _model.rsLogout = value));
-
-                            if ((_model.rsLogout != null) && _model.rsLogout!) {
-                              GoRouter.of(context).prepareAuthEvent();
-                              await authManager.signOut();
-                              GoRouter.of(context).clearRedirectLocation();
-
-                              _navigate = () => context.goNamedAuth(
-                                  'LoginPage', context.mounted);
-                            } else {
-                              setState(() {});
-                            }
-
-                            _navigate();
-
-                            setState(() {});
-                          },
-                          text: 'ออกจากระบบ',
-                          icon: Icon(
-                            Icons.logout_rounded,
-                            size: 15.0,
-                          ),
-                          options: FFButtonOptions(
-                            height: 32.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 0.0, 8.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).error,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  color: Colors.white,
-                                  fontSize: 10.0,
+                              text: 'ออกจากระบบ',
+                              icon: Icon(
+                                Icons.logout_rounded,
+                                size: 15.0,
+                              ),
+                              options: FFButtonOptions(
+                                height: 32.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 0.0, 8.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).error,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      color: Colors.white,
+                                      fontSize: 10.0,
+                                    ),
+                                elevation: 3.0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
                                 ),
-                            elevation: 3.0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                        ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onDoubleTap: () async {
+                              setState(() {
+                                FFAppState().currentCompany = null;
+                              });
+                            },
+                            child: Text(
+                              FFAppState().appVersion,
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
