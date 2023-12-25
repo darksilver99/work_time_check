@@ -134,7 +134,7 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'HomePage': HomePageWidget(),
-      'SettingPage': SettingPageWidget(),
+      'SettingPage1': SettingPage1Widget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 

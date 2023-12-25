@@ -105,11 +105,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => RegisterPageWidget(),
         ),
         FFRoute(
-          name: 'SettingPage',
-          path: '/settingPage',
+          name: 'SettingPage1',
+          path: '/settingPage1',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'SettingPage')
-              : SettingPageWidget(),
+              ? NavBarPage(initialPage: 'SettingPage1')
+              : SettingPage1Widget(),
         ),
         FFRoute(
           name: 'ResetPasswordPage',
@@ -206,6 +206,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => FullPhotoPageWidget(
             imagePath: params.getParam('imagePath', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'SettingPage',
+          path: '/settingPage',
+          builder: (context, params) => SettingPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

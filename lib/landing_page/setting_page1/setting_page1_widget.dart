@@ -6,25 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'setting_page_model.dart';
-export 'setting_page_model.dart';
+import 'setting_page1_model.dart';
+export 'setting_page1_model.dart';
 
-class SettingPageWidget extends StatefulWidget {
-  const SettingPageWidget({Key? key}) : super(key: key);
+class SettingPage1Widget extends StatefulWidget {
+  const SettingPage1Widget({Key? key}) : super(key: key);
 
   @override
-  _SettingPageWidgetState createState() => _SettingPageWidgetState();
+  _SettingPage1WidgetState createState() => _SettingPage1WidgetState();
 }
 
-class _SettingPageWidgetState extends State<SettingPageWidget> {
-  late SettingPageModel _model;
+class _SettingPage1WidgetState extends State<SettingPage1Widget> {
+  late SettingPage1Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SettingPageModel());
+    _model = createModel(context, () => SettingPage1Model());
   }
 
   @override
