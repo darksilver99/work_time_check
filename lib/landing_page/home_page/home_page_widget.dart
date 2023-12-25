@@ -982,12 +982,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Lottie.asset(
-                                'assets/lottie_animations/Animation_-_1702952235302.json',
-                                width: 150.0,
-                                height: 130.0,
-                                fit: BoxFit.cover,
-                                animate: true,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Lottie.asset(
+                                    'assets/lottie_animations/Animation_-_1702952235302.json',
+                                    width: 150.0,
+                                    height: 130.0,
+                                    fit: BoxFit.cover,
+                                    animate: true,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
