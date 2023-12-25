@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -160,7 +161,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      _model.rsIsAdmin = await actions.isAdmin();
       FFAppState().currentLocation = currentUserLocationValue;
+      setState(() {
+        _model.isAdmin = _model.rsIsAdmin!;
+      });
     });
   }
 
@@ -612,23 +617,70 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               ).animateOnPageLoad(animationsMap[
                                   'containerOnPageLoadAnimation3']!),
                             ),
-                        () => Builder(
-                              builder: (context) => Padding(
-                                padding: EdgeInsets.all(6.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    if (FFAppState().currentCompany != null) {
-                                      _model.rsUser =
-                                          await UsersRecord.getDocumentOnce(
-                                              currentUserReference!);
-                                      if (_model.rsUser?.currentCompany ==
-                                          FFAppState().currentCompany) {
-                                        context.pushNamed(
-                                            'TimeCheckEmployeeListPage');
+                        () => Visibility(
+                              visible: _model.isAdmin,
+                              child: Builder(
+                                builder: (context) => Padding(
+                                  padding: EdgeInsets.all(6.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      if (FFAppState().currentCompany != null) {
+                                        _model.rsUser =
+                                            await UsersRecord.getDocumentOnce(
+                                                currentUserReference!);
+                                        if (_model.rsUser?.currentCompany ==
+                                            FFAppState().currentCompany) {
+                                          context.pushNamed(
+                                              'TimeCheckEmployeeListPage');
+                                        } else {
+                                          await showAlignedDialog(
+                                            context: context,
+                                            isGlobal: true,
+                                            avoidOverflow: false,
+                                            targetAnchor: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            followerAnchor:
+                                                AlignmentDirectional(0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                            builder: (dialogContext) {
+                                              return Material(
+                                                color: Colors.transparent,
+                                                child: GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child:
+                                                      InformationDialogViewWidget(
+                                                    msg:
+                                                        'กรุณาเข้าร่วมองค์กรก่อน',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ).then((value) => safeSetState(
+                                              () => _model.rsDialog3 = value));
+
+                                          setState(() {
+                                            FFAppState().currentCompany = null;
+                                          });
+                                          if ((_model.rsDialog3 != null) &&
+                                              _model.rsDialog3!) {
+                                            context
+                                                .pushNamed('CompanyListPage');
+                                          }
+                                        }
                                       } else {
                                         await showAlignedDialog(
                                           context: context,
@@ -662,86 +714,46 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             );
                                           },
                                         ).then((value) => safeSetState(
-                                            () => _model.rsDialog3 = value));
+                                            () => _model.rsDialog4 = value));
 
-                                        setState(() {
-                                          FFAppState().currentCompany = null;
-                                        });
-                                        if ((_model.rsDialog3 != null) &&
-                                            _model.rsDialog3!) {
+                                        if ((_model.rsDialog4 != null) &&
+                                            _model.rsDialog4!) {
                                           context.pushNamed('CompanyListPage');
                                         }
                                       }
-                                    } else {
-                                      await showAlignedDialog(
-                                        context: context,
-                                        isGlobal: true,
-                                        avoidOverflow: false,
-                                        targetAnchor:
-                                            AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        followerAnchor:
-                                            AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        builder: (dialogContext) {
-                                          return Material(
-                                            color: Colors.transparent,
-                                            child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
-                                                      .unfocus(),
-                                              child:
-                                                  InformationDialogViewWidget(
-                                                msg: 'กรุณาเข้าร่วมองค์กรก่อน',
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ).then((value) => safeSetState(
-                                          () => _model.rsDialog4 = value));
 
-                                      if ((_model.rsDialog4 != null) &&
-                                          _model.rsDialog4!) {
-                                        context.pushNamed('CompanyListPage');
-                                      }
-                                    }
-
-                                    setState(() {});
-                                  },
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 3.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 200.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                      setState(() {});
+                                    },
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 3.0,
+                                      shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
-                                      child: Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: Text(
-                                          'all',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 200.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Text(
+                                            'all',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ).animateOnPageLoad(animationsMap[
-                                    'containerOnPageLoadAnimation4']!),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'containerOnPageLoadAnimation4']!),
+                                ),
                               ),
                             ),
                         () => Padding(
