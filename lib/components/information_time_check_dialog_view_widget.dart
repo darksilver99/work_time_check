@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,9 +14,12 @@ class InformationTimeCheckDialogViewWidget extends StatefulWidget {
   const InformationTimeCheckDialogViewWidget({
     Key? key,
     required this.timeCheckParameter,
-  }) : super(key: key);
+    bool? isAdmin,
+  })  : this.isAdmin = isAdmin ?? false,
+        super(key: key);
 
   final TimeCheckListRecord? timeCheckParameter;
+  final bool isAdmin;
 
   @override
   _InformationTimeCheckDialogViewWidgetState createState() =>
@@ -63,145 +67,207 @@ class _InformationTimeCheckDialogViewWidgetState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed(
+                            'FullPhotoPage',
+                            queryParameters: {
+                              'imagePath': serializeParam(
+                                widget.timeCheckParameter?.photoIn,
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.scale,
+                                alignment: Alignment.bottomCenter,
+                              ),
+                            },
+                          );
+                        },
+                        child: Container(
+                          width: 100.0,
+                          height: 100.0,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.network(
+                            widget.timeCheckParameter!.photoIn,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Image.asset(
+                              'assets/images/error_image.jpg',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    'เวลาเข้า : ${dateTimeFormat('Hm', widget.timeCheckParameter?.createDate)}',
+                    textAlign: TextAlign.start,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Kanit',
+                          fontSize: 22.0,
+                        ),
+                  ),
+                  Text(
+                    'รายละเอียด : ${valueOrDefault<String>(
+                      widget.timeCheckParameter?.detailIn,
+                      '-',
+                    )}',
+                    textAlign: TextAlign.start,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Kanit',
+                          fontSize: 18.0,
+                        ),
+                  ),
                   InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed(
-                        'FullPhotoPage',
-                        queryParameters: {
-                          'imagePath': serializeParam(
-                            widget.timeCheckParameter?.photoIn,
-                            ParamType.String,
-                          ),
-                        }.withoutNulls,
-                        extra: <String, dynamic>{
-                          kTransitionInfoKey: TransitionInfo(
-                            hasTransition: true,
-                            transitionType: PageTransitionType.scale,
-                            alignment: Alignment.bottomCenter,
-                          ),
-                        },
+                      _model.url = await actions.getLocationURL(
+                        widget.timeCheckParameter?.locationIn,
                       );
+                      await launchURL(_model.url!);
+
+                      setState(() {});
                     },
-                    child: Container(
-                      width: 100.0,
-                      height: 100.0,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.network(
-                        widget.timeCheckParameter!.photoIn,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset(
-                          'assets/images/error_image.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                    child: Text(
+                      'ตำแหน่ง',
+                      textAlign: TextAlign.start,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Kanit',
+                            color: FlutterFlowTheme.of(context).secondary,
+                            fontSize: 18.0,
+                            decoration: TextDecoration.underline,
+                          ),
                     ),
                   ),
                 ],
-              ),
-              Text(
-                'เวลาเข้า : ${dateTimeFormat('Hm', widget.timeCheckParameter?.createDate)}',
-                textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Kanit',
-                      fontSize: 22.0,
-                    ),
-              ),
-              Text(
-                'รายละเอียด(เข้า) : ${valueOrDefault<String>(
-                  widget.timeCheckParameter?.detailIn,
-                  '-',
-                )}',
-                textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Kanit',
-                      fontSize: 18.0,
-                    ),
               ),
               Divider(
                 thickness: 1.0,
                 color: FlutterFlowTheme.of(context).alternate,
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(
-                        'FullPhotoPage',
-                        queryParameters: {
-                          'imagePath': serializeParam(
-                            widget.timeCheckParameter?.photoOut,
-                            ParamType.String,
+              if (widget.timeCheckParameter?.updateDate != null)
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(
+                              'FullPhotoPage',
+                              queryParameters: {
+                                'imagePath': serializeParam(
+                                  widget.timeCheckParameter?.photoOut,
+                                  ParamType.String,
+                                ),
+                              }.withoutNulls,
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.scale,
+                                  alignment: Alignment.bottomCenter,
+                                ),
+                              },
+                            );
+                          },
+                          child: Container(
+                            width: 100.0,
+                            height: 100.0,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.network(
+                              widget.timeCheckParameter!.photoOut,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Image.asset(
+                                'assets/images/error_image.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        }.withoutNulls,
-                        extra: <String, dynamic>{
-                          kTransitionInfoKey: TransitionInfo(
-                            hasTransition: true,
-                            transitionType: PageTransitionType.scale,
-                            alignment: Alignment.bottomCenter,
-                          ),
-                        },
-                      );
-                    },
-                    child: Container(
-                      width: 100.0,
-                      height: 100.0,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.network(
-                        widget.timeCheckParameter!.photoOut,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset(
-                          'assets/images/error_image.jpg',
-                          fit: BoxFit.cover,
                         ),
+                      ],
+                    ),
+                    Text(
+                      'เวลาออก : ${valueOrDefault<String>(
+                        dateTimeFormat(
+                            'Hm', widget.timeCheckParameter?.updateDate),
+                        '-',
+                      )}',
+                      textAlign: TextAlign.start,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Kanit',
+                            fontSize: 22.0,
+                          ),
+                    ),
+                    Text(
+                      'รายละเอียด : ${valueOrDefault<String>(
+                        widget.timeCheckParameter?.detailOut,
+                        '-',
+                      )}',
+                      textAlign: TextAlign.start,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Kanit',
+                            fontSize: 18.0,
+                          ),
+                    ),
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        _model.url2 = await actions.getLocationURL(
+                          widget.timeCheckParameter?.locationOut,
+                        );
+                        await launchURL(_model.url2!);
+
+                        setState(() {});
+                      },
+                      child: Text(
+                        'ตำแหน่ง',
+                        textAlign: TextAlign.start,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              color: FlutterFlowTheme.of(context).secondary,
+                              fontSize: 18.0,
+                              decoration: TextDecoration.underline,
+                            ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Text(
-                'เวลาออก : ${valueOrDefault<String>(
-                  dateTimeFormat('Hm', widget.timeCheckParameter?.updateDate),
-                  '-',
-                )}',
-                textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Kanit',
-                      fontSize: 22.0,
-                    ),
-              ),
-              Text(
-                'รายละเอียด(ออก) : ${valueOrDefault<String>(
-                  widget.timeCheckParameter?.detailOut,
-                  '-',
-                )}',
-                textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Kanit',
-                      fontSize: 18.0,
-                    ),
-              ),
+                  ],
+                ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Row(

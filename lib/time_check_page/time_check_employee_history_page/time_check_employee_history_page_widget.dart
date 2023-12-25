@@ -204,6 +204,7 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                                                 InformationTimeCheckDialogViewWidget(
                                               timeCheckParameter:
                                                   listViewTimeCheckListRecord,
+                                              isAdmin: true,
                                             ),
                                           ),
                                         );
