@@ -240,7 +240,8 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
