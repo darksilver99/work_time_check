@@ -1,14 +1,16 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'payment_warning_page_model.dart';
 export 'payment_warning_page_model.dart';
 
 class PaymentWarningPageWidget extends StatefulWidget {
-  const PaymentWarningPageWidget({super.key});
+  const PaymentWarningPageWidget({Key? key}) : super(key: key);
 
   @override
   _PaymentWarningPageWidgetState createState() =>
@@ -61,7 +63,7 @@ class _PaymentWarningPageWidgetState extends State<PaymentWarningPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -78,25 +80,25 @@ class _PaymentWarningPageWidgetState extends State<PaymentWarningPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 32.0, 0.0, 0.0),
                           child: Text(
                             'ขออภัยเนื่องจากองค์กรของท่าน มีพนักงานมากกว่า 8 คน หรือหมดอายุการใช้งานแล้ว กรุณาติดต่อเจ้าหน้าที่แอดมินของท่าน',

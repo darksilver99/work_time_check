@@ -5,22 +5,25 @@ import '/components/information_dialog_view_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:aligned_dialog/aligned_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({super.key});
+  const HomePageWidget({Key? key}) : super(key: key);
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -48,8 +51,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 400.ms,
-          begin: const Offset(-60.0, -60.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(-60.0, -60.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -67,8 +70,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 400.ms,
-          begin: const Offset(60.0, 60.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(60.0, 60.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -86,8 +89,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: const Offset(-60.0, -60.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(-60.0, -60.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -105,8 +108,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: const Offset(60.0, 60.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(60.0, 60.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -124,8 +127,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: const Offset(-60.0, -60.0),
-          end: const Offset(0.0, 0.0),
+          begin: Offset(-60.0, -60.0),
+          end: Offset(0.0, 0.0),
         ),
       ],
     ),
@@ -139,7 +142,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0));
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       await actions.setAppVersion();
       if (!FFAppState().isTesting) {
         if (FFAppState().appBuildVersion < FFAppState().storeBuildVersion) {
@@ -147,17 +150,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                 context: context,
                 builder: (alertDialogContext) {
                   return AlertDialog(
-                    content: const Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
+                    content: Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
                     actions: [
                       TextButton(
                         onPressed: () =>
                             Navigator.pop(alertDialogContext, false),
-                        child: const Text('ยกเลิก'),
+                        child: Text('ยกเลิก'),
                       ),
                       TextButton(
                         onPressed: () =>
                             Navigator.pop(alertDialogContext, true),
-                        child: const Text('ตกลง'),
+                        child: Text('ตกลง'),
                       ),
                     ],
                   );
@@ -214,7 +217,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -257,7 +260,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         Expanded(
                           child: MasonryGridView.builder(
                             gridDelegate:
-                                const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                SliverSimpleGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                             ),
                             crossAxisSpacing: 10.0,
@@ -267,7 +270,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               return [
                                 () => Builder(
                                       builder: (context) => Padding(
-                                        padding: const EdgeInsets.all(6.0),
+                                        padding: EdgeInsets.all(6.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -462,6 +465,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     }
 
                                                     if (_model.uploadedFileUrl !=
+                                                            null &&
+                                                        _model.uploadedFileUrl !=
                                                             '') {
                                                       if (_model
                                                               .rs?.reference !=
@@ -536,13 +541,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       isGlobal: true,
                                                       avoidOverflow: false,
                                                       targetAnchor:
-                                                          const AlignmentDirectional(
+                                                          AlignmentDirectional(
                                                                   0.0, 0.0)
                                                               .resolve(
                                                                   Directionality.of(
                                                                       context)),
                                                       followerAnchor:
-                                                          const AlignmentDirectional(
+                                                          AlignmentDirectional(
                                                                   0.0, 0.0)
                                                               .resolve(
                                                                   Directionality.of(
@@ -565,7 +570,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                         context)
                                                                     .unfocus(),
                                                             child:
-                                                                const InformationDialogViewWidget(
+                                                                InformationDialogViewWidget(
                                                               msg:
                                                                   'กรุณาเข้าร่วมองค์กรก่อน',
                                                             ),
@@ -592,13 +597,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 isGlobal: true,
                                                 avoidOverflow: false,
                                                 targetAnchor:
-                                                    const AlignmentDirectional(
+                                                    AlignmentDirectional(
                                                             0.0, 0.0)
                                                         .resolve(
                                                             Directionality.of(
                                                                 context)),
                                                 followerAnchor:
-                                                    const AlignmentDirectional(
+                                                    AlignmentDirectional(
                                                             0.0, 0.0)
                                                         .resolve(
                                                             Directionality.of(
@@ -618,7 +623,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   context)
                                                               .unfocus(),
                                                       child:
-                                                          const InformationDialogViewWidget(
+                                                          InformationDialogViewWidget(
                                                         msg:
                                                             'กรุณาเข้าร่วมองค์กรก่อน',
                                                       ),
@@ -656,7 +661,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     BorderRadius.circular(16.0),
                                               ),
                                               child: Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Text(
                                                   'ลง',
@@ -672,7 +677,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                 () => Padding(
-                                      padding: const EdgeInsets.all(6.0),
+                                      padding: EdgeInsets.all(6.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -700,7 +705,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 'ประ',
@@ -715,7 +720,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           'containerOnPageLoadAnimation2']!),
                                     ),
                                 () => Padding(
-                                      padding: const EdgeInsets.all(6.0),
+                                      padding: EdgeInsets.all(6.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -743,7 +748,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 'จัด',
@@ -761,7 +766,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       visible: FFAppState().isAdmin,
                                       child: Builder(
                                         builder: (context) => Padding(
-                                          padding: const EdgeInsets.all(6.0),
+                                          padding: EdgeInsets.all(6.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -785,13 +790,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     isGlobal: true,
                                                     avoidOverflow: false,
                                                     targetAnchor:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                                 0.0, 0.0)
                                                             .resolve(
                                                                 Directionality.of(
                                                                     context)),
                                                     followerAnchor:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                                 0.0, 0.0)
                                                             .resolve(
                                                                 Directionality.of(
@@ -813,7 +818,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       context)
                                                                   .unfocus(),
                                                           child:
-                                                              const InformationDialogViewWidget(
+                                                              InformationDialogViewWidget(
                                                             msg:
                                                                 'กรุณาเข้าร่วมองค์กรก่อน',
                                                           ),
@@ -841,13 +846,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   isGlobal: true,
                                                   avoidOverflow: false,
                                                   targetAnchor:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
                                                                   context)),
                                                   followerAnchor:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
@@ -867,7 +872,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     context)
                                                                 .unfocus(),
                                                         child:
-                                                            const InformationDialogViewWidget(
+                                                            InformationDialogViewWidget(
                                                           msg:
                                                               'กรุณาเข้าร่วมองค์กรก่อน',
                                                         ),
@@ -908,7 +913,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                                 child: Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Text(
                                                     'all',
@@ -925,7 +930,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                 () => Padding(
-                                      padding: const EdgeInsets.all(6.0),
+                                      padding: EdgeInsets.all(6.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -952,7 +957,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 'ตั้งค่า',

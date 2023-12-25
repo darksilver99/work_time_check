@@ -8,12 +8,13 @@ import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'setting_page_model.dart';
 export 'setting_page_model.dart';
 
 class SettingPageWidget extends StatefulWidget {
-  const SettingPageWidget({super.key});
+  const SettingPageWidget({Key? key}) : super(key: key);
 
   @override
   _SettingPageWidgetState createState() => _SettingPageWidgetState();
@@ -65,7 +66,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -82,14 +83,14 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -104,14 +105,14 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                           Builder(
                             builder: (context) => FFButtonWidget(
                               onPressed: () async {
-                                Function() navigate = () {};
+                                Function() _navigate = () {};
                                 await showAlignedDialog(
                                   context: context,
                                   isGlobal: true,
                                   avoidOverflow: false,
-                                  targetAnchor: const AlignmentDirectional(0.0, 0.0)
+                                  targetAnchor: AlignmentDirectional(0.0, 0.0)
                                       .resolve(Directionality.of(context)),
-                                  followerAnchor: const AlignmentDirectional(0.0, 0.0)
+                                  followerAnchor: AlignmentDirectional(0.0, 0.0)
                                       .resolve(Directionality.of(context)),
                                   builder: (dialogContext) {
                                     return Material(
@@ -123,7 +124,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                                 .requestFocus(
                                                     _model.unfocusNode)
                                             : FocusScope.of(context).unfocus(),
-                                        child: const ConfirmLogoutDialogViewWidget(),
+                                        child: ConfirmLogoutDialogViewWidget(),
                                       ),
                                     );
                                   },
@@ -136,26 +137,26 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                   await authManager.signOut();
                                   GoRouter.of(context).clearRedirectLocation();
 
-                                  navigate = () => context.goNamedAuth(
+                                  _navigate = () => context.goNamedAuth(
                                       'LoginPage', context.mounted);
                                 } else {
                                   setState(() {});
                                 }
 
-                                navigate();
+                                _navigate();
 
                                 setState(() {});
                               },
                               text: 'ออกจากระบบ',
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.logout_rounded,
                                 size: 15.0,
                               ),
                               options: FFButtonOptions(
                                 height: 32.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     8.0, 0.0, 8.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).error,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -166,7 +167,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       fontSize: 10.0,
                                     ),
                                 elevation: 3.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -221,11 +222,11 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: AuthUserStreamWidget(
                                 builder: (context) => Text(
-                                  '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.lastName, '')} ($currentUserDisplayName)',
+                                  '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.lastName, '')} (${currentUserDisplayName})',
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -238,7 +239,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                             ),
                             AuthUserStreamWidget(
                               builder: (context) => Text(
-                                '$currentPhoneNumber | $currentUserEmail',
+                                '${currentPhoneNumber} | ${currentUserEmail}',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context).bodyMedium,
                               ),
@@ -254,7 +255,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -266,9 +267,9 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -278,7 +279,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                   color: Colors.white,
                                 ),
                             elevation: 3.0,
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),

@@ -4,15 +4,18 @@ import '/components/still_no_company_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'company_list_page_model.dart';
 export 'company_list_page_model.dart';
 
 class CompanyListPageWidget extends StatefulWidget {
-  const CompanyListPageWidget({super.key});
+  const CompanyListPageWidget({Key? key}) : super(key: key);
 
   @override
   _CompanyListPageWidgetState createState() => _CompanyListPageWidgetState();
@@ -64,7 +67,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -81,14 +84,14 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -124,7 +127,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                       List<EmployeeListRecord> listViewEmployeeListRecordList =
                           snapshot.data!;
                       if (listViewEmployeeListRecordList.isEmpty) {
-                        return const StillNoCompanyViewWidget();
+                        return StillNoCompanyViewWidget();
                       }
                       return ListView.builder(
                         padding: EdgeInsets.zero,
@@ -135,7 +138,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                           final listViewEmployeeListRecord =
                               listViewEmployeeListRecordList[listViewIndex];
                           return Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
                             child: StreamBuilder<CompanyListRecord>(
                               stream: CompanyListRecord.getDocument(
@@ -187,7 +190,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'เปลี่ยนองค์กรเป็น "${containerCompanyListRecord.companyName}" เรียบร้อยแล้ว',
+                                            'เปลี่ยนองค์กรเป็น \"${containerCompanyListRecord.companyName}\" เรียบร้อยแล้ว',
                                             style: FlutterFlowTheme.of(context)
                                                 .headlineMedium
                                                 .override(
@@ -198,7 +201,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                                 ),
                                           ),
                                           duration:
-                                              const Duration(milliseconds: 2000),
+                                              Duration(milliseconds: 2000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .success,
@@ -225,7 +228,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,

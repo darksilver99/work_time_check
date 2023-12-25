@@ -4,18 +4,21 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'time_check_today_page_model.dart';
 export 'time_check_today_page_model.dart';
 
 class TimeCheckTodayPageWidget extends StatefulWidget {
   const TimeCheckTodayPageWidget({
-    super.key,
+    Key? key,
     required this.photoPath,
     required this.currentTime,
-  });
+  }) : super(key: key);
 
   final String? photoPath;
   final DateTime? currentTime;
@@ -75,7 +78,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -92,14 +95,14 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -116,7 +119,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 16.0, 16.0, 16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -133,7 +136,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                         width: 120.0,
                                         height: 120.0,
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
                                         child: Image.network(
@@ -142,7 +145,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 0.0),
                                         child: AuthUserStreamWidget(
                                           builder: (context) => Text(
@@ -168,7 +171,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 32.0, 0.0, 0.0),
                                   child: Text(
                                     dateTimeFormat('d/M/y', widget.currentTime),
@@ -206,7 +209,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                       TextSpan(
                                         text: dateTimeFormat(
                                             'Hm', widget.currentTime),
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 24.0,
                                         ),
                                       )
@@ -222,7 +225,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: TextFormField(
                                 controller: _model.textController,
@@ -274,13 +277,13 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   currentUserLocationValue =
                                       await getCurrentUserLocation(
-                                          defaultLocation: const LatLng(0.0, 0.0));
+                                          defaultLocation: LatLng(0.0, 0.0));
 
                                   await TimeCheckListRecord.collection
                                       .doc()
@@ -307,7 +310,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                                       .info,
                                             ),
                                       ),
-                                      duration: const Duration(milliseconds: 2000),
+                                      duration: Duration(milliseconds: 2000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).success,
                                     ),
@@ -319,9 +322,9 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 55.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -332,7 +335,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                                         fontSize: 24.0,
                                       ),
                                   elevation: 3.0,
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),

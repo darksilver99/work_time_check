@@ -6,12 +6,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'time_check_employee_list_page_model.dart';
 export 'time_check_employee_list_page_model.dart';
 
 class TimeCheckEmployeeListPageWidget extends StatefulWidget {
-  const TimeCheckEmployeeListPageWidget({super.key});
+  const TimeCheckEmployeeListPageWidget({Key? key}) : super(key: key);
 
   @override
   _TimeCheckEmployeeListPageWidgetState createState() =>
@@ -65,7 +66,7 @@ class _TimeCheckEmployeeListPageWidgetState
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -82,14 +83,14 @@ class _TimeCheckEmployeeListPageWidgetState
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -98,7 +99,7 @@ class _TimeCheckEmployeeListPageWidgetState
                     child: wrapWithModel(
                       model: _model.noDataViewModel,
                       updateCallback: () => setState(() {}),
-                      child: const NoDataViewWidget(),
+                      child: NoDataViewWidget(),
                     ),
                   ),
                 if (FFAppState().currentCompany != null)
@@ -142,9 +143,9 @@ class _TimeCheckEmployeeListPageWidgetState
                                   text: 'Export',
                                   options: FFButtonOptions(
                                     height: 40.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context)
@@ -154,7 +155,7 @@ class _TimeCheckEmployeeListPageWidgetState
                                           color: Colors.white,
                                         ),
                                     elevation: 3.0,
-                                    borderSide: const BorderSide(
+                                    borderSide: BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -166,7 +167,7 @@ class _TimeCheckEmployeeListPageWidgetState
                           },
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 0.0),
                           child: StreamBuilder<List<EmployeeListRecord>>(
                             stream: queryEmployeeListRecord(
@@ -211,7 +212,7 @@ class _TimeCheckEmployeeListPageWidgetState
                                       listViewEmployeeListRecordList[
                                           listViewIndex];
                                   return Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 8.0),
                                     child: StreamBuilder<UsersRecord>(
                                       stream: UsersRecord.getDocument(
@@ -274,7 +275,7 @@ class _TimeCheckEmployeeListPageWidgetState
                                                     BorderRadius.circular(8.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 0.0),
                                                 child: Row(
@@ -342,7 +343,7 @@ class _TimeCheckEmployeeListPageWidgetState
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsetsDirectional
+                                                          EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   16.0,
                                                                   0.0,

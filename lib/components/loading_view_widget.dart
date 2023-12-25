@@ -1,12 +1,15 @@
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'loading_view_model.dart';
 export 'loading_view_model.dart';
 
 class LoadingViewWidget extends StatefulWidget {
-  const LoadingViewWidget({super.key});
+  const LoadingViewWidget({Key? key}) : super(key: key);
 
   @override
   _LoadingViewWidgetState createState() => _LoadingViewWidgetState();
