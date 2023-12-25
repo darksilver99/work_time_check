@@ -3,18 +3,20 @@ import '/components/employee_setting_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'employee_list_page_model.dart';
 export 'employee_list_page_model.dart';
 
 class EmployeeListPageWidget extends StatefulWidget {
   const EmployeeListPageWidget({
-    super.key,
+    Key? key,
     required this.companyParameter,
-  });
+  }) : super(key: key);
 
   final CompanyListRecord? companyParameter;
 
@@ -68,7 +70,7 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -85,14 +87,14 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -136,7 +138,7 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                         final listViewEmployeeListRecord =
                             listViewEmployeeListRecordList[listViewIndex];
                         return Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
                           child: StreamBuilder<UsersRecord>(
                             stream: UsersRecord.getDocument(
@@ -172,7 +174,7 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -266,7 +268,7 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                               : null;
                                                       return Container(
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Visibility(
                                                           visible:
                                                               containerAdminListRecord
@@ -347,7 +349,7 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 0.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,

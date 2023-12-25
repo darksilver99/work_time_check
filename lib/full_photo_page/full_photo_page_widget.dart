@@ -1,16 +1,18 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'full_photo_page_model.dart';
 export 'full_photo_page_model.dart';
 
 class FullPhotoPageWidget extends StatefulWidget {
   const FullPhotoPageWidget({
-    super.key,
+    Key? key,
     required this.imagePath,
-  });
+  }) : super(key: key);
 
   final String? imagePath;
 
@@ -58,7 +60,7 @@ class _FullPhotoPageWidgetState extends State<FullPhotoPageWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height * 1.0,
             child: Stack(
@@ -91,7 +93,7 @@ class _FullPhotoPageWidgetState extends State<FullPhotoPageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 0.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,

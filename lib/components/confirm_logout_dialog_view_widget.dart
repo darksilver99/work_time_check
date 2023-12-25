@@ -2,12 +2,14 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'confirm_logout_dialog_view_model.dart';
 export 'confirm_logout_dialog_view_model.dart';
 
 class ConfirmLogoutDialogViewWidget extends StatefulWidget {
-  const ConfirmLogoutDialogViewWidget({super.key});
+  const ConfirmLogoutDialogViewWidget({Key? key}) : super(key: key);
 
   @override
   _ConfirmLogoutDialogViewWidgetState createState() =>
@@ -42,7 +44,7 @@ class _ConfirmLogoutDialogViewWidgetState
     context.watch<FFAppState>();
 
     return Align(
-      alignment: const AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.0, 0.0),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 0.65,
         decoration: BoxDecoration(
@@ -50,7 +52,7 @@ class _ConfirmLogoutDialogViewWidgetState
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 24.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -63,14 +65,14 @@ class _ConfirmLogoutDialogViewWidgetState
                     ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             Navigator.pop(context, false);
@@ -78,9 +80,9 @@ class _ConfirmLogoutDialogViewWidgetState
                           text: 'ยกเลิก',
                           options: FFButtonOptions(
                             height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).alternate,
                             textStyle: FlutterFlowTheme.of(context)
@@ -91,7 +93,7 @@ class _ConfirmLogoutDialogViewWidgetState
                                       .secondaryText,
                                 ),
                             elevation: 3.0,
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -103,7 +105,7 @@ class _ConfirmLogoutDialogViewWidgetState
                     Expanded(
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
                             Navigator.pop(context, true);
@@ -111,9 +113,9 @@ class _ConfirmLogoutDialogViewWidgetState
                           text: 'ยืนยัน',
                           options: FFButtonOptions(
                             height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).error,
                             textStyle: FlutterFlowTheme.of(context)
@@ -123,7 +125,7 @@ class _ConfirmLogoutDialogViewWidgetState
                                   color: FlutterFlowTheme.of(context).info,
                                 ),
                             elevation: 3.0,
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),

@@ -8,14 +8,17 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:aligned_dialog/aligned_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_company_page_model.dart';
 export 'create_company_page_model.dart';
 
 class CreateCompanyPageWidget extends StatefulWidget {
-  const CreateCompanyPageWidget({super.key});
+  const CreateCompanyPageWidget({Key? key}) : super(key: key);
 
   @override
   _CreateCompanyPageWidgetState createState() =>
@@ -71,7 +74,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: const Icon(
+            icon: Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -88,25 +91,25 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                   child: Form(
                     key: _model.formKey,
                     autovalidateMode: AutovalidateMode.disabled,
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -121,14 +124,14 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                               hintStyle:
                                   FlutterFlowTheme.of(context).labelMedium,
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(0.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0x00000000),
                                   width: 0.0,
                                 ),
@@ -156,7 +159,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                 .asValidator(context),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -164,7 +167,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                final datePicked1Time = await showTimePicker(
+                                final _datePicked1Time = await showTimePicker(
                                   context: context,
                                   initialTime: TimeOfDay.fromDateTime(
                                       getCurrentTimestamp),
@@ -201,14 +204,14 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                     );
                                   },
                                 );
-                                if (datePicked1Time != null) {
+                                if (_datePicked1Time != null) {
                                   safeSetState(() {
                                     _model.datePicked1 = DateTime(
                                       getCurrentTimestamp.year,
                                       getCurrentTimestamp.month,
                                       getCurrentTimestamp.day,
-                                      datePicked1Time.hour,
-                                      datePicked1Time.minute,
+                                      _datePicked1Time.hour,
+                                      _datePicked1Time.minute,
                                     );
                                   });
                                 }
@@ -225,7 +228,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 12.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -245,7 +248,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 8.0, 0.0, 0.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -253,7 +256,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                final datePicked2Time = await showTimePicker(
+                                final _datePicked2Time = await showTimePicker(
                                   context: context,
                                   initialTime: TimeOfDay.fromDateTime(
                                       getCurrentTimestamp),
@@ -290,14 +293,14 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                     );
                                   },
                                 );
-                                if (datePicked2Time != null) {
+                                if (_datePicked2Time != null) {
                                   safeSetState(() {
                                     _model.datePicked2 = DateTime(
                                       getCurrentTimestamp.year,
                                       getCurrentTimestamp.month,
                                       getCurrentTimestamp.day,
-                                      datePicked2Time.hour,
-                                      datePicked2Time.minute,
+                                      _datePicked2Time.hour,
+                                      _datePicked2Time.minute,
                                     );
                                   });
                                 }
@@ -314,7 +317,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 0.0, 12.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -335,7 +338,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                           ),
                           Builder(
                             builder: (context) => Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -360,7 +363,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                                         .info,
                                               ),
                                         ),
-                                        duration: const Duration(milliseconds: 2000),
+                                        duration: Duration(milliseconds: 2000),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context).error,
                                       ),
@@ -383,7 +386,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                                         .info,
                                               ),
                                         ),
-                                        duration: const Duration(milliseconds: 2000),
+                                        duration: Duration(milliseconds: 2000),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context).error,
                                       ),
@@ -459,7 +462,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                                       .info,
                                             ),
                                       ),
-                                      duration: const Duration(milliseconds: 2000),
+                                      duration: Duration(milliseconds: 2000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).success,
                                     ),
@@ -468,9 +471,9 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                     context: context,
                                     isGlobal: true,
                                     avoidOverflow: false,
-                                    targetAnchor: const AlignmentDirectional(0.0, 0.0)
+                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
                                         .resolve(Directionality.of(context)),
-                                    followerAnchor: const AlignmentDirectional(
+                                    followerAnchor: AlignmentDirectional(
                                             0.0, 0.0)
                                         .resolve(Directionality.of(context)),
                                     builder: (dialogContext) {
@@ -484,7 +487,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                                       _model.unfocusNode)
                                               : FocusScope.of(context)
                                                   .unfocus(),
-                                          child: const InformationDialogViewWidget(
+                                          child: InformationDialogViewWidget(
                                             msg:
                                                 'สำหรับองค์กรที่มีพนักงานน้อยกว่า 9 คนใช้งานฟรี !!!',
                                           ),
@@ -501,9 +504,9 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 40.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -513,7 +516,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                         color: Colors.white,
                                       ),
                                   elevation: 3.0,
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),

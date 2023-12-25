@@ -4,16 +4,19 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'information_time_check_dialog_view_model.dart';
 export 'information_time_check_dialog_view_model.dart';
 
 class InformationTimeCheckDialogViewWidget extends StatefulWidget {
   const InformationTimeCheckDialogViewWidget({
-    super.key,
+    Key? key,
     required this.timeCheckParameter,
     bool? isAdmin,
-  })  : isAdmin = isAdmin ?? false;
+  })  : this.isAdmin = isAdmin ?? false,
+        super(key: key);
 
   final TimeCheckListRecord? timeCheckParameter;
   final bool isAdmin;
@@ -51,7 +54,7 @@ class _InformationTimeCheckDialogViewWidgetState
     context.watch<FFAppState>();
 
     return Align(
-      alignment: const AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.0, 0.0),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 0.75,
         decoration: BoxDecoration(
@@ -59,7 +62,7 @@ class _InformationTimeCheckDialogViewWidgetState
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 24.0),
+          padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +90,7 @@ class _InformationTimeCheckDialogViewWidgetState
                               ),
                             }.withoutNulls,
                             extra: <String, dynamic>{
-                              kTransitionInfoKey: const TransitionInfo(
+                              kTransitionInfoKey: TransitionInfo(
                                 hasTransition: true,
                                 transitionType: PageTransitionType.scale,
                                 alignment: Alignment.bottomCenter,
@@ -99,7 +102,7 @@ class _InformationTimeCheckDialogViewWidgetState
                           width: 100.0,
                           height: 100.0,
                           clipBehavior: Clip.antiAlias,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             shape: BoxShape.circle,
                           ),
                           child: Image.network(
@@ -188,7 +191,7 @@ class _InformationTimeCheckDialogViewWidgetState
                                 ),
                               }.withoutNulls,
                               extra: <String, dynamic>{
-                                kTransitionInfoKey: const TransitionInfo(
+                                kTransitionInfoKey: TransitionInfo(
                                   hasTransition: true,
                                   transitionType: PageTransitionType.scale,
                                   alignment: Alignment.bottomCenter,
@@ -200,7 +203,7 @@ class _InformationTimeCheckDialogViewWidgetState
                             width: 100.0,
                             height: 100.0,
                             clipBehavior: Clip.antiAlias,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               shape: BoxShape.circle,
                             ),
                             child: Image.network(
@@ -266,7 +269,7 @@ class _InformationTimeCheckDialogViewWidgetState
                   ],
                 ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -279,9 +282,9 @@ class _InformationTimeCheckDialogViewWidgetState
                         text: 'ตกลง',
                         options: FFButtonOptions(
                           height: 40.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
+                          padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
@@ -290,7 +293,7 @@ class _InformationTimeCheckDialogViewWidgetState
                                     color: Colors.white,
                                   ),
                           elevation: 3.0,
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),
