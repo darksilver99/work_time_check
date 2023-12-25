@@ -3,8 +3,6 @@ export '/member_page/login_page/login_page_widget.dart' show LoginPageWidget;
 export '/landing_page/home_page/home_page_widget.dart' show HomePageWidget;
 export '/member_page/register_page/register_page_widget.dart'
     show RegisterPageWidget;
-export '/landing_page/setting_page1/setting_page1_widget.dart'
-    show SettingPage1Widget;
 export '/member_page/reset_password_page/reset_password_page_widget.dart'
     show ResetPasswordPageWidget;
 export '/time_check_page/time_check_history_page/time_check_history_page_widget.dart'

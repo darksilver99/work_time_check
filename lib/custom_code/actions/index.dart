@@ -5,3 +5,4 @@ export 'share_file.dart' show shareFile;
 export 'get_location_u_r_l.dart' show getLocationURL;
 export 'is_admin.dart' show isAdmin;
 export 'set_app_version.dart' show setAppVersion;
+export 'close_app.dart' show closeApp;

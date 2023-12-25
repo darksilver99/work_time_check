@@ -164,6 +164,41 @@ class _HomePageWidgetState extends State<HomePageWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      await actions.setAppVersion();
+      if (!FFAppState().isTesting) {
+        if (FFAppState().appBuildVersion < FFAppState().storeBuildVersion) {
+          var confirmDialogResponse = await showDialog<bool>(
+                context: context,
+                builder: (alertDialogContext) {
+                  return AlertDialog(
+                    content: Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
+                    actions: [
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(alertDialogContext, false),
+                        child: Text('ยกเลิก'),
+                      ),
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(alertDialogContext, true),
+                        child: Text('ตกลง'),
+                      ),
+                    ],
+                  );
+                },
+              ) ??
+              false;
+          if (confirmDialogResponse) {
+            if (isAndroid) {
+              await launchURL(FFAppState().androidStoreLink);
+            } else {
+              await launchURL(FFAppState().iosStoreLink);
+            }
+          }
+          await actions.closeApp();
+          return;
+        }
+      }
       _model.rsIsAdmin = await actions.isAdmin();
       FFAppState().currentLocation = currentUserLocationValue;
       setState(() {
@@ -902,30 +937,40 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     ),
                                 () => Padding(
                                       padding: EdgeInsets.all(6.0),
-                                      child: Material(
-                                        color: Colors.transparent,
-                                        elevation: 3.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16.0),
-                                        ),
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: 120.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed('SettingPage');
+                                        },
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 3.0,
+                                          shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(16.0),
                                           ),
-                                          child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              'ตั้งค่า',
-                                              style:
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 120.0,
+                                            decoration: BoxDecoration(
+                                              color:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            child: Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                'ตั้งค่า',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium,
+                                              ),
                                             ),
                                           ),
                                         ),

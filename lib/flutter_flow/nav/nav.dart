@@ -79,13 +79,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+          appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
+              appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
         ),
         FFRoute(
           name: 'LoginPage',
@@ -95,21 +95,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'HomePage')
-              : HomePageWidget(),
+          builder: (context, params) => HomePageWidget(),
         ),
         FFRoute(
           name: 'RegisterPage',
           path: '/registerPage',
           builder: (context, params) => RegisterPageWidget(),
-        ),
-        FFRoute(
-          name: 'SettingPage1',
-          path: '/settingPage1',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'SettingPage1')
-              : SettingPage1Widget(),
         ),
         FFRoute(
           name: 'ResetPasswordPage',
