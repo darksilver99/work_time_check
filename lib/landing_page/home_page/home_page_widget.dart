@@ -199,8 +199,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
       }
       _model.rsIsAdmin = await actions.isAdmin();
       FFAppState().currentLocation = currentUserLocationValue;
+      FFAppState().isAdmin = _model.rsIsAdmin!;
       setState(() {
-        _model.isAdmin = _model.rsIsAdmin!;
         _model.isLoading = false;
       });
     });
@@ -732,7 +732,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           'containerOnPageLoadAnimation3']!),
                                     ),
                                 () => Visibility(
-                                      visible: _model.isAdmin,
+                                      visible: FFAppState().isAdmin,
                                       child: Builder(
                                         builder: (context) => Padding(
                                           padding: EdgeInsets.all(6.0),
