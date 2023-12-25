@@ -77,6 +77,10 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "company_ref",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "status",
           "order": "ASCENDING"
         }

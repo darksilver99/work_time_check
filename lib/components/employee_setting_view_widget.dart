@@ -298,6 +298,28 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                     await widget.employeeParameter!.reference
                                         .delete();
                                     await _model.rsAdmin!.reference.delete();
+                                    _model.totalEmployee2 =
+                                        await queryEmployeeListRecordCount(
+                                      queryBuilder: (employeeListRecord) =>
+                                          employeeListRecord.where(
+                                        'company_ref',
+                                        isEqualTo: FFAppState().currentCompany,
+                                      ),
+                                    );
+                                    if (_model.totalEmployee2! > 8) {
+                                      await FFAppState()
+                                          .currentCompany!
+                                          .update(createCompanyListRecordData(
+                                            isFree: false,
+                                          ));
+                                    } else {
+                                      await FFAppState()
+                                          .currentCompany!
+                                          .update(createCompanyListRecordData(
+                                            isFree: true,
+                                          ));
+                                    }
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
@@ -320,6 +342,28 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 } else {
                                   await widget.employeeParameter!.reference
                                       .delete();
+                                  _model.totalEmployee =
+                                      await queryEmployeeListRecordCount(
+                                    queryBuilder: (employeeListRecord) =>
+                                        employeeListRecord.where(
+                                      'company_ref',
+                                      isEqualTo: FFAppState().currentCompany,
+                                    ),
+                                  );
+                                  if (_model.totalEmployee! > 8) {
+                                    await FFAppState()
+                                        .currentCompany!
+                                        .update(createCompanyListRecordData(
+                                          isFree: false,
+                                        ));
+                                  } else {
+                                    await FFAppState()
+                                        .currentCompany!
+                                        .update(createCompanyListRecordData(
+                                          isFree: true,
+                                        ));
+                                  }
+
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
