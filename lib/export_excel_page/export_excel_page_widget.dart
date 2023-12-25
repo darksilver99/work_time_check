@@ -3,16 +3,14 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'export_excel_page_model.dart';
 export 'export_excel_page_model.dart';
 
 class ExportExcelPageWidget extends StatefulWidget {
-  const ExportExcelPageWidget({Key? key}) : super(key: key);
+  const ExportExcelPageWidget({super.key});
 
   @override
   _ExportExcelPageWidgetState createState() => _ExportExcelPageWidgetState();
@@ -64,7 +62,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -81,14 +79,14 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -106,7 +104,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -116,7 +114,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                final _datePicked1Date = await showDatePicker(
+                                final datePicked1Date = await showDatePicker(
                                   context: context,
                                   initialDate: getCurrentTimestamp,
                                   firstDate: DateTime(1900),
@@ -155,12 +153,12 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                   },
                                 );
 
-                                if (_datePicked1Date != null) {
+                                if (datePicked1Date != null) {
                                   safeSetState(() {
                                     _model.datePicked1 = DateTime(
-                                      _datePicked1Date.year,
-                                      _datePicked1Date.month,
-                                      _datePicked1Date.day,
+                                      datePicked1Date.year,
+                                      datePicked1Date.month,
+                                      datePicked1Date.day,
                                     );
                                   });
                                 }
@@ -183,7 +181,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -204,7 +202,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -212,7 +210,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  final _datePicked2Date = await showDatePicker(
+                                  final datePicked2Date = await showDatePicker(
                                     context: context,
                                     initialDate: getCurrentTimestamp,
                                     firstDate: DateTime(1900),
@@ -253,12 +251,12 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                     },
                                   );
 
-                                  if (_datePicked2Date != null) {
+                                  if (datePicked2Date != null) {
                                     safeSetState(() {
                                       _model.datePicked2 = DateTime(
-                                        _datePicked2Date.year,
-                                        _datePicked2Date.month,
-                                        _datePicked2Date.day,
+                                        datePicked2Date.year,
+                                        datePicked2Date.month,
+                                        datePicked2Date.day,
                                       );
                                     });
                                   }
@@ -281,7 +279,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           12.0, 0.0, 12.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -303,7 +301,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -329,7 +327,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                                 ),
                                           ),
                                           duration:
-                                              Duration(milliseconds: 2000),
+                                              const Duration(milliseconds: 2000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .error,
@@ -354,7 +352,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                                         .info,
                                               ),
                                         ),
-                                        duration: Duration(milliseconds: 2000),
+                                        duration: const Duration(milliseconds: 2000),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context).error,
                                       ),
@@ -367,9 +365,9 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 40.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -379,7 +377,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                         color: Colors.white,
                                       ),
                                   elevation: 3.0,
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),

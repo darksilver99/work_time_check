@@ -4,22 +4,19 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'time_check_out_page_model.dart';
 export 'time_check_out_page_model.dart';
 
 class TimeCheckOutPageWidget extends StatefulWidget {
   const TimeCheckOutPageWidget({
-    Key? key,
+    super.key,
     required this.photoPath,
     required this.currentTime,
     required this.timeCheckParameter,
-  }) : super(key: key);
+  });
 
   final String? photoPath;
   final DateTime? currentTime;
@@ -79,7 +76,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -96,14 +93,14 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -120,7 +117,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 16.0, 16.0, 16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -137,7 +134,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                                         width: 120.0,
                                         height: 120.0,
                                         clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
                                         ),
                                         child: Image.network(
@@ -146,7 +143,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 8.0, 0.0, 0.0),
                                         child: AuthUserStreamWidget(
                                           builder: (context) => Text(
@@ -172,7 +169,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 32.0, 0.0, 0.0),
                                   child: Text(
                                     dateTimeFormat('d/M/y', widget.currentTime),
@@ -210,7 +207,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                                       TextSpan(
                                         text: dateTimeFormat(
                                             'Hm', widget.currentTime),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 24.0,
                                         ),
                                       )
@@ -226,7 +223,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                               ],
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 0.0, 0.0),
                               child: TextFormField(
                                 controller: _model.textController,
@@ -278,13 +275,13 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   currentUserLocationValue =
                                       await getCurrentUserLocation(
-                                          defaultLocation: LatLng(0.0, 0.0));
+                                          defaultLocation: const LatLng(0.0, 0.0));
 
                                   await widget.timeCheckParameter!.reference
                                       .update(createTimeCheckListRecordData(
@@ -307,7 +304,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                                                       .info,
                                             ),
                                       ),
-                                      duration: Duration(milliseconds: 2000),
+                                      duration: const Duration(milliseconds: 2000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).success,
                                     ),
@@ -319,9 +316,9 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 55.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).error,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -332,7 +329,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                                         fontSize: 24.0,
                                       ),
                                   elevation: 3.0,
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),

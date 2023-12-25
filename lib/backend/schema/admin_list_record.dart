@@ -10,9 +10,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class AdminListRecord extends FirestoreRecord {
   AdminListRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 

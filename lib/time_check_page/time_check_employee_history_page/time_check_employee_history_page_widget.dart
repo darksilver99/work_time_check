@@ -4,22 +4,20 @@ import '/components/no_data_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'time_check_employee_history_page_model.dart';
 export 'time_check_employee_history_page_model.dart';
 
 class TimeCheckEmployeeHistoryPageWidget extends StatefulWidget {
   const TimeCheckEmployeeHistoryPageWidget({
-    Key? key,
+    super.key,
     required this.userParameter,
-  }) : super(key: key);
+  });
 
   final UsersRecord? userParameter;
 
@@ -83,7 +81,7 @@ class _TimeCheckEmployeeHistoryPageWidgetState
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -100,14 +98,14 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -122,7 +120,7 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: StreamBuilder<List<TimeCheckListRecord>>(
                       stream: queryTimeCheckListRecord(
                         queryBuilder: (timeCheckListRecord) =>
@@ -159,7 +157,7 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                         List<TimeCheckListRecord>
                             listViewTimeCheckListRecordList = snapshot.data!;
                         if (listViewTimeCheckListRecordList.isEmpty) {
-                          return NoDataViewWidget();
+                          return const NoDataViewWidget();
                         }
                         return ListView.builder(
                           padding: EdgeInsets.zero,
@@ -171,7 +169,7 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                                 listViewTimeCheckListRecordList[listViewIndex];
                             return Builder(
                               builder: (context) => Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -183,10 +181,10 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                                       context: context,
                                       isGlobal: true,
                                       avoidOverflow: false,
-                                      targetAnchor: AlignmentDirectional(
+                                      targetAnchor: const AlignmentDirectional(
                                               0.0, 0.0)
                                           .resolve(Directionality.of(context)),
-                                      followerAnchor: AlignmentDirectional(
+                                      followerAnchor: const AlignmentDirectional(
                                               0.0, 0.0)
                                           .resolve(Directionality.of(context)),
                                       builder: (dialogContext) {
@@ -227,7 +225,7 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                                             BorderRadius.circular(8.0),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: const EdgeInsets.all(16.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           crossAxisAlignment:
