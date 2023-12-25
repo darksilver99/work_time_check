@@ -194,6 +194,10 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                         .where(
                                           'status',
                                           isNotEqualTo: 2,
+                                        )
+                                        .where(
+                                          'company_ref',
+                                          isEqualTo: _model.rs?.reference,
                                         ),
                                 singleRecord: true,
                               ).then((s) => s.firstOrNull);
@@ -207,6 +211,31 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                       companyRef: _model.rs?.reference,
                                     ));
                               }
+                              _model.totalEmployee =
+                                  await queryEmployeeListRecordCount(
+                                queryBuilder: (employeeListRecord) =>
+                                    employeeListRecord
+                                        .where(
+                                          'company_ref',
+                                          isEqualTo: _model.rs?.reference,
+                                        )
+                                        .where(
+                                          'status',
+                                          isEqualTo: 1,
+                                        ),
+                              );
+                              if (_model.totalEmployee! > 8) {
+                                await _model.rs!.reference
+                                    .update(createCompanyListRecordData(
+                                  isFree: false,
+                                ));
+                              } else {
+                                await _model.rs!.reference
+                                    .update(createCompanyListRecordData(
+                                  isFree: true,
+                                ));
+                              }
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(

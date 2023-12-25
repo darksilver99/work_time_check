@@ -26,10 +26,12 @@ export '/time_check_page/time_check_employee_list_page/time_check_employee_list_
 export '/time_check_page/time_check_employee_history_page/time_check_employee_history_page_widget.dart'
     show TimeCheckEmployeeHistoryPageWidget;
 export '/graph_page/graph_page_widget.dart' show GraphPageWidget;
-export '/export_excel_page/export_excel_page_widget.dart'
+export '/report/export_excel_page/export_excel_page_widget.dart'
     show ExportExcelPageWidget;
-export '/full_photo_page/full_photo_page_widget.dart' show FullPhotoPageWidget;
-export '/setting_page/setting_page_widget.dart' show SettingPageWidget;
-export '/payment_page/payment_page_widget.dart' show PaymentPageWidget;
-export '/payment_warning_page/payment_warning_page_widget.dart'
+export '/landing_page/full_photo_page/full_photo_page_widget.dart'
+    show FullPhotoPageWidget;
+export '/landing_page/setting_page/setting_page_widget.dart'
+    show SettingPageWidget;
+export '/payment/payment_page/payment_page_widget.dart' show PaymentPageWidget;
+export '/payment/payment_warning_page/payment_warning_page_widget.dart'
     show PaymentWarningPageWidget;
