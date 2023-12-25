@@ -45,6 +45,12 @@ class FFAppState extends ChangeNotifier {
         ? prefs.setString('ff_currentCompany', _value.path)
         : prefs.remove('ff_currentCompany');
   }
+
+  String _appVersion = '';
+  String get appVersion => _appVersion;
+  set appVersion(String _value) {
+    _appVersion = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
