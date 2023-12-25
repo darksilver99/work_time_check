@@ -71,6 +71,21 @@ class CompanyListRecord extends FirestoreRecord {
   String get endDate => _endDate ?? '';
   bool hasEndDate() => _endDate != null;
 
+  // "is_free" field.
+  bool? _isFree;
+  bool get isFree => _isFree ?? false;
+  bool hasIsFree() => _isFree != null;
+
+  // "is_paid" field.
+  bool? _isPaid;
+  bool get isPaid => _isPaid ?? false;
+  bool hasIsPaid() => _isPaid != null;
+
+  // "expire_date" field.
+  DateTime? _expireDate;
+  DateTime? get expireDate => _expireDate;
+  bool hasExpireDate() => _expireDate != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -83,6 +98,9 @@ class CompanyListRecord extends FirestoreRecord {
     _companyCode = snapshotData['company_code'] as String?;
     _startDate = snapshotData['start_date'] as String?;
     _endDate = snapshotData['end_date'] as String?;
+    _isFree = snapshotData['is_free'] as bool?;
+    _isPaid = snapshotData['is_paid'] as bool?;
+    _expireDate = snapshotData['expire_date'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -131,6 +149,9 @@ Map<String, dynamic> createCompanyListRecordData({
   String? companyCode,
   String? startDate,
   String? endDate,
+  bool? isFree,
+  bool? isPaid,
+  DateTime? expireDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -145,6 +166,9 @@ Map<String, dynamic> createCompanyListRecordData({
       'company_code': companyCode,
       'start_date': startDate,
       'end_date': endDate,
+      'is_free': isFree,
+      'is_paid': isPaid,
+      'expire_date': expireDate,
     }.withoutNulls,
   );
 
@@ -166,7 +190,10 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
         e1?.companyName == e2?.companyName &&
         e1?.companyCode == e2?.companyCode &&
         e1?.startDate == e2?.startDate &&
-        e1?.endDate == e2?.endDate;
+        e1?.endDate == e2?.endDate &&
+        e1?.isFree == e2?.isFree &&
+        e1?.isPaid == e2?.isPaid &&
+        e1?.expireDate == e2?.expireDate;
   }
 
   @override
@@ -181,7 +208,10 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
         e?.companyName,
         e?.companyCode,
         e?.startDate,
-        e?.endDate
+        e?.endDate,
+        e?.isFree,
+        e?.isPaid,
+        e?.expireDate
       ]);
 
   @override

@@ -202,6 +202,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'SettingPage',
           path: '/settingPage',
           builder: (context, params) => SettingPageWidget(),
+        ),
+        FFRoute(
+          name: 'PaymentPage',
+          path: '/paymentPage',
+          builder: (context, params) => PaymentPageWidget(),
+        ),
+        FFRoute(
+          name: 'PaymentWarningPage',
+          path: '/paymentWarningPage',
+          builder: (context, params) => PaymentWarningPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -381,14 +391,13 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+              ? Container(
+                  color: Color(0xFFFDFCFF),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/performance_1647538.png',
+                      width: MediaQuery.sizeOf(context).width * 0.6,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )

@@ -30,3 +30,6 @@ export '/export_excel_page/export_excel_page_widget.dart'
     show ExportExcelPageWidget;
 export '/full_photo_page/full_photo_page_widget.dart' show FullPhotoPageWidget;
 export '/setting_page/setting_page_widget.dart' show SettingPageWidget;
+export '/payment_page/payment_page_widget.dart' show PaymentPageWidget;
+export '/payment_warning_page/payment_warning_page_widget.dart'
+    show PaymentWarningPageWidget;

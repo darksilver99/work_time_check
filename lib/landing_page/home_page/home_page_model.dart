@@ -31,6 +31,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - isAdmin] action in HomePage widget.
   bool? rsIsAdmin;
+  // Stores action output result for [Backend Call - Read Document] action in Container widget.
+  CompanyListRecord? rsCompanyData;
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
   EmployeeListRecord? rsCompany;
   // Stores action output result for [Firestore Query - Query a collection] action in Container widget.

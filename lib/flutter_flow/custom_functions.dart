@@ -26,3 +26,9 @@ String? getTime(DateTime? dateTime) {
   var time = dateTime.toString().split(" ")[1].replaceAll(":00.000", "");
   return time;
 }
+
+DateTime? getNextDay(int? nextDay) {
+  DateTime currentDate = DateTime.now();
+  DateTime futureDate = currentDate.add(Duration(days: nextDay!));
+  return futureDate;
+}

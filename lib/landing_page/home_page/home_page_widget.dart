@@ -134,25 +134,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
         ),
       ],
     ),
-    'containerOnPageLoadAnimation6': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-60.0, -60.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
   };
 
   @override
@@ -286,7 +267,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             ),
                             crossAxisSpacing: 10.0,
                             mainAxisSpacing: 10.0,
-                            itemCount: 6,
+                            itemCount: 5,
                             itemBuilder: (context, index) {
                               return [
                                 () => Builder(
@@ -300,269 +281,320 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           onTap: () async {
                                             if (FFAppState().currentCompany !=
                                                 null) {
-                                              _model.rsCompany =
-                                                  await queryEmployeeListRecordOnce(
-                                                queryBuilder:
-                                                    (employeeListRecord) =>
-                                                        employeeListRecord
-                                                            .where(
-                                                              'create_by',
-                                                              isEqualTo:
-                                                                  currentUserReference,
-                                                            )
-                                                            .where(
-                                                              'company_ref',
-                                                              isEqualTo:
-                                                                  FFAppState()
-                                                                      .currentCompany,
-                                                            )
-                                                            .where(
-                                                              'status',
-                                                              isEqualTo: 1,
-                                                            ),
-                                                singleRecord: true,
-                                              ).then((s) => s.firstOrNull);
-                                              if (_model.rsCompany?.reference !=
-                                                  null) {
-                                                _model.rs =
-                                                    await queryTimeCheckListRecordOnce(
-                                                  queryBuilder:
-                                                      (timeCheckListRecord) =>
-                                                          timeCheckListRecord
-                                                              .where(
-                                                                'create_by',
-                                                                isEqualTo:
-                                                                    currentUserReference,
-                                                              )
-                                                              .where(
-                                                                'status',
-                                                                isEqualTo: 1,
-                                                              )
-                                                              .where(
-                                                                'photo_out',
-                                                                isEqualTo: ' ',
-                                                              )
-                                                              .where(
-                                                                'company_ref',
-                                                                isEqualTo:
-                                                                    FFAppState()
-                                                                        .currentCompany,
-                                                              ),
-                                                  singleRecord: true,
-                                                ).then((s) => s.firstOrNull);
-                                                setState(() {
-                                                  _model.isDataUploading =
-                                                      false;
-                                                  _model.uploadedLocalFile =
-                                                      FFUploadedFile(
-                                                          bytes: Uint8List
-                                                              .fromList([]));
-                                                  _model.uploadedFileUrl = '';
-                                                });
-
-                                                /*final selectedMedia = await selectMedia(
-                                                  maxWidth: 600.00,
-                                                  imageQuality: 80,
-                                                  multiImage: false,
-                                                );*/
-                                                List<SelectedFile>? selectedMedia = await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => const CustomCameraPage()),
-                                                );
-                                                if (selectedMedia != null &&
-                                                    selectedMedia.every((m) =>
-                                                        validateFileFormat(
-                                                            m.storagePath,
-                                                            context))) {
-                                                  setState(() => _model
-                                                      .isDataUploading = true);
-                                                  var selectedUploadedFiles =
-                                                      <FFUploadedFile>[];
-
-                                                  var downloadUrls = <String>[];
-                                                  try {
-                                                    showUploadMessage(
-                                                      context,
-                                                      'Uploading file...',
-                                                      showLoading: true,
-                                                    );
-                                                    selectedUploadedFiles =
-                                                        selectedMedia
-                                                            .map((m) =>
-                                                                FFUploadedFile(
-                                                                  name: m
-                                                                      .storagePath
-                                                                      .split(
-                                                                          '/')
-                                                                      .last,
-                                                                  bytes:
-                                                                      m.bytes,
-                                                                  height: m
-                                                                      .dimensions
-                                                                      ?.height,
-                                                                  width: m
-                                                                      .dimensions
-                                                                      ?.width,
-                                                                  blurHash: m
-                                                                      .blurHash,
-                                                                ))
-                                                            .toList();
-
-                                                    downloadUrls = (await Future
-                                                            .wait(
-                                                      selectedMedia.map(
-                                                        (m) async =>
-                                                            await uploadData(
-                                                                m.storagePath,
-                                                                m.bytes),
-                                                      ),
-                                                    ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
-                                                  } finally {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .hideCurrentSnackBar();
-                                                    _model.isDataUploading =
-                                                        false;
-                                                  }
-                                                  if (selectedUploadedFiles
-                                                              .length ==
-                                                          selectedMedia
-                                                              .length &&
-                                                      downloadUrls.length ==
-                                                          selectedMedia
-                                                              .length) {
-                                                    setState(() {
-                                                      _model.uploadedLocalFile =
-                                                          selectedUploadedFiles
-                                                              .first;
-                                                      _model.uploadedFileUrl =
-                                                          downloadUrls.first;
-                                                    });
-                                                    showUploadMessage(
-                                                        context, 'Success!');
-                                                  } else {
-                                                    setState(() {});
-                                                    showUploadMessage(context,
-                                                        'Failed to upload data');
-                                                    return;
-                                                  }
-                                                }
-
-                                                if (_model.uploadedFileUrl !=
-                                                        null &&
-                                                    _model.uploadedFileUrl !=
-                                                        '') {
-                                                  if (_model.rs?.reference !=
-                                                      null) {
-                                                    context.pushNamed(
-                                                      'TimeCheckOutPage',
-                                                      queryParameters: {
-                                                        'photoPath':
-                                                            serializeParam(
-                                                          _model
-                                                              .uploadedFileUrl,
-                                                          ParamType.String,
-                                                        ),
-                                                        'currentTime':
-                                                            serializeParam(
-                                                          getCurrentTimestamp,
-                                                          ParamType.DateTime,
-                                                        ),
-                                                        'timeCheckParameter':
-                                                            serializeParam(
-                                                          _model.rs,
-                                                          ParamType.Document,
-                                                        ),
-                                                      }.withoutNulls,
-                                                      extra: <String, dynamic>{
-                                                        'timeCheckParameter':
-                                                            _model.rs,
-                                                      },
-                                                    );
-                                                  } else {
-                                                    context.pushNamed(
-                                                      'TimeCheckTodayPage',
-                                                      queryParameters: {
-                                                        'photoPath':
-                                                            serializeParam(
-                                                          _model
-                                                              .uploadedFileUrl,
-                                                          ParamType.String,
-                                                        ),
-                                                        'currentTime':
-                                                            serializeParam(
-                                                          getCurrentTimestamp,
-                                                          ParamType.DateTime,
-                                                        ),
-                                                      }.withoutNulls,
-                                                    );
-                                                  }
+                                              _model.rsCompanyData =
+                                                  await CompanyListRecord
+                                                      .getDocumentOnce(
+                                                          FFAppState()
+                                                              .currentCompany!);
+                                              if (!_model
+                                                  .rsCompanyData!.isFree) {
+                                                if (FFAppState().isAdmin) {
+                                                  context
+                                                      .pushNamed('PaymentPage');
+                                                } else {
+                                                  context.pushNamed(
+                                                      'PaymentWarningPage');
                                                 }
                                               } else {
-                                                setState(() {
-                                                  FFAppState().currentCompany =
-                                                      null;
-                                                });
+                                                if (!_model
+                                                    .rsCompanyData!.isPaid) {
+                                                  if (FFAppState().isAdmin) {
+                                                    context.pushNamed(
+                                                        'PaymentPage');
+                                                  } else {
+                                                    context.pushNamed(
+                                                        'PaymentWarningPage');
+                                                  }
+                                                } else {
+                                                  _model.rsCompany =
+                                                      await queryEmployeeListRecordOnce(
+                                                    queryBuilder:
+                                                        (employeeListRecord) =>
+                                                            employeeListRecord
+                                                                .where(
+                                                                  'create_by',
+                                                                  isEqualTo:
+                                                                      currentUserReference,
+                                                                )
+                                                                .where(
+                                                                  'company_ref',
+                                                                  isEqualTo:
+                                                                      FFAppState()
+                                                                          .currentCompany,
+                                                                )
+                                                                .where(
+                                                                  'status',
+                                                                  isEqualTo: 1,
+                                                                ),
+                                                    singleRecord: true,
+                                                  ).then((s) => s.firstOrNull);
+                                                  if (_model.rsCompany
+                                                          ?.reference !=
+                                                      null) {
+                                                    _model.rs =
+                                                        await queryTimeCheckListRecordOnce(
+                                                      queryBuilder:
+                                                          (timeCheckListRecord) =>
+                                                              timeCheckListRecord
+                                                                  .where(
+                                                                    'create_by',
+                                                                    isEqualTo:
+                                                                        currentUserReference,
+                                                                  )
+                                                                  .where(
+                                                                    'status',
+                                                                    isEqualTo:
+                                                                        1,
+                                                                  )
+                                                                  .where(
+                                                                    'photo_out',
+                                                                    isEqualTo:
+                                                                        ' ',
+                                                                  )
+                                                                  .where(
+                                                                    'company_ref',
+                                                                    isEqualTo:
+                                                                        FFAppState()
+                                                                            .currentCompany,
+                                                                  ),
+                                                      singleRecord: true,
+                                                    ).then((s) =>
+                                                            s.firstOrNull);
+                                                    setState(() {
+                                                      _model.isDataUploading =
+                                                          false;
+                                                      _model.uploadedLocalFile =
+                                                          FFUploadedFile(
+                                                              bytes: Uint8List
+                                                                  .fromList(
+                                                                      []));
+                                                      _model.uploadedFileUrl =
+                                                          '';
+                                                    });
 
-                                                await currentUserReference!
-                                                    .update({
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'currentCompany':
-                                                          FieldValue.delete(),
-                                                    },
-                                                  ),
-                                                });
-                                                await showAlignedDialog(
-                                                  context: context,
-                                                  isGlobal: true,
-                                                  avoidOverflow: false,
-                                                  targetAnchor:
-                                                      AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
-                                                  followerAnchor:
-                                                      AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
-                                                  builder: (dialogContext) {
-                                                    return Material(
-                                                      color: Colors.transparent,
-                                                      child: GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child:
-                                                            InformationDialogViewWidget(
-                                                          msg:
-                                                              'กรุณาเข้าร่วมองค์กรก่อน',
-                                                        ),
-                                                      ),
+                                                    /*final selectedMedia =
+                                                        await selectMedia(
+                                                      maxWidth: 600.00,
+                                                      imageQuality: 80,
+                                                      multiImage: false,
+                                                    );*/
+                                                    List<SelectedFile>? selectedMedia = await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(builder: (context) => const CustomCameraPage()),
                                                     );
-                                                  },
-                                                ).then((value) => safeSetState(
-                                                    () => _model.rsDialog2 =
-                                                        value));
+                                                    if (selectedMedia != null &&
+                                                        selectedMedia.every((m) =>
+                                                            validateFileFormat(
+                                                                m.storagePath,
+                                                                context))) {
+                                                      setState(() => _model
+                                                              .isDataUploading =
+                                                          true);
+                                                      var selectedUploadedFiles =
+                                                          <FFUploadedFile>[];
 
-                                                if ((_model.rsDialog2 !=
-                                                        null) &&
-                                                    _model.rsDialog2!) {
-                                                  context.pushNamed(
-                                                      'CompanyListPage');
+                                                      var downloadUrls =
+                                                          <String>[];
+                                                      try {
+                                                        showUploadMessage(
+                                                          context,
+                                                          'Uploading file...',
+                                                          showLoading: true,
+                                                        );
+                                                        selectedUploadedFiles =
+                                                            selectedMedia
+                                                                .map((m) =>
+                                                                    FFUploadedFile(
+                                                                      name: m
+                                                                          .storagePath
+                                                                          .split(
+                                                                              '/')
+                                                                          .last,
+                                                                      bytes: m
+                                                                          .bytes,
+                                                                      height: m
+                                                                          .dimensions
+                                                                          ?.height,
+                                                                      width: m
+                                                                          .dimensions
+                                                                          ?.width,
+                                                                      blurHash:
+                                                                          m.blurHash,
+                                                                    ))
+                                                                .toList();
+
+                                                        downloadUrls =
+                                                            (await Future.wait(
+                                                          selectedMedia.map(
+                                                            (m) async =>
+                                                                await uploadData(
+                                                                    m.storagePath,
+                                                                    m.bytes),
+                                                          ),
+                                                        ))
+                                                                .where((u) =>
+                                                                    u != null)
+                                                                .map((u) => u!)
+                                                                .toList();
+                                                      } finally {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
+                                                        _model.isDataUploading =
+                                                            false;
+                                                      }
+                                                      if (selectedUploadedFiles
+                                                                  .length ==
+                                                              selectedMedia
+                                                                  .length &&
+                                                          downloadUrls.length ==
+                                                              selectedMedia
+                                                                  .length) {
+                                                        setState(() {
+                                                          _model.uploadedLocalFile =
+                                                              selectedUploadedFiles
+                                                                  .first;
+                                                          _model.uploadedFileUrl =
+                                                              downloadUrls
+                                                                  .first;
+                                                        });
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Success!');
+                                                      } else {
+                                                        setState(() {});
+                                                        showUploadMessage(
+                                                            context,
+                                                            'Failed to upload data');
+                                                        return;
+                                                      }
+                                                    }
+
+                                                    if (_model.uploadedFileUrl !=
+                                                            null &&
+                                                        _model.uploadedFileUrl !=
+                                                            '') {
+                                                      if (_model
+                                                              .rs?.reference !=
+                                                          null) {
+                                                        context.pushNamed(
+                                                          'TimeCheckOutPage',
+                                                          queryParameters: {
+                                                            'photoPath':
+                                                                serializeParam(
+                                                              _model
+                                                                  .uploadedFileUrl,
+                                                              ParamType.String,
+                                                            ),
+                                                            'currentTime':
+                                                                serializeParam(
+                                                              getCurrentTimestamp,
+                                                              ParamType
+                                                                  .DateTime,
+                                                            ),
+                                                            'timeCheckParameter':
+                                                                serializeParam(
+                                                              _model.rs,
+                                                              ParamType
+                                                                  .Document,
+                                                            ),
+                                                          }.withoutNulls,
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            'timeCheckParameter':
+                                                                _model.rs,
+                                                          },
+                                                        );
+                                                      } else {
+                                                        context.pushNamed(
+                                                          'TimeCheckTodayPage',
+                                                          queryParameters: {
+                                                            'photoPath':
+                                                                serializeParam(
+                                                              _model
+                                                                  .uploadedFileUrl,
+                                                              ParamType.String,
+                                                            ),
+                                                            'currentTime':
+                                                                serializeParam(
+                                                              getCurrentTimestamp,
+                                                              ParamType
+                                                                  .DateTime,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+                                                      }
+                                                    }
+                                                  } else {
+                                                    setState(() {
+                                                      FFAppState()
+                                                              .currentCompany =
+                                                          null;
+                                                    });
+
+                                                    await currentUserReference!
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'currentCompany':
+                                                              FieldValue
+                                                                  .delete(),
+                                                        },
+                                                      ),
+                                                    });
+                                                    await showAlignedDialog(
+                                                      context: context,
+                                                      isGlobal: true,
+                                                      avoidOverflow: false,
+                                                      targetAnchor:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      followerAnchor:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      builder: (dialogContext) {
+                                                        return Material(
+                                                          color: Colors
+                                                              .transparent,
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child:
+                                                                InformationDialogViewWidget(
+                                                              msg:
+                                                                  'กรุณาเข้าร่วมองค์กรก่อน',
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() =>
+                                                            _model.rsDialog2 =
+                                                                value));
+
+                                                    if ((_model.rsDialog2 !=
+                                                            null) &&
+                                                        _model.rsDialog2!) {
+                                                      context.pushNamed(
+                                                          'CompanyListPage');
+                                                    }
+                                                  }
                                                 }
                                               }
                                             } else {
@@ -905,38 +937,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     ),
                                 () => Padding(
                                       padding: EdgeInsets.all(6.0),
-                                      child: Material(
-                                        color: Colors.transparent,
-                                        elevation: 3.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16.0),
-                                        ),
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: 120.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(16.0),
-                                          ),
-                                          child: Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              'กราฟ',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
-                                            ),
-                                          ),
-                                        ),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'containerOnPageLoadAnimation5']!),
-                                    ),
-                                () => Padding(
-                                      padding: EdgeInsets.all(6.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -975,7 +975,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           ),
                                         ),
                                       ).animateOnPageLoad(animationsMap[
-                                          'containerOnPageLoadAnimation6']!),
+                                          'containerOnPageLoadAnimation5']!),
                                     ),
                               ][index]();
                             },
