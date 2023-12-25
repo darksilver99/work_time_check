@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -272,49 +273,71 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                               _model.paymentId =
                                   paymentResponse.paymentId ?? '';
 
-                              await FFAppState()
-                                  .currentCompany!
-                                  .update(createCompanyListRecordData(
-                                    isPaid: true,
-                                    expireDate: functions.getNextDay(30),
-                                    updateDate: getCurrentTimestamp,
-                                    updateBy: currentUserReference,
-                                  ));
+                              if (_model.paymentId != null &&
+                                  _model.paymentId != '') {
+                                await FFAppState()
+                                    .currentCompany!
+                                    .update(createCompanyListRecordData(
+                                      isPaid: true,
+                                      expireDate: functions.getNextDay(30),
+                                      updateDate: getCurrentTimestamp,
+                                      updateBy: currentUserReference,
+                                    ));
 
-                              await PayHistoryListRecord.collection
-                                  .doc()
-                                  .set(createPayHistoryListRecordData(
-                                    createDate: getCurrentTimestamp,
-                                    createBy: currentUserReference,
-                                    amount: 399.00,
-                                    status: 1,
-                                  ));
-                              await showAlignedDialog(
-                                context: context,
-                                isGlobal: true,
-                                avoidOverflow: false,
-                                targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                builder: (dialogContext) {
-                                  return Material(
-                                    color: Colors.transparent,
-                                    child: GestureDetector(
-                                      onTap: () => _model
-                                              .unfocusNode.canRequestFocus
-                                          ? FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode)
-                                          : FocusScope.of(context).unfocus(),
-                                      child: InformationDialogViewWidget(
-                                        msg: 'ชำระเงินเสร็จสิ้น',
+                                await PayHistoryListRecord.collection
+                                    .doc()
+                                    .set(createPayHistoryListRecordData(
+                                      createDate: getCurrentTimestamp,
+                                      createBy: currentUserReference,
+                                      amount: 399.00,
+                                      status: 1,
+                                    ));
+                                await showAlignedDialog(
+                                  context: context,
+                                  isGlobal: true,
+                                  avoidOverflow: false,
+                                  targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  builder: (dialogContext) {
+                                    return Material(
+                                      color: Colors.transparent,
+                                      child: GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: InformationDialogViewWidget(
+                                          msg: 'ชำระเงินเสร็จสิ้น',
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ).then((value) => setState(() {}));
+                                    );
+                                  },
+                                ).then((value) => setState(() {}));
 
-                              context.safePop();
+                                context.safePop();
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content: Text(
+                                          'ไม่สามารถทำรายการได้ กรุณาตรวจสอบระบบอินเทอร์เน็ตของท่าน แล้วทำรายการใหม่อีกครั้ง'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('ตกลง'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                await actions.closeApp();
+                              }
 
                               setState(() {});
                             },
