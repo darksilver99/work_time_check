@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '/backend/backend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -53,71 +52,71 @@ class FFAppState extends ChangeNotifier {
 
   LatLng? _currentLocation;
   LatLng? get currentLocation => _currentLocation;
-  set currentLocation(LatLng? _value) {
-    _currentLocation = _value;
+  set currentLocation(LatLng? value) {
+    _currentLocation = value;
   }
 
   DocumentReference? _currentCompany;
   DocumentReference? get currentCompany => _currentCompany;
-  set currentCompany(DocumentReference? _value) {
-    _currentCompany = _value;
-    _value != null
-        ? prefs.setString('ff_currentCompany', _value.path)
+  set currentCompany(DocumentReference? value) {
+    _currentCompany = value;
+    value != null
+        ? prefs.setString('ff_currentCompany', value.path)
         : prefs.remove('ff_currentCompany');
   }
 
   String _appVersion = '';
   String get appVersion => _appVersion;
-  set appVersion(String _value) {
-    _appVersion = _value;
+  set appVersion(String value) {
+    _appVersion = value;
   }
 
   int _storeBuildVersion = 0;
   int get storeBuildVersion => _storeBuildVersion;
-  set storeBuildVersion(int _value) {
-    _storeBuildVersion = _value;
-    prefs.setInt('ff_storeBuildVersion', _value);
+  set storeBuildVersion(int value) {
+    _storeBuildVersion = value;
+    prefs.setInt('ff_storeBuildVersion', value);
   }
 
   int _appBuildVersion = 0;
   int get appBuildVersion => _appBuildVersion;
-  set appBuildVersion(int _value) {
-    _appBuildVersion = _value;
-    prefs.setInt('ff_appBuildVersion', _value);
+  set appBuildVersion(int value) {
+    _appBuildVersion = value;
+    prefs.setInt('ff_appBuildVersion', value);
   }
 
   bool _isTesting = false;
   bool get isTesting => _isTesting;
-  set isTesting(bool _value) {
-    _isTesting = _value;
-    prefs.setBool('ff_isTesting', _value);
+  set isTesting(bool value) {
+    _isTesting = value;
+    prefs.setBool('ff_isTesting', value);
   }
 
   String _androidStoreLink = '';
   String get androidStoreLink => _androidStoreLink;
-  set androidStoreLink(String _value) {
-    _androidStoreLink = _value;
-    prefs.setString('ff_androidStoreLink', _value);
+  set androidStoreLink(String value) {
+    _androidStoreLink = value;
+    prefs.setString('ff_androidStoreLink', value);
   }
 
   String _iosStoreLink = '';
   String get iosStoreLink => _iosStoreLink;
-  set iosStoreLink(String _value) {
-    _iosStoreLink = _value;
-    prefs.setString('ff_iosStoreLink', _value);
+  set iosStoreLink(String value) {
+    _iosStoreLink = value;
+    prefs.setString('ff_iosStoreLink', value);
   }
 
   bool _isEnableAd = false;
   bool get isEnableAd => _isEnableAd;
-  set isEnableAd(bool _value) {
-    _isEnableAd = _value;
-    prefs.setBool('ff_isEnableAd', _value);
+  set isEnableAd(bool value) {
+    _isEnableAd = value;
+    prefs.setBool('ff_isEnableAd', value);
   }
 
   bool _isAdmin = false;
   bool get isAdmin => _isAdmin;
-  set isAdmin(bool _value) {
-    _isAdmin = _value;
+  set isAdmin(bool value) {
+    _isAdmin = value;
   }
 }
 

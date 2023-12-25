@@ -10,9 +10,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class CompanyListRecord extends FirestoreRecord {
   CompanyListRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 

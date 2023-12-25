@@ -9,13 +9,12 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'company_manage_list_page_model.dart';
 export 'company_manage_list_page_model.dart';
 
 class CompanyManageListPageWidget extends StatefulWidget {
-  const CompanyManageListPageWidget({Key? key}) : super(key: key);
+  const CompanyManageListPageWidget({super.key});
 
   @override
   _CompanyManageListPageWidgetState createState() =>
@@ -69,7 +68,7 @@ class _CompanyManageListPageWidgetState
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -86,14 +85,14 @@ class _CompanyManageListPageWidgetState
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -106,16 +105,16 @@ class _CompanyManageListPageWidgetState
                         context.pushNamed('CreateCompanyPage');
                       },
                       text: 'สร้างองค์กร',
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add_rounded,
                         size: 15.0,
                       ),
                       options: FFButtonOptions(
                         height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -123,7 +122,7 @@ class _CompanyManageListPageWidgetState
                                   color: Colors.white,
                                 ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -134,7 +133,7 @@ class _CompanyManageListPageWidgetState
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: StreamBuilder<List<AdminListRecord>>(
                       stream: queryAdminListRecord(
                         queryBuilder: (adminListRecord) => adminListRecord
@@ -162,7 +161,7 @@ class _CompanyManageListPageWidgetState
                         List<AdminListRecord> listViewAdminListRecordList =
                             snapshot.data!;
                         if (listViewAdminListRecordList.isEmpty) {
-                          return NoDataViewWidget();
+                          return const NoDataViewWidget();
                         }
                         return ListView.builder(
                           padding: EdgeInsets.zero,
@@ -173,7 +172,7 @@ class _CompanyManageListPageWidgetState
                             final listViewAdminListRecord =
                                 listViewAdminListRecordList[listViewIndex];
                             return Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 16.0),
                               child: StreamBuilder<CompanyListRecord>(
                                 stream: CompanyListRecord.getDocument(
@@ -235,7 +234,7 @@ class _CompanyManageListPageWidgetState
                                         ),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,

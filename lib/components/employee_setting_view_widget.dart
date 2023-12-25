@@ -7,21 +7,18 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'employee_setting_view_model.dart';
 export 'employee_setting_view_model.dart';
 
 class EmployeeSettingViewWidget extends StatefulWidget {
   const EmployeeSettingViewWidget({
-    Key? key,
+    super.key,
     required this.employeeParameter,
     required this.userParameter,
-  }) : super(key: key);
+  });
 
   final EmployeeListRecord? employeeParameter;
   final UsersRecord? userParameter;
@@ -65,7 +62,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(0.0),
                 bottomRight: Radius.circular(0.0),
                 topLeft: Radius.circular(16.0),
@@ -73,7 +70,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -88,7 +85,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 widget.employeeParameter?.status,
                           ),
                           options: List<int>.from([0, 1]),
-                          optionLabels: ['รออนุมัติ', 'อนุมัติ'],
+                          optionLabels: const ['รออนุมัติ', 'อนุมัติ'],
                           onChanged: (val) =>
                               setState(() => _model.dropDownValue = val),
                           width: 300.0,
@@ -106,7 +103,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                           borderColor: FlutterFlowTheme.of(context).alternate,
                           borderWidth: 2.0,
                           borderRadius: 8.0,
-                          margin: EdgeInsetsDirectional.fromSTEB(
+                          margin: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 4.0, 16.0, 4.0),
                           hidesUnderline: true,
                           isOverButton: true,
@@ -117,7 +114,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: StreamBuilder<List<AdminListRecord>>(
                       stream: queryAdminListRecord(
                         queryBuilder: (adminListRecord) => adminListRecord
@@ -158,7 +155,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                             Expanded(
                               child: Theme(
                                 data: ThemeData(
-                                  checkboxTheme: CheckboxThemeData(
+                                  checkboxTheme: const CheckboxThemeData(
                                     visualDensity: VisualDensity.compact,
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
@@ -202,7 +199,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -225,12 +222,12 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext, false),
-                                                child: Text('ยกเลิก'),
+                                                child: const Text('ยกเลิก'),
                                               ),
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext, true),
-                                                child: Text('ตกลง'),
+                                                child: const Text('ตกลง'),
                                               ),
                                             ],
                                           );
@@ -278,14 +275,14 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                       context: context,
                                       isGlobal: true,
                                       avoidOverflow: false,
-                                      targetAnchor: AlignmentDirectional(
+                                      targetAnchor: const AlignmentDirectional(
                                               0.0, 0.0)
                                           .resolve(Directionality.of(context)),
-                                      followerAnchor: AlignmentDirectional(
+                                      followerAnchor: const AlignmentDirectional(
                                               0.0, 0.0)
                                           .resolve(Directionality.of(context)),
                                       builder: (dialogContext) {
-                                        return Material(
+                                        return const Material(
                                           color: Colors.transparent,
                                           child: InformationDialogViewWidget(
                                             msg:
@@ -311,7 +308,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                                         .info,
                                               ),
                                         ),
-                                        duration: Duration(milliseconds: 2000),
+                                        duration: const Duration(milliseconds: 2000),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context).error,
                                       ),
@@ -333,7 +330,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                                       .info,
                                             ),
                                       ),
-                                      duration: Duration(milliseconds: 2000),
+                                      duration: const Duration(milliseconds: 2000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).error,
                                     ),
@@ -363,10 +360,10 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                   Builder(
                     builder: (context) => Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          var _shouldSetState = false;
+                          var shouldSetState = false;
                           _model.rsAdmin1 = await queryAdminListRecordOnce(
                             queryBuilder: (adminListRecord) => adminListRecord
                                 .where(
@@ -384,19 +381,19 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 ),
                             singleRecord: true,
                           ).then((s) => s.firstOrNull);
-                          _shouldSetState = true;
+                          shouldSetState = true;
                           if (_model.dropDownValue == 0) {
                             if (_model.checkboxListTileValue!) {
                               await showAlignedDialog(
                                 context: context,
                                 isGlobal: true,
                                 avoidOverflow: false,
-                                targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                targetAnchor: const AlignmentDirectional(0.0, 0.0)
                                     .resolve(Directionality.of(context)),
-                                followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                followerAnchor: const AlignmentDirectional(0.0, 0.0)
                                     .resolve(Directionality.of(context)),
                                 builder: (dialogContext) {
-                                  return Material(
+                                  return const Material(
                                     color: Colors.transparent,
                                     child: InformationDialogViewWidget(
                                       msg: 'กรุณาอนุมัติพนักงาน',
@@ -405,7 +402,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 },
                               ).then((value) => setState(() {}));
 
-                              if (_shouldSetState) setState(() {});
+                              if (shouldSetState) setState(() {});
                               return;
                             } else {
                               if (_model.rsAdmin1 != null) {
@@ -423,19 +420,19 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                                 .employeeParameter?.companyRef,
                                           ),
                                 );
-                                _shouldSetState = true;
+                                shouldSetState = true;
                                 if (_model.totalAdmin2! <= 1) {
                                   await showAlignedDialog(
                                     context: context,
                                     isGlobal: true,
                                     avoidOverflow: false,
-                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                    targetAnchor: const AlignmentDirectional(0.0, 0.0)
                                         .resolve(Directionality.of(context)),
-                                    followerAnchor: AlignmentDirectional(
+                                    followerAnchor: const AlignmentDirectional(
                                             0.0, 0.0)
                                         .resolve(Directionality.of(context)),
                                     builder: (dialogContext) {
-                                      return Material(
+                                      return const Material(
                                         color: Colors.transparent,
                                         child: InformationDialogViewWidget(
                                           msg:
@@ -445,7 +442,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                     },
                                   ).then((value) => setState(() {}));
 
-                                  if (_shouldSetState) setState(() {});
+                                  if (shouldSetState) setState(() {});
                                   return;
                                 } else {
                                   await _model.rsAdmin1!.reference.delete();
@@ -482,19 +479,19 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                                 .employeeParameter?.companyRef,
                                           ),
                                 );
-                                _shouldSetState = true;
+                                shouldSetState = true;
                                 if (_model.totalAdmin3! <= 1) {
                                   await showAlignedDialog(
                                     context: context,
                                     isGlobal: true,
                                     avoidOverflow: false,
-                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                    targetAnchor: const AlignmentDirectional(0.0, 0.0)
                                         .resolve(Directionality.of(context)),
-                                    followerAnchor: AlignmentDirectional(
+                                    followerAnchor: const AlignmentDirectional(
                                             0.0, 0.0)
                                         .resolve(Directionality.of(context)),
                                     builder: (dialogContext) {
-                                      return Material(
+                                      return const Material(
                                         color: Colors.transparent,
                                         child: InformationDialogViewWidget(
                                           msg:
@@ -504,7 +501,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                     },
                                   ).then((value) => setState(() {}));
 
-                                  if (_shouldSetState) setState(() {});
+                                  if (shouldSetState) setState(() {});
                                   return;
                                 } else {
                                   await _model.rsAdmin1!.reference.delete();
@@ -520,15 +517,15 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                             status: _model.dropDownValue,
                           ));
                           Navigator.pop(context);
-                          if (_shouldSetState) setState(() {});
+                          if (shouldSetState) setState(() {});
                         },
                         text: 'ตกลง',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
@@ -537,7 +534,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                     color: Colors.white,
                                   ),
                           elevation: 3.0,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),

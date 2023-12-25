@@ -1,20 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/components/information_time_check_dialog_view_widget.dart';
 import '/components/loading_view_widget.dart';
 import '/components/no_data_view_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'time_check_history_page_widget.dart' show TimeCheckHistoryPageWidget;
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class TimeCheckHistoryPageModel
     extends FlutterFlowModel<TimeCheckHistoryPageWidget> {
@@ -36,11 +24,13 @@ class TimeCheckHistoryPageModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     noDataViewModel = createModel(context, () => NoDataViewModel());
     loadingViewModel = createModel(context, () => LoadingViewModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     noDataViewModel.dispose();

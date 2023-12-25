@@ -9,16 +9,14 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:aligned_dialog/aligned_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'payment_page_model.dart';
 export 'payment_page_model.dart';
 
 class PaymentPageWidget extends StatefulWidget {
-  const PaymentPageWidget({Key? key}) : super(key: key);
+  const PaymentPageWidget({super.key});
 
   @override
   _PaymentPageWidgetState createState() => _PaymentPageWidgetState();
@@ -70,7 +68,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 60.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left_rounded,
               color: Colors.white,
               size: 30.0,
@@ -87,7 +85,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -96,7 +94,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
           child: Stack(
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -117,13 +115,13 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 32.0, 0.0, 0.0),
                                 child: Text(
                                   'ขออภัยเนื่องจากองค์กรของท่าน มีพนักงานมากกว่า 8 คน หรือหมดอายุการใช้งานแล้ว กรุณาต่ออายุการใช้งาน',
@@ -150,7 +148,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -163,7 +161,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Kanit',
-                                      color: Color(0xFFA5A5A5),
+                                      color: const Color(0xFFA5A5A5),
                                       fontSize: 22.0,
                                       fontWeight: FontWeight.normal,
                                       decoration: TextDecoration.lineThrough,
@@ -175,7 +173,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 32.0, 8.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(8.0, 32.0, 8.0, 0.0),
                         child: Material(
                           color: Colors.transparent,
                           elevation: 3.0,
@@ -189,7 +187,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 16.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -238,10 +236,10 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -297,9 +295,9 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                   context: context,
                                   isGlobal: true,
                                   avoidOverflow: false,
-                                  targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                  targetAnchor: const AlignmentDirectional(0.0, 0.0)
                                       .resolve(Directionality.of(context)),
-                                  followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                  followerAnchor: const AlignmentDirectional(0.0, 0.0)
                                       .resolve(Directionality.of(context)),
                                   builder: (dialogContext) {
                                     return Material(
@@ -311,7 +309,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                                 .requestFocus(
                                                     _model.unfocusNode)
                                             : FocusScope.of(context).unfocus(),
-                                        child: InformationDialogViewWidget(
+                                        child: const InformationDialogViewWidget(
                                           msg: 'ชำระเงินเสร็จสิ้น',
                                         ),
                                       ),
@@ -325,13 +323,13 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      content: Text(
+                                      content: const Text(
                                           'ไม่สามารถทำรายการได้ กรุณาตรวจสอบระบบอินเทอร์เน็ตของท่าน แล้วทำรายการใหม่อีกครั้ง'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
                                               Navigator.pop(alertDialogContext),
-                                          child: Text('ตกลง'),
+                                          child: const Text('ตกลง'),
                                         ),
                                       ],
                                     );
@@ -345,9 +343,9 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                             text: 'ชำระเงิน',
                             options: FFButtonOptions(
                               height: 55.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -358,7 +356,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                     fontSize: 24.0,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
