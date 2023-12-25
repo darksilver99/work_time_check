@@ -201,8 +201,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
       }
       _model.rsIsAdmin = await actions.isAdmin();
       FFAppState().currentLocation = currentUserLocationValue;
+      FFAppState().isAdmin = _model.rsIsAdmin!;
       setState(() {
-        _model.isAdmin = _model.rsIsAdmin!;
         _model.isLoading = false;
       });
     });
@@ -737,7 +737,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           'containerOnPageLoadAnimation3']!),
                                     ),
                                 () => Visibility(
-                                      visible: _model.isAdmin,
+                                      visible: FFAppState().isAdmin,
                                       child: Builder(
                                         builder: (context) => Padding(
                                           padding: EdgeInsets.all(6.0),
@@ -987,12 +987,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Lottie.asset(
-                                'assets/lottie_animations/Animation_-_1702952235302.json',
-                                width: 150.0,
-                                height: 130.0,
-                                fit: BoxFit.cover,
-                                animate: true,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Lottie.asset(
+                                    'assets/lottie_animations/Animation_-_1702952235302.json',
+                                    width: 150.0,
+                                    height: 130.0,
+                                    fit: BoxFit.cover,
+                                    animate: true,
+                                  ),
+                                ],
                               ),
                             ],
                           ),

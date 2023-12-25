@@ -113,6 +113,12 @@ class FFAppState extends ChangeNotifier {
     _isEnableAd = _value;
     prefs.setBool('ff_isEnableAd', _value);
   }
+
+  bool _isAdmin = false;
+  bool get isAdmin => _isAdmin;
+  set isAdmin(bool _value) {
+    _isAdmin = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

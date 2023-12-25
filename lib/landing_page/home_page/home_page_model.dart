@@ -24,8 +24,6 @@ import 'package:provider/provider.dart';
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  Local state fields for this page.
 
-  bool isAdmin = false;
-
   bool isLoading = true;
 
   ///  State fields for stateful widgets in this page.
