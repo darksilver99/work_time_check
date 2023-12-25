@@ -8,7 +8,20 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'package:work_time_check/auth/firebase_auth/auth_util.dart';
+
 Future<bool> isAdmin() async {
   // Add your function code here!
-  return false;
+  if (FFAppState().currentCompany == null) {
+    return false;
+  }
+  var rs = await FirebaseFirestore.instance
+      .collection("admin_list")
+      .where("company_ref", isEqualTo: FFAppState().currentCompany)
+      .where("user_ref", isEqualTo: currentUserReference)
+      .get();
+  if (rs.size == 0) {
+    return false;
+  }
+  return true;
 }
