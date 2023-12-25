@@ -1,11 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/information_dialog_view_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -334,158 +336,192 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 16.0, 0.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                if (_model.formKey.currentState == null ||
-                                    !_model.formKey.currentState!.validate()) {
-                                  return;
-                                }
-                                if (_model.datePicked1 == null) {
-                                  ScaffoldMessenger.of(context)
-                                      .clearSnackBars();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'เลือกเวลาเริ่มงาน',
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                            ),
-                                      ),
-                                      duration: Duration(milliseconds: 2000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).error,
-                                    ),
-                                  );
-                                  return;
-                                }
-                                if (_model.datePicked2 == null) {
-                                  ScaffoldMessenger.of(context)
-                                      .clearSnackBars();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'เลือกเวลาเลิกงาน',
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                            ),
-                                      ),
-                                      duration: Duration(milliseconds: 2000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).error,
-                                    ),
-                                  );
-                                  return;
-                                }
-                                _model.companyCode =
-                                    await actions.generateCompanyCode();
-
-                                var companyListRecordReference =
-                                    CompanyListRecord.collection.doc();
-                                await companyListRecordReference
-                                    .set(createCompanyListRecordData(
-                                  createDate: getCurrentTimestamp,
-                                  createBy: currentUserReference,
-                                  status: 1,
-                                  companyName: _model.textController.text,
-                                  companyCode: _model.companyCode,
-                                  startDate: _model.startTime,
-                                  endDate: _model.endTime,
-                                ));
-                                _model.rs =
-                                    CompanyListRecord.getDocumentFromData(
-                                        createCompanyListRecordData(
-                                          createDate: getCurrentTimestamp,
-                                          createBy: currentUserReference,
-                                          status: 1,
-                                          companyName:
-                                              _model.textController.text,
-                                          companyCode: _model.companyCode,
-                                          startDate: _model.startTime,
-                                          endDate: _model.endTime,
+                          Builder(
+                            builder: (context) => Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  if (_model.formKey.currentState == null ||
+                                      !_model.formKey.currentState!
+                                          .validate()) {
+                                    return;
+                                  }
+                                  if (_model.datePicked1 == null) {
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'เลือกเวลาเริ่มงาน',
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
+                                              ),
                                         ),
-                                        companyListRecordReference);
+                                        duration: Duration(milliseconds: 2000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context).error,
+                                      ),
+                                    );
+                                    return;
+                                  }
+                                  if (_model.datePicked2 == null) {
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'เลือกเวลาเลิกงาน',
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
+                                              ),
+                                        ),
+                                        duration: Duration(milliseconds: 2000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context).error,
+                                      ),
+                                    );
+                                    return;
+                                  }
+                                  _model.companyCode =
+                                      await actions.generateCompanyCode();
 
-                                await EmployeeListRecord.collection
-                                    .doc()
-                                    .set(createEmployeeListRecordData(
-                                      createDate: getCurrentTimestamp,
-                                      createBy: currentUserReference,
-                                      status: 1,
-                                      companyRef: _model.rs?.reference,
-                                    ));
-
-                                await AdminListRecord.collection
-                                    .doc()
-                                    .set(createAdminListRecordData(
-                                      createDate: getCurrentTimestamp,
-                                      createBy: currentUserReference,
-                                      status: 1,
-                                      companyRef: _model.rs?.reference,
-                                      userRef: currentUserReference,
-                                    ));
-                                FFAppState().currentCompany =
-                                    _model.rs?.reference;
-
-                                await currentUserReference!
-                                    .update(createUsersRecordData(
-                                  currentCompany: FFAppState().currentCompany,
-                                ));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'สร้างองค์กรเรียบร้อยแล้ว',
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineMedium
-                                          .override(
-                                            fontFamily: 'Kanit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .info,
+                                  var companyListRecordReference =
+                                      CompanyListRecord.collection.doc();
+                                  await companyListRecordReference
+                                      .set(createCompanyListRecordData(
+                                    createDate: getCurrentTimestamp,
+                                    createBy: currentUserReference,
+                                    status: 1,
+                                    companyName: _model.textController.text,
+                                    companyCode: _model.companyCode,
+                                    startDate: _model.startTime,
+                                    endDate: _model.endTime,
+                                    isFree: true,
+                                  ));
+                                  _model.rs =
+                                      CompanyListRecord.getDocumentFromData(
+                                          createCompanyListRecordData(
+                                            createDate: getCurrentTimestamp,
+                                            createBy: currentUserReference,
+                                            status: 1,
+                                            companyName:
+                                                _model.textController.text,
+                                            companyCode: _model.companyCode,
+                                            startDate: _model.startTime,
+                                            endDate: _model.endTime,
+                                            isFree: true,
                                           ),
+                                          companyListRecordReference);
+
+                                  await EmployeeListRecord.collection
+                                      .doc()
+                                      .set(createEmployeeListRecordData(
+                                        createDate: getCurrentTimestamp,
+                                        createBy: currentUserReference,
+                                        status: 1,
+                                        companyRef: _model.rs?.reference,
+                                      ));
+
+                                  await AdminListRecord.collection
+                                      .doc()
+                                      .set(createAdminListRecordData(
+                                        createDate: getCurrentTimestamp,
+                                        createBy: currentUserReference,
+                                        status: 1,
+                                        companyRef: _model.rs?.reference,
+                                        userRef: currentUserReference,
+                                      ));
+                                  FFAppState().currentCompany =
+                                      _model.rs?.reference;
+
+                                  await currentUserReference!
+                                      .update(createUsersRecordData(
+                                    currentCompany: FFAppState().currentCompany,
+                                  ));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'สร้างองค์กรเรียบร้อยแล้ว',
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                            ),
+                                      ),
+                                      duration: Duration(milliseconds: 2000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).success,
                                     ),
-                                    duration: Duration(milliseconds: 2000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).success,
+                                  );
+                                  await showAlignedDialog(
+                                    context: context,
+                                    isGlobal: true,
+                                    avoidOverflow: false,
+                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    followerAnchor: AlignmentDirectional(
+                                            0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    builder: (dialogContext) {
+                                      return Material(
+                                        color: Colors.transparent,
+                                        child: GestureDetector(
+                                          onTap: () => _model
+                                                  .unfocusNode.canRequestFocus
+                                              ? FocusScope.of(context)
+                                                  .requestFocus(
+                                                      _model.unfocusNode)
+                                              : FocusScope.of(context)
+                                                  .unfocus(),
+                                          child: InformationDialogViewWidget(
+                                            msg:
+                                                'สำหรับองค์กรที่มีพนักงานน้อยกว่า 9 คนใช้งานฟรี !!!',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => setState(() {}));
+
+                                  context.goNamed('HomePage');
+
+                                  setState(() {});
+                                },
+                                text: 'ยืนยัน',
+                                options: FFButtonOptions(
+                                  width: double.infinity,
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 0.0, 24.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        color: Colors.white,
+                                      ),
+                                  elevation: 3.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
                                   ),
-                                );
-
-                                context.goNamed('HomePage');
-
-                                setState(() {});
-                              },
-                              text: 'ยืนยัน',
-                              options: FFButtonOptions(
-                                width: double.infinity,
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      color: Colors.white,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                                  borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                           ),
