@@ -98,186 +98,279 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                StreamBuilder<List<EmployeeListRecord>>(
-                  stream: queryEmployeeListRecord(
-                    queryBuilder: (employeeListRecord) => employeeListRecord
-                        .where(
-                          'status',
-                          isNotEqualTo: 2,
-                        )
-                        .where(
-                          'company_ref',
-                          isEqualTo: widget.companyParameter?.reference,
-                        )
-                        .orderBy('status')
-                        .orderBy('create_date'),
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '${widget.companyParameter?.companyName} (${widget.companyParameter?.companyCode})',
+                        maxLines: 1,
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        'แก้ไข',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              color: FlutterFlowTheme.of(context).secondary,
+                              decoration: TextDecoration.underline,
                             ),
-                          ),
-                        ),
-                      );
-                    }
-                    List<EmployeeListRecord> listViewEmployeeListRecordList =
-                        snapshot.data!;
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: listViewEmployeeListRecordList.length,
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewEmployeeListRecord =
-                            listViewEmployeeListRecordList[listViewIndex];
-                        return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 8.0),
-                          child: StreamBuilder<UsersRecord>(
-                            stream: UsersRecord.getDocument(
-                                listViewEmployeeListRecord.createBy!),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              final containerUsersRecord = snapshot.data!;
-                              return Material(
-                                color: Colors.transparent,
-                                elevation: 3.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    child: StreamBuilder<List<EmployeeListRecord>>(
+                      stream: queryEmployeeListRecord(
+                        queryBuilder: (employeeListRecord) => employeeListRecord
+                            .where(
+                              'status',
+                              isNotEqualTo: 2,
+                            )
+                            .where(
+                              'company_ref',
+                              isEqualTo: widget.companyParameter?.reference,
+                            )
+                            .orderBy('status')
+                            .orderBy('create_date'),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
                                 ),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 80.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 0.0, 16.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
+                              ),
+                            ),
+                          );
+                        }
+                        List<EmployeeListRecord>
+                            listViewEmployeeListRecordList = snapshot.data!;
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listViewEmployeeListRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewEmployeeListRecord =
+                                listViewEmployeeListRecordList[listViewIndex];
+                            return Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: StreamBuilder<UsersRecord>(
+                                stream: UsersRecord.getDocument(
+                                    listViewEmployeeListRecord.createBy!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final containerUsersRecord = snapshot.data!;
+                                  return Material(
+                                    color: Colors.transparent,
+                                    elevation: 3.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 80.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 16.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
                                                 mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      '${containerUsersRecord.firstName} ${containerUsersRecord.lastName}',
-                                                      maxLines: 1,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Kanit',
-                                                            fontSize: 20.0,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                  StreamBuilder<
-                                                      List<AdminListRecord>>(
-                                                    stream:
-                                                        queryAdminListRecord(
-                                                      queryBuilder:
-                                                          (adminListRecord) =>
-                                                              adminListRecord
-                                                                  .where(
-                                                                    'user_ref',
-                                                                    isEqualTo:
-                                                                        containerUsersRecord
-                                                                            .reference,
-                                                                  )
-                                                                  .where(
-                                                                    'company_ref',
-                                                                    isEqualTo: widget
-                                                                        .companyParameter
-                                                                        ?.reference,
-                                                                  )
-                                                                  .where(
-                                                                    'status',
-                                                                    isEqualTo:
-                                                                        1,
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          '${containerUsersRecord.firstName} ${containerUsersRecord.lastName}',
+                                                          maxLines: 1,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Kanit',
+                                                                fontSize: 20.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      StreamBuilder<
+                                                          List<
+                                                              AdminListRecord>>(
+                                                        stream:
+                                                            queryAdminListRecord(
+                                                          queryBuilder:
+                                                              (adminListRecord) =>
+                                                                  adminListRecord
+                                                                      .where(
+                                                                        'user_ref',
+                                                                        isEqualTo:
+                                                                            containerUsersRecord.reference,
+                                                                      )
+                                                                      .where(
+                                                                        'company_ref',
+                                                                        isEqualTo: widget
+                                                                            .companyParameter
+                                                                            ?.reference,
+                                                                      )
+                                                                      .where(
+                                                                        'status',
+                                                                        isEqualTo:
+                                                                            1,
+                                                                      ),
+                                                          singleRecord: true,
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
                                                                   ),
-                                                      singleRecord: true,
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          List<AdminListRecord>
+                                                              containerAdminListRecordList =
+                                                              snapshot.data!;
+                                                          // Return an empty Container when the item does not exist.
+                                                          if (snapshot
+                                                              .data!.isEmpty) {
+                                                            return Container();
+                                                          }
+                                                          final containerAdminListRecord =
+                                                              containerAdminListRecordList
+                                                                      .isNotEmpty
+                                                                  ? containerAdminListRecordList
+                                                                      .first
+                                                                  : null;
+                                                          return Container(
+                                                            decoration:
+                                                                BoxDecoration(),
+                                                            child: Visibility(
+                                                              visible:
+                                                                  containerAdminListRecord
+                                                                          ?.reference !=
+                                                                      null,
+                                                              child: Text(
+                                                                ' (แอดมิน)',
+                                                                style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primary,
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Kanit',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                    ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      List<AdminListRecord>
-                                                          containerAdminListRecordList =
-                                                          snapshot.data!;
-                                                      // Return an empty Container when the item does not exist.
-                                                      if (snapshot
-                                                          .data!.isEmpty) {
-                                                        return Container();
-                                                      }
-                                                      final containerAdminListRecord =
-                                                          containerAdminListRecordList
-                                                                  .isNotEmpty
-                                                              ? containerAdminListRecordList
-                                                                  .first
-                                                              : null;
-                                                      return Container(
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        child: Visibility(
-                                                          visible:
-                                                              containerAdminListRecord
-                                                                      ?.reference !=
-                                                                  null,
-                                                          child: Text(
-                                                            ' (แอดมิน)',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                          );
+                                                        },
+                                                      ),
+                                                      if (listViewEmployeeListRecord
+                                                              .status ==
+                                                          0)
+                                                        Text(
+                                                          ' ${functions.getEmployeeStatus(listViewEmployeeListRecord.status)}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Kanit',
+                                                                color: () {
+                                                                  if (listViewEmployeeListRecord
+                                                                          .status ==
+                                                                      0) {
+                                                                    return FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .warning;
+                                                                  } else if (listViewEmployeeListRecord
+                                                                          .status ==
+                                                                      1) {
+                                                                    return FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .success;
+                                                                  } else {
+                                                                    return FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText;
+                                                                  }
+                                                                }(),
+                                                              ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        'โทร ${containerUsersRecord.phoneNumber}',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
@@ -285,131 +378,81 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
                                                                 ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 0.0, 0.0, 0.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await showModalBottomSheet(
+                                                    isScrollControlled: true,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    enableDrag: false,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return GestureDetector(
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
+                                                        child: Padding(
+                                                          padding: MediaQuery
+                                                              .viewInsetsOf(
+                                                                  context),
+                                                          child:
+                                                              EmployeeSettingViewWidget(
+                                                            employeeParameter:
+                                                                listViewEmployeeListRecord,
+                                                            userParameter:
+                                                                containerUsersRecord,
                                                           ),
                                                         ),
                                                       );
                                                     },
-                                                  ),
-                                                  if (listViewEmployeeListRecord
-                                                          .status ==
-                                                      0)
-                                                    Text(
-                                                      ' ${functions.getEmployeeStatus(listViewEmployeeListRecord.status)}',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Kanit',
-                                                            color: () {
-                                                              if (listViewEmployeeListRecord
-                                                                      .status ==
-                                                                  0) {
-                                                                return FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .warning;
-                                                              } else if (listViewEmployeeListRecord
-                                                                      .status ==
-                                                                  1) {
-                                                                return FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .success;
-                                                              } else {
-                                                                return FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText;
-                                                              }
-                                                            }(),
-                                                          ),
-                                                    ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    'โทร ${containerUsersRecord.phoneNumber}',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 0.0, 0.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          EmployeeSettingViewWidget(
-                                                        employeeParameter:
-                                                            listViewEmployeeListRecord,
-                                                        userParameter:
-                                                            containerUsersRecord,
-                                                      ),
-                                                    ),
-                                                  );
+                                                  ).then((value) =>
+                                                      safeSetState(() {}));
                                                 },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
-                                            },
-                                            child: Icon(
-                                              Icons.settings_outlined,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                                child: Icon(
+                                                  Icons.settings_outlined,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .secondaryText,
-                                              size: 24.0,
+                                                  size: 24.0,
+                                                ),
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
+                    ),
+                  ),
                 ),
               ],
             ),
