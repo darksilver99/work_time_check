@@ -212,6 +212,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PaymentWarningPage',
           path: '/paymentWarningPage',
           builder: (context, params) => PaymentWarningPageWidget(),
+        ),
+        FFRoute(
+          name: 'ContactPage',
+          path: '/contactPage',
+          builder: (context, params) => ContactPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
