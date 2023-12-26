@@ -246,6 +246,8 @@ class _ContactPageWidgetState extends State<ContactPageWidget> {
                                     );
                                   },
                                 ).then((value) => setState(() {}));
+
+                                context.safePop();
                               },
                               text: 'ส่งข้อมูล',
                               options: FFButtonOptions(
