@@ -36,3 +36,5 @@ export '/payment/payment_page/payment_page_widget.dart' show PaymentPageWidget;
 export '/payment/payment_warning_page/payment_warning_page_widget.dart'
     show PaymentWarningPageWidget;
 export '/contact_page/contact_page_widget.dart' show ContactPageWidget;
+export '/company_page/company_edit_page/company_edit_page_widget.dart'
+    show CompanyEditPageWidget;

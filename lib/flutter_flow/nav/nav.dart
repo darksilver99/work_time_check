@@ -217,6 +217,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ContactPage',
           path: '/contactPage',
           builder: (context, params) => ContactPageWidget(),
+        ),
+        FFRoute(
+          name: 'CompanyEditPage',
+          path: '/companyEditPage',
+          asyncParams: {
+            'companyParameter':
+                getDoc(['company_list'], CompanyListRecord.fromSnapshot),
+          },
+          builder: (context, params) => CompanyEditPageWidget(
+            companyParameter:
+                params.getParam('companyParameter', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
