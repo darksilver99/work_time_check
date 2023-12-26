@@ -150,12 +150,12 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                               text: 'ออกจากระบบ',
                               icon: Icon(
                                 Icons.logout_rounded,
-                                size: 15.0,
+                                size: 14.0,
                               ),
                               options: FFButtonOptions(
-                                height: 32.0,
+                                height: 28.0,
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 0.0, 8.0, 0.0),
+                                    6.0, 0.0, 6.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).error,
@@ -187,7 +187,12 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                             },
                             child: Text(
                               FFAppState().appVersion,
-                              style: FlutterFlowTheme.of(context).bodyMedium,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 11.0,
+                                  ),
                             ),
                           ),
                         ],
@@ -264,14 +269,18 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                             context.pushNamed('CompanyListPage');
                           },
                           text: 'เปลี่ยนองค์กร',
+                          icon: Icon(
+                            Icons.compare_arrows_rounded,
+                            size: 15.0,
+                          ),
                           options: FFButtonOptions(
-                            width: double.infinity,
+                            width: 200.0,
                             height: 40.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: FlutterFlowTheme.of(context).tertiary,
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -284,6 +293,41 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 16.0, 0.0, 0.0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              context.pushNamed('CompanyListPage');
+                            },
+                            text: 'แจ้งปัญหาการใช้งาน',
+                            icon: Icon(
+                              Icons.contact_emergency_rounded,
+                              size: 15.0,
+                            ),
+                            options: FFButtonOptions(
+                              width: 200.0,
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    color: Colors.white,
+                                  ),
+                              elevation: 3.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
                           ),
                         ),
                       ],
