@@ -111,13 +111,35 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        'แก้ไข',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Kanit',
-                              color: FlutterFlowTheme.of(context).secondary,
-                              decoration: TextDecoration.underline,
-                            ),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed(
+                            'CompanyEditPage',
+                            queryParameters: {
+                              'companyParameter': serializeParam(
+                                widget.companyParameter,
+                                ParamType.Document,
+                              ),
+                            }.withoutNulls,
+                            extra: <String, dynamic>{
+                              'companyParameter': widget.companyParameter,
+                            },
+                          );
+                        },
+                        child: Text(
+                          'แก้ไข',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Kanit',
+                                color: FlutterFlowTheme.of(context).secondary,
+                                decoration: TextDecoration.underline,
+                              ),
+                        ),
                       ),
                     ),
                   ],

@@ -463,6 +463,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                         ));
                                     FFAppState().currentCompany =
                                         _model.rs?.reference;
+                                    FFAppState().isAdmin = true;
 
                                     await currentUserReference!
                                         .update(createUsersRecordData(
