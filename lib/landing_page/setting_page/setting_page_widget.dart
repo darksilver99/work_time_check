@@ -300,7 +300,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                               0.0, 16.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              context.pushNamed('CompanyListPage');
+                              context.pushNamed('ContactPage');
                             },
                             text: 'แจ้งปัญหาการใช้งาน',
                             icon: Icon(
