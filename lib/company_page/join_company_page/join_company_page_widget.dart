@@ -16,13 +16,7 @@ import 'join_company_page_model.dart';
 export 'join_company_page_model.dart';
 
 class JoinCompanyPageWidget extends StatefulWidget {
-  const JoinCompanyPageWidget({
-    Key? key,
-    bool? isShowCreate,
-  })  : this.isShowCreate = isShowCreate ?? true,
-        super(key: key);
-
-  final bool isShowCreate;
+  const JoinCompanyPageWidget({Key? key}) : super(key: key);
 
   @override
   _JoinCompanyPageWidgetState createState() => _JoinCompanyPageWidgetState();
