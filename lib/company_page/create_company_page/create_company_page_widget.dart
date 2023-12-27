@@ -356,7 +356,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                         await queryAdminListRecordCount(
                                       queryBuilder: (adminListRecord) =>
                                           adminListRecord.where(
-                                        'create_by',
+                                        'user_ref',
                                         isEqualTo: currentUserReference,
                                       ),
                                     );
@@ -391,7 +391,9 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                               child:
                                                   InformationDialogViewWidget(
                                                 msg:
-                                                    'ขออภัย Account ของท่านสามารถสร้างองค์กรได้ ${valueOrDefault(currentUserDocument?.canCreateTotalCompany, 0).toString()} องค์กร',
+                                                    'ขออภัย Account ของท่านสามารถสร้างองค์กรหรือเป็นแอดมินได้ ${valueOrDefault(currentUserDocument?.canCreateTotalCompany, 0).toString()} องค์กร',
+                                                msg2:
+                                                    'หากต้องการสร้างเพิ่มองค์กรกรุณาออกจากองค์กรเดิมก่อนหรือหากมีคำถามเพิ่มเติมกรุณาติดต่อเมนู ตั้งค่า > แจ้งปัญหาการใช้งาน',
                                               ),
                                             ),
                                           );
@@ -570,7 +572,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                               child:
                                                   InformationDialogViewWidget(
                                                 msg:
-                                                    'สำหรับองค์กรที่มีพนักงานน้อยกว่า 9 คนใช้งานฟรี !!!',
+                                                    'สำหรับองค์กรที่มีพนักงานน้อยกว่า 9 คนใช้งานฟรี',
                                               ),
                                             ),
                                           );

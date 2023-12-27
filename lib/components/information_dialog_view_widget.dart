@@ -12,9 +12,11 @@ class InformationDialogViewWidget extends StatefulWidget {
   const InformationDialogViewWidget({
     Key? key,
     required this.msg,
+    this.msg2,
   }) : super(key: key);
 
   final String? msg;
+  final String? msg2;
 
   @override
   _InformationDialogViewWidgetState createState() =>
@@ -72,6 +74,18 @@ class _InformationDialogViewWidgetState
                       fontSize: 22.0,
                     ),
               ),
+              if (widget.msg2 != null && widget.msg2 != '')
+                Text(
+                  valueOrDefault<String>(
+                    widget.msg2,
+                    '-',
+                  ),
+                  textAlign: TextAlign.center,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Kanit',
+                        fontSize: 18.0,
+                      ),
+                ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: FFButtonWidget(
