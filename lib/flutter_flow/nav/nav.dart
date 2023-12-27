@@ -115,7 +115,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'JoinCompanyPage',
           path: '/joinCompanyPage',
-          builder: (context, params) => JoinCompanyPageWidget(),
+          builder: (context, params) => JoinCompanyPageWidget(
+            isShowCreate: params.getParam('isShowCreate', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'CreateCompanyPage',
