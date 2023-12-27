@@ -93,15 +93,7 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  context.pushNamed(
-                    'JoinCompanyPage',
-                    queryParameters: {
-                      'isShowCreate': serializeParam(
-                        false,
-                        ParamType.bool,
-                      ),
-                    }.withoutNulls,
-                  );
+                  context.pushNamed('JoinCompanyPage');
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.max,

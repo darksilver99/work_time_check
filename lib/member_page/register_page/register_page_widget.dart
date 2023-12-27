@@ -134,13 +134,15 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                               ),
                             ),
                             alignment: AlignmentDirectional(-1.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                'brand.ai',
-                                style:
-                                    FlutterFlowTheme.of(context).displaySmall,
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  'assets/images/performance_1647538.png',
+                                  width: 120.0,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
