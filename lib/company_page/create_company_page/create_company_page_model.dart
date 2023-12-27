@@ -10,6 +10,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'create_company_page_widget.dart' show CreateCompanyPageWidget;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,6 +42,8 @@ class CreateCompanyPageModel extends FlutterFlowModel<CreateCompanyPageWidget> {
 
   DateTime? datePicked1;
   DateTime? datePicked2;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  int? totalCurrentCreatedCompany;
   // Stores action output result for [Custom Action - generateCompanyCode] action in Button widget.
   String? companyCode;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.

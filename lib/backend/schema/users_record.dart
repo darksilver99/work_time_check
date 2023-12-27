@@ -61,6 +61,11 @@ class UsersRecord extends FirestoreRecord {
   DocumentReference? get currentCompany => _currentCompany;
   bool hasCurrentCompany() => _currentCompany != null;
 
+  // "can_create_total_company" field.
+  int? _canCreateTotalCompany;
+  int get canCreateTotalCompany => _canCreateTotalCompany ?? 0;
+  bool hasCanCreateTotalCompany() => _canCreateTotalCompany != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -71,6 +76,8 @@ class UsersRecord extends FirestoreRecord {
     _firstName = snapshotData['first_name'] as String?;
     _lastName = snapshotData['last_name'] as String?;
     _currentCompany = snapshotData['currentCompany'] as DocumentReference?;
+    _canCreateTotalCompany =
+        castToType<int>(snapshotData['can_create_total_company']);
   }
 
   static CollectionReference get collection =>
@@ -116,6 +123,7 @@ Map<String, dynamic> createUsersRecordData({
   String? firstName,
   String? lastName,
   DocumentReference? currentCompany,
+  int? canCreateTotalCompany,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -128,6 +136,7 @@ Map<String, dynamic> createUsersRecordData({
       'first_name': firstName,
       'last_name': lastName,
       'currentCompany': currentCompany,
+      'can_create_total_company': canCreateTotalCompany,
     }.withoutNulls,
   );
 
@@ -147,7 +156,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.firstName == e2?.firstName &&
         e1?.lastName == e2?.lastName &&
-        e1?.currentCompany == e2?.currentCompany;
+        e1?.currentCompany == e2?.currentCompany &&
+        e1?.canCreateTotalCompany == e2?.canCreateTotalCompany;
   }
 
   @override
@@ -160,7 +170,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.phoneNumber,
         e?.firstName,
         e?.lastName,
-        e?.currentCompany
+        e?.currentCompany,
+        e?.canCreateTotalCompany
       ]);
 
   @override
