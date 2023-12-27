@@ -108,6 +108,35 @@ class _ContactPageWidgetState extends State<ContactPageWidget> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        Align(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.asset(
+                                'assets/images/performance_1647538.png',
+                                width: 80.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 16.0),
+                          child: Text(
+                            'ระบบลงเวลา เข้า-ออกงาน',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ),
                         TextFormField(
                           controller: _model.textController1,
                           focusNode: _model.textFieldFocusNode1,

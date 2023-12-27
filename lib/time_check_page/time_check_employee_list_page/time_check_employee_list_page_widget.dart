@@ -132,8 +132,13 @@ class _TimeCheckEmployeeListPageWidgetState
                                 Expanded(
                                   child: Text(
                                     rowCompanyListRecord.companyName,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
                                 FFButtonWidget(

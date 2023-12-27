@@ -105,7 +105,11 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                       child: Text(
                         '${widget.companyParameter?.companyName} (${widget.companyParameter?.companyCode})',
                         maxLines: 1,
-                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
                     ),
                     Padding(
@@ -137,6 +141,8 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                               .override(
                                 fontFamily: 'Kanit',
                                 color: FlutterFlowTheme.of(context).secondary,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.underline,
                               ),
                         ),
