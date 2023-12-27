@@ -116,7 +116,11 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                   children: [
                     Text(
                       '${widget.userParameter?.firstName} ${widget.userParameter?.lastName} (${widget.userParameter?.displayName})',
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Kanit',
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                   ],
                 ),

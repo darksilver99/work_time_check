@@ -173,7 +173,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 24.0),
                                       child: Text(
-                                        'Let\'s get started by filling out the form below.',
+                                        'ระบบลงเวลา เข้า-ออกงาน',
                                         style: FlutterFlowTheme.of(context)
                                             .labelMedium,
                                       ),

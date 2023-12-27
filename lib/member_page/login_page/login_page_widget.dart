@@ -119,13 +119,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             ),
                             alignment: AlignmentDirectional(-1.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                'brand.ai',
-                                style:
-                                    FlutterFlowTheme.of(context).displaySmall,
+                            child: Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  'assets/images/performance_1647538.png',
+                                  width: 120.0,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -158,7 +160,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 24.0),
                                       child: Text(
-                                        'Let\'s get started by filling out the form below.',
+                                        'ระบบลงเวลา เข้า-ออกงาน',
                                         style: FlutterFlowTheme.of(context)
                                             .labelMedium,
                                       ),
