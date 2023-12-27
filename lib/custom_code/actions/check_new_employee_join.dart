@@ -10,4 +10,25 @@ import 'package:flutter/material.dart';
 
 Future checkNewEmployeeJoin() async {
   // Add your function code here!
+  if (FFAppState().currentCompany == null) {
+    return;
+  }
+  FirebaseFirestore.instance
+      .doc(FFAppState().currentCompany!.path)
+      .snapshots()
+      .listen((event) {
+    print("checkNewEmployeeJoin");
+    print(event.data());
+    if (event.data()!.containsKey("total_badge")) {
+      if (event.data()!["total_badge"] > 0) {
+        FFAppState().update(() {
+          FFAppState().isHasUserJoin = true;
+        });
+      } else {
+        FFAppState().update(() {
+          FFAppState().isHasUserJoin = false;
+        });
+      }
+    }
+  });
 }

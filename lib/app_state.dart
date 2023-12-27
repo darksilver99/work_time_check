@@ -23,10 +23,6 @@ class FFAppState extends ChangeNotifier {
           prefs.getString('ff_currentCompany')?.ref ?? _currentCompany;
     });
     _safeInit(() {
-      _storeBuildVersion =
-          prefs.getInt('ff_storeBuildVersion') ?? _storeBuildVersion;
-    });
-    _safeInit(() {
       _appBuildVersion = prefs.getInt('ff_appBuildVersion') ?? _appBuildVersion;
     });
     _safeInit(() {
@@ -66,17 +62,10 @@ class FFAppState extends ChangeNotifier {
         : prefs.remove('ff_currentCompany');
   }
 
-  String _appVersion = '';
+  String _appVersion = 'false';
   String get appVersion => _appVersion;
   set appVersion(String _value) {
     _appVersion = _value;
-  }
-
-  int _storeBuildVersion = 0;
-  int get storeBuildVersion => _storeBuildVersion;
-  set storeBuildVersion(int _value) {
-    _storeBuildVersion = _value;
-    prefs.setInt('ff_storeBuildVersion', _value);
   }
 
   int _appBuildVersion = 0;
@@ -124,6 +113,18 @@ class FFAppState extends ChangeNotifier {
   int get totalBadge => _totalBadge;
   set totalBadge(int _value) {
     _totalBadge = _value;
+  }
+
+  bool _isHasUserJoin = false;
+  bool get isHasUserJoin => _isHasUserJoin;
+  set isHasUserJoin(bool _value) {
+    _isHasUserJoin = _value;
+  }
+
+  int _storeBuildVersion = 0;
+  int get storeBuildVersion => _storeBuildVersion;
+  set storeBuildVersion(int _value) {
+    _storeBuildVersion = _value;
   }
 }
 

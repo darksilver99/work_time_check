@@ -1095,8 +1095,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         ),
                                                       ),
                                                       if (FFAppState()
-                                                              .totalBadge >
-                                                          0)
+                                                          .isHasUserJoin)
                                                         Align(
                                                           alignment:
                                                               AlignmentDirectional(
@@ -1121,9 +1120,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       .center,
                                                               children: [
                                                                 Text(
-                                                                  FFAppState()
-                                                                      .totalBadge
-                                                                      .toString(),
+                                                                  '!',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -1132,6 +1129,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                             'Kanit',
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .info,
+                                                                        fontSize:
+                                                                            22.0,
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                       ),

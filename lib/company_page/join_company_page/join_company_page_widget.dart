@@ -245,6 +245,13 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                   ));
                                 }
 
+                                await _model.rs!.reference.update({
+                                  ...mapToFirestore(
+                                    {
+                                      'total_badge': FieldValue.increment(1),
+                                    },
+                                  ),
+                                });
                                 await showAlignedDialog(
                                   context: context,
                                   isGlobal: true,
