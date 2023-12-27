@@ -84,7 +84,48 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  context.pushNamed(
+                    'JoinCompanyPage',
+                    queryParameters: {
+                      'isShowCreate': serializeParam(
+                        false,
+                        ParamType.bool,
+                      ),
+                    }.withoutNulls,
+                  );
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.add_home_work,
+                      color: FlutterFlowTheme.of(context).info,
+                      size: 24.0,
+                    ),
+                    Text(
+                      'เข้าร่วมองค์กร',
+                      maxLines: 1,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Kanit',
+                            color: FlutterFlowTheme.of(context).info,
+                            fontSize: 10.0,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
           centerTitle: false,
           elevation: 2.0,
         ),
