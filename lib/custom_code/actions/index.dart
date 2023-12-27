@@ -7,3 +7,4 @@ export 'is_admin.dart' show isAdmin;
 export 'set_app_version.dart' show setAppVersion;
 export 'close_app.dart' show closeApp;
 export 'check_payment.dart' show checkPayment;
+export 'check_new_employee_join.dart' show checkNewEmployeeJoin;

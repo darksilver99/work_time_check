@@ -119,6 +119,12 @@ class FFAppState extends ChangeNotifier {
   set isAdmin(bool _value) {
     _isAdmin = _value;
   }
+
+  int _totalBadge = 0;
+  int get totalBadge => _totalBadge;
+  set totalBadge(int _value) {
+    _totalBadge = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
