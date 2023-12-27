@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -203,6 +204,11 @@ class _CompanyManageListPageWidgetState
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      await containerCompanyListRecord.reference
+                                          .update(createCompanyListRecordData(
+                                        totalBadge: 0,
+                                      ));
+
                                       context.pushNamed(
                                         'EmployeeListPage',
                                         queryParameters: {

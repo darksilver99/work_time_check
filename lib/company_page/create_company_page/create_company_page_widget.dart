@@ -480,6 +480,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                         isFree: true,
                                         expireDate: getCurrentTimestamp,
                                         isPaid: true,
+                                        totalBadge: 0,
                                       ));
                                       _model.rs =
                                           CompanyListRecord.getDocumentFromData(
@@ -495,6 +496,7 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                                 isFree: true,
                                                 expireDate: getCurrentTimestamp,
                                                 isPaid: true,
+                                                totalBadge: 0,
                                               ),
                                               companyListRecordReference);
 

@@ -86,6 +86,11 @@ class CompanyListRecord extends FirestoreRecord {
   DateTime? get expireDate => _expireDate;
   bool hasExpireDate() => _expireDate != null;
 
+  // "total_badge" field.
+  int? _totalBadge;
+  int get totalBadge => _totalBadge ?? 0;
+  bool hasTotalBadge() => _totalBadge != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -101,6 +106,7 @@ class CompanyListRecord extends FirestoreRecord {
     _isFree = snapshotData['is_free'] as bool?;
     _isPaid = snapshotData['is_paid'] as bool?;
     _expireDate = snapshotData['expire_date'] as DateTime?;
+    _totalBadge = castToType<int>(snapshotData['total_badge']);
   }
 
   static CollectionReference get collection =>
@@ -152,6 +158,7 @@ Map<String, dynamic> createCompanyListRecordData({
   bool? isFree,
   bool? isPaid,
   DateTime? expireDate,
+  int? totalBadge,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -169,6 +176,7 @@ Map<String, dynamic> createCompanyListRecordData({
       'is_free': isFree,
       'is_paid': isPaid,
       'expire_date': expireDate,
+      'total_badge': totalBadge,
     }.withoutNulls,
   );
 
@@ -193,7 +201,8 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
         e1?.endDate == e2?.endDate &&
         e1?.isFree == e2?.isFree &&
         e1?.isPaid == e2?.isPaid &&
-        e1?.expireDate == e2?.expireDate;
+        e1?.expireDate == e2?.expireDate &&
+        e1?.totalBadge == e2?.totalBadge;
   }
 
   @override
@@ -211,7 +220,8 @@ class CompanyListRecordDocumentEquality implements Equality<CompanyListRecord> {
         e?.endDate,
         e?.isFree,
         e?.isPaid,
-        e?.expireDate
+        e?.expireDate,
+        e?.totalBadge
       ]);
 
   @override
