@@ -754,6 +754,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                                     .firstNameController.text,
                                                 lastName: _model
                                                     .lastNameController.text,
+                                                canCreateTotalCompany: 2,
                                               ));
 
                                           context.goNamedAuth(
