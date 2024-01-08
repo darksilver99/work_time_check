@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -274,19 +273,16 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                             ),
                                   );
                                   if (_model.totalAdmin! <= 1) {
-                                    await showAlignedDialog(
+                                    await showDialog(
                                       context: context,
-                                      isGlobal: true,
-                                      avoidOverflow: false,
-                                      targetAnchor: AlignmentDirectional(
-                                              0.0, 0.0)
-                                          .resolve(Directionality.of(context)),
-                                      followerAnchor: AlignmentDirectional(
-                                              0.0, 0.0)
-                                          .resolve(Directionality.of(context)),
                                       builder: (dialogContext) {
-                                        return Material(
-                                          color: Colors.transparent,
+                                        return Dialog(
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
                                           child: InformationDialogViewWidget(
                                             msg:
                                                 'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
@@ -431,17 +427,14 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                           _shouldSetState = true;
                           if (_model.dropDownValue == 0) {
                             if (_model.checkboxListTileValue!) {
-                              await showAlignedDialog(
+                              await showDialog(
                                 context: context,
-                                isGlobal: true,
-                                avoidOverflow: false,
-                                targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                followerAnchor: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
                                 builder: (dialogContext) {
-                                  return Material(
-                                    color: Colors.transparent,
+                                  return Dialog(
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    alignment: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
                                     child: InformationDialogViewWidget(
                                       msg: 'กรุณาอนุมัติพนักงาน',
                                     ),
@@ -469,18 +462,16 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 );
                                 _shouldSetState = true;
                                 if (_model.totalAdmin2! <= 1) {
-                                  await showAlignedDialog(
+                                  await showDialog(
                                     context: context,
-                                    isGlobal: true,
-                                    avoidOverflow: false,
-                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    followerAnchor: AlignmentDirectional(
-                                            0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
                                     builder: (dialogContext) {
-                                      return Material(
-                                        color: Colors.transparent,
+                                      return Dialog(
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
                                         child: InformationDialogViewWidget(
                                           msg:
                                               'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
@@ -528,18 +519,16 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 );
                                 _shouldSetState = true;
                                 if (_model.totalAdmin3! <= 1) {
-                                  await showAlignedDialog(
+                                  await showDialog(
                                     context: context,
-                                    isGlobal: true,
-                                    avoidOverflow: false,
-                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    followerAnchor: AlignmentDirectional(
-                                            0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
                                     builder: (dialogContext) {
-                                      return Material(
-                                        color: Colors.transparent,
+                                      return Dialog(
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
                                         child: InformationDialogViewWidget(
                                           msg:
                                               'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
