@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -226,36 +225,38 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      StreamBuilder<CompanyListRecord>(
-                        stream: CompanyListRecord.getDocument(
-                            FFAppState().currentCompany!),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
+                      Expanded(
+                        child: StreamBuilder<CompanyListRecord>(
+                          stream: CompanyListRecord.getDocument(
+                              FFAppState().currentCompany!),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
                                   ),
                                 ),
-                              ),
+                              );
+                            }
+                            final textCompanyListRecord = snapshot.data!;
+                            return Text(
+                              '${textCompanyListRecord.companyName} : ${textCompanyListRecord.companyCode}',
+                              maxLines: 1,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 24.0,
+                                  ),
                             );
-                          }
-                          final textCompanyListRecord = snapshot.data!;
-                          return Text(
-                            '${textCompanyListRecord.companyName} : ${textCompanyListRecord.companyCode}',
-                            maxLines: 1,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 22.0,
-                                ),
-                          );
-                        },
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -543,26 +544,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         },
                                                       ),
                                                     });
-                                                    await showAlignedDialog(
+                                                    await showDialog(
                                                       context: context,
-                                                      isGlobal: true,
-                                                      avoidOverflow: false,
-                                                      targetAnchor:
-                                                          AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                      followerAnchor:
-                                                          AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
                                                       builder: (dialogContext) {
-                                                        return Material(
-                                                          color: Colors
-                                                              .transparent,
+                                                        return Dialog(
+                                                          insetPadding:
+                                                              EdgeInsets.zero,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          alignment: AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
                                                           child:
                                                               GestureDetector(
                                                             onTap: () => _model
@@ -599,25 +594,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 }
                                               }
                                             } else {
-                                              await showAlignedDialog(
+                                              await showDialog(
                                                 context: context,
-                                                isGlobal: true,
-                                                avoidOverflow: false,
-                                                targetAnchor:
-                                                    AlignmentDirectional(
-                                                            0.0, 0.0)
-                                                        .resolve(
-                                                            Directionality.of(
-                                                                context)),
-                                                followerAnchor:
-                                                    AlignmentDirectional(
-                                                            0.0, 0.0)
-                                                        .resolve(
-                                                            Directionality.of(
-                                                                context)),
                                                 builder: (dialogContext) {
-                                                  return Material(
-                                                    color: Colors.transparent,
+                                                  return Dialog(
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
                                                     child: GestureDetector(
                                                       onTap: () => _model
                                                               .unfocusNode
@@ -830,26 +820,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   context.pushNamed(
                                                       'TimeCheckEmployeeListPage');
                                                 } else {
-                                                  await showAlignedDialog(
+                                                  await showDialog(
                                                     context: context,
-                                                    isGlobal: true,
-                                                    avoidOverflow: false,
-                                                    targetAnchor:
-                                                        AlignmentDirectional(
-                                                                0.0, 0.0)
-                                                            .resolve(
-                                                                Directionality.of(
-                                                                    context)),
-                                                    followerAnchor:
-                                                        AlignmentDirectional(
-                                                                0.0, 0.0)
-                                                            .resolve(
-                                                                Directionality.of(
-                                                                    context)),
                                                     builder: (dialogContext) {
-                                                      return Material(
-                                                        color:
+                                                      return Dialog(
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        backgroundColor:
                                                             Colors.transparent,
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
                                                         child: GestureDetector(
                                                           onTap: () => _model
                                                                   .unfocusNode
@@ -886,25 +870,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   }
                                                 }
                                               } else {
-                                                await showAlignedDialog(
+                                                await showDialog(
                                                   context: context,
-                                                  isGlobal: true,
-                                                  avoidOverflow: false,
-                                                  targetAnchor:
-                                                      AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
-                                                  followerAnchor:
-                                                      AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
                                                   builder: (dialogContext) {
-                                                    return Material(
-                                                      color: Colors.transparent,
+                                                    return Dialog(
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
                                                       child: GestureDetector(
                                                         onTap: () => _model
                                                                 .unfocusNode
