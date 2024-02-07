@@ -4,11 +4,11 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'register_page_model.dart';
 export 'register_page_model.dart';
 
@@ -126,60 +126,36 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (responsiveVisibility(
-                          context: context,
-                          phone: false,
-                          tablet: false,
-                        ))
-                          Container(
-                            width: double.infinity,
-                            height: 140.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(16.0),
-                                bottomRight: Radius.circular(16.0),
-                                topLeft: Radius.circular(0.0),
-                                topRight: Radius.circular(0.0),
-                              ),
+                        Container(
+                          width: double.infinity,
+                          height: 140.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(16.0),
+                              bottomRight: Radius.circular(16.0),
+                              topLeft: Radius.circular(0.0),
+                              topRight: Radius.circular(0.0),
                             ),
                           ),
-                        if (responsiveVisibility(
-                          context: context,
-                          tabletLandscape: false,
-                          desktop: false,
-                        ))
-                          Container(
-                            width: double.infinity,
-                            height: 140.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(16.0),
-                                bottomRight: Radius.circular(16.0),
-                                topLeft: Radius.circular(0.0),
-                                topRight: Radius.circular(0.0),
-                              ),
-                            ),
-                            alignment: AlignmentDirectional(-1.0, 0.0),
-                            child: Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 16.0, 0.0, 0.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    'assets/images/performance_1647538.png',
-                                    width: 120.0,
-                                    fit: BoxFit.cover,
-                                  ),
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 0.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  'assets/images/performance_1647538.png',
+                                  width: 120.0,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                           ),
+                        ),
                         Container(
                           width: double.infinity,
                           constraints: BoxConstraints(
@@ -740,61 +716,162 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Theme(
+                                            data: ThemeData(
+                                              checkboxTheme: CheckboxThemeData(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
+                                                ),
+                                              ),
+                                              unselectedWidgetColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                            ),
+                                            child: Checkbox(
+                                              value: _model.checkboxValue ??=
+                                                  false,
+                                              onChanged: (newValue) async {
+                                                setState(() => _model
+                                                    .checkboxValue = newValue!);
+                                              },
+                                              activeColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              checkColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                'WebViewPage',
+                                                queryParameters: {
+                                                  'title': serializeParam(
+                                                    'Terms and Condition',
+                                                    ParamType.String,
+                                                  ),
+                                                  'url': serializeParam(
+                                                    'https://www.silver-api.com/terms.php',
+                                                    ParamType.String,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            },
+                                            child: Text(
+                                              'Terms and Condition',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Kanit',
+                                                    color: Color(0xFF1C15EF),
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 16.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          Function() _navigate = () {};
                                           if (_model.formKey.currentState ==
                                                   null ||
                                               !_model.formKey.currentState!
                                                   .validate()) {
                                             return;
                                           }
-                                          FFAppState().currentCompany = null;
-                                          GoRouter.of(context)
-                                              .prepareAuthEvent();
-                                          if (_model.passwordController.text !=
-                                              _model.password2Controller.text) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'Passwords don\'t match!',
+                                          if (_model.checkboxValue!) {
+                                            FFAppState().currentCompany = null;
+                                            GoRouter.of(context)
+                                                .prepareAuthEvent();
+                                            if (_model
+                                                    .passwordController.text !=
+                                                _model
+                                                    .password2Controller.text) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Passwords don\'t match!',
+                                                  ),
                                                 ),
-                                              ),
+                                              );
+                                              return;
+                                            }
+
+                                            final user = await authManager
+                                                .createAccountWithEmail(
+                                              context,
+                                              _model
+                                                  .emailAddressController.text,
+                                              _model.passwordController.text,
                                             );
-                                            return;
+                                            if (user == null) {
+                                              return;
+                                            }
+
+                                            await UsersRecord.collection
+                                                .doc(user.uid)
+                                                .update(createUsersRecordData(
+                                                  email: _model
+                                                      .emailAddressController
+                                                      .text,
+                                                  displayName: _model
+                                                      .nickNameController.text,
+                                                  createdTime:
+                                                      getCurrentTimestamp,
+                                                  phoneNumber: _model
+                                                      .phoneController.text,
+                                                  firstName: _model
+                                                      .firstNameController.text,
+                                                  lastName: _model
+                                                      .lastNameController.text,
+                                                  canCreateTotalCompany: 2,
+                                                ));
+
+                                            _navigate = () =>
+                                                context.goNamedAuth('HomePage',
+                                                    context.mounted);
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return WebViewAware(
+                                                  child: AlertDialog(
+                                                    title: Text(
+                                                        'กรุณายอมรับเงื่อนไข'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('ตกลง'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            );
                                           }
 
-                                          final user = await authManager
-                                              .createAccountWithEmail(
-                                            context,
-                                            _model.emailAddressController.text,
-                                            _model.passwordController.text,
-                                          );
-                                          if (user == null) {
-                                            return;
-                                          }
-
-                                          await UsersRecord.collection
-                                              .doc(user.uid)
-                                              .update(createUsersRecordData(
-                                                email: _model
-                                                    .emailAddressController
-                                                    .text,
-                                                displayName: _model
-                                                    .nickNameController.text,
-                                                createdTime:
-                                                    getCurrentTimestamp,
-                                                phoneNumber:
-                                                    _model.phoneController.text,
-                                                firstName: _model
-                                                    .firstNameController.text,
-                                                lastName: _model
-                                                    .lastNameController.text,
-                                                canCreateTotalCompany: 2,
-                                              ));
-
-                                          context.goNamedAuth(
-                                              'HomePage', context.mounted);
+                                          _navigate();
                                         },
                                         text: 'ลงทะเบียน',
                                         options: FFButtonOptions(
@@ -836,172 +913,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                   ),
                 ),
               ),
-              if (responsiveVisibility(
-                context: context,
-                phone: false,
-                tablet: false,
-              ))
-                Expanded(
-                  flex: 8,
-                  child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Container(
-                      width: 100.0,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            FlutterFlowTheme.of(context).primary,
-                            FlutterFlowTheme.of(context).secondary
-                          ],
-                          stops: [0.0, 1.0],
-                          begin: AlignmentDirectional(1.0, -1.0),
-                          end: AlignmentDirectional(-1.0, 1.0),
-                        ),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(24.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              constraints: BoxConstraints(
-                                maxWidth: 400.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 3.0,
-                                    color: Color(0x2E000000),
-                                    offset: Offset(0.0, 2.0),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(8.0),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  width: 2.0,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(4.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 12.0, 12.0, 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 8.0, 0.0),
-                                                child: Container(
-                                                  width: 40.0,
-                                                  height: 40.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFFEEEEEE),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.person,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    size: 24.0,
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                'UserName',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleMedium,
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                'Overall',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodySmall,
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                4.0, 0.0),
-                                                    child: Text(
-                                                      '5',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .headlineMedium,
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.star_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    size: 20.0,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 12.0, 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: AutoSizeText(
-                                              'Nice outdoor courts, solid concrete and good hoops for the neighborhood.',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
             ],
           ),
         ),

@@ -38,3 +38,4 @@ export '/payment/payment_warning_page/payment_warning_page_widget.dart'
 export '/contact_page/contact_page_widget.dart' show ContactPageWidget;
 export '/company_page/company_edit_page/company_edit_page_widget.dart'
     show CompanyEditPageWidget;
+export '/web_view_page/web_view_page_widget.dart' show WebViewPageWidget;

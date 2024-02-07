@@ -229,6 +229,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             companyParameter:
                 params.getParam('companyParameter', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'WebViewPage',
+          path: '/webViewPage',
+          builder: (context, params) => WebViewPageWidget(
+            title: params.getParam('title', ParamType.String),
+            url: params.getParam('url', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

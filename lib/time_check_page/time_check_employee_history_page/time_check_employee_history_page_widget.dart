@@ -11,6 +11,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'time_check_employee_history_page_model.dart';
 export 'time_check_employee_history_page_model.dart';
 
@@ -193,19 +194,21 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                                                   0.0, 0.0)
                                               .resolve(
                                                   Directionality.of(context)),
-                                          child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
-                                            child:
-                                                InformationTimeCheckDialogViewWidget(
-                                              timeCheckParameter:
-                                                  listViewTimeCheckListRecord,
-                                              isAdmin: true,
+                                          child: WebViewAware(
+                                            child: GestureDetector(
+                                              onTap: () => _model.unfocusNode
+                                                      .canRequestFocus
+                                                  ? FocusScope.of(context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode)
+                                                  : FocusScope.of(context)
+                                                      .unfocus(),
+                                              child:
+                                                  InformationTimeCheckDialogViewWidget(
+                                                timeCheckParameter:
+                                                    listViewTimeCheckListRecord,
+                                                isAdmin: true,
+                                              ),
                                             ),
                                           ),
                                         );

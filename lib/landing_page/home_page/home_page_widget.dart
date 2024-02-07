@@ -19,6 +19,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -149,20 +150,23 @@ class _HomePageWidgetState extends State<HomePageWidget>
           var confirmDialogResponse = await showDialog<bool>(
                 context: context,
                 builder: (alertDialogContext) {
-                  return AlertDialog(
-                    content: Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
-                    actions: [
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(alertDialogContext, false),
-                        child: Text('ยกเลิก'),
-                      ),
-                      TextButton(
-                        onPressed: () =>
-                            Navigator.pop(alertDialogContext, true),
-                        child: Text('ตกลง'),
-                      ),
-                    ],
+                  return WebViewAware(
+                    child: AlertDialog(
+                      content:
+                          Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
+                      actions: [
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(alertDialogContext, false),
+                          child: Text('ยกเลิก'),
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(alertDialogContext, true),
+                          child: Text('ตกลง'),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ) ??
@@ -609,23 +613,25 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               .resolve(
                                                                   Directionality.of(
                                                                       context)),
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
+                                                          child: WebViewAware(
                                                             child:
-                                                                InformationDialogViewWidget(
-                                                              msg:
-                                                                  'กรุณาเข้าร่วมองค์กรก่อน',
+                                                                GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child:
+                                                                  InformationDialogViewWidget(
+                                                                msg:
+                                                                    'กรุณาเข้าร่วมองค์กรก่อน',
+                                                              ),
                                                             ),
                                                           ),
                                                         );
@@ -660,21 +666,23 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                             .resolve(
                                                                 Directionality.of(
                                                                     context)),
-                                                    child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child:
-                                                          InformationDialogViewWidget(
-                                                        msg:
-                                                            'กรุณาเข้าร่วมองค์กรก่อน',
+                                                    child: WebViewAware(
+                                                      child: GestureDetector(
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
+                                                        child:
+                                                            InformationDialogViewWidget(
+                                                          msg:
+                                                              'กรุณาเข้าร่วมองค์กรก่อน',
+                                                        ),
                                                       ),
                                                     ),
                                                   );
@@ -887,22 +895,25 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                 .resolve(
                                                                     Directionality.of(
                                                                         context)),
-                                                        child: GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
-                                                                  .unfocus(),
+                                                        child: WebViewAware(
                                                           child:
-                                                              InformationDialogViewWidget(
-                                                            msg:
-                                                                'กรุณาเข้าร่วมองค์กรก่อน',
+                                                              GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child:
+                                                                InformationDialogViewWidget(
+                                                              msg:
+                                                                  'กรุณาเข้าร่วมองค์กรก่อน',
+                                                            ),
                                                           ),
                                                         ),
                                                       );
@@ -938,21 +949,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               .resolve(
                                                                   Directionality.of(
                                                                       context)),
-                                                      child: GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child:
-                                                            InformationDialogViewWidget(
-                                                          msg:
-                                                              'กรุณาเข้าร่วมองค์กรก่อน',
+                                                      child: WebViewAware(
+                                                        child: GestureDetector(
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child:
+                                                              InformationDialogViewWidget(
+                                                            msg:
+                                                                'กรุณาเข้าร่วมองค์กรก่อน',
+                                                          ),
                                                         ),
                                                       ),
                                                     );

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'payment_page_model.dart';
 export 'payment_page_model.dart';
 
@@ -300,15 +301,18 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                       backgroundColor: Colors.transparent,
                                       alignment: AlignmentDirectional(0.0, 0.0)
                                           .resolve(Directionality.of(context)),
-                                      child: GestureDetector(
-                                        onTap: () => _model
-                                                .unfocusNode.canRequestFocus
-                                            ? FocusScope.of(context)
-                                                .requestFocus(
-                                                    _model.unfocusNode)
-                                            : FocusScope.of(context).unfocus(),
-                                        child: InformationDialogViewWidget(
-                                          msg: 'ชำระเงินเสร็จสิ้น',
+                                      child: WebViewAware(
+                                        child: GestureDetector(
+                                          onTap: () => _model
+                                                  .unfocusNode.canRequestFocus
+                                              ? FocusScope.of(context)
+                                                  .requestFocus(
+                                                      _model.unfocusNode)
+                                              : FocusScope.of(context)
+                                                  .unfocus(),
+                                          child: InformationDialogViewWidget(
+                                            msg: 'ชำระเงินเสร็จสิ้น',
+                                          ),
                                         ),
                                       ),
                                     );
@@ -320,16 +324,18 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      content: Text(
-                                          'ไม่สามารถทำรายการได้ กรุณาลองอีกครั้งภายหลัง'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('ตกลง'),
-                                        ),
-                                      ],
+                                    return WebViewAware(
+                                      child: AlertDialog(
+                                        content: Text(
+                                            'ไม่สามารถทำรายการได้ กรุณาลองอีกครั้งภายหลัง'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('ตกลง'),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 );
