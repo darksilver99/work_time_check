@@ -15,16 +15,16 @@ export 'time_check_today_page_model.dart';
 
 class TimeCheckTodayPageWidget extends StatefulWidget {
   const TimeCheckTodayPageWidget({
-    Key? key,
+    super.key,
     required this.photoPath,
     required this.currentTime,
-  }) : super(key: key);
+  });
 
   final String? photoPath;
   final DateTime? currentTime;
 
   @override
-  _TimeCheckTodayPageWidgetState createState() =>
+  State<TimeCheckTodayPageWidget> createState() =>
       _TimeCheckTodayPageWidgetState();
 }
 
@@ -114,6 +114,9 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Container(
+                      constraints: BoxConstraints(
+                        minHeight: MediaQuery.sizeOf(context).height * 0.8,
+                      ),
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(8.0),

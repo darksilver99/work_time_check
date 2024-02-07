@@ -14,10 +14,10 @@ import 'contact_page_model.dart';
 export 'contact_page_model.dart';
 
 class ContactPageWidget extends StatefulWidget {
-  const ContactPageWidget({Key? key}) : super(key: key);
+  const ContactPageWidget({super.key});
 
   @override
-  _ContactPageWidgetState createState() => _ContactPageWidgetState();
+  State<ContactPageWidget> createState() => _ContactPageWidgetState();
 }
 
 class _ContactPageWidgetState extends State<ContactPageWidget> {
@@ -252,6 +252,7 @@ class _ContactPageWidgetState extends State<ContactPageWidget> {
                                   context: context,
                                   builder: (dialogContext) {
                                     return Dialog(
+                                      elevation: 0,
                                       insetPadding: EdgeInsets.zero,
                                       backgroundColor: Colors.transparent,
                                       alignment: AlignmentDirectional(0.0, 0.0)

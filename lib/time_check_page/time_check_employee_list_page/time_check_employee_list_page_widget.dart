@@ -12,10 +12,10 @@ import 'time_check_employee_list_page_model.dart';
 export 'time_check_employee_list_page_model.dart';
 
 class TimeCheckEmployeeListPageWidget extends StatefulWidget {
-  const TimeCheckEmployeeListPageWidget({Key? key}) : super(key: key);
+  const TimeCheckEmployeeListPageWidget({super.key});
 
   @override
-  _TimeCheckEmployeeListPageWidgetState createState() =>
+  State<TimeCheckEmployeeListPageWidget> createState() =>
       _TimeCheckEmployeeListPageWidgetState();
 }
 

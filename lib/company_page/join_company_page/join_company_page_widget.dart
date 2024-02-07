@@ -15,10 +15,10 @@ import 'join_company_page_model.dart';
 export 'join_company_page_model.dart';
 
 class JoinCompanyPageWidget extends StatefulWidget {
-  const JoinCompanyPageWidget({Key? key}) : super(key: key);
+  const JoinCompanyPageWidget({super.key});
 
   @override
-  _JoinCompanyPageWidgetState createState() => _JoinCompanyPageWidgetState();
+  State<JoinCompanyPageWidget> createState() => _JoinCompanyPageWidgetState();
 }
 
 class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
@@ -249,6 +249,7 @@ class _JoinCompanyPageWidgetState extends State<JoinCompanyPageWidget> {
                                   context: context,
                                   builder: (dialogContext) {
                                     return Dialog(
+                                      elevation: 0,
                                       insetPadding: EdgeInsets.zero,
                                       backgroundColor: Colors.transparent,
                                       alignment: AlignmentDirectional(0.0, 0.0)

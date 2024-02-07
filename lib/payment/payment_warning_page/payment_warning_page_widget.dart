@@ -10,10 +10,10 @@ import 'payment_warning_page_model.dart';
 export 'payment_warning_page_model.dart';
 
 class PaymentWarningPageWidget extends StatefulWidget {
-  const PaymentWarningPageWidget({Key? key}) : super(key: key);
+  const PaymentWarningPageWidget({super.key});
 
   @override
-  _PaymentWarningPageWidgetState createState() =>
+  State<PaymentWarningPageWidget> createState() =>
       _PaymentWarningPageWidgetState();
 }
 

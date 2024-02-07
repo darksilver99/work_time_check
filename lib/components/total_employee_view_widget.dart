@@ -10,14 +10,14 @@ export 'total_employee_view_model.dart';
 
 class TotalEmployeeViewWidget extends StatefulWidget {
   const TotalEmployeeViewWidget({
-    Key? key,
+    super.key,
     required this.companyParameter,
-  }) : super(key: key);
+  });
 
   final CompanyListRecord? companyParameter;
 
   @override
-  _TotalEmployeeViewWidgetState createState() =>
+  State<TotalEmployeeViewWidget> createState() =>
       _TotalEmployeeViewWidgetState();
 }
 

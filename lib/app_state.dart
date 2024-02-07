@@ -75,6 +75,12 @@ class FFAppState extends ChangeNotifier {
     prefs.setInt('ff_appBuildVersion', _value);
   }
 
+  int _storeBuildVersion = 0;
+  int get storeBuildVersion => _storeBuildVersion;
+  set storeBuildVersion(int _value) {
+    _storeBuildVersion = _value;
+  }
+
   bool _isTesting = false;
   bool get isTesting => _isTesting;
   set isTesting(bool _value) {
@@ -119,12 +125,6 @@ class FFAppState extends ChangeNotifier {
   bool get isHasUserJoin => _isHasUserJoin;
   set isHasUserJoin(bool _value) {
     _isHasUserJoin = _value;
-  }
-
-  int _storeBuildVersion = 0;
-  int get storeBuildVersion => _storeBuildVersion;
-  set storeBuildVersion(int _value) {
-    _storeBuildVersion = _value;
   }
 }
 

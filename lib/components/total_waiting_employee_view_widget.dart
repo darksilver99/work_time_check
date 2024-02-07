@@ -10,14 +10,14 @@ export 'total_waiting_employee_view_model.dart';
 
 class TotalWaitingEmployeeViewWidget extends StatefulWidget {
   const TotalWaitingEmployeeViewWidget({
-    Key? key,
+    super.key,
     required this.companyParameter,
-  }) : super(key: key);
+  });
 
   final CompanyListRecord? companyParameter;
 
   @override
-  _TotalWaitingEmployeeViewWidgetState createState() =>
+  State<TotalWaitingEmployeeViewWidget> createState() =>
       _TotalWaitingEmployeeViewWidgetState();
 }
 

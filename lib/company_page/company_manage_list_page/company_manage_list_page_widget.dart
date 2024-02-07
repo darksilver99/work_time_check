@@ -16,10 +16,10 @@ import 'company_manage_list_page_model.dart';
 export 'company_manage_list_page_model.dart';
 
 class CompanyManageListPageWidget extends StatefulWidget {
-  const CompanyManageListPageWidget({Key? key}) : super(key: key);
+  const CompanyManageListPageWidget({super.key});
 
   @override
-  _CompanyManageListPageWidgetState createState() =>
+  State<CompanyManageListPageWidget> createState() =>
       _CompanyManageListPageWidgetState();
 }
 

@@ -16,14 +16,14 @@ export 'time_check_employee_history_page_model.dart';
 
 class TimeCheckEmployeeHistoryPageWidget extends StatefulWidget {
   const TimeCheckEmployeeHistoryPageWidget({
-    Key? key,
+    super.key,
     required this.userParameter,
-  }) : super(key: key);
+  });
 
   final UsersRecord? userParameter;
 
   @override
-  _TimeCheckEmployeeHistoryPageWidgetState createState() =>
+  State<TimeCheckEmployeeHistoryPageWidget> createState() =>
       _TimeCheckEmployeeHistoryPageWidgetState();
 }
 
@@ -186,6 +186,7 @@ class _TimeCheckEmployeeHistoryPageWidgetState
                                       context: context,
                                       builder: (dialogContext) {
                                         return Dialog(
+                                          elevation: 0,
                                           insetPadding: EdgeInsets.zero,
                                           backgroundColor: Colors.transparent,
                                           alignment: AlignmentDirectional(

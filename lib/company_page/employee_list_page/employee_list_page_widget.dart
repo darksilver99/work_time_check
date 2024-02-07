@@ -14,14 +14,14 @@ export 'employee_list_page_model.dart';
 
 class EmployeeListPageWidget extends StatefulWidget {
   const EmployeeListPageWidget({
-    Key? key,
+    super.key,
     required this.companyParameter,
-  }) : super(key: key);
+  });
 
   final CompanyListRecord? companyParameter;
 
   @override
-  _EmployeeListPageWidgetState createState() => _EmployeeListPageWidgetState();
+  State<EmployeeListPageWidget> createState() => _EmployeeListPageWidgetState();
 }
 
 class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {

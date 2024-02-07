@@ -9,10 +9,10 @@ import 'confirm_logout_dialog_view_model.dart';
 export 'confirm_logout_dialog_view_model.dart';
 
 class ConfirmLogoutDialogViewWidget extends StatefulWidget {
-  const ConfirmLogoutDialogViewWidget({Key? key}) : super(key: key);
+  const ConfirmLogoutDialogViewWidget({super.key});
 
   @override
-  _ConfirmLogoutDialogViewWidgetState createState() =>
+  State<ConfirmLogoutDialogViewWidget> createState() =>
       _ConfirmLogoutDialogViewWidgetState();
 }
 

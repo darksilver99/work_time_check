@@ -10,16 +10,16 @@ export 'information_dialog_view_model.dart';
 
 class InformationDialogViewWidget extends StatefulWidget {
   const InformationDialogViewWidget({
-    Key? key,
+    super.key,
     required this.msg,
     this.msg2,
-  }) : super(key: key);
+  });
 
   final String? msg;
   final String? msg2;
 
   @override
-  _InformationDialogViewWidgetState createState() =>
+  State<InformationDialogViewWidget> createState() =>
       _InformationDialogViewWidgetState();
 }
 
