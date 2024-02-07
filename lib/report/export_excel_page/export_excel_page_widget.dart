@@ -12,10 +12,10 @@ import 'export_excel_page_model.dart';
 export 'export_excel_page_model.dart';
 
 class ExportExcelPageWidget extends StatefulWidget {
-  const ExportExcelPageWidget({Key? key}) : super(key: key);
+  const ExportExcelPageWidget({super.key});
 
   @override
-  _ExportExcelPageWidgetState createState() => _ExportExcelPageWidgetState();
+  State<ExportExcelPageWidget> createState() => _ExportExcelPageWidgetState();
 }
 
 class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {

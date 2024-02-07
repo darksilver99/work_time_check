@@ -15,18 +15,18 @@ export 'time_check_out_page_model.dart';
 
 class TimeCheckOutPageWidget extends StatefulWidget {
   const TimeCheckOutPageWidget({
-    Key? key,
+    super.key,
     required this.photoPath,
     required this.currentTime,
     required this.timeCheckParameter,
-  }) : super(key: key);
+  });
 
   final String? photoPath;
   final DateTime? currentTime;
   final TimeCheckListRecord? timeCheckParameter;
 
   @override
-  _TimeCheckOutPageWidgetState createState() => _TimeCheckOutPageWidgetState();
+  State<TimeCheckOutPageWidget> createState() => _TimeCheckOutPageWidgetState();
 }
 
 class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
@@ -115,6 +115,9 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Container(
+                      constraints: BoxConstraints(
+                        minHeight: MediaQuery.sizeOf(context).height * 0.8,
+                      ),
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(8.0),

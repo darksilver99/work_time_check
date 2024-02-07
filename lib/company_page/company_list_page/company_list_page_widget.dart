@@ -15,10 +15,10 @@ import 'company_list_page_model.dart';
 export 'company_list_page_model.dart';
 
 class CompanyListPageWidget extends StatefulWidget {
-  const CompanyListPageWidget({Key? key}) : super(key: key);
+  const CompanyListPageWidget({super.key});
 
   @override
-  _CompanyListPageWidgetState createState() => _CompanyListPageWidgetState();
+  State<CompanyListPageWidget> createState() => _CompanyListPageWidgetState();
 }
 
 class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {

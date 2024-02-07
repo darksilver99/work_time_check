@@ -13,10 +13,10 @@ import 'setting_page_model.dart';
 export 'setting_page_model.dart';
 
 class SettingPageWidget extends StatefulWidget {
-  const SettingPageWidget({Key? key}) : super(key: key);
+  const SettingPageWidget({super.key});
 
   @override
-  _SettingPageWidgetState createState() => _SettingPageWidgetState();
+  State<SettingPageWidget> createState() => _SettingPageWidgetState();
 }
 
 class _SettingPageWidgetState extends State<SettingPageWidget> {
@@ -109,6 +109,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                   context: context,
                                   builder: (dialogContext) {
                                     return Dialog(
+                                      elevation: 0,
                                       insetPadding: EdgeInsets.zero,
                                       backgroundColor: Colors.transparent,
                                       alignment: AlignmentDirectional(0.0, 0.0)

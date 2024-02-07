@@ -10,10 +10,10 @@ import 'graph_page_model.dart';
 export 'graph_page_model.dart';
 
 class GraphPageWidget extends StatefulWidget {
-  const GraphPageWidget({Key? key}) : super(key: key);
+  const GraphPageWidget({super.key});
 
   @override
-  _GraphPageWidgetState createState() => _GraphPageWidgetState();
+  State<GraphPageWidget> createState() => _GraphPageWidgetState();
 }
 
 class _GraphPageWidgetState extends State<GraphPageWidget> {

@@ -17,16 +17,16 @@ export 'employee_setting_view_model.dart';
 
 class EmployeeSettingViewWidget extends StatefulWidget {
   const EmployeeSettingViewWidget({
-    Key? key,
+    super.key,
     required this.employeeParameter,
     required this.userParameter,
-  }) : super(key: key);
+  });
 
   final EmployeeListRecord? employeeParameter;
   final UsersRecord? userParameter;
 
   @override
-  _EmployeeSettingViewWidgetState createState() =>
+  State<EmployeeSettingViewWidget> createState() =>
       _EmployeeSettingViewWidgetState();
 }
 
@@ -277,6 +277,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                       context: context,
                                       builder: (dialogContext) {
                                         return Dialog(
+                                          elevation: 0,
                                           insetPadding: EdgeInsets.zero,
                                           backgroundColor: Colors.transparent,
                                           alignment: AlignmentDirectional(
@@ -431,6 +432,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                 context: context,
                                 builder: (dialogContext) {
                                   return Dialog(
+                                    elevation: 0,
                                     insetPadding: EdgeInsets.zero,
                                     backgroundColor: Colors.transparent,
                                     alignment: AlignmentDirectional(0.0, 0.0)
@@ -466,6 +468,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                     context: context,
                                     builder: (dialogContext) {
                                       return Dialog(
+                                        elevation: 0,
                                         insetPadding: EdgeInsets.zero,
                                         backgroundColor: Colors.transparent,
                                         alignment:
@@ -523,6 +526,7 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                     context: context,
                                     builder: (dialogContext) {
                                       return Dialog(
+                                        elevation: 0,
                                         insetPadding: EdgeInsets.zero,
                                         backgroundColor: Colors.transparent,
                                         alignment:

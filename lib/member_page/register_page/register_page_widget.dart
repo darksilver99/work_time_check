@@ -13,10 +13,10 @@ import 'register_page_model.dart';
 export 'register_page_model.dart';
 
 class RegisterPageWidget extends StatefulWidget {
-  const RegisterPageWidget({Key? key}) : super(key: key);
+  const RegisterPageWidget({super.key});
 
   @override
-  _RegisterPageWidgetState createState() => _RegisterPageWidgetState();
+  State<RegisterPageWidget> createState() => _RegisterPageWidgetState();
 }
 
 class _RegisterPageWidgetState extends State<RegisterPageWidget> {

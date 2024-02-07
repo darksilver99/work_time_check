@@ -16,10 +16,10 @@ import 'payment_page_model.dart';
 export 'payment_page_model.dart';
 
 class PaymentPageWidget extends StatefulWidget {
-  const PaymentPageWidget({Key? key}) : super(key: key);
+  const PaymentPageWidget({super.key});
 
   @override
-  _PaymentPageWidgetState createState() => _PaymentPageWidgetState();
+  State<PaymentPageWidget> createState() => _PaymentPageWidgetState();
 }
 
 class _PaymentPageWidgetState extends State<PaymentPageWidget> {
@@ -295,6 +295,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                   context: context,
                                   builder: (dialogContext) {
                                     return Dialog(
+                                      elevation: 0,
                                       insetPadding: EdgeInsets.zero,
                                       backgroundColor: Colors.transparent,
                                       alignment: AlignmentDirectional(0.0, 0.0)

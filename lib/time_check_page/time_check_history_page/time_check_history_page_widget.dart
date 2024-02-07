@@ -17,10 +17,10 @@ import 'time_check_history_page_model.dart';
 export 'time_check_history_page_model.dart';
 
 class TimeCheckHistoryPageWidget extends StatefulWidget {
-  const TimeCheckHistoryPageWidget({Key? key}) : super(key: key);
+  const TimeCheckHistoryPageWidget({super.key});
 
   @override
-  _TimeCheckHistoryPageWidgetState createState() =>
+  State<TimeCheckHistoryPageWidget> createState() =>
       _TimeCheckHistoryPageWidgetState();
 }
 
@@ -186,6 +186,7 @@ class _TimeCheckHistoryPageWidgetState
                                       context: context,
                                       builder: (dialogContext) {
                                         return Dialog(
+                                          elevation: 0,
                                           insetPadding: EdgeInsets.zero,
                                           backgroundColor: Colors.transparent,
                                           alignment: AlignmentDirectional(

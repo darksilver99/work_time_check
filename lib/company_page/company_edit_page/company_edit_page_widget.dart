@@ -17,14 +17,14 @@ export 'company_edit_page_model.dart';
 
 class CompanyEditPageWidget extends StatefulWidget {
   const CompanyEditPageWidget({
-    Key? key,
+    super.key,
     required this.companyParameter,
-  }) : super(key: key);
+  });
 
   final CompanyListRecord? companyParameter;
 
   @override
-  _CompanyEditPageWidgetState createState() => _CompanyEditPageWidgetState();
+  State<CompanyEditPageWidget> createState() => _CompanyEditPageWidgetState();
 }
 
 class _CompanyEditPageWidgetState extends State<CompanyEditPageWidget> {

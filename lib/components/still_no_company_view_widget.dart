@@ -9,10 +9,10 @@ import 'still_no_company_view_model.dart';
 export 'still_no_company_view_model.dart';
 
 class StillNoCompanyViewWidget extends StatefulWidget {
-  const StillNoCompanyViewWidget({Key? key}) : super(key: key);
+  const StillNoCompanyViewWidget({super.key});
 
   @override
-  _StillNoCompanyViewWidgetState createState() =>
+  State<StillNoCompanyViewWidget> createState() =>
       _StillNoCompanyViewWidgetState();
 }
 

@@ -12,17 +12,16 @@ export 'information_time_check_dialog_view_model.dart';
 
 class InformationTimeCheckDialogViewWidget extends StatefulWidget {
   const InformationTimeCheckDialogViewWidget({
-    Key? key,
+    super.key,
     required this.timeCheckParameter,
     bool? isAdmin,
-  })  : this.isAdmin = isAdmin ?? false,
-        super(key: key);
+  }) : this.isAdmin = isAdmin ?? false;
 
   final TimeCheckListRecord? timeCheckParameter;
   final bool isAdmin;
 
   @override
-  _InformationTimeCheckDialogViewWidgetState createState() =>
+  State<InformationTimeCheckDialogViewWidget> createState() =>
       _InformationTimeCheckDialogViewWidgetState();
 }
 

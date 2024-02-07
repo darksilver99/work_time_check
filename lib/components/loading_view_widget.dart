@@ -9,10 +9,10 @@ import 'loading_view_model.dart';
 export 'loading_view_model.dart';
 
 class LoadingViewWidget extends StatefulWidget {
-  const LoadingViewWidget({Key? key}) : super(key: key);
+  const LoadingViewWidget({super.key});
 
   @override
-  _LoadingViewWidgetState createState() => _LoadingViewWidgetState();
+  State<LoadingViewWidget> createState() => _LoadingViewWidgetState();
 }
 
 class _LoadingViewWidgetState extends State<LoadingViewWidget> {

@@ -10,14 +10,14 @@ export 'full_photo_page_model.dart';
 
 class FullPhotoPageWidget extends StatefulWidget {
   const FullPhotoPageWidget({
-    Key? key,
+    super.key,
     required this.imagePath,
-  }) : super(key: key);
+  });
 
   final String? imagePath;
 
   @override
-  _FullPhotoPageWidgetState createState() => _FullPhotoPageWidgetState();
+  State<FullPhotoPageWidget> createState() => _FullPhotoPageWidgetState();
 }
 
 class _FullPhotoPageWidgetState extends State<FullPhotoPageWidget> {

@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +25,10 @@ import 'home_page_model.dart';
 export 'home_page_model.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key? key}) : super(key: key);
+  const HomePageWidget({super.key});
 
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  State<HomePageWidget> createState() => _HomePageWidgetState();
 }
 
 class _HomePageWidgetState extends State<HomePageWidget>
@@ -223,45 +224,90 @@ class _HomePageWidgetState extends State<HomePageWidget>
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                if (FFAppState().currentCompany != null)
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: StreamBuilder<CompanyListRecord>(
-                          stream: CompanyListRecord.getDocument(
-                              FFAppState().currentCompany!),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-                            final textCompanyListRecord = snapshot.data!;
-                            return Text(
-                              '${textCompanyListRecord.companyName} : ${textCompanyListRecord.companyCode}',
-                              maxLines: 1,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Kanit',
-                                    fontSize: 24.0,
-                                  ),
-                            );
-                          },
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(0.0),
+                        child: Image.asset(
+                          'assets/images/performance_1647538.png',
+                          height: 42.0,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'สวัสดี วัน${functions.getThaiDayName(getCurrentTimestamp)}ที่ ${functions.getThaiDatetime(getCurrentTimestamp, 'date')}',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (FFAppState().currentCompany != null)
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: StreamBuilder<CompanyListRecord>(
+                                    stream: CompanyListRecord.getDocument(
+                                        FFAppState().currentCompany!),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      final textCompanyListRecord =
+                                          snapshot.data!;
+                                      return Text(
+                                        '${textCompanyListRecord.companyName} (${textCompanyListRecord.companyCode})',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              fontSize: 26.0,
+                                            ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -554,6 +600,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       context: context,
                                                       builder: (dialogContext) {
                                                         return Dialog(
+                                                          elevation: 0,
                                                           insetPadding:
                                                               EdgeInsets.zero,
                                                           backgroundColor:
@@ -604,6 +651,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 context: context,
                                                 builder: (dialogContext) {
                                                   return Dialog(
+                                                    elevation: 0,
                                                     insetPadding:
                                                         EdgeInsets.zero,
                                                     backgroundColor:
@@ -830,6 +878,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     context: context,
                                                     builder: (dialogContext) {
                                                       return Dialog(
+                                                        elevation: 0,
                                                         insetPadding:
                                                             EdgeInsets.zero,
                                                         backgroundColor:
@@ -880,6 +929,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   context: context,
                                                   builder: (dialogContext) {
                                                     return Dialog(
+                                                      elevation: 0,
                                                       insetPadding:
                                                           EdgeInsets.zero,
                                                       backgroundColor:
