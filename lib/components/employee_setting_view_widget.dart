@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'employee_setting_view_model.dart';
 export 'employee_setting_view_model.dart';
 
@@ -217,21 +218,27 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                   await showDialog<bool>(
                                         context: context,
                                         builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title: Text(
-                                                'ต้องการลบ ${widget.userParameter?.displayName} ออกจากองค์กร?'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, false),
-                                                child: Text('ยกเลิก'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, true),
-                                                child: Text('ตกลง'),
-                                              ),
-                                            ],
+                                          return WebViewAware(
+                                            child: AlertDialog(
+                                              title: Text(
+                                                  'ต้องการลบ ${widget.userParameter?.displayName} ออกจากองค์กร?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext,
+                                                          false),
+                                                  child: Text('ยกเลิก'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext,
+                                                          true),
+                                                  child: Text('ตกลง'),
+                                                ),
+                                              ],
+                                            ),
                                           );
                                         },
                                       ) ??
@@ -284,9 +291,11 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                                   0.0, 0.0)
                                               .resolve(
                                                   Directionality.of(context)),
-                                          child: InformationDialogViewWidget(
-                                            msg:
-                                                'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                          child: WebViewAware(
+                                            child: InformationDialogViewWidget(
+                                              msg:
+                                                  'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                            ),
                                           ),
                                         );
                                       },
@@ -437,8 +446,10 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                     backgroundColor: Colors.transparent,
                                     alignment: AlignmentDirectional(0.0, 0.0)
                                         .resolve(Directionality.of(context)),
-                                    child: InformationDialogViewWidget(
-                                      msg: 'กรุณาอนุมัติพนักงาน',
+                                    child: WebViewAware(
+                                      child: InformationDialogViewWidget(
+                                        msg: 'กรุณาอนุมัติพนักงาน',
+                                      ),
                                     ),
                                   );
                                 },
@@ -475,9 +486,11 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                             AlignmentDirectional(0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                        child: InformationDialogViewWidget(
-                                          msg:
-                                              'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                        child: WebViewAware(
+                                          child: InformationDialogViewWidget(
+                                            msg:
+                                                'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                          ),
                                         ),
                                       );
                                     },
@@ -533,9 +546,11 @@ class _EmployeeSettingViewWidgetState extends State<EmployeeSettingViewWidget> {
                                             AlignmentDirectional(0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                        child: InformationDialogViewWidget(
-                                          msg:
-                                              'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                        child: WebViewAware(
+                                          child: InformationDialogViewWidget(
+                                            msg:
+                                                'ไม่สามารถบันทึกข้อมูลได้เนื่องจากจำเป็นต้องเหลือ แอดมิน อย่างน้อย 1 คน',
+                                          ),
                                         ),
                                       );
                                     },

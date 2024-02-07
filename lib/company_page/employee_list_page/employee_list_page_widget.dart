@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'employee_list_page_model.dart';
 export 'employee_list_page_model.dart';
 
@@ -431,27 +432,30 @@ class _EmployeeListPageWidgetState extends State<EmployeeListPageWidget> {
                                                     enableDrag: false,
                                                     context: context,
                                                     builder: (context) {
-                                                      return GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child: Padding(
-                                                          padding: MediaQuery
-                                                              .viewInsetsOf(
-                                                                  context),
-                                                          child:
-                                                              EmployeeSettingViewWidget(
-                                                            employeeParameter:
-                                                                listViewEmployeeListRecord,
-                                                            userParameter:
-                                                                containerUsersRecord,
+                                                      return WebViewAware(
+                                                        child: GestureDetector(
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child: Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child:
+                                                                EmployeeSettingViewWidget(
+                                                              employeeParameter:
+                                                                  listViewEmployeeListRecord,
+                                                              userParameter:
+                                                                  containerUsersRecord,
+                                                            ),
                                                           ),
                                                         ),
                                                       );

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'create_company_page_model.dart';
 export 'create_company_page_model.dart';
 
@@ -375,20 +376,22 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                            child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
-                                                      .unfocus(),
-                                              child:
-                                                  InformationDialogViewWidget(
-                                                msg:
-                                                    'ขออภัย Account ของท่านสามารถสร้างองค์กรหรือเป็นแอดมินได้ ${valueOrDefault(currentUserDocument?.canCreateTotalCompany, 0).toString()} องค์กร',
-                                                msg2:
-                                                    'หากต้องการสร้างเพิ่มองค์กรกรุณาออกจากองค์กรเดิมก่อนหรือหากมีคำถามเพิ่มเติมกรุณาติดต่อเมนู ตั้งค่า > แจ้งปัญหาการใช้งาน',
+                                            child: WebViewAware(
+                                              child: GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child:
+                                                    InformationDialogViewWidget(
+                                                  msg:
+                                                      'ขออภัย Account ของท่านสามารถสร้างองค์กรหรือเป็นแอดมินได้ ${valueOrDefault(currentUserDocument?.canCreateTotalCompany, 0).toString()} องค์กร',
+                                                  msg2:
+                                                      'หากต้องการสร้างเพิ่มองค์กรกรุณาออกจากองค์กรเดิมก่อนหรือหากมีคำถามเพิ่มเติมกรุณาติดต่อเมนู ตั้งค่า > แจ้งปัญหาการใช้งาน',
+                                                ),
                                               ),
                                             ),
                                           );
@@ -554,18 +557,20 @@ class _CreateCompanyPageWidgetState extends State<CreateCompanyPageWidget> {
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                            child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
-                                                      .unfocus(),
-                                              child:
-                                                  InformationDialogViewWidget(
-                                                msg:
-                                                    'สำหรับองค์กรที่มีพนักงานน้อยกว่า 9 คนใช้งานฟรี',
+                                            child: WebViewAware(
+                                              child: GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child:
+                                                    InformationDialogViewWidget(
+                                                  msg:
+                                                      'สำหรับองค์กรที่มีพนักงานน้อยกว่า 9 คนใช้งานฟรี',
+                                                ),
                                               ),
                                             ),
                                           );
