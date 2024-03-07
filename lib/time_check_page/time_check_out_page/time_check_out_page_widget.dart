@@ -7,7 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'time_check_out_page_model.dart';
@@ -40,6 +40,16 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
     super.initState();
     _model = createModel(context, () => TimeCheckOutPageModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.rs =
+          await CompanyListRecord.getDocumentOnce(FFAppState().currentCompany!);
+      FFAppState().currentCompanyName = _model.rs!.companyName;
+      setState(() {
+        _model.isLoading = false;
+      });
+    });
+
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
   }
@@ -53,15 +63,6 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -288,35 +289,37 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                                   currentUserLocationValue =
                                       await getCurrentUserLocation(
                                           defaultLocation: LatLng(0.0, 0.0));
-
-                                  await widget.timeCheckParameter!.reference
-                                      .update(createTimeCheckListRecordData(
-                                    updateDate: getCurrentTimestamp,
-                                    updateBy: currentUserReference,
-                                    photoOut: widget.photoPath,
-                                    detailOut: _model.textController.text,
-                                    locationOut: currentUserLocationValue,
-                                  ));
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'ลงเวลาออกงานเรียบร้อยแล้ว',
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
-                                            ),
+                                  if (!_model.isLoading) {
+                                    await widget.timeCheckParameter!.reference
+                                        .update(createTimeCheckListRecordData(
+                                      updateDate: getCurrentTimestamp,
+                                      updateBy: currentUserReference,
+                                      photoOut: widget.photoPath,
+                                      detailOut: _model.textController.text,
+                                      locationOut: currentUserLocationValue,
+                                    ));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'ลงเวลาออกงานเรียบร้อยแล้ว',
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
+                                              ),
+                                        ),
+                                        duration: Duration(milliseconds: 2000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .success,
                                       ),
-                                      duration: Duration(milliseconds: 2000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).success,
-                                    ),
-                                  );
+                                    );
 
-                                  context.goNamed('HomePage');
+                                    context.goNamed('HomePage');
+                                  }
                                 },
                                 text: 'ลงเวลาออก',
                                 options: FFButtonOptions(

@@ -126,16 +126,12 @@ class FFAppState extends ChangeNotifier {
   set isHasUserJoin(bool _value) {
     _isHasUserJoin = _value;
   }
-}
 
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
+  String _currentCompanyName = '';
+  String get currentCompanyName => _currentCompanyName;
+  set currentCompanyName(String _value) {
+    _currentCompanyName = _value;
   }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
 }
 
 void _safeInit(Function() initializeField) {

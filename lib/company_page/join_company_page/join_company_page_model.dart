@@ -40,10 +40,12 @@ class JoinCompanyPageModel extends FlutterFlowModel<JoinCompanyPageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     textControllerValidator = _textControllerValidator;
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     textFieldFocusNode?.dispose();
