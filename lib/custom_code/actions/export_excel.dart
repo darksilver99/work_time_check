@@ -49,7 +49,8 @@ Future<String> exportExcel(
 
   //getData
   var rs = await FirebaseFirestore.instance
-      .collection('time_check_list')
+      .collection(
+          'time_check_list/${FFAppState().currentCompanyDocName}/transaction')
       .where('company_ref', isEqualTo: FFAppState().currentCompany)
       .where('create_date', isGreaterThanOrEqualTo: startDate)
       .where('create_date', isLessThanOrEqualTo: newEndDate)
