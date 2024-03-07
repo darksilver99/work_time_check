@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'time_check_employee_list_page_widget.dart'
     show TimeCheckEmployeeListPageWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -21,10 +20,12 @@ class TimeCheckEmployeeListPageModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     noDataViewModel = createModel(context, () => NoDataViewModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     noDataViewModel.dispose();

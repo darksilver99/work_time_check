@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'register_page_widget.dart' show RegisterPageWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -118,6 +117,7 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     emailAddressControllerValidator = _emailAddressControllerValidator;
     password2Visibility = false;
@@ -130,6 +130,7 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
     phoneControllerValidator = _phoneControllerValidator;
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     emailAddressFocusNode?.dispose();
