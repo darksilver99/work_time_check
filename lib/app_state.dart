@@ -127,10 +127,10 @@ class FFAppState extends ChangeNotifier {
     _isHasUserJoin = _value;
   }
 
-  String _currentCompanyName = '';
-  String get currentCompanyName => _currentCompanyName;
-  set currentCompanyName(String _value) {
-    _currentCompanyName = _value;
+  String _currentCompanyDocName = '';
+  String get currentCompanyDocName => _currentCompanyDocName;
+  set currentCompanyDocName(String _value) {
+    _currentCompanyDocName = _value;
   }
 }
 
