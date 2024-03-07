@@ -185,6 +185,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
       await actions.checkNewEmployeeJoin();
       FFAppState().currentLocation = currentUserLocationValue;
       FFAppState().isAdmin = _model.rsIsAdmin!;
+      if (FFAppState().currentCompany != null) {
+        setState(() {
+          FFAppState().currentCompanyDocName = FFAppState().currentCompany!.id;
+        });
+      }
       setState(() {
         _model.isLoading = false;
       });
