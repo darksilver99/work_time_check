@@ -121,11 +121,16 @@ class _CompanyEditPageWidgetState extends State<CompanyEditPageWidget> {
                             TextFormField(
                               controller: _model.textController,
                               focusNode: _model.textFieldFocusNode,
+                              readOnly: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'ตั้งชื่อองค์กร',
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      color: Color(0xFF9D9D9D),
+                                    ),
                                 hintStyle:
                                     FlutterFlowTheme.of(context).labelMedium,
                                 enabledBorder: OutlineInputBorder(
