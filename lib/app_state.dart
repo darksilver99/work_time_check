@@ -38,6 +38,10 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _isEnableAd = prefs.getBool('ff_isEnableAd') ?? _isEnableAd;
     });
+    _safeInit(() {
+      _currentCompanyDocName =
+          prefs.getString('ff_currentCompanyDocName') ?? _currentCompanyDocName;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -127,10 +131,11 @@ class FFAppState extends ChangeNotifier {
     _isHasUserJoin = _value;
   }
 
-  String _currentCompanyDocName = '';
+  String _currentCompanyDocName = 'nocompanyselected1111';
   String get currentCompanyDocName => _currentCompanyDocName;
   set currentCompanyDocName(String _value) {
     _currentCompanyDocName = _value;
+    prefs.setString('ff_currentCompanyDocName', _value);
   }
 }
 

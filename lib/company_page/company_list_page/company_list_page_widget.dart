@@ -196,6 +196,9 @@ class _CompanyListPageWidgetState extends State<CompanyListPageWidget> {
                                         FFAppState().currentCompany =
                                             listViewEmployeeListRecord
                                                 .companyRef;
+                                        FFAppState().currentCompanyDocName =
+                                            containerCompanyListRecord
+                                                .reference.id;
                                       });
 
                                       await currentUserReference!
