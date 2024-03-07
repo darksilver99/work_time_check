@@ -1128,7 +1128,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                       0.0,
                                                                       0.0),
                                                           child: Text(
-                                                            'จัดการอังค์กร',
+                                                            'จัดการองค์กร',
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: FlutterFlowTheme
