@@ -338,6 +338,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       .getDocumentOnce(
                                                           FFAppState()
                                                               .currentCompany!);
+                                              FFAppState()
+                                                      .currentCompanyDocName =
+                                                  _model.rsCompanyData!
+                                                      .reference.id;
                                               if (!_model
                                                   .rsCompanyData!.isFree) {
                                                 if (FFAppState().isAdmin) {
