@@ -43,7 +43,7 @@ class _TimeCheckTodayPageWidgetState extends State<TimeCheckTodayPageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.rs =
           await CompanyListRecord.getDocumentOnce(FFAppState().currentCompany!);
-      FFAppState().currentCompanyName = _model.rs!.companyName;
+      FFAppState().currentCompanyDocName = _model.rs!.reference.id;
       setState(() {
         _model.isLoading = false;
       });
