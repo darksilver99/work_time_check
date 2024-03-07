@@ -92,7 +92,7 @@ class TimeCheckListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('time_check_list');
+      FirebaseFirestore.instance.collection('time_check_list/${FFAppState().currentCompanyDocName}/transaction');
 
   static Stream<TimeCheckListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => TimeCheckListRecord.fromSnapshot(s));
