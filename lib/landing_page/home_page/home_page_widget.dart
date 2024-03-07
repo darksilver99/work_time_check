@@ -1141,7 +1141,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         ),
                                                       ),
                                                       if (FFAppState()
-                                                          .isHasUserJoin)
+                                                              .isAdmin &&
+                                                          FFAppState()
+                                                              .isHasUserJoin)
                                                         Align(
                                                           alignment:
                                                               AlignmentDirectional(
