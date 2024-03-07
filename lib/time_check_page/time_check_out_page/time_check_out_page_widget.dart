@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +32,7 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
   late TimeCheckOutPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -272,8 +274,39 @@ class _TimeCheckOutPageWidgetState extends State<TimeCheckOutPageWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
+                                onPressed: () async {
+                                  currentUserLocationValue =
+                                      await getCurrentUserLocation(
+                                          defaultLocation: LatLng(0.0, 0.0));
+
+                                  await widget.timeCheckParameter!.reference
+                                      .update(createTimeCheckListRecordData(
+                                    updateDate: getCurrentTimestamp,
+                                    updateBy: currentUserReference,
+                                    photoOut: widget.photoPath,
+                                    detailOut: _model.textController.text,
+                                    locationOut: currentUserLocationValue,
+                                  ));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'ลงเวลาออกงานเรียบร้อยแล้ว',
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                            ),
+                                      ),
+                                      duration: Duration(milliseconds: 2000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).success,
+                                    ),
+                                  );
+
+                                  context.goNamed('HomePage');
                                 },
                                 text: 'ลงเวลาออก',
                                 options: FFButtonOptions(
