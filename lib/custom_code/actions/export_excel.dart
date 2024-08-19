@@ -22,7 +22,7 @@ Future<String> exportExcel(
   DateTime? endDate,
 ) async {
   // Add your function code here!
-  bool isGranted = false;
+  /*bool isGranted = false;
   if (Platform.isAndroid) {
     final deviceInfo = DeviceInfoPlugin();
     final info = await deviceInfo.androidInfo;
@@ -180,5 +180,6 @@ Future<String> exportExcel(
 
   print(path);
 
-  return path.path;
+  return path.path;*/
+  return '';
 }
