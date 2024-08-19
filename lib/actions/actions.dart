@@ -2,8 +2,8 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/component/confirm_custom_view/confirm_custom_view_widget.dart';
-import '/component/create_customer_view/create_customer_view_widget.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
+import '/customer_view/join_customer_view/join_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -106,7 +106,7 @@ Future initCustomer(BuildContext context) async {
           alignment: AlignmentDirectional(0.0, 0.0)
               .resolve(Directionality.of(context)),
           child: WebViewAware(
-            child: CreateCustomerViewWidget(),
+            child: JoinCustomerViewWidget(),
           ),
         );
       },
@@ -154,7 +154,7 @@ Future<bool?> isHasCustomerBlock(BuildContext context) async {
         alignment:
             AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
         child: WebViewAware(
-          child: CreateCustomerViewWidget(),
+          child: JoinCustomerViewWidget(),
         ),
       );
     },

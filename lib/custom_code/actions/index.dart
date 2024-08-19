@@ -6,3 +6,4 @@ export 'push_replacement.dart' show pushReplacement;
 export 'upload_image_to_firebase.dart' show uploadImageToFirebase;
 export 'set_app_version.dart' show setAppVersion;
 export 'share_file.dart' show shareFile;
+export 'get_customer_reference.dart' show getCustomerReference;

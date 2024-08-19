@@ -1,28 +1,35 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
+import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
+import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'create_customer_view_model.dart';
-export 'create_customer_view_model.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
+import 'join_customer_view_model.dart';
+export 'join_customer_view_model.dart';
 
-class CreateCustomerViewWidget extends StatefulWidget {
-  const CreateCustomerViewWidget({super.key});
+class JoinCustomerViewWidget extends StatefulWidget {
+  const JoinCustomerViewWidget({super.key});
 
   @override
-  State<CreateCustomerViewWidget> createState() =>
-      _CreateCustomerViewWidgetState();
+  State<JoinCustomerViewWidget> createState() => _JoinCustomerViewWidgetState();
 }
 
-class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
+class _JoinCustomerViewWidgetState extends State<JoinCustomerViewWidget>
     with TickerProviderStateMixin {
-  late CreateCustomerViewModel _model;
+  late JoinCustomerViewModel _model;
 
   final animationsMap = <String, AnimationInfo>{};
 
@@ -35,7 +42,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CreateCustomerViewModel());
+    _model = createModel(context, () => JoinCustomerViewModel());
 
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
@@ -146,44 +153,108 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    _model.qrCodeResult =
-                                        await FlutterBarcodeScanner.scanBarcode(
-                                      '#C62828', // scanning line color
-                                      'Cancel', // cancel button text
-                                      true, // whether to show the flash icon
-                                      ScanMode.QR,
-                                    );
+                                child: Builder(
+                                  builder: (context) => FFButtonWidget(
+                                    onPressed: () async {
+                                      _model.qrCodeResult =
+                                          await FlutterBarcodeScanner
+                                              .scanBarcode(
+                                        '#C62828', // scanning line color
+                                        'Cancel', // cancel button text
+                                        true, // whether to show the flash icon
+                                        ScanMode.QR,
+                                      );
 
-                                    setState(() {});
-                                  },
-                                  text: 'สแกน QR Code',
-                                  icon: Icon(
-                                    Icons.qr_code_rounded,
-                                    size: 32.0,
-                                  ),
-                                  options: FFButtonOptions(
-                                    height: 50.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          color: Colors.white,
-                                          fontSize: 20.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
+                                      _model.customerRefResult =
+                                          await actions.getCustomerReference(
+                                        _model.qrCodeResult!,
+                                      );
+                                      _model.customerDocResult =
+                                          await CustomerRecord.getDocumentOnce(
+                                              _model.customerRefResult!);
+                                      if (_model.customerDocResult != null) {
+                                        _model.totalMember =
+                                            await queryMemberListRecordCount(
+                                          parent: _model
+                                              .customerDocResult?.reference,
+                                          queryBuilder: (memberListRecord) =>
+                                              memberListRecord.where(
+                                            'create_by',
+                                            isEqualTo: currentUserReference,
+                                          ),
+                                        );
+                                        if (_model.totalMember! <= 0) {
+                                          await MemberListRecord.createDoc(
+                                                  _model.customerDocResult!
+                                                      .reference)
+                                              .set(createMemberListRecordData(
+                                            createDate: getCurrentTimestamp,
+                                            createBy: currentUserReference,
+                                            status: 1,
+                                            permission: 'member',
+                                            displayName:
+                                                '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.lastName, '')} (${currentUserDisplayName})',
+                                          ));
+                                        }
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title: 'ไม่พบองค์กร',
+                                                  detail:
+                                                      'กรุณาตรวจสอบ QR Code หรือ ติดต่อเจ้าหน้าที่องค์กรของท่าน',
+                                                  status: 'error',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+
+                                      setState(() {});
+                                    },
+                                    text: 'สแกน QR Code',
+                                    icon: Icon(
+                                      Icons.qr_code_rounded,
+                                      size: 32.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    options: FFButtonOptions(
+                                      height: 50.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            color: Colors.white,
+                                            fontSize: 20.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -241,12 +312,26 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 4.0, 0.0),
-                                child: FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
+                              child: Builder(
+                                builder: (context) => FFButtonWidget(
+                                  onPressed: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (dialogContext) {
+                                        return Dialog(
+                                          elevation: 0,
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          child: WebViewAware(
+                                            child: CreateCustomerViewWidget(),
+                                          ),
+                                        );
+                                      },
+                                    );
                                   },
                                   text: 'สร้างขององค์กร',
                                   icon: Icon(
@@ -275,7 +360,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(100.0),
                                   ),
                                 ),
                               ),
