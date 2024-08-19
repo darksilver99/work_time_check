@@ -1,5 +1,6 @@
 // Automatic FlutterFlow imports
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
@@ -12,7 +13,7 @@ import 'package:share_extend/share_extend.dart';
 
 Future shareFile(String? path) async {
   // Add your function code here!
-  if (path != '') {
+  if (path != null && path != '') {
     ShareExtend.share(path!, "file");
   }
 }
