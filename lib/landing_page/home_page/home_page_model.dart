@@ -5,9 +5,9 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'dart:math';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -28,10 +28,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   late BackgroundViewModel backgroundViewModel;
   // Stores action output result for [Action Block - isHasCustomerBlock] action in Column widget.
   bool? isHasCustomer;
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-
+  // Stores action output result for [Custom Action - customCamera] action in Column widget.
+  List<FFUploadedFile>? photoResult;
   // Stores action output result for [Action Block - confirmBlock] action in Column widget.
   bool? isConfirm;
 
