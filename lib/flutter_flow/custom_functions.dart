@@ -69,3 +69,12 @@ String getLocationURL(LatLng? location) {
   }
   return 'https://maps.google.com/?q=${location!.latitude},${location!.longitude}';
 }
+
+int millisecondsBetween(
+  DateTime start,
+  DateTime end,
+) {
+  Duration difference = end.difference(start);
+
+  return difference.inMilliseconds;
+}
