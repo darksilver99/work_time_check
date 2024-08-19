@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -108,134 +109,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ResetPasswordPageWidget(),
         ),
         FFRoute(
-          name: 'TimeCheckHistoryPage',
-          path: '/timeCheckHistoryPage',
-          builder: (context, params) => TimeCheckHistoryPageWidget(),
-        ),
-        FFRoute(
-          name: 'JoinCompanyPage',
-          path: '/joinCompanyPage',
-          builder: (context, params) => JoinCompanyPageWidget(),
-        ),
-        FFRoute(
-          name: 'CreateCompanyPage',
-          path: '/createCompanyPage',
-          builder: (context, params) => CreateCompanyPageWidget(),
-        ),
-        FFRoute(
-          name: 'TimeCheckTodayPage',
-          path: '/timeCheckTodayPage',
-          builder: (context, params) => TimeCheckTodayPageWidget(
-            photoPath: params.getParam('photoPath', ParamType.String),
-            currentTime: params.getParam('currentTime', ParamType.DateTime),
-          ),
-        ),
-        FFRoute(
-          name: 'CompanyListPage',
-          path: '/companyListPage',
-          builder: (context, params) => CompanyListPageWidget(),
-        ),
-        FFRoute(
-          name: 'TimeCheckOutPage',
-          path: '/timeCheckOutPage',
-          asyncParams: {
-            'timeCheckParameter':
-                getDoc(['time_check_list'], TimeCheckListRecord.fromSnapshot),
-          },
-          builder: (context, params) => TimeCheckOutPageWidget(
-            photoPath: params.getParam('photoPath', ParamType.String),
-            currentTime: params.getParam('currentTime', ParamType.DateTime),
-            timeCheckParameter:
-                params.getParam('timeCheckParameter', ParamType.Document),
-          ),
-        ),
-        FFRoute(
-          name: 'CompanyManageListPage',
-          path: '/companyManageListPage',
-          builder: (context, params) => CompanyManageListPageWidget(),
-        ),
-        FFRoute(
-          name: 'EmployeeListPage',
-          path: '/employeeListPage',
-          asyncParams: {
-            'companyParameter':
-                getDoc(['company_list'], CompanyListRecord.fromSnapshot),
-          },
-          builder: (context, params) => EmployeeListPageWidget(
-            companyParameter:
-                params.getParam('companyParameter', ParamType.Document),
-          ),
-        ),
-        FFRoute(
-          name: 'TimeCheckEmployeeListPage',
-          path: '/timeCheckEmployeeListPage',
-          builder: (context, params) => TimeCheckEmployeeListPageWidget(),
-        ),
-        FFRoute(
-          name: 'TimeCheckEmployeeHistoryPage',
-          path: '/timeCheckEmployeeHistoryPage',
-          asyncParams: {
-            'userParameter': getDoc(['users'], UsersRecord.fromSnapshot),
-          },
-          builder: (context, params) => TimeCheckEmployeeHistoryPageWidget(
-            userParameter: params.getParam('userParameter', ParamType.Document),
-          ),
-        ),
-        FFRoute(
-          name: 'GraphPage',
-          path: '/graphPage',
-          builder: (context, params) => GraphPageWidget(),
-        ),
-        FFRoute(
           name: 'ExportExcelPage',
           path: '/exportExcelPage',
           builder: (context, params) => ExportExcelPageWidget(),
         ),
         FFRoute(
-          name: 'FullPhotoPage',
-          path: '/fullPhotoPage',
-          builder: (context, params) => FullPhotoPageWidget(
-            imagePath: params.getParam('imagePath', ParamType.String),
-          ),
-        ),
-        FFRoute(
-          name: 'SettingPage',
-          path: '/settingPage',
-          builder: (context, params) => SettingPageWidget(),
-        ),
-        FFRoute(
-          name: 'PaymentPage',
-          path: '/paymentPage',
-          builder: (context, params) => PaymentPageWidget(),
-        ),
-        FFRoute(
-          name: 'PaymentWarningPage',
-          path: '/paymentWarningPage',
-          builder: (context, params) => PaymentWarningPageWidget(),
-        ),
-        FFRoute(
-          name: 'ContactPage',
-          path: '/contactPage',
-          builder: (context, params) => ContactPageWidget(),
-        ),
-        FFRoute(
-          name: 'CompanyEditPage',
-          path: '/companyEditPage',
-          asyncParams: {
-            'companyParameter':
-                getDoc(['company_list'], CompanyListRecord.fromSnapshot),
-          },
-          builder: (context, params) => CompanyEditPageWidget(
-            companyParameter:
-                params.getParam('companyParameter', ParamType.Document),
-          ),
-        ),
-        FFRoute(
           name: 'WebViewPage',
           path: '/webViewPage',
           builder: (context, params) => WebViewPageWidget(
-            title: params.getParam('title', ParamType.String),
-            url: params.getParam('url', ParamType.String),
+            title: params.getParam(
+              'title',
+              ParamType.String,
+            ),
+            url: params.getParam(
+              'url',
+              ParamType.String,
+            ),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -313,7 +202,7 @@ extension _GoRouterStateExtensions on GoRouterState {
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(uri.queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -332,7 +221,7 @@ class FFParameters {
   // present is the special extra parameter reserved for the transition info.
   bool get isEmpty =>
       state.allParams.isEmpty ||
-      (state.extraMap.length == 1 &&
+      (state.allParams.length == 1 &&
           state.extraMap.containsKey(kTransitionInfoKey));
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
@@ -353,10 +242,11 @@ class FFParameters {
 
   dynamic getParam<T>(
     String paramName,
-    ParamType type, [
+    ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
-  ]) {
+    StructBuilder<T>? structBuilder,
+  }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
     }
@@ -369,8 +259,13 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList,
-        collectionNamePath: collectionNamePath);
+    return deserializeParam<T>(
+      param,
+      type,
+      isList,
+      collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
+    );
   }
 }
 
@@ -402,7 +297,7 @@ class FFRoute {
           }
 
           if (requireAuth && !appStateNotifier.loggedIn) {
-            appStateNotifier.setRedirectLocationIfUnset(state.location);
+            appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
             return '/loginPage';
           }
           return null;
@@ -480,7 +375,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;
@@ -490,4 +385,14 @@ class RootPageContext {
         value: RootPageContext(true, errorRoute),
         child: child,
       );
+}
+
+extension GoRouterLocationExtension on GoRouter {
+  String getCurrentLocation() {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
 }

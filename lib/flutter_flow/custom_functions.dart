@@ -5,60 +5,67 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'flutter_flow_util.dart';
 import 'lat_lng.dart';
 import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
-String? getEmployeeStatus(int? status) {
-  if (status == 0) {
-    return "รออนุมัติ";
-  } else if (status == 1) {
-    return "อนุมัติแล้ว";
-  } else {
-    return "-";
+String? dateTh(DateTime? date) {
+  if (date == null) {
+    return null;
   }
+  final DateFormat formatter = DateFormat('d MMMM yyyy', 'th_TH');
+  final buddhistYear = date.year + 543;
+  return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }
 
-String? getTime(DateTime? dateTime) {
-  var time = dateTime.toString().split(" ")[1].replaceAll(":00.000", "");
-  return time;
+String? dateTimeTh(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+
+  final DateFormat formatter = DateFormat('d MMMM yyyy HH:mm:ss', 'th_TH');
+  final buddhistYear = date.year + 543;
+  return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
 }
 
-DateTime? getNextDay(int? nextDay) {
+DateTime getBeforeDay(
+  int pastDay,
+  DateTime date,
+) {
+  DateTime pastDate = date.subtract(Duration(days: pastDay));
+  return pastDate;
+}
+
+DateTime getEndDayTime(DateTime currentDate) {
+  DateTime endOfDay = DateTime(
+      currentDate.year, currentDate.month, currentDate.day, 23, 59, 59);
+  return endOfDay;
+}
+
+DateTime getNextDay(int nextDay) {
   DateTime currentDate = DateTime.now();
-  DateTime futureDate = currentDate.add(Duration(days: nextDay!));
+  DateTime futureDate = currentDate.add(Duration(days: nextDay));
   return futureDate;
 }
 
-String? getThaiDatetime(
-  DateTime? dateTime,
-  String? type,
-) {
-  var newDateTime = dateTimeFormat("d MMM y HH:mm", dateTime, locale: "TH_th");
-  var tmpNewDate = newDateTime.split(" ");
-  var newYear = int.parse(tmpNewDate[2]) + 543;
-  if (type == "time") {
-    return newDateTime =
-        '${tmpNewDate[0]} ${tmpNewDate[1]} $newYear ${tmpNewDate[3]} น.';
-  } else {
-    return newDateTime = '${tmpNewDate[0]} ${tmpNewDate[1]} $newYear';
-  }
+DateTime getStartDayTime(DateTime currentDate) {
+  DateTime startOfDay =
+      DateTime(currentDate.year, currentDate.month, currentDate.day);
+  return startOfDay;
 }
 
-String? getThaiDayName(DateTime? date) {
-  int dayOfWeek = date!.weekday;
-  List<String> dayName = [
-    "อาทิตย์",
-    "จันทร์",
-    "อังคาร",
-    "พุธ",
-    "พฤหัสบดี",
-    "ศุกร์",
-    "เสาร์"
-  ];
-  return dayName[dayOfWeek];
+DateTime getFirstDayOfMonth(DateTime date) {
+  DateTime firstDayOfCurrentMonth = DateTime(date.year, date.month, 1);
+  return firstDayOfCurrentMonth;
+}
+
+String getLocationURL(LatLng? location) {
+  if (location == null) {
+    return '';
+  }
+  return 'https://maps.google.com/?q=${location!.latitude},${location!.longitude}';
 }

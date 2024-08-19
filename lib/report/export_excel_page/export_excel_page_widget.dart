@@ -37,12 +37,8 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -69,6 +65,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -125,6 +122,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                               .override(
                                                 fontFamily: 'Kanit',
                                                 fontSize: 32.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                       pickerBackgroundColor:
@@ -154,9 +152,8 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                     );
                                   });
                                 }
-                                setState(() {
-                                  _model.startDate = _model.datePicked1;
-                                });
+                                _model.startDate = _model.datePicked1;
+                                setState(() {});
                               },
                               child: Material(
                                 color: Colors.transparent,
@@ -181,11 +178,15 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                         Text(
                                           valueOrDefault<String>(
                                             dateTimeFormat(
-                                                'd/M/y', _model.startDate),
+                                                "d/M/y", _model.startDate),
                                             'เลือกวันที่เริ่มต้น',
                                           ),
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -222,6 +223,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                                 .override(
                                                   fontFamily: 'Kanit',
                                                   fontSize: 32.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                         pickerBackgroundColor:
@@ -252,9 +254,8 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                       );
                                     });
                                   }
-                                  setState(() {
-                                    _model.endDate = _model.datePicked2;
-                                  });
+                                  _model.endDate = _model.datePicked2;
+                                  setState(() {});
                                 },
                                 child: Material(
                                   color: Colors.transparent,
@@ -279,11 +280,15 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                           Text(
                                             valueOrDefault<String>(
                                               dateTimeFormat(
-                                                  'd/M/y', _model.endDate),
+                                                  "d/M/y", _model.endDate),
                                               'เลือกวันที่สิ้นสุด',
                                             ),
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  letterSpacing: 0.0,
+                                                ),
                                           ),
                                         ],
                                       ),
@@ -316,6 +321,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .info,
+                                                  letterSpacing: 0.0,
                                                 ),
                                           ),
                                           duration:
@@ -342,6 +348,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .info,
+                                                letterSpacing: 0.0,
                                               ),
                                         ),
                                         duration: Duration(milliseconds: 2000),
@@ -367,6 +374,7 @@ class _ExportExcelPageWidgetState extends State<ExportExcelPageWidget> {
                                       .override(
                                         fontFamily: 'Kanit',
                                         color: Colors.white,
+                                        letterSpacing: 0.0,
                                       ),
                                   elevation: 3.0,
                                   borderSide: BorderSide(

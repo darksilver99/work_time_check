@@ -18,23 +18,14 @@ class ExportExcelPageModel extends FlutterFlowModel<ExportExcelPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   DateTime? datePicked1;
   DateTime? datePicked2;
   // Stores action output result for [Custom Action - exportExcel] action in Button widget.
   String? path;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
+  void dispose() {}
 }
