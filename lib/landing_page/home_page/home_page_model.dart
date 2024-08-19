@@ -23,6 +23,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   // Model for BackgroundView component.
   late BackgroundViewModel backgroundViewModel;
+  // Stores action output result for [Action Block - isHasCustomerBlock] action in Column widget.
+  bool? isHasCustomer;
   // Stores action output result for [Action Block - confirmBlock] action in Column widget.
   bool? isConfirm;
 
