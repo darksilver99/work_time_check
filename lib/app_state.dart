@@ -49,6 +49,26 @@ class FFAppState extends ChangeNotifier {
     _appBuildVersion = value;
     prefs.setInt('ff_appBuildVersion', value);
   }
+
+  ConfigDataStruct _configData = ConfigDataStruct();
+  ConfigDataStruct get configData => _configData;
+  set configData(ConfigDataStruct value) {
+    _configData = value;
+  }
+
+  void updateConfigDataStruct(Function(ConfigDataStruct) updateFn) {
+    updateFn(_configData);
+  }
+
+  CustomDataStruct _customerData = CustomDataStruct();
+  CustomDataStruct get customerData => _customerData;
+  set customerData(CustomDataStruct value) {
+    _customerData = value;
+  }
+
+  void updateCustomerDataStruct(Function(CustomDataStruct) updateFn) {
+    updateFn(_customerData);
+  }
 }
 
 void _safeInit(Function() initializeField) {
