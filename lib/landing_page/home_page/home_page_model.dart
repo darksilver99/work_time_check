@@ -34,22 +34,22 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   List<FFUploadedFile>? photoResult;
   // Stores action output result for [Action Block - confirmBlock] action in Column widget.
   bool? isConfirm;
-  // Model for LoadingView component.
-  late LoadingViewModel loadingViewModel;
   // Model for WorkTimeView component.
   late WorkTimeViewModel workTimeViewModel;
+  // Model for LoadingView component.
+  late LoadingViewModel loadingViewModel;
 
   @override
   void initState(BuildContext context) {
     backgroundViewModel = createModel(context, () => BackgroundViewModel());
-    loadingViewModel = createModel(context, () => LoadingViewModel());
     workTimeViewModel = createModel(context, () => WorkTimeViewModel());
+    loadingViewModel = createModel(context, () => LoadingViewModel());
   }
 
   @override
   void dispose() {
     backgroundViewModel.dispose();
-    loadingViewModel.dispose();
     workTimeViewModel.dispose();
+    loadingViewModel.dispose();
   }
 }

@@ -550,20 +550,21 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         .addToEnd(SizedBox(height: 32.0)),
                   ),
                 ),
+              if (!_model.isLoading)
+                Align(
+                  alignment: AlignmentDirectional(0.0, 1.0),
+                  child: wrapWithModel(
+                    model: _model.workTimeViewModel,
+                    updateCallback: () => setState(() {}),
+                    child: WorkTimeViewWidget(),
+                  ),
+                ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingViewModel,
                   updateCallback: () => setState(() {}),
                   child: LoadingViewWidget(),
                 ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.workTimeViewModel,
-                  updateCallback: () => setState(() {}),
-                  child: WorkTimeViewWidget(),
-                ),
-              ),
             ],
           ),
         ),
