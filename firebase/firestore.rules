@@ -14,5 +14,36 @@ service cloud.firestore {
       allow write: if true;
       allow delete: if true;
     }
+
+    match /customer/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /customer/{parent}/member_list/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/member_list/{document} {
+      allow read: if true;
+    }
+
+
+    match /customer/{parent}/transacation_list/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/transacation_list/{document} {
+      allow read: if true;
+    }
+
   }
 }

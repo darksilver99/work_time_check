@@ -22,6 +22,17 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _appBuildVersion = prefs.getInt('ff_appBuildVersion') ?? _appBuildVersion;
     });
+    _safeInit(() {
+      if (prefs.containsKey('ff_customerData')) {
+        try {
+          final serializedData = prefs.getString('ff_customerData') ?? '{}';
+          _customerData =
+              CustomDataStruct.fromSerializableMap(jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
   }
 
   void update(VoidCallback callback) {
@@ -48,6 +59,28 @@ class FFAppState extends ChangeNotifier {
   set appBuildVersion(int value) {
     _appBuildVersion = value;
     prefs.setInt('ff_appBuildVersion', value);
+  }
+
+  ConfigDataStruct _configData = ConfigDataStruct();
+  ConfigDataStruct get configData => _configData;
+  set configData(ConfigDataStruct value) {
+    _configData = value;
+  }
+
+  void updateConfigDataStruct(Function(ConfigDataStruct) updateFn) {
+    updateFn(_configData);
+  }
+
+  CustomDataStruct _customerData = CustomDataStruct();
+  CustomDataStruct get customerData => _customerData;
+  set customerData(CustomDataStruct value) {
+    _customerData = value;
+    prefs.setString('ff_customerData', value.serialize());
+  }
+
+  void updateCustomerDataStruct(Function(CustomDataStruct) updateFn) {
+    updateFn(_customerData);
+    prefs.setString('ff_customerData', _customerData.serialize());
   }
 }
 

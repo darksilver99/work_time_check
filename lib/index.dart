@@ -7,6 +7,6 @@ export '/authen_page/reset_password_page/reset_password_page_widget.dart'
     show ResetPasswordPageWidget;
 export '/report/export_excel_page/export_excel_page_widget.dart'
     show ExportExcelPageWidget;
-export '/landing_page/web_view_page/web_view_page_widget.dart'
+export '/other_page/web_view_page/web_view_page_widget.dart'
     show WebViewPageWidget;
 export '/other_page/test_page/test_page_widget.dart' show TestPageWidget;
