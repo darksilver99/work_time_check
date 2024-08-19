@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:work_time_check/solo/CustomCameraPage.dart';
+import 'package:work_time_check/flutter_flow/upload_data.dart';
 
 Future<List<FFUploadedFile>?> customCamera(BuildContext context) async {
   // Add your function code here!
@@ -19,5 +20,26 @@ Future<List<FFUploadedFile>?> customCamera(BuildContext context) async {
     context,
     MaterialPageRoute(builder: (context) => const CustomCameraPage()),
   );
-  return selectedMedia;
+
+  if (selectedMedia != null &&
+      selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
+    var selectedUploadedFiles = <FFUploadedFile>[];
+    try {
+      selectedUploadedFiles = selectedMedia
+          .map((m) => FFUploadedFile(
+                name: m.storagePath.split('/').last,
+                bytes: m.bytes,
+                height: m.dimensions?.height,
+                width: m.dimensions?.width,
+                blurHash: m.blurHash,
+              ))
+          .toList();
+    } finally {}
+    if (selectedUploadedFiles.length == selectedMedia.length) {
+      return [selectedUploadedFiles.first];
+    } else {
+      return null;
+    }
+  }
+  return null;
 }

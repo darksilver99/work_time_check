@@ -46,6 +46,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
       await action_blocks.initConfig(context);
       await action_blocks.initCustomer(context);
       FFAppState().currentLocation = currentUserLocationValue;
+      setState(() {});
     });
 
     animationsMap.addAll({
@@ -223,25 +224,29 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           await actions.customCamera(
                                         context,
                                       );
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        enableDrag: false,
-                                        useSafeArea: true,
-                                        context: context,
-                                        builder: (context) {
-                                          return WebViewAware(
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: CheckInViewWidget(
-                                                photoIn:
-                                                    _model.photoResult!.first,
+                                      if (_model.photoResult != null &&
+                                          (_model.photoResult)!.isNotEmpty) {
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          useSafeArea: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return WebViewAware(
+                                              child: Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child: CheckInViewWidget(
+                                                  photoIn:
+                                                      _model.photoResult!.first,
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      ).then((value) => safeSetState(() {}));
+                                            );
+                                          },
+                                        ).then((value) => safeSetState(() {}));
+                                      }
                                     }
 
                                     setState(() {});
