@@ -45,7 +45,7 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                 'status',
                 isEqualTo: 1,
               )
-              .orderBy('detail_in', descending: true),
+              .orderBy('date_in', descending: true),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
         if (_model.transactionDoc != null) {

@@ -9,7 +9,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "detail_in",
+          "fieldPath": "date_in",
           "order": "DESCENDING"
         }
       ]
