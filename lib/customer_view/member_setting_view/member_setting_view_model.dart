@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:math';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'member_setting_view_widget.dart' show MemberSettingViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,6 +28,8 @@ class MemberSettingViewModel extends FlutterFlowModel<MemberSettingViewWidget> {
   FormFieldController<String>? dropDownValueController;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   int? totalAdmin;
+  // Stores action output result for [Action Block - confirmBlock] action in Text widget.
+  bool? isConfirm;
 
   @override
   void initState(BuildContext context) {}
