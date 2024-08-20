@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import '/backend/firebase_storage/storage.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 Future<List<String>> uploadImageToFirebase(
   String path,
@@ -20,7 +21,14 @@ Future<List<String>> uploadImageToFirebase(
   List<String> urlList = [];
   for (var i = 0; i < imageList.length; i++) {
     String newPath = '$path/${imageList[i].name}';
-    var url = await uploadData(newPath, imageList[i].bytes!);
+
+    Uint8List compress = await FlutterImageCompress.compressWithList(
+      imageList[i].bytes!,
+      minWidth: 300,
+      quality: 50,
+    );
+
+    var url = await uploadData(newPath, compress);
     if (url != null) {
       urlList.add(url);
     }
