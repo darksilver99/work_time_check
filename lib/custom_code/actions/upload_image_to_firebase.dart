@@ -25,7 +25,7 @@ Future<List<String>> uploadImageToFirebase(
     Uint8List compress = await FlutterImageCompress.compressWithList(
       imageList[i].bytes!,
       minWidth: 300,
-      quality: 50,
+      quality: 30,
     );
 
     var url = await uploadData(newPath, compress);
