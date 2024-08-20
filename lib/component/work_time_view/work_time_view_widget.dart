@@ -41,10 +41,16 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
         _model.transactionDoc = await queryTransacationListRecordOnce(
           parent: currentUserDocument?.currentCustomerRef,
           queryBuilder: (transacationListRecord) => transacationListRecord
-              .where(
-                'status',
-                isEqualTo: 1,
-              )
+              .where(Filter.or(
+                Filter(
+                  'status',
+                  isEqualTo: 1,
+                ),
+                Filter(
+                  'create_by',
+                  isEqualTo: currentUserReference,
+                ),
+              ))
               .orderBy('date_in', descending: true),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
