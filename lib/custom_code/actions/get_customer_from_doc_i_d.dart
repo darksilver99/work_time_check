@@ -10,10 +10,16 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<DocumentReference?> getCustomerReference(String docID) async {
+Future<CustomerRecord?> getCustomerFromDocID(String? docID) async {
   // Add your function code here!
-  if (docID == "") {
+  if (docID == null) {
     return null;
   }
-  return FirebaseFirestore.instance.doc("customer/$docID");
+
+  try {
+    return await CustomerRecord.getDocumentOnce(
+        FirebaseFirestore.instance.doc("customer/$docID"));
+  } catch (e) {
+    return null;
+  }
 }

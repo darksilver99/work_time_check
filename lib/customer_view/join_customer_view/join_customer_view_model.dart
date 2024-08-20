@@ -23,9 +23,7 @@ class JoinCustomerViewModel extends FlutterFlowModel<JoinCustomerViewWidget> {
   ///  State fields for stateful widgets in this component.
 
   var qrCodeResult = '';
-  // Stores action output result for [Custom Action - getCustomerReference] action in Button widget.
-  DocumentReference? customerRefResult;
-  // Stores action output result for [Backend Call - Read Document] action in Button widget.
+  // Stores action output result for [Custom Action - getCustomerFromDocID] action in Button widget.
   CustomerRecord? customerDocResult;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   int? totalMember;
