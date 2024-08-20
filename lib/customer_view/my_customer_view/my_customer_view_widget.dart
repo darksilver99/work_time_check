@@ -130,6 +130,7 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
                     key: Key(
                         'Key54y_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
                     customerRef: listViewMemberListRecord.parentReference,
+                    memberDoc: listViewMemberListRecord,
                   );
                 },
               );
