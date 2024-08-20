@@ -154,5 +154,47 @@ String dayTh(DateTime date) {
       dayOfMonthFormatter.format(date); // วันของเดือน (เช่น 15)
 
   // สร้างสตริงที่รวมวันและวันที่
-  return '$dayOfWeek ที่ $dayOfMonth';
+  return '$dayOfWeekที่ $dayOfMonth';
+}
+
+bool isWeekend(String dayString) {
+  return dayString.contains("วันเสาร์") || dayString.contains("วันอาทิตย์");
+}
+
+String? fullThaiDate(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+  List<String> days = [
+    'วันอาทิตย์',
+    'วันจันทร์',
+    'วันอังคาร',
+    'วันพุธ',
+    'วันพฤหัสบดี',
+    'วันศุกร์',
+    'วันเสาร์'
+  ];
+  List<String> months = [
+    'มกราคม',
+    'กุมภาพันธ์',
+    'มีนาคม',
+    'เมษายน',
+    'พฤษภาคม',
+    'มิถุนายน',
+    'กรกฎาคม',
+    'สิงหาคม',
+    'กันยายน',
+    'ตุลาคม',
+    'พฤศจิกายน',
+    'ธันวาคม'
+  ];
+
+  // แปลงปีให้เป็นพุทธศักราช
+  int buddhistYear = date.year + 543;
+
+  // แปลงเดือน
+  String month = months[date.month - 1];
+
+  // ประกอบเป็นวันที่ที่ต้องการ
+  return '${days[date.weekday - 1]}ที่ ${date.day} $month $buddhistYear';
 }
