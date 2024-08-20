@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/component/no_data_view/no_data_view_widget.dart';
 import '/components/transaction_detail_view_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -242,6 +243,9 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                   }
                   List<TransacationListRecord>
                       listViewTransacationListRecordList = snapshot.data!;
+                  if (listViewTransacationListRecordList.isEmpty) {
+                    return NoDataViewWidget();
+                  }
 
                   return ListView.separated(
                     padding: EdgeInsets.fromLTRB(

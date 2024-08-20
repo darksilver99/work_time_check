@@ -422,7 +422,7 @@ class _TransactionDetailViewWidgetState
                                                 style: TextStyle(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .tertiary,
+                                                      .error,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 22.0,
                                                 ),
@@ -482,9 +482,11 @@ class _TransactionDetailViewWidgetState
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Kanit',
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
                                       fontSize: 20.0,
                                       letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.bold,
                                     ),
                               ),
                             ),
@@ -494,7 +496,7 @@ class _TransactionDetailViewWidgetState
                   ],
                 ),
               ),
-            ],
+            ].addToStart(SizedBox(height: 8.0)).addToEnd(SizedBox(height: 8.0)),
           ),
         ),
       ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!),
