@@ -1,10 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -50,20 +49,11 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
           singleRecord: true,
         ).then((s) => s.firstOrNull);
         if (_model.transactionDoc != null) {
-          _model.timerController.timer.setPresetTime(
-            mSec: functions.millisecondsBetween(
-                _model.transactionDoc!.dateIn!, getCurrentTimestamp),
-            add: false,
-          );
-          _model.timerController.onResetTimer();
-
           _model.isLoading = false;
           setState(() {});
         }
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -124,27 +114,12 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          child: FlutterFlowTimer(
-                            initialTime: _model.timerInitialTimeMs,
-                            getDisplayTime: (value) =>
-                                StopWatchTimer.getDisplayTime(value,
-                                    milliSecond: false),
-                            controller: _model.timerController,
-                            updateStateInterval: Duration(milliseconds: 1000),
-                            onChanged: (value, displayTime, shouldUpdate) {
-                              _model.timerMilliseconds = value;
-                              _model.timerValue = displayTime;
-                              if (shouldUpdate) setState(() {});
-                            },
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 22.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                          child: custom_widgets.TimeCounter(
+                            width: double.infinity,
+                            height: 40.0,
+                            milliseconds: functions.millisecondsBetween(
+                                _model.transactionDoc!.dateIn!,
+                                getCurrentTimestamp),
                           ),
                         ),
                       ],
