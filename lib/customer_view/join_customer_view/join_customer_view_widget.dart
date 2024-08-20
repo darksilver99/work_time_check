@@ -165,13 +165,10 @@ class _JoinCustomerViewWidgetState extends State<JoinCustomerViewWidget>
                                         ScanMode.QR,
                                       );
 
-                                      _model.customerRefResult =
-                                          await actions.getCustomerReference(
-                                        _model.qrCodeResult!,
-                                      );
                                       _model.customerDocResult =
-                                          await CustomerRecord.getDocumentOnce(
-                                              _model.customerRefResult!);
+                                          await actions.getCustomerFromDocID(
+                                        _model.qrCodeResult,
+                                      );
                                       if (_model.customerDocResult != null) {
                                         _model.totalMember =
                                             await queryMemberListRecordCount(
