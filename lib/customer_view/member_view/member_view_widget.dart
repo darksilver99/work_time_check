@@ -109,21 +109,48 @@ class _MemberViewWidgetState extends State<MemberViewWidget> {
           ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Text(
-                    'จำนวนสมาชิกทั้งหมด 5 คน',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Kanit',
-                          fontSize: 18.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
+            child: FutureBuilder<int>(
+              future: queryMemberListRecordCount(
+                parent: widget!.customerDoc?.reference,
+              ),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
                         ),
-                  ),
-                ),
-              ],
+                      ),
+                    ),
+                  );
+                }
+                int rowCount = snapshot.data!;
+
+                return Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'จำนวนสมาชิกทั้งหมด ${formatNumber(
+                          rowCount,
+                          formatType: FormatType.decimal,
+                          decimalType: DecimalType.automatic,
+                        )} คน',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
           Expanded(

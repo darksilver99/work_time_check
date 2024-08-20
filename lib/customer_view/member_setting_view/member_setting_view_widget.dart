@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:math';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -263,6 +264,17 @@ class _MemberSettingViewWidgetState extends State<MemberSettingViewWidget>
                                       },
                                     );
 
+                                    if (_model.dropDownValue == 'member') {
+                                      if (widget!.memberDoc?.createBy ==
+                                          currentUserReference) {
+                                        await actions.pushReplacement(
+                                          context,
+                                          null,
+                                        );
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
+                                    }
                                     Navigator.pop(context, 'update');
                                     if (_shouldSetState) setState(() {});
                                   },
