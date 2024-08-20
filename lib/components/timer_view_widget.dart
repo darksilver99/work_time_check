@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/instant_timer.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +42,7 @@ class _TimerViewWidgetState extends State<TimerViewWidget> {
         duration: Duration(milliseconds: 1000),
         callback: (timer) async {
           _model.tmpMilliseconds = _model.tmpMilliseconds! + 1000;
-          _model.duration = _model.tmpMilliseconds?.toString();
+          _model.duration = functions.formatDuration(_model.tmpMilliseconds!);
           setState(() {});
         },
         startImmediately: true,
