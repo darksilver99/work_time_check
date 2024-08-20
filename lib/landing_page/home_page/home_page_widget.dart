@@ -1,7 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/component/background_view/background_view_widget.dart';
 import '/component/loading_view/loading_view_widget.dart';
 import '/components/check_in_view_widget.dart';
+import '/components/check_out_view_widget.dart';
 import '/components/work_time_view_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -10,6 +12,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -232,27 +236,70 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         );
                                         if (_model.photoResult != null &&
                                             (_model.photoResult)!.isNotEmpty) {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            useSafeArea: true,
-                                            context: context,
-                                            builder: (context) {
-                                              return WebViewAware(
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: CheckInViewWidget(
-                                                    photoIn: _model
-                                                        .photoResult!.first,
+                                          _model.transactionDoc =
+                                              await queryTransacationListRecordOnce(
+                                            parent: currentUserDocument
+                                                ?.currentCustomerRef,
+                                            queryBuilder:
+                                                (transacationListRecord) =>
+                                                    transacationListRecord
+                                                        .where(
+                                                          'status',
+                                                          isEqualTo: 1,
+                                                        )
+                                                        .orderBy('date_in',
+                                                            descending: true),
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+                                          if (_model.transactionDoc != null) {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              useSafeArea: true,
+                                              context: context,
+                                              builder: (context) {
+                                                return WebViewAware(
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: CheckOutViewWidget(
+                                                      photoOut: _model
+                                                          .photoResult!.first,
+                                                      transactionDoc: _model
+                                                          .transactionDoc!,
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
+                                          } else {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              useSafeArea: true,
+                                              context: context,
+                                              builder: (context) {
+                                                return WebViewAware(
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: CheckInViewWidget(
+                                                      photoIn: _model
+                                                          .photoResult!.first,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
+                                          }
                                         }
                                       }
 
