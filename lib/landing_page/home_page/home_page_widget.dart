@@ -249,6 +249,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           'status',
                                                           isEqualTo: 1,
                                                         )
+                                                        .where(
+                                                          'create_by',
+                                                          isEqualTo:
+                                                              currentUserReference,
+                                                        )
                                                         .orderBy('date_in',
                                                             descending: true),
                                             singleRecord: true,
