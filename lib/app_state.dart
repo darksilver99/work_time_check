@@ -123,6 +123,40 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInMonthList(int index, MonthDataStruct value) {
     monthList.insert(index, value);
   }
+
+  List<PermissionDataStruct> _permissionData = [
+    PermissionDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"admin\",\"name\":\"เจ้าหน้าที่\"}')),
+    PermissionDataStruct.fromSerializableMap(
+        jsonDecode('{\"val\":\"member\",\"name\":\"สมาชิกทั่วไป\"}'))
+  ];
+  List<PermissionDataStruct> get permissionData => _permissionData;
+  set permissionData(List<PermissionDataStruct> value) {
+    _permissionData = value;
+  }
+
+  void addToPermissionData(PermissionDataStruct value) {
+    permissionData.add(value);
+  }
+
+  void removeFromPermissionData(PermissionDataStruct value) {
+    permissionData.remove(value);
+  }
+
+  void removeAtIndexFromPermissionData(int index) {
+    permissionData.removeAt(index);
+  }
+
+  void updatePermissionDataAtIndex(
+    int index,
+    PermissionDataStruct Function(PermissionDataStruct) updateFn,
+  ) {
+    permissionData[index] = updateFn(_permissionData[index]);
+  }
+
+  void insertAtIndexInPermissionData(int index, PermissionDataStruct value) {
+    permissionData.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
