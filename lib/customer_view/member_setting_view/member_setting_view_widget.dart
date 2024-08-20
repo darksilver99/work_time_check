@@ -8,6 +8,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:math';
+import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +127,7 @@ class _MemberSettingViewWidgetState extends State<MemberSettingViewWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
                           child: Text(
-                            'ตั้งค่าสิทธิ์',
+                            'ตั้งค่าสมาชิก',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -135,6 +137,28 @@ class _MemberSettingViewWidgetState extends State<MemberSettingViewWidget>
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
                                 ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                valueOrDefault<String>(
+                                  widget!.memberDoc?.displayName,
+                                  '-',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      fontSize: 20.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ],
                           ),
                         ),
                         Padding(
@@ -184,111 +208,195 @@ class _MemberSettingViewWidgetState extends State<MemberSettingViewWidget>
                             isMultiSelect: false,
                           ),
                         ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Builder(
+                                  builder: (context) => FFButtonWidget(
+                                    onPressed: () async {
+                                      var _shouldSetState = false;
+                                      if (_model.dropDownValue == 'member') {
+                                        _model.totalAdmin =
+                                            await queryMemberListRecordCount(
+                                          parent: widget!
+                                              .memberDoc?.parentReference,
+                                          queryBuilder: (memberListRecord) =>
+                                              memberListRecord.where(
+                                            'permission',
+                                            isEqualTo: 'admin',
+                                          ),
+                                        );
+                                        _shouldSetState = true;
+                                        if (_model.totalAdmin! <= 1) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title:
+                                                        'ไม่สามารถบันทึกข้อมูลได้',
+                                                    detail:
+                                                        'จำเป็นต้องมีเจ้าหน้าที่อย่างน้อย 1 คน',
+                                                    status: 'error',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        }
+                                      }
+
+                                      await widget!.memberDoc!.reference
+                                          .update(createMemberListRecordData(
+                                        permission: _model.dropDownValue,
+                                      ));
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: WebViewAware(
+                                              child: InfoCustomViewWidget(
+                                                title:
+                                                    'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                                status: 'success',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+
+                                      if (_model.dropDownValue == 'member') {
+                                        if (widget!.memberDoc?.createBy ==
+                                            currentUserReference) {
+                                          await actions.pushReplacement(
+                                            context,
+                                            null,
+                                          );
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        }
+                                      }
+                                      Navigator.pop(context, 'update');
+                                      if (_shouldSetState) setState(() {});
+                                    },
+                                    text: 'บันทึกข้อมูล',
+                                    options: FFButtonOptions(
+                                      height: 50.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                            fontSize: 20.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
                               child: Builder(
-                                builder: (context) => FFButtonWidget(
-                                  onPressed: () async {
-                                    var _shouldSetState = false;
-                                    if (_model.dropDownValue == 'member') {
-                                      _model.totalAdmin =
-                                          await queryMemberListRecordCount(
-                                        parent:
-                                            widget!.memberDoc?.parentReference,
-                                        queryBuilder: (memberListRecord) =>
-                                            memberListRecord.where(
-                                          'permission',
-                                          isEqualTo: 'admin',
-                                        ),
-                                      );
-                                      _shouldSetState = true;
-                                      if (_model.totalAdmin! <= 1) {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (dialogContext) {
-                                            return Dialog(
-                                              elevation: 0,
-                                              insetPadding: EdgeInsets.zero,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              child: WebViewAware(
-                                                child: InfoCustomViewWidget(
-                                                  title:
-                                                      'ไม่สามารถบันทึกข้อมูลได้',
-                                                  detail:
-                                                      'จำเป็นต้องมีเจ้าหน้าที่อย่างน้อย 1 คน',
-                                                  status: 'error',
-                                                ),
+                                builder: (context) => InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    _model.isConfirm =
+                                        await action_blocks.confirmBlock(
+                                      context,
+                                      title: 'ต้องการลบสมาชิกคนนี้?',
+                                      detail:
+                                          'หากลบแล้วจะไม่สามารถเรียกคืนข้อมูลได้รวมถึงข้อมูลการเข้าออกงาน',
+                                    );
+                                    if (_model.isConfirm!) {
+                                      await widget!.memberDoc!.reference
+                                          .delete();
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: WebViewAware(
+                                              child: InfoCustomViewWidget(
+                                                title:
+                                                    'ลบข้อมูลสมาชิกเรียบร้อยแล้ว',
+                                                status: 'success',
                                               ),
-                                            );
-                                          },
-                                        );
+                                            ),
+                                          );
+                                        },
+                                      );
 
-                                        if (_shouldSetState) setState(() {});
-                                        return;
-                                      }
+                                      Navigator.pop(context, 'update');
                                     }
 
-                                    await widget!.memberDoc!.reference
-                                        .update(createMemberListRecordData(
-                                      permission: _model.dropDownValue,
-                                    ));
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: InfoCustomViewWidget(
-                                              title:
-                                                  'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                              status: 'success',
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-
-                                    Navigator.pop(context, 'update');
-                                    if (_shouldSetState) setState(() {});
+                                    setState(() {});
                                   },
-                                  text: 'บันทึกข้อมูล',
-                                  options: FFButtonOptions(
-                                    height: 50.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
+                                  child: Text(
+                                    'ลบสมาชิกคนนี้',
+                                    textAlign: TextAlign.end,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
                                         .override(
                                           fontFamily: 'Kanit',
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
-                                          fontSize: 20.0,
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
                                           letterSpacing: 0.0,
+                                          decoration: TextDecoration.underline,
                                         ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(100.0),
                                   ),
                                 ),
                               ),
