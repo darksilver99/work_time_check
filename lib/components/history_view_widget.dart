@@ -269,7 +269,9 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'วันจันทร์ที่ 12',
+                                        functions.dayTh(
+                                            listViewTransacationListRecord
+                                                .dateIn!),
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -326,7 +328,12 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      '08:00:00',
+                                                      valueOrDefault<String>(
+                                                        functions.getTime(
+                                                            listViewTransacationListRecord
+                                                                .dateIn),
+                                                        '-',
+                                                      ),
                                                       textAlign:
                                                           TextAlign.center,
                                                       maxLines: 1,
@@ -387,7 +394,12 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      '08:00:56',
+                                                      valueOrDefault<String>(
+                                                        functions.getTime(
+                                                            listViewTransacationListRecord
+                                                                .dateOut),
+                                                        '-',
+                                                      ),
                                                       textAlign:
                                                           TextAlign.center,
                                                       maxLines: 1,

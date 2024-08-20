@@ -132,3 +132,27 @@ DateTime getDateByMonthAndYear(
   DateTime currentDate = DateTime.now();
   return DateTime((int.parse(year) - 543), int.parse(month), currentDate.day);
 }
+
+String? getTime(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+  final DateFormat formatter = DateFormat('HH:mm:ss');
+  return formatter.format(date);
+}
+
+String dayTh(DateTime date) {
+  final DateFormat dayFormatter = DateFormat('EEEE', 'th_TH'); // วันของสัปดาห์
+  final DateFormat dayOfMonthFormatter = DateFormat('d'); // วันของเดือน
+  final DateFormat monthYearFormatter =
+      DateFormat('MMMM yyyy', 'th_TH'); // เดือนและปี
+
+  // แปลงวันที่เป็นรูปแบบที่ต้องการ
+  final String dayOfWeek =
+      dayFormatter.format(date); // วันของสัปดาห์ (เช่น วันจันทร์)
+  final String dayOfMonth =
+      dayOfMonthFormatter.format(date); // วันของเดือน (เช่น 15)
+
+  // สร้างสตริงที่รวมวันและวันที่
+  return '$dayOfWeek ที่ $dayOfMonth';
+}
