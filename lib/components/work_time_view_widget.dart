@@ -113,15 +113,16 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Expanded(
-                          child: custom_widgets.TimeCounter(
-                            width: double.infinity,
-                            height: 40.0,
-                            milliseconds: functions.millisecondsBetween(
-                                _model.transactionDoc!.dateIn!,
-                                getCurrentTimestamp),
+                        if (_model.transactionDoc?.dateIn != null)
+                          Expanded(
+                            child: custom_widgets.TimeCounter(
+                              width: double.infinity,
+                              height: 40.0,
+                              milliseconds: functions.millisecondsBetween(
+                                  _model.transactionDoc!.dateIn!,
+                                  getCurrentTimestamp),
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ],
