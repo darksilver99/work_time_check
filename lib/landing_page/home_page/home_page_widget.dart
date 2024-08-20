@@ -47,12 +47,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       await action_blocks.initConfig(context);
       await action_blocks.initCustomer(context);
       _model.isLoading = false;
       setState(() {});
+      currentUserLocationValue =
+        await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       FFAppState().currentLocation = currentUserLocationValue;
     });
 
