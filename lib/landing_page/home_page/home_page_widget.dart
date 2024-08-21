@@ -263,9 +263,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           isEqualTo: 1,
                                                         )
                                                         .where(
-                                                          'create_by',
+                                                          'member_ref',
                                                           isEqualTo:
-                                                              currentUserReference,
+                                                              FFAppState()
+                                                                  .memberData
+                                                                  .memberRef,
                                                         )
                                                         .orderBy('date_in',
                                                             descending: true),

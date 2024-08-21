@@ -290,6 +290,7 @@ class _CheckInViewWidgetState extends State<CheckInViewWidget> {
                               locationIn: FFAppState().currentLocation,
                               detailIn: _model.textController.text,
                               dateIn: _model.currentDate,
+                              memberRef: FFAppState().memberData.memberRef,
                             ));
                             await showDialog(
                               context: context,
