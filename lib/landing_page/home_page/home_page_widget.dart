@@ -102,8 +102,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
           MoveEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: Offset(100.0, 0.0),
+            duration: 700.0.ms,
+            begin: Offset(-100.0, 58.0),
             end: Offset(0.0, 0.0),
           ),
         ],
@@ -115,7 +115,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(-100.0, 45.0),
+            begin: Offset(100.0, 46.0),
             end: Offset(0.0, 0.0),
           ),
         ],
@@ -127,7 +127,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 600.0.ms,
-            begin: Offset(100.0, 45.0),
+            begin: Offset(-100.0, 45.0),
             end: Offset(0.0, 0.0),
           ),
         ],
@@ -412,7 +412,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   padding:
                                                       MediaQuery.viewInsetsOf(
                                                           context),
-                                                  child: HistoryViewWidget(),
+                                                  child: HistoryViewWidget(
+                                                    customerRef: FFAppState()
+                                                        .customerData
+                                                        .customerRef!,
+                                                    userRef:
+                                                        currentUserReference!,
+                                                  ),
                                                 ),
                                               );
                                             },

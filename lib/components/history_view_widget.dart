@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
 import '/components/transaction_detail_view_widget.dart';
@@ -8,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +17,14 @@ import 'history_view_model.dart';
 export 'history_view_model.dart';
 
 class HistoryViewWidget extends StatefulWidget {
-  const HistoryViewWidget({super.key});
+  const HistoryViewWidget({
+    super.key,
+    required this.customerRef,
+    required this.userRef,
+  });
+
+  final DocumentReference? customerRef;
+  final DocumentReference? userRef;
 
   @override
   State<HistoryViewWidget> createState() => _HistoryViewWidgetState();
@@ -213,7 +220,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                 future: (_model.firestoreRequestCompleter ??=
                         Completer<List<TransacationListRecord>>()
                           ..complete(queryTransacationListRecordOnce(
-                            parent: FFAppState().customerData.customerRef,
+                            parent: widget!.customerRef,
                             queryBuilder: (transacationListRecord) =>
                                 transacationListRecord
                                     .where(
@@ -226,7 +233,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                     )
                                     .where(
                                       'create_by',
-                                      isEqualTo: currentUserReference,
+                                      isEqualTo: widget!.userRef,
                                     )
                                     .orderBy('date_in', descending: true),
                           )))
