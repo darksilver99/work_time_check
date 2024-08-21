@@ -6,6 +6,7 @@ import '/component/work_time_view/work_time_view_widget.dart';
 import '/components/check_in_view_widget.dart';
 import '/components/check_out_view_widget.dart';
 import '/components/history_view_widget.dart';
+import '/customer_view/customer_q_r_code_view/customer_q_r_code_view_widget.dart';
 import '/customer_view/my_customer_view/my_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';

@@ -145,18 +145,20 @@ class _MemberSettingViewWidgetState extends State<MemberSettingViewWidget>
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Text(
-                                valueOrDefault<String>(
-                                  widget!.memberDoc?.displayName,
-                                  '-',
+                              Expanded(
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    widget!.memberDoc?.displayName,
+                                    '-',
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 20.0,
+                                        letterSpacing: 0.0,
+                                      ),
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      fontSize: 20.0,
-                                      letterSpacing: 0.0,
-                                    ),
                               ),
                             ],
                           ),
