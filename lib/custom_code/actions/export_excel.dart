@@ -10,6 +10,15 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'package:excel/excel.dart';
+import 'package:excel/excel.dart' as exBorder;
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:work_time_check/solo/solo_function.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+
 Future<String> exportExcel(
   DateTime? startDate,
   DateTime? endDate,
@@ -39,21 +48,12 @@ Future<String> exportExcel(
     return '';
   }
 
-  DateTime newEndDate =
-      DateTime(endDate!.year, endDate!.month, endDate!.day, 23, 59, 59, 999);
-
   //getData
   var rs = await FirebaseFirestore.instance
-      .collection(
-          'time_check_list/${FFAppState().currentCompanyDocName}/transaction')
-      .where('company_ref', isEqualTo: FFAppState().currentCompany)
-      .where('create_date', isGreaterThanOrEqualTo: startDate)
-      .where('create_date', isLessThanOrEqualTo: newEndDate)
-      .orderBy('create_date', descending: false)
-      .get();
-
-  var rsCompany = await FirebaseFirestore.instance
-      .doc(FFAppState().currentCompany!.path)
+      .collection("${customerRef.path}/transacation_list")
+      .where('date_in', isGreaterThanOrEqualTo: startDate)
+      .where('date_in', isLessThanOrEqualTo: endDate)
+      .orderBy('date_in', descending: true)
       .get();
 
   var excel = Excel.createExcel();
@@ -72,23 +72,22 @@ Future<String> exportExcel(
   // Add headers
   List<String> header = ["ชื่อ-สกุล"];
 
-  List<String> dateRange = getDateRange(startDate!, newEndDate);
+  //List<String> dateRange = getDateRange(startDate!, endDate!);
+  List<DateTime> dateRange = getDateRange2(startDate!, endDate!);
   if (dateRange.length > 60) {
     return 'youshallnotpass';
   }
 
   // title
-  var workStart = rsCompany.data()!["start_date"];
-  var workEnd = rsCompany.data()!["end_date"];
   sheetObject.merge(
     CellIndex.indexByString('A1'),
     CellIndex.indexByString('C1'),
     customValue: TextCellValue(
-        'รายชื่อพนักงาน เข้า-ออกงาน ประจำวันที่ ${(dateTimeFormat('dd/MM/yyyy', startDate)).replaceAll("/", '-')} ถึง ${(dateTimeFormat('dd/MM/yyyy', endDate)).replaceAll("/", '-')}\nเวลาทำงาน $workStart-$workEnd'),
+        'รายชื่อพนักงาน ลงเวลาเข้า/ออกงาน ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}'),
   );
 
   for (var i = 0; i < dateRange.length; i++) {
-    header.add(dateRange[i]);
+    header.add('${functions.dateTh(dateRange[i])}');
   }
 
   for (var i = 0; i < header.length; i++) {
@@ -111,27 +110,23 @@ Future<String> exportExcel(
       cell.value = TextCellValue(
           '${rsUser.data()!["first_name"]} ${rsUser.data()!["last_name"]}(${rsUser.data()!["display_name"]})');
 
-      if (dateTimeFormat(
-              'dd/MM/yyyy', rs.docs[i].data()["create_date"].toDate()) ==
+      // if (dateTimeFormat('dd/MM/yyyy', rs.docs[i].data()["date_in"].toDate()) == header[j]) {
+      if (functions.dateTh(rs.docs[i].data()["date_in"].toDate()) ==
           header[j]) {
         var cell = sheetObject
             .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2));
         var dateIn =
-            dateTimeFormat('Hm', rs.docs[i].data()["create_date"].toDate());
-        var dateOut = rs.docs[i].data().containsKey("update_date")
-            ? dateTimeFormat('Hm', rs.docs[i].data()["update_date"].toDate())
+            dateTimeFormat('Hm', rs.docs[i].data()["date_in"].toDate());
+        var dateOut = rs.docs[i].data().containsKey("date_out")
+            ? dateTimeFormat('Hm', rs.docs[i].data()["date_out"].toDate())
             : "-";
 
         cell.cellStyle = CellStyle(textWrapping: TextWrapping.WrapText);
 
-        DateTime? tmpUpdateDate = rs.docs[i].data().containsKey("update_date")
-            ? rs.docs[i].data()["update_date"].toDate()
-            : null;
-        if (isLate(rsCompany, rs.docs[i].data()["create_date"].toDate(),
-            tmpUpdateDate)) {
-          cell.cellStyle = CellStyle(
-              fontColorHex: "#ff0000", textWrapping: TextWrapping.WrapText);
-        }
+        /*DateTime? tmpUpdateDate = rs.docs[i].data().containsKey("date_out") ? rs.docs[i].data()["date_out"].toDate() : null;
+        if (isLate(rsCompany, rs.docs[i].data()["create_date"].toDate(), tmpUpdateDate)) {
+          cell.cellStyle = CellStyle(fontColorHex: "#ff0000", textWrapping: TextWrapping.WrapText);
+        }*/
 
         var detailIn = rs.docs[i].data().containsKey("detail_in")
             ? rs.docs[i].data()["detail_in"]
@@ -143,13 +138,19 @@ Future<String> exportExcel(
         var startEndTimeText = "เข้างาน : $dateIn | ออกงาน : $dateOut";
         var startEndDetailText =
             "รายละเอียด(เข้างาน) : ${(detailIn != '') ? detailIn : " -"}\n รายละเอียด(ออกงาน) :${(detailOut != '') ? detailOut : " -"}";
+        var durationText = "";
+        if (rs.docs[i].data().containsKey("date_out")) {
+          durationText =
+              "ระยะเวลาทำงาน : ${functions.formatDuration(functions.millisecondsBetween(rs.docs[i].data()["date_in"].toDate(), rs.docs[i].data()["date_out"].toDate()))}";
+        }
         //var photoIn = "รูปเข้างาน : ${rs.docs[i].data()["photo_in"]}";
         //var photoOut = "รูปออกงาน : ${rs.docs[i].data().containsKey("photo_out") && rs.docs[i].data()["photo_out"].trim() != "" ? rs.docs[i].data()["photo_out"] : " -"}";
-        cell.value = TextCellValue("$startEndTimeText\n$startEndDetailText");
+        cell.value = TextCellValue(
+            "$startEndTimeText\n$startEndDetailText\n$durationText");
       }
 
       //เสาทิตใส่สี
-      if (isWeekend(header[j])) {
+      if (isWeekend2(header[j])) {
         var cell2 = sheetObject
             .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2));
         cell2.cellStyle = CellStyle(backgroundColorHex: "#ffdfdf");
@@ -168,7 +169,7 @@ Future<String> exportExcel(
   //Directory dir = Directory('/storage/emulated/0/Download');
   List<int>? fileBytes = excel.save();
   var path = File(
-      '${dir.path}/เข้างาน${(dateTimeFormat('dd/MM/yyyy', startDate)).replaceAll("/", '-')}ถึง${(dateTimeFormat('dd/MM/yyyy', endDate)).replaceAll("/", '-')}.xlsx')
+      '${dir.path}/ลงเวลาเข้างาน${functions.dateTh(startDate)}ถึง${functions.dateTh(endDate)}.xlsx')
     ..createSync(recursive: true)
     ..writeAsBytesSync(fileBytes!);
 

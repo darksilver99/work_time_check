@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -38,6 +39,12 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CustomerDetailViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.checkIsExpire = await _model.checkIsCustomerExpire(context);
+      _model.isExpire = _model.checkIsExpire!;
+    });
   }
 
   @override
@@ -245,23 +252,26 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                enableDrag: false,
-                                useSafeArea: true,
-                                context: context,
-                                builder: (context) {
-                                  return WebViewAware(
-                                    child: Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: MemberListViewWidget(
-                                        customerDoc: widget!.customerDoc!,
+                              if (!_model.isExpire) {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  useSafeArea: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return WebViewAware(
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: MemberListViewWidget(
+                                          customerDoc: widget!.customerDoc!,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ).then((value) => safeSetState(() {}));
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
+                              }
                             },
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -320,25 +330,29 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                await showDialog(
-                                  context: context,
-                                  builder: (dialogContext) {
-                                    return Dialog(
-                                      elevation: 0,
-                                      insetPadding: EdgeInsets.zero,
-                                      backgroundColor: Colors.transparent,
-                                      alignment: AlignmentDirectional(0.0, 0.0)
-                                          .resolve(Directionality.of(context)),
-                                      child: WebViewAware(
-                                        child:
-                                            SelectMonthAndYearToExportViewWidget(
-                                          customerRef:
-                                              widget!.customerDoc!.reference,
+                                if (!_model.isExpire) {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return Dialog(
+                                        elevation: 0,
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        child: WebViewAware(
+                                          child:
+                                              SelectMonthAndYearToExportViewWidget(
+                                            customerRef:
+                                                widget!.customerDoc!.reference,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                );
+                                      );
+                                    },
+                                  );
+                                }
                               },
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
