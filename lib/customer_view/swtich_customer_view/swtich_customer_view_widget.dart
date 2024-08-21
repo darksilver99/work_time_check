@@ -1,28 +1,26 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/customer_view/customer_member_view/customer_member_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
-import 'my_customer_view_model.dart';
-export 'my_customer_view_model.dart';
+import 'swtich_customer_view_model.dart';
+export 'swtich_customer_view_model.dart';
 
-class MyCustomerViewWidget extends StatefulWidget {
-  const MyCustomerViewWidget({super.key});
+class SwtichCustomerViewWidget extends StatefulWidget {
+  const SwtichCustomerViewWidget({super.key});
 
   @override
-  State<MyCustomerViewWidget> createState() => _MyCustomerViewWidgetState();
+  State<SwtichCustomerViewWidget> createState() =>
+      _SwtichCustomerViewWidgetState();
 }
 
-class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
-  late MyCustomerViewModel _model;
+class _SwtichCustomerViewWidgetState extends State<SwtichCustomerViewWidget> {
+  late SwtichCustomerViewModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -33,7 +31,7 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => MyCustomerViewModel());
+    _model = createModel(context, () => SwtichCustomerViewModel());
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -97,59 +95,13 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
               children: [
                 Expanded(
                   child: Text(
-                    'จัดการองค์กร',
+                    'สลับองค์กร',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Kanit',
                           fontSize: 24.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
                         ),
-                  ),
-                ),
-                Builder(
-                  builder: (context) => FFButtonWidget(
-                    onPressed: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (dialogContext) {
-                          return Dialog(
-                            elevation: 0,
-                            insetPadding: EdgeInsets.zero,
-                            backgroundColor: Colors.transparent,
-                            alignment: AlignmentDirectional(0.0, 0.0)
-                                .resolve(Directionality.of(context)),
-                            child: WebViewAware(
-                              child: CreateCustomerViewWidget(),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    text: 'เพิ่มองค์กร',
-                    icon: Icon(
-                      Icons.business,
-                      size: 15.0,
-                    ),
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Kanit',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 3.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
                   ),
                 ),
               ],
@@ -196,11 +148,11 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
                       listViewMemberListRecordList[listViewIndex];
                   return CustomerMemberViewWidget(
                     key: Key(
-                        'Key54y_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
+                        'Keyqhu_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
                     customerRef: listViewMemberListRecord.parentReference,
                     memberDoc: listViewMemberListRecord,
-                    showSetting: true,
-                    showSwtich: false,
+                    showSetting: false,
+                    showSwtich: true,
                   );
                 },
               );

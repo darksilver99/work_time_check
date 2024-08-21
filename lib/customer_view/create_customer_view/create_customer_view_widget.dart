@@ -274,6 +274,8 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                 title:
                                                     'สร้างองค์กรเรียบร้อยแล้ว',
                                                 status: 'success',
+                                                detail:
+                                                    'ทำลองใช้งานฟรี 30 วันสำหรับองค์กร \"${_model.textController.text}\" ต่ออายุหรือดูรายละเอียดการใช้งานที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"ต่ออายุการใช้งาน\"',
                                               ),
                                             ),
                                           );

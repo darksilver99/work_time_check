@@ -19,10 +19,14 @@ class CustomerMemberViewWidget extends StatefulWidget {
     super.key,
     required this.customerRef,
     required this.memberDoc,
+    required this.showSetting,
+    required this.showSwtich,
   });
 
   final DocumentReference? customerRef;
   final MemberListRecord? memberDoc;
+  final bool? showSetting;
+  final bool? showSwtich;
 
   @override
   State<CustomerMemberViewWidget> createState() =>
@@ -106,202 +110,196 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                   letterSpacing: 0.0,
                                 ),
                           ),
-                          Text(
-                            '(${widget!.memberDoc?.permission == 'admin' ? 'เจ้าหน้าที่' : 'สมาชิกทั่วไป'})',
-                            maxLines: 1,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
-                      child: Builder(
-                        builder: (context) {
-                          if (widget!.memberDoc?.permission == 'admin') {
-                            return InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  useSafeArea: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return WebViewAware(
-                                      child: Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: MemberViewWidget(
-                                          customerDoc: containerCustomerRecord,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => safeSetState(() {}));
-                              },
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.settings_rounded,
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    size: 32.0,
-                                  ),
-                                  Text(
-                                    'ตั้งค่าองค์กร',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 9.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else {
-                            return Opacity(
-                              opacity: 0.0,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.settings_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 32.0,
-                                  ),
-                                  Text(
-                                    'ตั้งค่าองค์กร',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 9.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                    Builder(
-                      builder: (context) => InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          if (widget!.customerRef !=
-                              currentUserDocument?.currentCustomerRef) {
-                            _model.isConfirm = await action_blocks.confirmBlock(
-                              context,
-                              title: 'ต้องการสลับองค์กร?',
-                            );
-                            if (_model.isConfirm!) {
-                              await currentUserReference!
-                                  .update(createUsersRecordData(
-                                currentCustomerRef: widget!.customerRef,
-                              ));
-                              await showDialog(
-                                context: context,
-                                builder: (dialogContext) {
-                                  return Dialog(
-                                    elevation: 0,
-                                    insetPadding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    alignment: AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    child: WebViewAware(
-                                      child: InfoCustomViewWidget(
-                                        title: 'สลับองค์กรเรียบร้อบแล้ว',
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-
-                              await actions.pushReplacement(
-                                context,
-                                null,
-                              );
-                            }
-                          }
-
-                          setState(() {});
-                        },
+                    if (widget!.showSetting ?? true)
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
                         child: Builder(
                           builder: (context) {
-                            if (currentUserDocument?.currentCustomerRef ==
-                                widget!.customerRef) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    size: 32.0,
-                                  ),
-                                  Text(
-                                    '',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 9.0,
-                                          letterSpacing: 0.0,
+                            if (widget!.memberDoc?.permission == 'admin') {
+                              return InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    useSafeArea: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return WebViewAware(
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: MemberViewWidget(
+                                            customerDoc:
+                                                containerCustomerRecord,
+                                          ),
                                         ),
-                                  ),
-                                ],
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.settings_rounded,
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      size: 32.0,
+                                    ),
+                                    Text(
+                                      'ตั้งค่าองค์กร',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 9.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               );
                             } else {
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.circle_outlined,
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    size: 32.0,
-                                  ),
-                                  Text(
-                                    '',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 9.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                ],
+                              return Opacity(
+                                opacity: 0.0,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.settings_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 32.0,
+                                    ),
+                                    Text(
+                                      'ตั้งค่าองค์กร',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 9.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               );
                             }
                           },
                         ),
                       ),
-                    ),
+                    if (widget!.showSwtich ?? true)
+                      Builder(
+                        builder: (context) => InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            if (widget!.customerRef !=
+                                currentUserDocument?.currentCustomerRef) {
+                              _model.isConfirm =
+                                  await action_blocks.confirmBlock(
+                                context,
+                                title: 'ต้องการสลับองค์กร?',
+                              );
+                              if (_model.isConfirm!) {
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  currentCustomerRef: widget!.customerRef,
+                                ));
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                          .resolve(Directionality.of(context)),
+                                      child: WebViewAware(
+                                        child: InfoCustomViewWidget(
+                                          title: 'สลับองค์กรเรียบร้อบแล้ว',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+
+                                await actions.pushReplacement(
+                                  context,
+                                  null,
+                                );
+                              }
+                            }
+
+                            setState(() {});
+                          },
+                          child: Builder(
+                            builder: (context) {
+                              if (currentUserDocument?.currentCustomerRef ==
+                                  widget!.customerRef) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.check_circle,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      size: 32.0,
+                                    ),
+                                    Text(
+                                      '',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 9.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.circle_outlined,
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      size: 32.0,
+                                    ),
+                                    Text(
+                                      '',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 9.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ],
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),
