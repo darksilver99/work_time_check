@@ -254,6 +254,7 @@ class _MemberViewWidgetState extends State<MemberViewWidget> {
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
                             enableDrag: false,
+                            useSafeArea: true,
                             context: context,
                             builder: (context) {
                               return WebViewAware(
