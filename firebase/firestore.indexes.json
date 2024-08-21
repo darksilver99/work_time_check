@@ -5,7 +5,7 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "create_by",
+          "fieldPath": "member_ref",
           "order": "ASCENDING"
         },
         {
@@ -24,6 +24,24 @@
         },
         {
           "fieldPath": "create_by",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date_in",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "transacation_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "member_ref",
           "order": "ASCENDING"
         },
         {

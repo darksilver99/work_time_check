@@ -20,11 +20,11 @@ class HistoryViewWidget extends StatefulWidget {
   const HistoryViewWidget({
     super.key,
     required this.customerRef,
-    required this.userRef,
+    required this.memberRef,
   });
 
   final DocumentReference? customerRef;
-  final DocumentReference? userRef;
+  final DocumentReference? memberRef;
 
   @override
   State<HistoryViewWidget> createState() => _HistoryViewWidgetState();
@@ -232,8 +232,8 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                       isLessThanOrEqualTo: _model.endDate,
                                     )
                                     .where(
-                                      'create_by',
-                                      isEqualTo: widget!.userRef,
+                                      'member_ref',
+                                      isEqualTo: widget!.memberRef,
                                     )
                                     .orderBy('date_in', descending: true),
                           )))
