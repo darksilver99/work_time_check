@@ -207,10 +207,29 @@ Future checkIsHasKickFromCustomer(BuildContext context) async {
       },
     );
 
-    FFAppState().customerData = CustomDataStruct();
+    await action_blocks.clearData(context);
     await actions.pushReplacement(
       context,
       null,
     );
+  } else {
+    await action_blocks.initMember(
+      context,
+      memberDoc: memberDoc,
+    );
   }
+}
+
+Future initMember(
+  BuildContext context, {
+  required MemberListRecord? memberDoc,
+}) async {
+  FFAppState().memberData = MemberDataStruct(
+    memberRef: memberDoc?.reference,
+  );
+}
+
+Future clearData(BuildContext context) async {
+  FFAppState().customerData = CustomDataStruct();
+  FFAppState().memberData = MemberDataStruct();
 }

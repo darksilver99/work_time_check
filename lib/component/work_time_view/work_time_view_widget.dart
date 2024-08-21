@@ -46,8 +46,8 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                 isEqualTo: 1,
               )
               .where(
-                'create_by',
-                isEqualTo: currentUserReference,
+                'member_ref',
+                isEqualTo: FFAppState().memberData.memberRef,
               )
               .orderBy('date_in', descending: true),
           singleRecord: true,

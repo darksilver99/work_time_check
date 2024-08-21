@@ -66,6 +66,11 @@ class TransacationListRecord extends FirestoreRecord {
   DateTime? get dateOut => _dateOut;
   bool hasDateOut() => _dateOut != null;
 
+  // "member_ref" field.
+  DocumentReference? _memberRef;
+  DocumentReference? get memberRef => _memberRef;
+  bool hasMemberRef() => _memberRef != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -79,6 +84,7 @@ class TransacationListRecord extends FirestoreRecord {
     _detailOut = snapshotData['detail_out'] as String?;
     _dateIn = snapshotData['date_in'] as DateTime?;
     _dateOut = snapshotData['date_out'] as DateTime?;
+    _memberRef = snapshotData['member_ref'] as DocumentReference?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -132,6 +138,7 @@ Map<String, dynamic> createTransacationListRecordData({
   String? detailOut,
   DateTime? dateIn,
   DateTime? dateOut,
+  DocumentReference? memberRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -145,6 +152,7 @@ Map<String, dynamic> createTransacationListRecordData({
       'detail_out': detailOut,
       'date_in': dateIn,
       'date_out': dateOut,
+      'member_ref': memberRef,
     }.withoutNulls,
   );
 
@@ -166,7 +174,8 @@ class TransacationListRecordDocumentEquality
         e1?.detailIn == e2?.detailIn &&
         e1?.detailOut == e2?.detailOut &&
         e1?.dateIn == e2?.dateIn &&
-        e1?.dateOut == e2?.dateOut;
+        e1?.dateOut == e2?.dateOut &&
+        e1?.memberRef == e2?.memberRef;
   }
 
   @override
@@ -180,7 +189,8 @@ class TransacationListRecordDocumentEquality
         e?.detailIn,
         e?.detailOut,
         e?.dateIn,
-        e?.dateOut
+        e?.dateOut,
+        e?.memberRef
       ]);
 
   @override

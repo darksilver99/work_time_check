@@ -157,6 +157,16 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInPermissionData(int index, PermissionDataStruct value) {
     permissionData.insert(index, value);
   }
+
+  MemberDataStruct _memberData = MemberDataStruct();
+  MemberDataStruct get memberData => _memberData;
+  set memberData(MemberDataStruct value) {
+    _memberData = value;
+  }
+
+  void updateMemberDataStruct(Function(MemberDataStruct) updateFn) {
+    updateFn(_memberData);
+  }
 }
 
 void _safeInit(Function() initializeField) {

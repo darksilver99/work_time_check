@@ -196,8 +196,8 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                           child: HistoryViewWidget(
                                             customerRef: widget!
                                                 .memberDoc!.parentReference,
-                                            userRef:
-                                                widget!.memberDoc!.createBy!,
+                                            memberRef:
+                                                widget!.memberDoc!.reference,
                                           ),
                                         ),
                                       );

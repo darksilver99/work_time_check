@@ -416,8 +416,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     customerRef: FFAppState()
                                                         .customerData
                                                         .customerRef!,
-                                                    userRef:
-                                                        currentUserReference!,
+                                                    memberRef: FFAppState()
+                                                        .memberData
+                                                        .memberRef!,
                                                   ),
                                                 ),
                                               );
