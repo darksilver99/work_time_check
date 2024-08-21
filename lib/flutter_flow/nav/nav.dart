@@ -109,11 +109,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ResetPasswordPageWidget(),
         ),
         FFRoute(
-          name: 'ExportExcelPage',
-          path: '/exportExcelPage',
-          builder: (context, params) => ExportExcelPageWidget(),
-        ),
-        FFRoute(
           name: 'WebViewPage',
           path: '/webViewPage',
           builder: (context, params) => WebViewPageWidget(

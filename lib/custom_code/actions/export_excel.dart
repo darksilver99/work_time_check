@@ -10,17 +10,10 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:excel/excel.dart';
-import 'package:excel/excel.dart' as exBorder;
-import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:work_time_check/solo/solo_function.dart';
-
 Future<String> exportExcel(
   DateTime? startDate,
   DateTime? endDate,
+  DocumentReference customerRef,
 ) async {
   // Add your function code here!
   bool isGranted = false;
