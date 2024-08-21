@@ -10,11 +10,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'member_view_model.dart';
-export 'member_view_model.dart';
+import 'member_list_view_model.dart';
+export 'member_list_view_model.dart';
 
-class MemberViewWidget extends StatefulWidget {
-  const MemberViewWidget({
+class MemberListViewWidget extends StatefulWidget {
+  const MemberListViewWidget({
     super.key,
     required this.customerDoc,
   });
@@ -22,11 +22,11 @@ class MemberViewWidget extends StatefulWidget {
   final CustomerRecord? customerDoc;
 
   @override
-  State<MemberViewWidget> createState() => _MemberViewWidgetState();
+  State<MemberListViewWidget> createState() => _MemberListViewWidgetState();
 }
 
-class _MemberViewWidgetState extends State<MemberViewWidget> {
-  late MemberViewModel _model;
+class _MemberListViewWidgetState extends State<MemberListViewWidget> {
+  late MemberListViewModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -37,7 +37,7 @@ class _MemberViewWidgetState extends State<MemberViewWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => MemberViewModel());
+    _model = createModel(context, () => MemberListViewModel());
   }
 
   @override
