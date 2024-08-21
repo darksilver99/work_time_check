@@ -1,7 +1,9 @@
 import '/backend/backend.dart';
+import '/customer_view/customer_q_r_code_view/customer_q_r_code_view_widget.dart';
 import '/customer_view/member_setting_view/member_setting_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'member_view_widget.dart' show MemberViewWidget;
 import 'package:flutter/material.dart';
