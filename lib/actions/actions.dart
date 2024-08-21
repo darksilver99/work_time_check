@@ -181,6 +181,13 @@ Future checkIsHasKickFromCustomer(BuildContext context) async {
     singleRecord: true,
   ).then((s) => s.firstOrNull);
   if (!(memberDoc != null)) {
+    await currentUserReference!.update({
+      ...mapToFirestore(
+        {
+          'current_customer_ref': FieldValue.delete(),
+        },
+      ),
+    });
     await showDialog(
       context: context,
       builder: (dialogContext) {
