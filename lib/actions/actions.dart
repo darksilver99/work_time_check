@@ -6,6 +6,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/customer_view/join_customer_view/join_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -75,6 +76,7 @@ Future initCustomer(BuildContext context) async {
       subject: customerResult?.subject,
       customerRef: customerResult?.reference,
     );
+    await action_blocks.checkIsHasKickFromCustomer(context);
   } else {
     await showDialog(
       context: context,
@@ -165,4 +167,43 @@ Future<bool?> isHasCustomerBlock(BuildContext context) async {
     null,
   );
   return false;
+}
+
+Future checkIsHasKickFromCustomer(BuildContext context) async {
+  MemberListRecord? memberDoc;
+
+  memberDoc = await queryMemberListRecordOnce(
+    parent: FFAppState().customerData.customerRef,
+    queryBuilder: (memberListRecord) => memberListRecord.where(
+      'create_by',
+      isEqualTo: currentUserReference,
+    ),
+    singleRecord: true,
+  ).then((s) => s.firstOrNull);
+  if (!(memberDoc != null)) {
+    await showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return Dialog(
+          elevation: 0,
+          insetPadding: EdgeInsets.zero,
+          backgroundColor: Colors.transparent,
+          alignment: AlignmentDirectional(0.0, 0.0)
+              .resolve(Directionality.of(context)),
+          child: WebViewAware(
+            child: InfoCustomViewWidget(
+              title: 'คุณไม่ได้อยู่ในองค์กรนี้แล้ว',
+              status: 'error',
+            ),
+          ),
+        );
+      },
+    );
+
+    FFAppState().customerData = CustomDataStruct();
+    await actions.pushReplacement(
+      context,
+      null,
+    );
+  }
 }
