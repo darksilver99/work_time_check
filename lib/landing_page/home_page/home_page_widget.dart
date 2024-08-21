@@ -751,7 +751,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       ),
                     ]
                         .addToStart(SizedBox(height: 16.0))
-                        .addToEnd(SizedBox(height: 32.0)),
+                        .addToEnd(SizedBox(height: 200.0)),
                   ),
                 ),
               if (!_model.isLoading)
