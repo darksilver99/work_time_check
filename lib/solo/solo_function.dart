@@ -39,7 +39,19 @@ List<String> getDateRange(DateTime startDate, DateTime endDate) {
   return dateRange;
 }
 
-bool isWeekend(date) {
+List<DateTime> getDateRange2(DateTime startDate, DateTime endDate) {
+  List<DateTime> dateRange = [];
+  DateTime currentDate = startDate;
+
+  while (currentDate.isBefore(endDate) || currentDate.isAtSameMomentAs(endDate)) {
+    dateRange.add(currentDate);
+    currentDate = currentDate.add(Duration(days: 1));
+  }
+
+  return dateRange;
+}
+
+bool isWeekendOld(date) {
   //21/12/2023
   if (date == "ชื่อ-สกุล") {
     return false;
@@ -48,6 +60,33 @@ bool isWeekend(date) {
   var tmpDate = date.toString().split("/");
   DateTime newDate = DateTime.parse("${tmpDate[2]}-${tmpDate[1]}-${tmpDate[0]}");
   return newDate.weekday == DateTime.saturday || newDate.weekday == DateTime.sunday;
+}
+
+bool isWeekend2(date) {
+  //21/12/2023
+  if (date == "ชื่อ-สกุล") {
+    return false;
+  }
+  print("isWeekend2");
+  print(date);
+  DateTime? newDate = parseThaiDate(date);
+  if(newDate == null){
+    return false;
+  }
+  return newDate.weekday == DateTime.saturday || newDate.weekday == DateTime.sunday;
+}
+
+DateTime? parseThaiDate(String dateStr) {
+  final DateFormat formatter = DateFormat('d MMMM yyyy', 'th_TH');
+  try {
+    final yearBE = int.parse(dateStr.split(' ').last);
+    final yearAD = yearBE - 543;
+    final dateStrAD = dateStr.replaceFirst(yearBE.toString(), yearAD.toString());
+    return formatter.parse(dateStrAD);
+  } catch (e) {
+    print('Error parsing date: $e');
+    return null;
+  }
 }
 
 bool isLate(rsCompany, DateTime startDate, DateTime? endDate) {
