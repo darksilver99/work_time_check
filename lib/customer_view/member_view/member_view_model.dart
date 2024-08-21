@@ -1,6 +1,6 @@
 import '/backend/backend.dart';
 import '/customer_view/customer_q_r_code_view/customer_q_r_code_view_widget.dart';
-import '/customer_view/member_setting_view/member_setting_view_widget.dart';
+import '/customer_view/member_detail_view/member_detail_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -29,7 +29,7 @@ class MemberViewModel extends FlutterFlowModel<MemberViewWidget> {
 
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Alert Dialog - Custom Dialog] action in Container widget.
+  // Stores action output result for [Bottom Sheet - MemberDetailView] action in Container widget.
   String? isUpdate;
   Completer<List<MemberListRecord>>? firestoreRequestCompleter;
 

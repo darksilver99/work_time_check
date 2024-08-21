@@ -230,7 +230,7 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                           .resolve(Directionality.of(context)),
                                       child: WebViewAware(
                                         child: InfoCustomViewWidget(
-                                          title: 'สลับองค์กรเรียบร้อบแล้ว',
+                                          title: 'สลับองค์กรเรียบร้อยแล้ว',
                                         ),
                                       ),
                                     );

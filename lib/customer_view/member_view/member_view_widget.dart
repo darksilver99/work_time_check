@@ -1,6 +1,6 @@
 import '/backend/backend.dart';
 import '/customer_view/customer_q_r_code_view/customer_q_r_code_view_widget.dart';
-import '/customer_view/member_setting_view/member_setting_view_widget.dart';
+import '/customer_view/member_detail_view/member_detail_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -241,113 +241,109 @@ class _MemberViewWidgetState extends State<MemberViewWidget> {
                   itemBuilder: (context, listViewIndex) {
                     final listViewMemberListRecord =
                         listViewMemberListRecordList[listViewIndex];
-                    return Builder(
-                      builder: (context) => Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return Dialog(
-                                  elevation: 0,
-                                  insetPadding: EdgeInsets.zero,
-                                  backgroundColor: Colors.transparent,
-                                  alignment: AlignmentDirectional(0.0, 0.0)
-                                      .resolve(Directionality.of(context)),
-                                  child: WebViewAware(
-                                    child: MemberSettingViewWidget(
-                                      memberDoc: listViewMemberListRecord,
-                                    ),
+                    return Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return WebViewAware(
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: MemberDetailViewWidget(
+                                    memberDoc: listViewMemberListRecord,
                                   ),
-                                );
-                              },
-                            ).then((value) =>
-                                safeSetState(() => _model.isUpdate = value));
+                                ),
+                              );
+                            },
+                          ).then((value) =>
+                              safeSetState(() => _model.isUpdate = value));
 
-                            if ((_model.isUpdate != null &&
-                                    _model.isUpdate != '') &&
-                                (_model.isUpdate == 'update')) {
-                              setState(() =>
-                                  _model.firestoreRequestCompleter = null);
-                              await _model.waitForFirestoreRequestCompleted();
-                            }
+                          if ((_model.isUpdate != null &&
+                                  _model.isUpdate != '') &&
+                              (_model.isUpdate == 'update')) {
+                            setState(
+                                () => _model.firestoreRequestCompleter = null);
+                            await _model.waitForFirestoreRequestCompleted();
+                          }
 
-                            setState(() {});
-                          },
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 3.0,
-                            child: Container(
-                              width: 100.0,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 0.0, 8.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 8.0, 0.0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.solidUserCircle,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 36.0,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            listViewMemberListRecord
-                                                .displayName,
-                                            maxLines: 1,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 18.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          Text(
-                                            '(${listViewMemberListRecord.permission == 'admin' ? 'เจ้าหน้าที่' : 'สมาชิกทั่วไป'})',
-                                            maxLines: 1,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Icon(
-                                      Icons.navigate_next_rounded,
+                          setState(() {});
+                        },
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 3.0,
+                          child: Container(
+                            width: 100.0,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0.0, 8.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 8.0, 0.0),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.solidUserCircle,
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
-                                      size: 24.0,
+                                      size: 36.0,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          listViewMemberListRecord.displayName,
+                                          maxLines: 1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 18.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        Text(
+                                          '(${listViewMemberListRecord.permission == 'admin' ? 'เจ้าหน้าที่' : 'สมาชิกทั่วไป'})',
+                                          maxLines: 1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.navigate_next_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                ],
                               ),
                             ),
                           ),

@@ -275,28 +275,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                     'สร้างองค์กรเรียบร้อยแล้ว',
                                                 status: 'success',
                                                 detail:
-                                                    'ทำลองใช้งานฟรี 30 วันสำหรับองค์กร \"${_model.textController.text}\" ต่ออายุหรือดูรายละเอียดการใช้งานที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"ต่ออายุการใช้งาน\"',
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-
-                                      await showDialog(
-                                        context: context,
-                                        builder: (dialogContext) {
-                                          return Dialog(
-                                            elevation: 0,
-                                            insetPadding: EdgeInsets.zero,
-                                            backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            child: WebViewAware(
-                                              child: InfoCustomViewWidget(
-                                                title:
-                                                    'สามารถเชิญสมาชิกเข้าร่วมองค์กรได้ที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"เชิญสมาชิก\"',
+                                                    'ทำลองใช้งานฟรี 30 วันสำหรับองค์กร \"${_model.textController.text}\" สามารถเชิญสมาชิกเข้าร่วมองค์กรได้ที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"เชิญสมาชิก\"',
                                               ),
                                             ),
                                           );
