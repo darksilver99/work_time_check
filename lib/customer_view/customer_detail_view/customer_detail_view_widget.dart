@@ -44,6 +44,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.checkIsExpire = await _model.checkIsCustomerExpire(context);
       _model.isExpire = _model.checkIsExpire!;
+      setState(() {});
     });
   }
 
