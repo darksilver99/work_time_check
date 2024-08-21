@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -12,7 +13,12 @@ import 'customer_q_r_code_view_model.dart';
 export 'customer_q_r_code_view_model.dart';
 
 class CustomerQRCodeViewWidget extends StatefulWidget {
-  const CustomerQRCodeViewWidget({super.key});
+  const CustomerQRCodeViewWidget({
+    super.key,
+    required this.customerDoc,
+  });
+
+  final CustomerRecord? customerDoc;
 
   @override
   State<CustomerQRCodeViewWidget> createState() =>
@@ -61,8 +67,6 @@ class _CustomerQRCodeViewWidgetState extends State<CustomerQRCodeViewWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -136,7 +140,7 @@ class _CustomerQRCodeViewWidgetState extends State<CustomerQRCodeViewWidget>
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                   child: BarcodeWidget(
-                    data: FFAppState().customerData.customerRef!.id,
+                    data: widget!.customerDoc!.reference.id,
                     barcode: Barcode.qrCode(),
                     width: 250.0,
                     height: 250.0,

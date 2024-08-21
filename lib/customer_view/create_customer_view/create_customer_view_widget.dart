@@ -282,6 +282,27 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                         },
                                       );
 
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: WebViewAware(
+                                              child: InfoCustomViewWidget(
+                                                title:
+                                                    'สามารถเชิญสมาชิกเข้าร่วมองค์กรได้ที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"เชิญสมาชิก\"',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+
                                       await actions.pushReplacement(
                                         context,
                                         null,
