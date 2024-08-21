@@ -110,6 +110,19 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                   letterSpacing: 0.0,
                                 ),
                           ),
+                          Text(
+                            '(สิทธิ์ : ${widget!.memberDoc?.permission == 'admin' ? 'เจ้าหน้าที่' : 'สมาชิกทั่วไป'})',
+                            maxLines: 2,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  fontSize: 12.0,
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
                         ],
                       ),
                     ),
