@@ -6,6 +6,7 @@ import '/component/work_time_view/work_time_view_widget.dart';
 import '/components/check_in_view_widget.dart';
 import '/components/check_out_view_widget.dart';
 import '/components/history_view_widget.dart';
+import '/customer_view/join_customer_view/join_customer_view_widget.dart';
 import '/customer_view/my_customer_view/my_customer_view_widget.dart';
 import '/customer_view/swtich_customer_view/swtich_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -186,6 +187,51 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         fontSize: 24.0,
                                         letterSpacing: 0.0,
                                       ),
+                                ),
+                              ),
+                              Builder(
+                                builder: (context) => FFButtonWidget(
+                                  onPressed: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (dialogContext) {
+                                        return Dialog(
+                                          elevation: 0,
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          child: WebViewAware(
+                                            child: JoinCustomerViewWidget(),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  text: 'เข้าร่วมองค์กร',
+                                  options: FFButtonOptions(
+                                    height: 40.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 8.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
                                 ),
                               ),
                             ],
