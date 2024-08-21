@@ -113,92 +113,75 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                         ],
                       ),
                     ),
-                    if (widget!.showSetting ?? true)
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
-                        child: Builder(
-                          builder: (context) {
-                            if (widget!.memberDoc?.permission == 'admin') {
-                              return InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    enableDrag: false,
-                                    useSafeArea: true,
-                                    context: context,
-                                    builder: (context) {
-                                      return WebViewAware(
-                                        child: Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: MemberViewWidget(
-                                            customerDoc:
-                                                containerCustomerRecord,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ).then((value) => safeSetState(() {}));
-                                },
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.settings_rounded,
-                                      color:
-                                          FlutterFlowTheme.of(context).tertiary,
-                                      size: 32.0,
+                    Builder(
+                      builder: (context) => InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          if (widget!.memberDoc?.permission == 'admin') {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              useSafeArea: true,
+                              context: context,
+                              builder: (context) {
+                                return WebViewAware(
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: MemberViewWidget(
+                                      customerDoc: containerCustomerRecord,
                                     ),
-                                    Text(
-                                      'ตั้งค่าองค์กร',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Kanit',
-                                            fontSize: 9.0,
-                                            letterSpacing: 0.0,
-                                          ),
+                                  ),
+                                );
+                              },
+                            ).then((value) => safeSetState(() {}));
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (dialogContext) {
+                                return Dialog(
+                                  elevation: 0,
+                                  insetPadding: EdgeInsets.zero,
+                                  backgroundColor: Colors.transparent,
+                                  alignment: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  child: WebViewAware(
+                                    child: InfoCustomViewWidget(
+                                      title: 'เฉพาะสิทธิ์เจ้าหน้าที่เท่านั้น',
+                                      status: 'error',
                                     ),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              return Opacity(
-                                opacity: 0.0,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.settings_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 32.0,
-                                    ),
-                                    Text(
-                                      'ตั้งค่าองค์กร',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Kanit',
-                                            fontSize: 9.0,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          },
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.settings_rounded,
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              size: 32.0,
+                            ),
+                            Text(
+                              'ตั้งค่าองค์กร',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 9.0,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ],
                         ),
                       ),
+                    ),
                     if (widget!.showSwtich ?? true)
                       Builder(
                         builder: (context) => InkWell(
