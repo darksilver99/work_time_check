@@ -155,56 +155,58 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
               ],
             ),
           ),
-          FutureBuilder<List<MemberListRecord>>(
-            future: queryMemberListRecordOnce(
-              queryBuilder: (memberListRecord) => memberListRecord.where(
-                'create_by',
-                isEqualTo: currentUserReference,
+          Expanded(
+            child: FutureBuilder<List<MemberListRecord>>(
+              future: queryMemberListRecordOnce(
+                queryBuilder: (memberListRecord) => memberListRecord.where(
+                  'create_by',
+                  isEqualTo: currentUserReference,
+                ),
               ),
-            ),
-            builder: (context, snapshot) {
-              // Customize what your widget looks like when it's loading.
-              if (!snapshot.hasData) {
-                return Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }
-              List<MemberListRecord> listViewMemberListRecordList =
-                  snapshot.data!;
-
-              return ListView.separated(
-                padding: EdgeInsets.fromLTRB(
-                  0,
-                  16.0,
-                  0,
-                  32.0,
-                ),
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: listViewMemberListRecordList.length,
-                separatorBuilder: (_, __) => SizedBox(height: 8.0),
-                itemBuilder: (context, listViewIndex) {
-                  final listViewMemberListRecord =
-                      listViewMemberListRecordList[listViewIndex];
-                  return CustomerMemberViewWidget(
-                    key: Key(
-                        'Key54y_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
-                    customerRef: listViewMemberListRecord.parentReference,
-                    memberDoc: listViewMemberListRecord,
-                    showSetting: true,
-                    showSwtich: false,
                   );
-                },
-              );
-            },
+                }
+                List<MemberListRecord> listViewMemberListRecordList =
+                    snapshot.data!;
+
+                return ListView.separated(
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    16.0,
+                    0,
+                    32.0,
+                  ),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: listViewMemberListRecordList.length,
+                  separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                  itemBuilder: (context, listViewIndex) {
+                    final listViewMemberListRecord =
+                        listViewMemberListRecordList[listViewIndex];
+                    return CustomerMemberViewWidget(
+                      key: Key(
+                          'Key54y_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
+                      customerRef: listViewMemberListRecord.parentReference,
+                      memberDoc: listViewMemberListRecord,
+                      showSetting: true,
+                      showSwtich: false,
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
