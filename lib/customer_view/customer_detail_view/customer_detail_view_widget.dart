@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/components/promotion_view_widget.dart';
 import '/customer_view/customer_q_r_code_view/customer_q_r_code_view_widget.dart';
+import '/customer_view/edit_customer_view/edit_customer_view_widget.dart';
 import '/customer_view/member_list_view/member_list_view_widget.dart';
 import '/customer_view/select_month_and_year_to_export_view/select_month_and_year_to_export_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -104,7 +105,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -296,6 +297,49 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.bold,
                                       ),
+                                ),
+                              ),
+                              Builder(
+                                builder: (context) => InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (dialogContext) {
+                                        return Dialog(
+                                          elevation: 0,
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          child: WebViewAware(
+                                            child: EditCustomerViewWidget(
+                                              customerDoc: widget!.customerDoc!,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(
+                                        () => _model.isUpdate = value));
+
+                                    if ((_model.isUpdate != null &&
+                                            _model.isUpdate != '') &&
+                                        (_model.isUpdate == 'update')) {
+                                      Navigator.pop(context);
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  child: Icon(
+                                    Icons.edit_rounded,
+                                    color: FlutterFlowTheme.of(context).error,
+                                    size: 32.0,
+                                  ),
                                 ),
                               ),
                             ],
