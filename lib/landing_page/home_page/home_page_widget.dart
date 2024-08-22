@@ -7,6 +7,7 @@ import '/component/work_time_view/work_time_view_widget.dart';
 import '/components/check_in_view_widget.dart';
 import '/components/check_out_view_widget.dart';
 import '/components/history_view_widget.dart';
+import '/components/letter_view_widget.dart';
 import '/components/other_view_widget.dart';
 import '/customer_view/join_customer_view/join_customer_view_widget.dart';
 import '/customer_view/my_customer_view/my_customer_view_widget.dart';
@@ -630,9 +631,29 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            if (!(currentUserDocument
+                                            if (currentUserDocument
                                                     ?.currentCustomerRef !=
-                                                null)) {
+                                                null) {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                useSafeArea: true,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WebViewAware(
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child: LetterViewWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            } else {
                                               await showDialog(
                                                 context: context,
                                                 builder: (dialogContext) {
