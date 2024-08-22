@@ -18,12 +18,7 @@ import 'letter_view_model.dart';
 export 'letter_view_model.dart';
 
 class LetterViewWidget extends StatefulWidget {
-  const LetterViewWidget({
-    super.key,
-    required this.photoIn,
-  });
-
-  final FFUploadedFile? photoIn;
+  const LetterViewWidget({super.key});
 
   @override
   State<LetterViewWidget> createState() => _LetterViewWidgetState();
