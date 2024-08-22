@@ -61,6 +61,11 @@ class UsersRecord extends FirestoreRecord {
   DocumentReference? get currentCustomerRef => _currentCustomerRef;
   bool hasCurrentCustomerRef() => _currentCustomerRef != null;
 
+  // "total_notification" field.
+  int? _totalNotification;
+  int get totalNotification => _totalNotification ?? 0;
+  bool hasTotalNotification() => _totalNotification != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -72,6 +77,7 @@ class UsersRecord extends FirestoreRecord {
     _lastName = snapshotData['last_name'] as String?;
     _currentCustomerRef =
         snapshotData['current_customer_ref'] as DocumentReference?;
+    _totalNotification = castToType<int>(snapshotData['total_notification']);
   }
 
   static CollectionReference get collection =>
@@ -117,6 +123,7 @@ Map<String, dynamic> createUsersRecordData({
   String? firstName,
   String? lastName,
   DocumentReference? currentCustomerRef,
+  int? totalNotification,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -129,6 +136,7 @@ Map<String, dynamic> createUsersRecordData({
       'first_name': firstName,
       'last_name': lastName,
       'current_customer_ref': currentCustomerRef,
+      'total_notification': totalNotification,
     }.withoutNulls,
   );
 
@@ -148,7 +156,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.firstName == e2?.firstName &&
         e1?.lastName == e2?.lastName &&
-        e1?.currentCustomerRef == e2?.currentCustomerRef;
+        e1?.currentCustomerRef == e2?.currentCustomerRef &&
+        e1?.totalNotification == e2?.totalNotification;
   }
 
   @override
@@ -161,7 +170,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.phoneNumber,
         e?.firstName,
         e?.lastName,
-        e?.currentCustomerRef
+        e?.currentCustomerRef,
+        e?.totalNotification
       ]);
 
   @override
