@@ -72,12 +72,45 @@ Future initCustomer(BuildContext context) async {
   if (currentUserDocument?.currentCustomerRef != null) {
     customerResult = await CustomerRecord.getDocumentOnce(
         currentUserDocument!.currentCustomerRef!);
-    FFAppState().customerData = CustomDataStruct(
-      expireDate: customerResult?.expireDate,
-      subject: customerResult?.subject,
-      customerRef: customerResult?.reference,
-    );
-    await action_blocks.checkIsHasKickFromCustomer(context);
+    if (customerResult != null) {
+      FFAppState().customerData = CustomDataStruct(
+        expireDate: customerResult?.expireDate,
+        subject: customerResult?.subject,
+        customerRef: customerResult?.reference,
+      );
+      await action_blocks.checkIsHasKickFromCustomer(context);
+    } else {
+      await showDialog(
+        context: context,
+        builder: (dialogContext) {
+          return Dialog(
+            elevation: 0,
+            insetPadding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+            alignment: AlignmentDirectional(0.0, 0.0)
+                .resolve(Directionality.of(context)),
+            child: WebViewAware(
+              child: InfoCustomViewWidget(
+                title:
+                    'ไม่มีองค์กรนี้อยู่แล้ว กรุณาติดต่อเจ้าหน้าที่องค์กรของท่าน',
+              ),
+            ),
+          );
+        },
+      );
+
+      await currentUserReference!.update({
+        ...mapToFirestore(
+          {
+            'current_customer_ref': FieldValue.delete(),
+          },
+        ),
+      });
+      await actions.pushReplacement(
+        context,
+        null,
+      );
+    }
   } else {
     await showDialog(
       context: context,
