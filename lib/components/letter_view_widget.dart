@@ -430,7 +430,7 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                                             0.0, 0.0, 8.0, 0.0),
                                         child: Text(
                                           valueOrDefault<String>(
-                                            functions.dateTh(_model.startDate),
+                                            functions.dateTh(_model.endDate),
                                             '-',
                                           ),
                                           style: FlutterFlowTheme.of(context)
