@@ -18,6 +18,8 @@ class WorkTimeViewModel extends FlutterFlowModel<WorkTimeViewWidget> {
 
   bool isLoading = true;
 
+  TransacationListRecord? transactionDoc;
+
   ///  State fields for stateful widgets in this component.
 
   // Model for TimerView component.
@@ -55,6 +57,7 @@ class WorkTimeViewModel extends FlutterFlowModel<WorkTimeViewWidget> {
       ).then((s) => s.firstOrNull);
       if (transactionDoc != null) {
         isLoading = false;
+        transactionDoc = transactionDoc;
       }
     }
   }
