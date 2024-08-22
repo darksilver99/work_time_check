@@ -91,7 +91,7 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [

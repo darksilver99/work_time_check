@@ -201,7 +201,6 @@ class _EditCustomerViewWidgetState extends State<EditCustomerViewWidget>
                                     letterSpacing: 0.0,
                                   ),
                               maxLines: null,
-                              keyboardType: TextInputType.multiline,
                               validator: _model.textControllerValidator
                                   .asValidator(context),
                             ),

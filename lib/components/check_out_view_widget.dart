@@ -382,6 +382,7 @@ class _CheckOutViewWidgetState extends State<CheckOutViewWidget> {
                                 await actions.uploadImageToFirebase(
                               'customer/${FFAppState().customerData.customerRef?.id}/${currentUserReference?.id}/check_in',
                               _model.tmpPhotoList.toList(),
+                              true,
                             );
 
                             await widget!.transactionDoc!.reference
