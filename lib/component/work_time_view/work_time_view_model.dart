@@ -37,11 +37,11 @@ class WorkTimeViewModel extends FlutterFlowModel<WorkTimeViewWidget> {
 
   /// Action blocks.
   Future initData(BuildContext context) async {
-    TransacationListRecord? transactionDoc;
+    TransacationListRecord? transactionDocResult;
 
     if (FFAppState().customerData.subject != null &&
         FFAppState().customerData.subject != '') {
-      transactionDoc = await queryTransacationListRecordOnce(
+      transactionDocResult = await queryTransacationListRecordOnce(
         parent: currentUserDocument?.currentCustomerRef,
         queryBuilder: (transacationListRecord) => transacationListRecord
             .where(
@@ -55,9 +55,9 @@ class WorkTimeViewModel extends FlutterFlowModel<WorkTimeViewWidget> {
             .orderBy('date_in', descending: true),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      if (transactionDoc != null) {
+      if (transactionDocResult != null) {
         isLoading = false;
-        transactionDoc = transactionDoc;
+        transactionDoc = transactionDocResult;
       }
     }
   }
