@@ -148,11 +148,6 @@ Future initCustomer(BuildContext context) async {
         );
       },
     );
-
-    await actions.pushReplacement(
-      context,
-      null,
-    );
   }
 }
 

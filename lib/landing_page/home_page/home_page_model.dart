@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/component/background_view/background_view_widget.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/component/loading_view/loading_view_widget.dart';
 import '/component/work_time_view/work_time_view_widget.dart';
 import '/components/check_in_view_widget.dart';
@@ -37,8 +38,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   // Model for BackgroundView component.
   late BackgroundViewModel backgroundViewModel;
-  // Stores action output result for [Action Block - isHasCustomerBlock] action in Column widget.
-  bool? isHasCustomer;
   // Stores action output result for [Custom Action - customCamera] action in Column widget.
   List<FFUploadedFile>? photoResult;
   // Stores action output result for [Firestore Query - Query a collection] action in Column widget.
