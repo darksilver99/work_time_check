@@ -53,7 +53,7 @@ class _TimerViewWidgetState extends State<TimerViewWidget> {
   @override
   void dispose() {
     _model.maybeDispose();
-
+    _model.instantTimer!.cancel();
     super.dispose();
   }
 
