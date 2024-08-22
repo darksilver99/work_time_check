@@ -234,6 +234,7 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                                 }
                                 if (_model.datePicked1 != null) {
                                   _model.startDate = _model.datePicked1;
+                                  _model.endDate = _model.datePicked1;
                                   setState(() {});
                                 }
                               },
@@ -331,7 +332,8 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                               onTap: () async {
                                 final _datePicked2Date = await showDatePicker(
                                   context: context,
-                                  initialDate: getCurrentTimestamp,
+                                  initialDate:
+                                      (_model.endDate ?? DateTime.now()),
                                   firstDate:
                                       (_model.startDate ?? DateTime(1900)),
                                   lastDate: DateTime(2050),
