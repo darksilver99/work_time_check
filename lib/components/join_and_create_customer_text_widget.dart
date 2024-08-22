@@ -7,7 +7,12 @@ import 'join_and_create_customer_text_model.dart';
 export 'join_and_create_customer_text_model.dart';
 
 class JoinAndCreateCustomerTextWidget extends StatefulWidget {
-  const JoinAndCreateCustomerTextWidget({super.key});
+  const JoinAndCreateCustomerTextWidget({
+    super.key,
+    required this.text,
+  });
+
+  final String? text;
 
   @override
   State<JoinAndCreateCustomerTextWidget> createState() =>
@@ -47,7 +52,10 @@ class _JoinAndCreateCustomerTextWidgetState
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 16.0),
         child: Text(
-          'ท่าสามารถเข้าร่วมองค์กรหรือสร้างองค์กรได้ที่นี่',
+          valueOrDefault<String>(
+            widget!.text,
+            '-',
+          ),
           style: FlutterFlowTheme.of(context).bodyMedium.override(
                 fontFamily: 'Kanit',
                 letterSpacing: 0.0,

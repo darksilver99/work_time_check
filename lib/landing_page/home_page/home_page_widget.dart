@@ -858,6 +858,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                           ],
                                         ),
+                                      ).addWalkthrough(
+                                        columnN67hyokg,
+                                        _model.joinAndCreateCustomerController,
                                       ),
                                     ),
                                   ).animateOnPageLoad(animationsMap[
