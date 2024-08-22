@@ -764,6 +764,8 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                             },
                                           );
 
+                                          Navigator.pop(context);
+
                                           setState(() {});
                                         },
                                         text: 'บันทึกข้อมูล',
