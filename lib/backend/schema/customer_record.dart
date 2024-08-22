@@ -56,6 +56,16 @@ class CustomerRecord extends FirestoreRecord {
   bool get isFirstTime => _isFirstTime ?? false;
   bool hasIsFirstTime() => _isFirstTime != null;
 
+  // "delete_date" field.
+  DateTime? _deleteDate;
+  DateTime? get deleteDate => _deleteDate;
+  bool hasDeleteDate() => _deleteDate != null;
+
+  // "delete_by" field.
+  DocumentReference? _deleteBy;
+  DocumentReference? get deleteBy => _deleteBy;
+  bool hasDeleteBy() => _deleteBy != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -65,6 +75,8 @@ class CustomerRecord extends FirestoreRecord {
     _expireDate = snapshotData['expire_date'] as DateTime?;
     _subject = snapshotData['subject'] as String?;
     _isFirstTime = snapshotData['is_first_time'] as bool?;
+    _deleteDate = snapshotData['delete_date'] as DateTime?;
+    _deleteBy = snapshotData['delete_by'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -110,6 +122,8 @@ Map<String, dynamic> createCustomerRecordData({
   DateTime? expireDate,
   String? subject,
   bool? isFirstTime,
+  DateTime? deleteDate,
+  DocumentReference? deleteBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +135,8 @@ Map<String, dynamic> createCustomerRecordData({
       'expire_date': expireDate,
       'subject': subject,
       'is_first_time': isFirstTime,
+      'delete_date': deleteDate,
+      'delete_by': deleteBy,
     }.withoutNulls,
   );
 
@@ -139,7 +155,9 @@ class CustomerRecordDocumentEquality implements Equality<CustomerRecord> {
         e1?.status == e2?.status &&
         e1?.expireDate == e2?.expireDate &&
         e1?.subject == e2?.subject &&
-        e1?.isFirstTime == e2?.isFirstTime;
+        e1?.isFirstTime == e2?.isFirstTime &&
+        e1?.deleteDate == e2?.deleteDate &&
+        e1?.deleteBy == e2?.deleteBy;
   }
 
   @override
@@ -151,7 +169,9 @@ class CustomerRecordDocumentEquality implements Equality<CustomerRecord> {
         e?.status,
         e?.expireDate,
         e?.subject,
-        e?.isFirstTime
+        e?.isFirstTime,
+        e?.deleteDate,
+        e?.deleteBy
       ]);
 
   @override

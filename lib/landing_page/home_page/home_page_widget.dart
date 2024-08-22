@@ -15,9 +15,12 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/walkthroughs/join_and_create_customer.dart';
 import 'dart:math';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart'
+    show TutorialCoachMark;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -246,6 +249,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
+                              ).addWalkthrough(
+                                buttonTprtq5pi,
+                                _model.joinAndCreateCustomerController,
                               ),
                             ),
                           ],
@@ -402,11 +408,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   child: InfoCustomViewWidget(
                                                     title:
                                                         'ท่านยังไม่มีองค์กรกรุณาเข้าร่วมองค์กรหรือสร้างองค์กรก่อน',
+                                                    status: 'warning',
                                                   ),
                                                 ),
                                               );
                                             },
                                           );
+
+                                          safeSetState(() => _model
+                                                  .joinAndCreateCustomerController =
+                                              createPageWalkthrough(context));
+                                          _model.joinAndCreateCustomerController
+                                              ?.show(context: context);
                                         }
 
                                         setState(() {});
@@ -539,11 +552,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           InfoCustomViewWidget(
                                                         title:
                                                             'ท่านยังไม่มีองค์กรกรุณาเข้าร่วมองค์กรหรือสร้างองค์กรก่อน',
+                                                        status: 'warning',
                                                       ),
                                                     ),
                                                   );
                                                 },
                                               );
+
+                                              safeSetState(() => _model
+                                                      .joinAndCreateCustomerController =
+                                                  createPageWalkthrough(
+                                                      context));
+                                              _model
+                                                  .joinAndCreateCustomerController
+                                                  ?.show(context: context);
                                             }
                                           },
                                           child: Column(
@@ -630,11 +652,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           InfoCustomViewWidget(
                                                         title:
                                                             'ท่านยังไม่มีองค์กรกรุณาเข้าร่วมองค์กรหรือสร้างองค์กรก่อน',
+                                                        status: 'warning',
                                                       ),
                                                     ),
                                                   );
                                                 },
                                               );
+
+                                              safeSetState(() => _model
+                                                      .joinAndCreateCustomerController =
+                                                  createPageWalkthrough(
+                                                      context));
+                                              _model
+                                                  .joinAndCreateCustomerController
+                                                  ?.show(context: context);
                                             }
                                           },
                                           child: Column(
@@ -1017,4 +1048,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
       ),
     );
   }
+
+  TutorialCoachMark createPageWalkthrough(BuildContext context) =>
+      TutorialCoachMark(
+        targets: createWalkthroughTargets(context),
+        onFinish: () async {
+          safeSetState(() => _model.joinAndCreateCustomerController = null);
+        },
+        onSkip: () {
+          return true;
+        },
+      );
 }
