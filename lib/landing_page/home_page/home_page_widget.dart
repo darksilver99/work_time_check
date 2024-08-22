@@ -822,73 +822,96 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                               ),
                                             ),
-                                            if (valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.totalNotification,
-                                                    0) >
-                                                0)
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    1.0, -1.0),
-                                                child: AuthUserStreamWidget(
-                                                  builder: (context) => Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    16.0,
-                                                                    16.0,
-                                                                    0.0),
-                                                        child: Container(
-                                                          width: 42.0,
-                                                          height: 42.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                          child: Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.0, 0.0),
-                                                            child: Text(
-                                                              valueOrDefault(
-                                                                      currentUserDocument
-                                                                          ?.totalNotification,
-                                                                      0)
-                                                                  .toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Kanit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .info,
-                                                                    fontSize:
-                                                                        18.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                            ),
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  1.0, -1.0),
+                                              child: StreamBuilder<UsersRecord>(
+                                                stream: UsersRecord.getDocument(
+                                                    currentUserReference!),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
                                                           ),
                                                         ),
                                                       ),
+                                                    );
+                                                  }
+
+                                                  final columnUsersRecord =
+                                                      snapshot.data!;
+
+                                                  return Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      if (columnUsersRecord
+                                                              .totalNotification >
+                                                          0)
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      16.0,
+                                                                      16.0,
+                                                                      0.0),
+                                                          child: Container(
+                                                            width: 42.0,
+                                                            height: 42.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .error,
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      0.0, 0.0),
+                                                              child: Text(
+                                                                columnUsersRecord
+                                                                    .totalNotification
+                                                                    .toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Kanit',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .info,
+                                                                      fontSize:
+                                                                          18.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                     ],
-                                                  ),
-                                                ),
+                                                  );
+                                                },
                                               ),
+                                            ),
                                           ],
                                         ),
                                       ),
