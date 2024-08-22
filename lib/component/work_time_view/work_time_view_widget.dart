@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/component/timer_view/timer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -94,7 +95,7 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                             ),
                           ],
                         ),
-                        if (transactionDoc?.dateIn != null)
+                        if (_model.transactionDoc != null)
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -104,7 +105,7 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                                   updateCallback: () => setState(() {}),
                                   child: TimerViewWidget(
                                     milliseconds: functions.millisecondsBetween(
-                                        transactionDoc!.dateIn!,
+                                        _model.transactionDoc!.dateIn!,
                                         getCurrentTimestamp),
                                   ),
                                 ),
