@@ -13,6 +13,7 @@ import 'schema/transacation_list_record.dart';
 import 'schema/payment_list_record.dart';
 import 'schema/issue_list_record.dart';
 import 'schema/suggest_list_record.dart';
+import 'schema/letter_list_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -29,6 +30,7 @@ export 'schema/transacation_list_record.dart';
 export 'schema/payment_list_record.dart';
 export 'schema/issue_list_record.dart';
 export 'schema/suggest_list_record.dart';
+export 'schema/letter_list_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -327,6 +329,46 @@ Future<List<SuggestListRecord>> querySuggestListRecordOnce({
     queryCollectionOnce(
       SuggestListRecord.collection,
       SuggestListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query LetterListRecords (as a Stream and as a Future).
+Future<int> queryLetterListRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      LetterListRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<LetterListRecord>> queryLetterListRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      LetterListRecord.collection(parent),
+      LetterListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<LetterListRecord>> queryLetterListRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      LetterListRecord.collection(parent),
+      LetterListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

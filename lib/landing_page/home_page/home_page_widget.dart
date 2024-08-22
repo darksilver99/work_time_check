@@ -690,7 +690,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                               ),
                                               Text(
-                                                'ลางาน',
+                                                'ขอลางาน',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
