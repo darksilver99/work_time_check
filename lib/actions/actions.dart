@@ -70,8 +70,9 @@ Future initCustomer(BuildContext context) async {
   CustomerRecord? customerResult;
 
   if (currentUserDocument?.currentCustomerRef != null) {
-    customerResult = await CustomerRecord.getDocumentOnce(
-        currentUserDocument!.currentCustomerRef!);
+    customerResult = await actions.getCustomerFromDocID(
+      currentUserDocument?.currentCustomerRef?.id,
+    );
     if (customerResult != null) {
       FFAppState().customerData = CustomDataStruct(
         expireDate: customerResult?.expireDate,
