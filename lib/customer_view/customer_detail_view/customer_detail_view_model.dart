@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/components/promotion_view_widget.dart';
 import '/customer_view/customer_q_r_code_view/customer_q_r_code_view_widget.dart';
+import '/customer_view/edit_customer_view/edit_customer_view_widget.dart';
 import '/customer_view/member_list_view/member_list_view_widget.dart';
 import '/customer_view/select_month_and_year_to_export_view/select_month_and_year_to_export_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -41,6 +42,8 @@ class CustomerDetailViewModel
 
   // Stores action output result for [Action Block - checkIsCustomerExpire] action in CustomerDetailView widget.
   bool? checkIsExpire;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Icon widget.
+  String? isUpdate;
   // Stores action output result for [Action Block - confirmBlock] action in Column widget.
   bool? isConfirm;
 
