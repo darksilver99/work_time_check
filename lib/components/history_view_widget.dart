@@ -333,6 +333,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                                           .primaryText,
                                                   fontSize: 20.0,
                                                   letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                           ),
                                         ),
@@ -375,7 +376,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                                                     0.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .bold,
+                                                                        .normal,
                                                               ),
                                                         ),
                                                       ),
@@ -403,6 +404,9 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Kanit',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
                                                                 fontSize: 22.0,
                                                                 letterSpacing:
                                                                     0.0,
@@ -451,7 +455,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                                                     0.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .bold,
+                                                                        .normal,
                                                               ),
                                                         ),
                                                       ),
@@ -479,6 +483,9 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Kanit',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error,
                                                                 fontSize: 22.0,
                                                                 letterSpacing:
                                                                     0.0,
