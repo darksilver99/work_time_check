@@ -63,6 +63,7 @@ Future initConfig(BuildContext context) async {
     promotionDetailImage: configResult?.promotionDetailImage,
     contact: configResult?.contact,
   );
+  await action_blocks.checkAppVersion(context);
 }
 
 Future initCustomer(BuildContext context) async {
@@ -232,4 +233,36 @@ Future initMember(
 Future clearData(BuildContext context) async {
   FFAppState().customerData = CustomDataStruct();
   FFAppState().memberData = MemberDataStruct();
+}
+
+Future checkAppVersion(BuildContext context) async {
+  await actions.setAppVersion();
+  if (FFAppState().appBuildVersion < FFAppState().configData.storeVersion) {
+    await showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return Dialog(
+          elevation: 0,
+          insetPadding: EdgeInsets.zero,
+          backgroundColor: Colors.transparent,
+          alignment: AlignmentDirectional(0.0, 0.0)
+              .resolve(Directionality.of(context)),
+          child: WebViewAware(
+            child: InfoCustomViewWidget(
+              title: 'กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง',
+              status: 'warning',
+            ),
+          ),
+        );
+      },
+    );
+
+    if (isAndroid) {
+      await launchURL(FFAppState().configData.storeAndroidLink);
+    } else {
+      await launchURL(FFAppState().configData.storeIosLink);
+    }
+
+    await actions.closeApp();
+  }
 }

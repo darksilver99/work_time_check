@@ -6,6 +6,7 @@ import '/component/work_time_view/work_time_view_widget.dart';
 import '/components/check_in_view_widget.dart';
 import '/components/check_out_view_widget.dart';
 import '/components/history_view_widget.dart';
+import '/components/other_view_widget.dart';
 import '/customer_view/join_customer_view/join_customer_view_widget.dart';
 import '/customer_view/my_customer_view/my_customer_view_widget.dart';
 import '/customer_view/swtich_customer_view/swtich_customer_view_widget.dart';

@@ -130,7 +130,7 @@ class _SelectMonthAndYearToExportViewWidgetState
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
                           child: Text(
-                            'กรุณาเลือกเดือนและปี',
+                            'เลือกปีและเดือน',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium

@@ -10,6 +10,8 @@ import 'schema/config_record.dart';
 import 'schema/customer_record.dart';
 import 'schema/member_list_record.dart';
 import 'schema/transacation_list_record.dart';
+import 'schema/payment_list_record.dart';
+import 'schema/issue_list_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -23,6 +25,8 @@ export 'schema/config_record.dart';
 export 'schema/customer_record.dart';
 export 'schema/member_list_record.dart';
 export 'schema/transacation_list_record.dart';
+export 'schema/payment_list_record.dart';
+export 'schema/issue_list_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -210,6 +214,80 @@ Future<List<TransacationListRecord>> queryTransacationListRecordOnce({
     queryCollectionOnce(
       TransacationListRecord.collection(parent),
       TransacationListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query PaymentListRecords (as a Stream and as a Future).
+Future<int> queryPaymentListRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      PaymentListRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<PaymentListRecord>> queryPaymentListRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      PaymentListRecord.collection,
+      PaymentListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<PaymentListRecord>> queryPaymentListRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      PaymentListRecord.collection,
+      PaymentListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query IssueListRecords (as a Stream and as a Future).
+Future<int> queryIssueListRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      IssueListRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<IssueListRecord>> queryIssueListRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      IssueListRecord.collection,
+      IssueListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<IssueListRecord>> queryIssueListRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      IssueListRecord.collection,
+      IssueListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
