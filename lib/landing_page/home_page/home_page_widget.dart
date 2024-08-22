@@ -104,13 +104,25 @@ class _HomePageWidgetState extends State<HomePageWidget>
           MoveEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(100.0, 0.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation5': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
             duration: 700.0.ms,
             begin: Offset(-100.0, 58.0),
             end: Offset(0.0, 0.0),
           ),
         ],
       ),
-      'containerOnPageLoadAnimation5': AnimationInfo(
+      'containerOnPageLoadAnimation6': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
           MoveEffect(
@@ -122,7 +134,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
           ),
         ],
       ),
-      'containerOnPageLoadAnimation6': AnimationInfo(
+      'containerOnPageLoadAnimation7': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
           MoveEffect(
@@ -425,7 +437,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           ),
                           crossAxisSpacing: 8.0,
                           mainAxisSpacing: 8.0,
-                          itemCount: 5,
+                          itemCount: 6,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return [
@@ -526,6 +538,55 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/images/writing_4120523.png',
+                                                height: 54.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            'ลางาน',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 20.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'containerOnPageLoadAnimation3']!),
+                              () => Material(
+                                    color: Colors.transparent,
+                                    elevation: 3.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Container(
+                                      height: 220.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -587,7 +648,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation3']!),
+                                      'containerOnPageLoadAnimation4']!),
                               () => Material(
                                     color: Colors.transparent,
                                     elevation: 3.0,
@@ -595,7 +656,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),
                                     child: Container(
-                                      height: 180.0,
+                                      height: 150.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
@@ -664,7 +725,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation4']!),
+                                      'containerOnPageLoadAnimation5']!),
                               () => Material(
                                     color: Colors.transparent,
                                     elevation: 3.0,
@@ -740,7 +801,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation5']!),
+                                      'containerOnPageLoadAnimation6']!),
                               () => Material(
                                     color: Colors.transparent,
                                     elevation: 3.0,
@@ -821,7 +882,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                     ),
                                   ).animateOnPageLoad(animationsMap[
-                                      'containerOnPageLoadAnimation6']!),
+                                      'containerOnPageLoadAnimation7']!),
                             ][index]();
                           },
                         ),
