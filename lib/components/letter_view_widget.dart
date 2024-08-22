@@ -133,6 +133,33 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                               ),
                             ),
                           ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 4.0, 0.0),
+                                child: Icon(
+                                  Icons.history_rounded,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 16.0,
+                                ),
+                              ),
+                              Text(
+                                'ประวัติลางาน',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      color:
+                                          FlutterFlowTheme.of(context).warning,
+                                      letterSpacing: 0.0,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                       Column(
