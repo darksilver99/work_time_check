@@ -56,6 +56,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await action_blocks.clearData(context);
       await action_blocks.initConfig(context);
       await action_blocks.initCustomer(context);
       _model.isLoading = false;
