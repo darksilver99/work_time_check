@@ -126,6 +126,8 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
+                          _model.isLoading = true;
+                          setState(() {});
                           await _model.initData(context);
                           setState(() {});
                         },
