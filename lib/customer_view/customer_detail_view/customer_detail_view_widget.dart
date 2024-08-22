@@ -213,24 +213,51 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                       },
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'ใช้งานได้ถึงวันที่ ${functions.dateTh(widget!.customerDoc?.expireDate)}',
-                          textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Kanit',
-                                    color: FlutterFlowTheme.of(context).error,
-                                    fontSize: 18.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Builder(
+                            builder: (context) {
+                              if (getCurrentTimestamp >
+                                  widget!.customerDoc!.expireDate!) {
+                                return Text(
+                                  'บัญชีของท่านหมดอายุการใช้งานแล้ว',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                );
+                              } else {
+                                return Text(
+                                  'ใช้งานได้ถึงวันที่ ${functions.dateTh(widget!.customerDoc?.expireDate)}',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                );
+                              }
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Container(
                     width: double.infinity,
