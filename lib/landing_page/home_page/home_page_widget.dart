@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/component/background_view/background_view_widget.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/component/loading_view/loading_view_widget.dart';
 import '/component/work_time_view/work_time_view_widget.dart';
 import '/components/check_in_view_widget.dart';
@@ -180,14 +181,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      if (FFAppState().customerData.subject != null &&
-                          FFAppState().customerData.subject != '')
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 8.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            if (FFAppState().customerData.subject != null &&
+                                FFAppState().customerData.subject != '')
                               Expanded(
                                 child: Text(
                                   FFAppState().customerData.subject,
@@ -202,54 +203,54 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       ),
                                 ),
                               ),
-                              Builder(
-                                builder: (context) => FFButtonWidget(
-                                  onPressed: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: JoinCustomerViewWidget(),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  text: 'เข้าร่วมองค์กร',
-                                  options: FFButtonOptions(
-                                    height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 8.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
+                            Builder(
+                              builder: (context) => FFButtonWidget(
+                                onPressed: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return Dialog(
+                                        elevation: 0,
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        child: WebViewAware(
+                                          child: JoinCustomerViewWidget(),
                                         ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                      );
+                                    },
+                                  );
+                                },
+                                text: 'เข้าร่วมองค์กร',
+                                options: FFButtonOptions(
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 8.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  elevation: 3.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
                                   ),
+                                  borderRadius: BorderRadius.circular(8.0),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
+                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 8.0),
@@ -295,128 +296,153 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         .secondaryBackground,
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      _model.isHasCustomer = await action_blocks
-                                          .isHasCustomerBlock(context);
-                                      if (_model.isHasCustomer!) {
-                                        _model.photoResult =
-                                            await actions.customCamera(
-                                          context,
-                                        );
-                                        if (_model.photoResult != null &&
-                                            (_model.photoResult)!.isNotEmpty) {
-                                          _model.transactionDoc =
-                                              await queryTransacationListRecordOnce(
-                                            parent: currentUserDocument
-                                                ?.currentCustomerRef,
-                                            queryBuilder:
-                                                (transacationListRecord) =>
-                                                    transacationListRecord
-                                                        .where(
-                                                          'status',
-                                                          isEqualTo: 1,
-                                                        )
-                                                        .where(
-                                                          'member_ref',
-                                                          isEqualTo:
-                                                              FFAppState()
-                                                                  .memberData
-                                                                  .memberRef,
-                                                        )
-                                                        .orderBy('date_in',
-                                                            descending: true),
-                                            singleRecord: true,
-                                          ).then((s) => s.firstOrNull);
-                                          if (_model.transactionDoc != null) {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              useSafeArea: true,
-                                              context: context,
-                                              builder: (context) {
-                                                return WebViewAware(
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child: CheckOutViewWidget(
-                                                      photoOut: _model
-                                                          .photoResult!.first,
-                                                      transactionDoc: _model
-                                                          .transactionDoc!,
+                                  child: Builder(
+                                    builder: (context) => InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        if (currentUserDocument
+                                                ?.currentCustomerRef !=
+                                            null) {
+                                          _model.photoResult =
+                                              await actions.customCamera(
+                                            context,
+                                          );
+                                          if (_model.photoResult != null &&
+                                              (_model.photoResult)!
+                                                  .isNotEmpty) {
+                                            _model.transactionDoc =
+                                                await queryTransacationListRecordOnce(
+                                              parent: currentUserDocument
+                                                  ?.currentCustomerRef,
+                                              queryBuilder:
+                                                  (transacationListRecord) =>
+                                                      transacationListRecord
+                                                          .where(
+                                                            'status',
+                                                            isEqualTo: 1,
+                                                          )
+                                                          .where(
+                                                            'member_ref',
+                                                            isEqualTo:
+                                                                FFAppState()
+                                                                    .memberData
+                                                                    .memberRef,
+                                                          )
+                                                          .orderBy('date_in',
+                                                              descending: true),
+                                              singleRecord: true,
+                                            ).then((s) => s.firstOrNull);
+                                            if (_model.transactionDoc != null) {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                useSafeArea: true,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WebViewAware(
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child: CheckOutViewWidget(
+                                                        photoOut: _model
+                                                            .photoResult!.first,
+                                                        transactionDoc: _model
+                                                            .transactionDoc!,
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then(
-                                                (value) => safeSetState(() {}));
-                                          } else {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              useSafeArea: true,
-                                              context: context,
-                                              builder: (context) {
-                                                return WebViewAware(
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child: CheckInViewWidget(
-                                                      photoIn: _model
-                                                          .photoResult!.first,
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            } else {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                useSafeArea: true,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WebViewAware(
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child: CheckInViewWidget(
+                                                        photoIn: _model
+                                                            .photoResult!.first,
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then(
-                                                (value) => safeSetState(() {}));
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            }
                                           }
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title:
+                                                        'ท่านยังไม่มีองค์กรกรุณาเข้าร่วมองค์กรหรือสร้างองค์กรก่อน',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
                                         }
-                                      }
 
-                                      setState(() {});
-                                    },
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 8.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.asset(
-                                              'assets/images/performance_1647538.png',
-                                              height: 54.0,
-                                              fit: BoxFit.cover,
+                                        setState(() {});
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/images/performance_1647538.png',
+                                                height: 54.0,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Text(
-                                          'ลงเวลาเข้า/ออกงาน',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                fontSize: 20.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ],
+                                          Text(
+                                            'ลงเวลาเข้า/ออกงาน',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 20.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -455,70 +481,106 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            useSafeArea: true,
-                                            context: context,
-                                            builder: (context) {
-                                              return WebViewAware(
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: HistoryViewWidget(
-                                                    customerRef: FFAppState()
-                                                        .customerData
-                                                        .customerRef!,
-                                                    memberRef: FFAppState()
-                                                        .memberData
-                                                        .memberRef!,
+                                      child: Builder(
+                                        builder: (context) => InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            if (currentUserDocument
+                                                    ?.currentCustomerRef !=
+                                                null) {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                useSafeArea: true,
+                                                context: context,
+                                                builder: (context) {
+                                                  return WebViewAware(
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child: HistoryViewWidget(
+                                                        customerRef:
+                                                            FFAppState()
+                                                                .customerData
+                                                                .customerRef!,
+                                                        memberRef: FFAppState()
+                                                            .memberData
+                                                            .memberRef!,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return Dialog(
+                                                    elevation: 0,
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    child: WebViewAware(
+                                                      child:
+                                                          InfoCustomViewWidget(
+                                                        title:
+                                                            'ท่านยังไม่มีองค์กรกรุณาเข้าร่วมองค์กรหรือสร้างองค์กรก่อน',
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 8.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/schedule_1647220.png',
+                                                    height: 54.0,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 8.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                                child: Image.asset(
-                                                  'assets/images/schedule_1647220.png',
-                                                  height: 54.0,
-                                                  fit: BoxFit.cover,
-                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              'ประวัติลงเวลา',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            ),
-                                          ],
+                                              Text(
+                                                'ประวัติลงเวลา',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -538,37 +600,79 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 8.0),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.asset(
-                                                'assets/images/writing_4120523.png',
-                                                height: 54.0,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            'ลางาน',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
+                                      child: Builder(
+                                        builder: (context) => InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            if (!(currentUserDocument
+                                                    ?.currentCustomerRef !=
+                                                null)) {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return Dialog(
+                                                    elevation: 0,
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    child: WebViewAware(
+                                                      child:
+                                                          InfoCustomViewWidget(
+                                                        title:
+                                                            'ท่านยังไม่มีองค์กรกรุณาเข้าร่วมองค์กรหรือสร้างองค์กรก่อน',
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 8.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/writing_4120523.png',
+                                                    height: 54.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
+                                              ),
+                                              Text(
+                                                'ลางาน',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ).animateOnPageLoad(animationsMap[
