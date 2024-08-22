@@ -16,19 +16,22 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 Future<List<String>> uploadImageToFirebase(
   String path,
   List<FFUploadedFile> imageList,
+  bool needCompress,
 ) async {
   // Add your function code here!
   List<String> urlList = [];
   for (var i = 0; i < imageList.length; i++) {
     String newPath = '$path/${imageList[i].name}';
+    Uint8List image = imageList[i].bytes!;
+    if (needCompress) {
+      image = await FlutterImageCompress.compressWithList(
+        image,
+        minWidth: 300,
+        quality: 30,
+      );
+    }
 
-    Uint8List compress = await FlutterImageCompress.compressWithList(
-      imageList[i].bytes!,
-      minWidth: 300,
-      quality: 30,
-    );
-
-    var url = await uploadData(newPath, compress);
+    var url = await uploadData(newPath, image);
     if (url != null) {
       urlList.add(url);
     }

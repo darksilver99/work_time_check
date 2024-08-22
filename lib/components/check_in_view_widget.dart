@@ -279,6 +279,7 @@ class _CheckInViewWidgetState extends State<CheckInViewWidget> {
                                 await actions.uploadImageToFirebase(
                               'customer/${FFAppState().customerData.customerRef?.id}/${currentUserReference?.id}/check_in',
                               _model.tmpPhotoList.toList(),
+                              true,
                             );
 
                             await TransacationListRecord.createDoc(

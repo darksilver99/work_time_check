@@ -701,6 +701,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                               .uploadImageToFirebase(
                                             'users/${currentUserUid}/avatar',
                                             _model.tmpImage.toList(),
+                                            false,
                                           );
 
                                           await currentUserReference!
