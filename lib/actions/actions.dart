@@ -289,6 +289,7 @@ Future initMember(
 }) async {
   FFAppState().memberData = MemberDataStruct(
     memberRef: memberDoc?.reference,
+    permission: memberDoc?.permission,
   );
 }
 

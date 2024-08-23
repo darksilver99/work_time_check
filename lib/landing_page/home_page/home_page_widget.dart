@@ -874,7 +874,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       children: [
-                                                        if (columnCount > 0)
+                                                        if ((columnCount > 0) &&
+                                                            (FFAppState()
+                                                                    .memberData
+                                                                    .permission ==
+                                                                'admin'))
                                                           Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
