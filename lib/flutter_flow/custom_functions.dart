@@ -232,3 +232,15 @@ DateTime increaseDay(
   DateTime newDate = dateTime.add(Duration(days: day));
   return DateTime(newDate.year, newDate.month, newDate.day);
 }
+
+bool checkIsDateAfter(
+  DateTime dateTime1,
+  DateTime dateTime2,
+) {
+  // Compare the dates by ignoring the time
+  DateTime dateOnly1 = DateTime(dateTime1.year, dateTime1.month, dateTime1.day);
+  DateTime dateOnly2 = DateTime(dateTime2.year, dateTime2.month, dateTime2.day);
+
+  // Check if dateTime1's date is after dateTime2's date
+  return dateOnly1.isAfter(dateOnly2);
+}
