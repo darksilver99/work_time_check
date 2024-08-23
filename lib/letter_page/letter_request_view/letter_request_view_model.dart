@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/letter_page/letter_detail_view/letter_detail_view_widget.dart';
+import '/letter_page/letter_prove_view/letter_prove_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'letter_request_view_widget.dart' show LetterRequestViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';

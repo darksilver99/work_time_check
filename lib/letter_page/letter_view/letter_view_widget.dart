@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/letter_page/letter_history_view/letter_history_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -141,17 +142,48 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                                   size: 16.0,
                                 ),
                               ),
-                              Text(
-                                'ประวัติลางาน',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      color:
-                                          FlutterFlowTheme.of(context).warning,
-                                      letterSpacing: 0.0,
-                                      decoration: TextDecoration.underline,
-                                    ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    useSafeArea: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return WebViewAware(
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: LetterHistoryViewWidget(
+                                            customerRef: FFAppState()
+                                                .customerData
+                                                .customerRef!,
+                                            memberRef: FFAppState()
+                                                .memberData
+                                                .memberRef!,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                child: Text(
+                                  'ประวัติลางาน',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        color: FlutterFlowTheme.of(context)
+                                            .warning,
+                                        letterSpacing: 0.0,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                ),
                               ),
                             ],
                           ),

@@ -202,6 +202,7 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
                       memberDoc: listViewMemberListRecord,
                       showSetting: true,
                       showSwtich: false,
+                      showBadge: true,
                     );
                   },
                 );

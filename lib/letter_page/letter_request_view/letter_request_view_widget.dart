@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/letter_page/letter_detail_view/letter_detail_view_widget.dart';
+import '/letter_page/letter_prove_view/letter_prove_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
@@ -111,7 +111,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                     'คำของลางาน',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Kanit',
-                          fontSize: 20.0,
+                          fontSize: 24.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -329,7 +329,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                               .resolve(
                                                   Directionality.of(context)),
                                           child: WebViewAware(
-                                            child: LetterDetailViewWidget(
+                                            child: LetterProveViewWidget(
                                               letterDocument:
                                                   listViewLetterListRecord,
                                               userDocument: columnUsersRecord,
