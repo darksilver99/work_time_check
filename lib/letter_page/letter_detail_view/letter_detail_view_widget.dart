@@ -279,6 +279,51 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                         ],
                       ),
                     ),
+                    if (widget!.letterDocument!.status > 0)
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                        child: StreamBuilder<UsersRecord>(
+                          stream: UsersRecord.getDocument(
+                              widget!.letterDocument!.updateBy!),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+
+                            final rowUsersRecord = snapshot.data!;
+
+                            return Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'อัพเดทเมื่อ ${functions.dateTimeTh(widget!.letterDocument?.updateDate)} โดย ${rowUsersRecord.firstName} ${rowUsersRecord.lastName}${rowUsersRecord.displayName}',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 12.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
                   ],
                 ),
               ),
