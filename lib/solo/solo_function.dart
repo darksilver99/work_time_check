@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:work_time_check/auth/firebase_auth/auth_util.dart';
 import 'package:work_time_check/flutter_flow/flutter_flow_util.dart';
@@ -70,7 +72,7 @@ bool isWeekend2(date) {
   print("isWeekend2");
   print(date);
   DateTime? newDate = parseThaiDate(date);
-  if(newDate == null){
+  if (newDate == null) {
     return false;
   }
   return newDate.weekday == DateTime.saturday || newDate.weekday == DateTime.sunday;
@@ -113,4 +115,45 @@ bool isLate(rsCompany, DateTime startDate, DateTime? endDate) {
   } else {
     return false;
   }
+}
+
+List<Map<String, dynamic>> filterByDate(List<Map<String, dynamic>> snapshot, DateTime targetDate) {
+  return snapshot.where((doc) {
+    Timestamp timestamp = doc['date_in'];
+    DateTime dateIn = timestamp.toDate();
+
+    // Compare only the date parts
+    return dateIn.year == targetDate.year && dateIn.month == targetDate.month && dateIn.day == targetDate.day;
+  }).toList();
+}
+
+String _formatDate(DateTime date) {
+  return "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+}
+
+List<QueryDocumentSnapshot<Map<String, dynamic>>> filterSnapshotByDate(QuerySnapshot<Map<String, dynamic>> snapshot, DateTime targetDate) {
+  // Format the target date to ignore time (only date part)
+  String formattedTargetDate = _formatDate(targetDate);
+
+  // Filter the documents based on the formatted date
+  return snapshot.docs.where((doc) {
+    Timestamp timestamp = doc.data()['date_in'];
+    DateTime docDate = timestamp.toDate();
+
+    // Format the document date to ignore time
+    String formattedDocDate = _formatDate(docDate);
+
+    // Compare the formatted date strings
+    return formattedDocDate == formattedTargetDate;
+  }).toList();
+}
+
+List<QueryDocumentSnapshot<Map<String, dynamic>>> filterSnapshotByMemberRef(List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot, DocumentReference<Map<String, dynamic>> memberRef) {
+  // Filter the documents based on the memberRef
+  return snapshot.where((doc) {
+    DocumentReference<Map<String, dynamic>> docMemberRef = doc.data()['member_ref'];
+
+    // Compare the DocumentReference objects directly
+    return docMemberRef == memberRef;
+  }).toList();
 }
