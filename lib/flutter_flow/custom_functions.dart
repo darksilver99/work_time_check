@@ -224,3 +224,11 @@ int countDaysBetween(
   // Add 1 to include both the start and end dates
   return difference + 1;
 }
+
+DateTime increaseDay(
+  DateTime dateTime,
+  int day,
+) {
+  DateTime newDate = dateTime.add(Duration(days: day));
+  return DateTime(newDate.year, newDate.month, newDate.day);
+}

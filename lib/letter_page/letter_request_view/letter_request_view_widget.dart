@@ -333,6 +333,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                               letterDocument:
                                                   listViewLetterListRecord,
                                               userDocument: columnUsersRecord,
+                                              customerRef: widget!.customerRef!,
                                             ),
                                           ),
                                         );
