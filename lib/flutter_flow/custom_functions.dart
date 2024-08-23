@@ -210,3 +210,17 @@ String getStatusText(
   }
   return '-';
 }
+
+int countDaysBetween(
+  DateTime startDate,
+  DateTime endDate,
+) {
+  DateTime start = DateTime(startDate.year, startDate.month, startDate.day);
+  DateTime end = DateTime(endDate.year, endDate.month, endDate.day);
+
+  // Calculate the difference in days
+  int difference = end.difference(start).inDays;
+
+  // Add 1 to include both the start and end dates
+  return difference + 1;
+}
