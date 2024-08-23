@@ -24,10 +24,12 @@ class LetterDetailViewWidget extends StatefulWidget {
     super.key,
     required this.letterDocument,
     required this.userDocument,
+    required this.customerRef,
   });
 
   final LetterListRecord? letterDocument;
   final UsersRecord? userDocument;
+  final DocumentReference? customerRef;
 
   @override
   State<LetterDetailViewWidget> createState() => _LetterDetailViewWidgetState();
@@ -49,6 +51,14 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => LetterDetailViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.totalLeaveDay = functions.countDaysBetween(
+          widget!.letterDocument!.startDate!, widget!.letterDocument!.endDate!);
+      _model.dateLeave = widget!.letterDocument?.startDate;
+      setState(() {});
+    });
 
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
@@ -150,7 +160,6 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                             child: Text(
                               '${widget!.userDocument?.firstName} ${widget!.userDocument?.lastName} (${widget!.userDocument?.displayName})',
                               textAlign: TextAlign.start,
-                              maxLines: 1,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -176,12 +185,12 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                             child: Text(
                               'วันที่ขอลา ${functions.dateTh(widget!.letterDocument?.startDate)} - ${functions.dateTh(widget!.letterDocument?.endDate)}',
                               textAlign: TextAlign.start,
-                              maxLines: 1,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Kanit',
-                                    color: FlutterFlowTheme.of(context).error,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
                                     fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
@@ -201,7 +210,6 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                             child: Text(
                               'จำนวน ${functions.countDaysBetween(widget!.letterDocument!.startDate!, widget!.letterDocument!.endDate!).toString()} วัน',
                               textAlign: TextAlign.start,
-                              maxLines: 1,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -432,43 +440,67 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                                   4.0, 0.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  _model.isConfirm2 =
-                                      await action_blocks.confirmBlock(
-                                    context,
-                                    title: 'ยืนยันอนุมัติ ?',
-                                    detail:
-                                        'จะไม่สามารถเปลี่ยนสถานะได้ในภายหลัง',
-                                  );
-                                  if (_model.isConfirm2!) {
-                                    await widget!.letterDocument!.reference
-                                        .update(createLetterListRecordData(
-                                      updateDate: getCurrentTimestamp,
-                                      updateBy: currentUserReference,
-                                      status: 1,
-                                    ));
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: InfoCustomViewWidget(
-                                              title:
-                                                  'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                              status: 'success',
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                  if (_model.totalLeaveDay != null) {
+                                    _model.isConfirm2 =
+                                        await action_blocks.confirmBlock(
+                                      context,
+                                      title: 'ยืนยันอนุมัติ ?',
+                                      detail:
+                                          'จะไม่สามารถเปลี่ยนสถานะได้ในภายหลัง',
                                     );
+                                    if (_model.isConfirm2!) {
+                                      await widget!.letterDocument!.reference
+                                          .update(createLetterListRecordData(
+                                        updateDate: getCurrentTimestamp,
+                                        updateBy: currentUserReference,
+                                        status: 1,
+                                      ));
+                                      while (_model.indexDay! <
+                                          _model.totalLeaveDay!) {
+                                        await TransacationListRecord.createDoc(
+                                                widget!.customerRef!)
+                                            .set(
+                                                createTransacationListRecordData(
+                                          createBy:
+                                              widget!.userDocument?.reference,
+                                          status: 3,
+                                          detailIn:
+                                              '${widget!.letterDocument?.status?.toString()} : ${widget!.letterDocument?.detail}',
+                                          dateIn: functions.getStartDayTime(
+                                              _model.dateLeave!),
+                                          dateOut: functions
+                                              .getEndDayTime(_model.dateLeave!),
+                                          memberRef:
+                                              widget!.letterDocument?.memberRef,
+                                        ));
+                                        _model.dateLeave = functions
+                                            .increaseDay(_model.dateLeave!, 1);
+                                        _model.indexDay = _model.indexDay! + 1;
+                                      }
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: WebViewAware(
+                                              child: InfoCustomViewWidget(
+                                                title:
+                                                    'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                                status: 'success',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
 
-                                    Navigator.pop(context, 'update');
+                                      Navigator.pop(context, 'update');
+                                    }
                                   }
 
                                   setState(() {});

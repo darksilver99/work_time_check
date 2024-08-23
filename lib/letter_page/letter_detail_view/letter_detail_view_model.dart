@@ -19,6 +19,14 @@ import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
 class LetterDetailViewModel extends FlutterFlowModel<LetterDetailViewWidget> {
+  ///  Local state fields for this component.
+
+  int? totalLeaveDay = 1;
+
+  int? indexDay = 0;
+
+  DateTime? dateLeave;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Action Block - confirmBlock] action in Button widget.
