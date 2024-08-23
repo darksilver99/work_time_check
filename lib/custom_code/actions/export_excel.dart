@@ -49,11 +49,18 @@ Future<String> exportExcel(
   }
 
   //getData
-  var rs = await FirebaseFirestore.instance
+  QuerySnapshot<Map<String, dynamic>> rs = await FirebaseFirestore.instance
       .collection("${customerRef.path}/transacation_list")
       .where('date_in', isGreaterThanOrEqualTo: startDate)
       .where('date_in', isLessThanOrEqualTo: endDate)
-      .orderBy('date_in', descending: true)
+      .orderBy('date_in', descending: false)
+      .get();
+
+  //get member
+  QuerySnapshot<Map<String, dynamic>> rsMember = await FirebaseFirestore
+      .instance
+      .collection("${customerRef.path}/member_list")
+      .orderBy('create_date', descending: true)
       .get();
 
   var excel = Excel.createExcel();
@@ -79,12 +86,11 @@ Future<String> exportExcel(
   }
 
   // title
-  sheetObject.merge(
-    CellIndex.indexByString('A1'),
-    CellIndex.indexByString('C1'),
-    customValue: TextCellValue(
-        'รายชื่อพนักงาน ลงเวลาเข้า/ออกงาน ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}'),
-  );
+  var cell =
+      sheetObject.cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: 0));
+  cell.value = TextCellValue(
+      'รายชื่อพนักงาน ลงเวลาเข้า/ออกงาน ประจำวันที่ ${functions.dateTh(startDate)} ถึง ${functions.dateTh(endDate)}');
+  cell.cellStyle = CellStyle(fontSize: 22, bold: true);
 
   for (var i = 0; i < dateRange.length; i++) {
     header.add('${functions.dateTh(dateRange[i])}');
@@ -99,6 +105,7 @@ Future<String> exportExcel(
 
   // Add body
   for (int i = 0; i < rs.size; i++) {
+    break;
     var rsUser = await FirebaseFirestore.instance
         .doc(rs.docs[i].data()["create_by"].path)
         .get();
@@ -145,8 +152,12 @@ Future<String> exportExcel(
         }
         //var photoIn = "รูปเข้างาน : ${rs.docs[i].data()["photo_in"]}";
         //var photoOut = "รูปออกงาน : ${rs.docs[i].data().containsKey("photo_out") && rs.docs[i].data()["photo_out"].trim() != "" ? rs.docs[i].data()["photo_out"] : " -"}";
-        cell.value = TextCellValue(
-            "$startEndTimeText\n$startEndDetailText\n$durationText");
+        if (rs.docs[i].data()["status"] == 3) {
+          cell.value = TextCellValue("ลางาน");
+        } else {
+          cell.value = TextCellValue(
+              "$startEndTimeText\n$startEndDetailText\n$durationText");
+        }
       }
 
       //เสาทิตใส่สี
@@ -154,6 +165,83 @@ Future<String> exportExcel(
         var cell2 = sheetObject
             .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2));
         cell2.cellStyle = CellStyle(backgroundColorHex: "#ffdfdf");
+      }
+    }
+  }
+
+  // new body
+  for (int i = 0; i < rsMember.size; i++) {
+    var cell = sheetObject
+        .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: i + 2));
+    cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
+    cell.value = TextCellValue('${rsMember.docs[i].data()["display_name"]}');
+
+    for (int j = 0; j < dateRange.length; j++) {
+      var cell = sheetObject.cell(
+          CellIndex.indexByColumnRow(columnIndex: j + 1, rowIndex: i + 2));
+      cell.cellStyle = CellStyle(
+          textWrapping: TextWrapping.WrapText,
+          verticalAlign: VerticalAlign.Top,
+          horizontalAlign: HorizontalAlign.Left);
+
+      //เสาทิตใส่สี
+      if (isWeekend2('${functions.dateTh(dateRange[j])}')) {
+        cell.cellStyle = CellStyle(backgroundColorHex: "#ffdfdf");
+      }
+
+      var transactionInThisDate = filterSnapshotByDate(rs,
+          DateTime(dateRange[j].year, dateRange[j].month, dateRange[j].day));
+      var transactionInThisMember = filterSnapshotByMemberRef(
+          transactionInThisDate, rsMember.docs[i].reference);
+
+      //List<QueryDocumentSnapshot<Map<String, dynamic>>>
+      //List<QuerySnapshot<Map<String, dynamic>>>
+      if (transactionInThisMember.isNotEmpty) {
+        var data = "";
+        for (int k = 0; k < transactionInThisMember.length; k++) {
+          //if (transactionInThisDate[k].data()["member_ref"] == rsMember.docs[i].reference) {
+          var line = "";
+          if (k > 0) {
+            line = "------------------------------\n";
+          }
+          if (transactionInThisMember[k].data()["status"] == 3) {
+            data =
+                "$data$line${transactionInThisMember[k].data()["detail_in"]}\n";
+          } else {
+            // เวลา
+            var dateIn = dateTimeFormat(
+                'Hm', transactionInThisMember[k].data()["date_in"].toDate());
+            var dateOut =
+                transactionInThisMember[k].data().containsKey("date_out")
+                    ? dateTimeFormat('Hm',
+                        transactionInThisMember[k].data()["date_out"].toDate())
+                    : "-";
+            var startEndTimeText = "เข้างาน : $dateIn | ออกงาน : $dateOut";
+
+            //รายละเอียด
+            var detailIn =
+                transactionInThisMember[k].data().containsKey("detail_in")
+                    ? transactionInThisMember[k].data()["detail_in"]
+                    : "";
+            var detailOut =
+                transactionInThisMember[k].data().containsKey("detail_out")
+                    ? transactionInThisMember[k].data()["detail_out"]
+                    : "";
+            var startEndDetailText =
+                "รายละเอียด(เข้างาน) : ${(detailIn != '') ? detailIn : " -"}\n รายละเอียด(ออกงาน) : ${(detailOut != '') ? detailOut : " -"}";
+
+            //รูป
+            //ไม่ได้ hyper link ไม่ร้องรับ บางส่วนของ string ใน 1 ช่อง อาจต้องเป็นทั้งช่องไปเลย
+            /*var photoIn = transactionInThisMember[k].data().containsKey("photo_in") ? transactionInThisMember[k].data()["photo_in"] : "";
+            var photoOut = transactionInThisMember[k].data().containsKey("photo_out") ? transactionInThisMember[k].data()["photo_out"] : "";
+            String hyperlinkIn = (photoIn != '') ? '=HYPERLINK("$photoIn", "ดูรูป")' : " -";
+            String hyperlinkOut = (photoOut != '') ? '=HYPERLINK("$photoOut", "ดูรูป")' : " -";
+            var startEndPhotoText = "รูป(เข้างาน) : $hyperlinkIn\n รูป(ออกงาน) : $hyperlinkOut";*/
+            data = "$data$line$startEndTimeText\n$startEndDetailText\n";
+          }
+          //}
+        }
+        cell.value = TextCellValue(data);
       }
     }
   }
