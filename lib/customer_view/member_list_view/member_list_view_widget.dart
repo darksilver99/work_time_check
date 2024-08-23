@@ -262,6 +262,7 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                                   padding: MediaQuery.viewInsetsOf(context),
                                   child: MemberDetailViewWidget(
                                     memberDoc: listViewMemberListRecord,
+                                    customerDoc: widget!.customerDoc!,
                                   ),
                                 ),
                               );

@@ -353,7 +353,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                                                                             .dateIn!))
                                                                 ? FlutterFlowTheme.of(
                                                                         context)
-                                                                    .error
+                                                                    .tertiary
                                                                 : FlutterFlowTheme.of(
                                                                         context)
                                                                     .primaryText,
