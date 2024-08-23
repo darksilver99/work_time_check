@@ -350,133 +350,63 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Builder(
-                            builder: (context) => Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 4.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  _model.isConfirm =
-                                      await action_blocks.confirmBlock(
-                                    context,
-                                    title: 'ยืนยันไม่อนุมัติ ?',
-                                    detail:
-                                        'จะไม่สามารถเปลี่ยนสถานะได้ในภายหลัง',
-                                  );
-                                  if (_model.isConfirm!) {
-                                    await widget!.letterDocument!.reference
-                                        .update(createLetterListRecordData(
-                                      updateDate: getCurrentTimestamp,
-                                      updateBy: currentUserReference,
-                                      status: 2,
-                                    ));
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: InfoCustomViewWidget(
-                                              title:
-                                                  'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                              status: 'success',
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-
-                                    Navigator.pop(context, 'update');
-                                  }
-
-                                  setState(() {});
-                                },
-                                text: 'ไม่อนุมัติ',
-                                icon: Icon(
-                                  Icons.close_rounded,
-                                  size: 15.0,
-                                ),
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).error,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                  elevation: 3.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Builder(
-                            builder: (context) => Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  4.0, 0.0, 0.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  if (_model.totalLeaveDay != null) {
-                                    _model.isConfirm2 =
-                                        await action_blocks.confirmBlock(
-                                      context,
-                                      title: 'ยืนยันอนุมัติ ?',
-                                      detail:
-                                          'จะไม่สามารถเปลี่ยนสถานะได้ในภายหลัง',
-                                    );
-                                    if (_model.isConfirm2!) {
-                                      await widget!.letterDocument!.reference
-                                          .update(createLetterListRecordData(
-                                        updateDate: getCurrentTimestamp,
-                                        updateBy: currentUserReference,
-                                        status: 1,
-                                      ));
-                                      while (_model.indexDay! <
-                                          _model.totalLeaveDay!) {
-                                        await TransacationListRecord.createDoc(
-                                                widget!.customerRef!)
-                                            .set(
-                                                createTransacationListRecordData(
-                                          createBy:
-                                              widget!.userDocument?.reference,
-                                          status: 3,
-                                          detailIn:
-                                              '${widget!.letterDocument?.subject} : ${widget!.letterDocument?.detail}',
-                                          dateIn: functions.getStartDayTime(
-                                              _model.dateLeave!),
-                                          dateOut: functions
-                                              .getEndDayTime(_model.dateLeave!),
-                                          memberRef:
-                                              widget!.letterDocument?.memberRef,
+                    if (widget!.letterDocument?.status == 0)
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Builder(
+                              builder: (context) => Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 4.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    _model.letterDocumentResult =
+                                        await LetterListRecord.getDocumentOnce(
+                                            widget!.letterDocument!.reference);
+                                    if (_model.letterDocumentResult?.status ==
+                                        0) {
+                                      _model.isConfirm =
+                                          await action_blocks.confirmBlock(
+                                        context,
+                                        title: 'ยืนยันไม่อนุมัติ ?',
+                                        detail:
+                                            'จะไม่สามารถเปลี่ยนสถานะได้ในภายหลัง',
+                                      );
+                                      if (_model.isConfirm!) {
+                                        await widget!.letterDocument!.reference
+                                            .update(createLetterListRecordData(
+                                          updateDate: getCurrentTimestamp,
+                                          updateBy: currentUserReference,
+                                          status: 2,
                                         ));
-                                        _model.dateLeave = functions
-                                            .increaseDay(_model.dateLeave!, 1);
-                                        _model.indexDay = _model.indexDay! + 1;
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title:
+                                                      'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                                  status: 'success',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+
+                                        Navigator.pop(context, 'update');
                                       }
+                                    } else {
                                       await showDialog(
                                         context: context,
                                         builder: (dialogContext) {
@@ -491,8 +421,8 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                                             child: WebViewAware(
                                               child: InfoCustomViewWidget(
                                                 title:
-                                                    'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                                status: 'success',
+                                                    'มีเจ้าหน้าที่ท่านอื่นเปลี่ยนสถานะไปแล้ว',
+                                                status: 'warning',
                                               ),
                                             ),
                                           );
@@ -501,44 +431,187 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
 
                                       Navigator.pop(context, 'update');
                                     }
-                                  }
 
-                                  setState(() {});
-                                },
-                                text: 'อนุมัติ',
-                                icon: Icon(
-                                  Icons.check_rounded,
-                                  size: 15.0,
-                                ),
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                      ),
-                                  elevation: 3.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
+                                    setState(() {});
+                                  },
+                                  text: 'ไม่อนุมัติ',
+                                  icon: Icon(
+                                    Icons.close_rounded,
+                                    size: 15.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 24.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).error,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: Colors.white,
+                                          fontSize: 20.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          Expanded(
+                            child: Builder(
+                              builder: (context) => Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    4.0, 0.0, 0.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    if (_model.totalLeaveDay != null) {
+                                      _model.letterDocumentResult2 =
+                                          await LetterListRecord
+                                              .getDocumentOnce(widget!
+                                                  .letterDocument!.reference);
+                                      if (_model
+                                              .letterDocumentResult2?.status ==
+                                          0) {
+                                        _model.isConfirm2 =
+                                            await action_blocks.confirmBlock(
+                                          context,
+                                          title: 'ยืนยันอนุมัติ ?',
+                                          detail:
+                                              'จะไม่สามารถเปลี่ยนสถานะได้ในภายหลัง',
+                                        );
+                                        if (_model.isConfirm2!) {
+                                          await widget!
+                                              .letterDocument!.reference
+                                              .update(
+                                                  createLetterListRecordData(
+                                            updateDate: getCurrentTimestamp,
+                                            updateBy: currentUserReference,
+                                            status: 1,
+                                          ));
+                                          while (_model.indexDay! <
+                                              _model.totalLeaveDay!) {
+                                            await TransacationListRecord
+                                                    .createDoc(
+                                                        widget!.customerRef!)
+                                                .set(
+                                                    createTransacationListRecordData(
+                                              createBy: widget!
+                                                  .userDocument?.reference,
+                                              status: 3,
+                                              detailIn:
+                                                  '${widget!.letterDocument?.subject} : ${widget!.letterDocument?.detail}',
+                                              dateIn: functions.getStartDayTime(
+                                                  _model.dateLeave!),
+                                              dateOut: functions.getEndDayTime(
+                                                  _model.dateLeave!),
+                                              memberRef: widget!
+                                                  .letterDocument?.memberRef,
+                                            ));
+                                            _model.dateLeave =
+                                                functions.increaseDay(
+                                                    _model.dateLeave!, 1);
+                                            _model.indexDay =
+                                                _model.indexDay! + 1;
+                                          }
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title:
+                                                        'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                                    status: 'success',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+
+                                          Navigator.pop(context, 'update');
+                                        }
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title:
+                                                      'มีเจ้าหน้าที่ท่านอื่นเปลี่ยนสถานะไปแล้ว',
+                                                  status: 'warning',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+
+                                        Navigator.pop(context, 'update');
+                                      }
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  text: 'อนุมัติ',
+                                  icon: Icon(
+                                    Icons.check_rounded,
+                                    size: 15.0,
+                                  ),
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 24.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: Colors.white,
+                                          fontSize: 20.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    elevation: 3.0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
