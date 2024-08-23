@@ -29,8 +29,12 @@ class LetterDetailViewModel extends FlutterFlowModel<LetterDetailViewWidget> {
 
   ///  State fields for stateful widgets in this component.
 
+  // Stores action output result for [Backend Call - Read Document] action in Button widget.
+  LetterListRecord? letterDocumentResult;
   // Stores action output result for [Action Block - confirmBlock] action in Button widget.
   bool? isConfirm;
+  // Stores action output result for [Backend Call - Read Document] action in Button widget.
+  LetterListRecord? letterDocumentResult2;
   // Stores action output result for [Action Block - confirmBlock] action in Button widget.
   bool? isConfirm2;
 
