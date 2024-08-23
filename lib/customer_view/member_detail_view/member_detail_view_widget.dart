@@ -27,9 +27,11 @@ class MemberDetailViewWidget extends StatefulWidget {
   const MemberDetailViewWidget({
     super.key,
     required this.memberDoc,
+    required this.customerDoc,
   });
 
   final MemberListRecord? memberDoc;
+  final CustomerRecord? customerDoc;
 
   @override
   State<MemberDetailViewWidget> createState() => _MemberDetailViewWidgetState();
@@ -312,6 +314,55 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: FutureBuilder<int>(
+                            future: queryTransacationListRecordCount(
+                              parent: widget!.customerDoc?.reference,
+                              queryBuilder: (transacationListRecord) =>
+                                  transacationListRecord.where(
+                                'status',
+                                isEqualTo: 3,
+                              ),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              int rowCount = snapshot.data!;
+
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'ลาทั้งหมด : ${rowCount.toString()} ครั้ง (เฉพาะที่อนุมัติ)',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 20.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ),
                         Padding(
