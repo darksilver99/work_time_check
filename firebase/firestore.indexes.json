@@ -15,6 +15,20 @@
       ]
     },
     {
+      "collectionGroup": "letter_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "member_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "start_date",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "transacation_list",
       "queryScope": "COLLECTION",
       "fields": [

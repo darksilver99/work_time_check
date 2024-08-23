@@ -153,6 +153,7 @@ class _SwtichCustomerViewWidgetState extends State<SwtichCustomerViewWidget> {
                     memberDoc: listViewMemberListRecord,
                     showSetting: false,
                     showSwtich: true,
+                    showBadge: false,
                   );
                 },
               );

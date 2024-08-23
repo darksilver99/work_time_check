@@ -21,12 +21,14 @@ class CustomerMemberViewWidget extends StatefulWidget {
     required this.memberDoc,
     required this.showSetting,
     required this.showSwtich,
+    required this.showBadge,
   });
 
   final DocumentReference? customerRef;
   final MemberListRecord? memberDoc;
   final bool? showSetting;
   final bool? showSwtich;
+  final bool? showBadge;
 
   @override
   State<CustomerMemberViewWidget> createState() =>
@@ -124,73 +126,75 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                         ),
                                       ),
                                     ),
-                                    FutureBuilder<int>(
-                                      future: queryLetterListRecordCount(
-                                        parent: widget!.customerRef,
-                                        queryBuilder: (letterListRecord) =>
-                                            letterListRecord.where(
-                                          'status',
-                                          isEqualTo: 0,
+                                    if (widget!.showBadge ?? true)
+                                      FutureBuilder<int>(
+                                        future: queryLetterListRecordCount(
+                                          parent: widget!.customerRef,
+                                          queryBuilder: (letterListRecord) =>
+                                              letterListRecord.where(
+                                            'status',
+                                            isEqualTo: 0,
+                                          ),
                                         ),
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        int columnCount = snapshot.data!;
-
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            if (columnCount > 0)
-                                              Container(
-                                                width: 32.0,
-                                                height: 32.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Text(
-                                                    columnCount.toString(),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .info,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
                                                   ),
                                                 ),
                                               ),
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                            );
+                                          }
+                                          int columnCount = snapshot.data!;
+
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              if (columnCount > 0)
+                                                Container(
+                                                  width: 32.0,
+                                                  height: 32.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Text(
+                                                      columnCount.toString(),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .info,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
+                                          );
+                                        },
+                                      ),
                                   ],
                                 ),
                                 Text(

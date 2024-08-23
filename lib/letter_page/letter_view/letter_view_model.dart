@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/letter_page/letter_history_view/letter_history_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'letter_view_widget.dart' show LetterViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
