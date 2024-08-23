@@ -199,15 +199,17 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Text(
-                                    '${widget!.letterDocument?.subject} : ${widget!.letterDocument?.detail}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 20.0,
-                                          letterSpacing: 0.0,
-                                        ),
+                                  Expanded(
+                                    child: Text(
+                                      '${widget!.letterDocument?.subject} : ${widget!.letterDocument?.detail}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 20.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -222,58 +224,61 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          RichText(
-                            textScaler: MediaQuery.of(context).textScaler,
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'สถานะ ',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                                TextSpan(
-                                  text: functions.getStatusText(
-                                      widget!.letterDocument!.status,
-                                      FFAppState().letterStatusList.toList()),
-                                  style: TextStyle(
-                                    color: () {
-                                      if (widget!.letterDocument?.status == 0) {
-                                        return FlutterFlowTheme.of(context)
-                                            .tertiary;
-                                      } else if (widget!
-                                              .letterDocument?.status ==
-                                          1) {
-                                        return FlutterFlowTheme.of(context)
-                                            .success;
-                                      } else if (widget!
-                                              .letterDocument?.status ==
-                                          2) {
-                                        return FlutterFlowTheme.of(context)
-                                            .error;
-                                      } else {
-                                        return FlutterFlowTheme.of(context)
-                                            .primaryText;
-                                      }
-                                    }(),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18.0,
+                          Expanded(
+                            child: RichText(
+                              textScaler: MediaQuery.of(context).textScaler,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'สถานะ ',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
-                                )
-                              ],
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Kanit',
-                                    letterSpacing: 0.0,
-                                  ),
+                                  TextSpan(
+                                    text: functions.getStatusText(
+                                        widget!.letterDocument!.status,
+                                        FFAppState().letterStatusList.toList()),
+                                    style: TextStyle(
+                                      color: () {
+                                        if (widget!.letterDocument?.status ==
+                                            0) {
+                                          return FlutterFlowTheme.of(context)
+                                              .tertiary;
+                                        } else if (widget!
+                                                .letterDocument?.status ==
+                                            1) {
+                                          return FlutterFlowTheme.of(context)
+                                              .success;
+                                        } else if (widget!
+                                                .letterDocument?.status ==
+                                            2) {
+                                          return FlutterFlowTheme.of(context)
+                                              .error;
+                                        } else {
+                                          return FlutterFlowTheme.of(context)
+                                              .primaryText;
+                                        }
+                                      }(),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.0,
+                                    ),
+                                  )
+                                ],
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
                             ),
                           ),
                         ],
@@ -307,17 +312,19 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                             return Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Text(
-                                  'อัพเดทเมื่อ ${functions.dateTimeTh(widget!.letterDocument?.updateDate)} โดย ${rowUsersRecord.firstName} ${rowUsersRecord.lastName}${rowUsersRecord.displayName}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 12.0,
-                                        letterSpacing: 0.0,
-                                      ),
+                                Expanded(
+                                  child: Text(
+                                    'อัพเดทเมื่อ ${functions.dateTimeTh(widget!.letterDocument?.updateDate)} โดย ${rowUsersRecord.firstName} ${rowUsersRecord.lastName} (${rowUsersRecord.displayName})',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 12.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
                                 ),
                               ],
                             );
