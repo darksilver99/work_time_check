@@ -338,9 +338,10 @@ class _TransactionDetailViewWidgetState
                                                       TextSpan(
                                                         text: valueOrDefault<
                                                             String>(
-                                                          functions.getTime(widget!
-                                                              .transactionDocument
-                                                              ?.dateIn),
+                                                          functions.dateTimeTh(
+                                                              widget!
+                                                                  .transactionDocument
+                                                                  ?.dateIn),
                                                           '-',
                                                         ),
                                                         style: TextStyle(
@@ -379,16 +380,18 @@ class _TransactionDetailViewWidgetState
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Text(
-                                                  'หมายเหตุ : ${widget!.transactionDocument?.detailIn}',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                                Expanded(
+                                                  child: Text(
+                                                    'หมายเหตุ : ${widget!.transactionDocument?.detailIn}',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -516,7 +519,7 @@ class _TransactionDetailViewWidgetState
                                                         TextSpan(
                                                           text: valueOrDefault<
                                                               String>(
-                                                            functions.getTime(
+                                                            functions.dateTimeTh(
                                                                 widget!
                                                                     .transactionDocument
                                                                     ?.dateOut),
@@ -557,16 +560,18 @@ class _TransactionDetailViewWidgetState
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
-                                                  Text(
-                                                    'หมายเหตุ : ${widget!.transactionDocument?.detailOut}',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      'หมายเหตุ : ${widget!.transactionDocument?.detailOut}',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            fontSize: 20.0,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
