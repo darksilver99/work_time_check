@@ -11,8 +11,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 class MemberDataStruct extends FFFirebaseStruct {
   MemberDataStruct({
     DocumentReference? memberRef,
+    String? permission,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _memberRef = memberRef,
+        _permission = permission,
         super(firestoreUtilData);
 
   // "member_ref" field.
@@ -22,9 +24,17 @@ class MemberDataStruct extends FFFirebaseStruct {
 
   bool hasMemberRef() => _memberRef != null;
 
+  // "permission" field.
+  String? _permission;
+  String get permission => _permission ?? '';
+  set permission(String? val) => _permission = val;
+
+  bool hasPermission() => _permission != null;
+
   static MemberDataStruct fromMap(Map<String, dynamic> data) =>
       MemberDataStruct(
         memberRef: data['member_ref'] as DocumentReference?,
+        permission: data['permission'] as String?,
       );
 
   static MemberDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -33,6 +43,7 @@ class MemberDataStruct extends FFFirebaseStruct {
 
   Map<String, dynamic> toMap() => {
         'member_ref': _memberRef,
+        'permission': _permission,
       }.withoutNulls;
 
   @override
@@ -40,6 +51,10 @@ class MemberDataStruct extends FFFirebaseStruct {
         'member_ref': serializeParam(
           _memberRef,
           ParamType.DocumentReference,
+        ),
+        'permission': serializeParam(
+          _permission,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -51,6 +66,11 @@ class MemberDataStruct extends FFFirebaseStruct {
           false,
           collectionNamePath: ['customer', 'member_list'],
         ),
+        permission: deserializeParam(
+          data['permission'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -58,15 +78,18 @@ class MemberDataStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
-    return other is MemberDataStruct && memberRef == other.memberRef;
+    return other is MemberDataStruct &&
+        memberRef == other.memberRef &&
+        permission == other.permission;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([memberRef]);
+  int get hashCode => const ListEquality().hash([memberRef, permission]);
 }
 
 MemberDataStruct createMemberDataStruct({
   DocumentReference? memberRef,
+  String? permission,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -74,6 +97,7 @@ MemberDataStruct createMemberDataStruct({
 }) =>
     MemberDataStruct(
       memberRef: memberRef,
+      permission: permission,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
