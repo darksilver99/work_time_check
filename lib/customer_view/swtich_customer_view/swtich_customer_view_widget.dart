@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/component/no_data_view/no_data_view_widget.dart';
 import '/customer_view/customer_member_view/customer_member_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -107,57 +108,62 @@ class _SwtichCustomerViewWidgetState extends State<SwtichCustomerViewWidget> {
               ],
             ),
           ),
-          FutureBuilder<List<MemberListRecord>>(
-            future: queryMemberListRecordOnce(
-              queryBuilder: (memberListRecord) => memberListRecord.where(
-                'create_by',
-                isEqualTo: currentUserReference,
+          Expanded(
+            child: FutureBuilder<List<MemberListRecord>>(
+              future: queryMemberListRecordOnce(
+                queryBuilder: (memberListRecord) => memberListRecord.where(
+                  'create_by',
+                  isEqualTo: currentUserReference,
+                ),
               ),
-            ),
-            builder: (context, snapshot) {
-              // Customize what your widget looks like when it's loading.
-              if (!snapshot.hasData) {
-                return Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }
-              List<MemberListRecord> listViewMemberListRecordList =
-                  snapshot.data!;
-
-              return ListView.separated(
-                padding: EdgeInsets.fromLTRB(
-                  0,
-                  16.0,
-                  0,
-                  32.0,
-                ),
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: listViewMemberListRecordList.length,
-                separatorBuilder: (_, __) => SizedBox(height: 8.0),
-                itemBuilder: (context, listViewIndex) {
-                  final listViewMemberListRecord =
-                      listViewMemberListRecordList[listViewIndex];
-                  return CustomerMemberViewWidget(
-                    key: Key(
-                        'Keyqhu_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
-                    customerRef: listViewMemberListRecord.parentReference,
-                    memberDoc: listViewMemberListRecord,
-                    showSetting: false,
-                    showSwtich: true,
-                    showBadge: false,
                   );
-                },
-              );
-            },
+                }
+                List<MemberListRecord> listViewMemberListRecordList =
+                    snapshot.data!;
+                if (listViewMemberListRecordList.isEmpty) {
+                  return NoDataViewWidget();
+                }
+
+                return ListView.separated(
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    16.0,
+                    0,
+                    32.0,
+                  ),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: listViewMemberListRecordList.length,
+                  separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                  itemBuilder: (context, listViewIndex) {
+                    final listViewMemberListRecord =
+                        listViewMemberListRecordList[listViewIndex];
+                    return CustomerMemberViewWidget(
+                      key: Key(
+                          'Keyqhu_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
+                      customerRef: listViewMemberListRecord.parentReference,
+                      memberDoc: listViewMemberListRecord,
+                      showSetting: false,
+                      showSwtich: true,
+                      showBadge: false,
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
