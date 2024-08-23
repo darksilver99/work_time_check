@@ -174,7 +174,32 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                         children: [
                           Expanded(
                             child: Text(
-                              'วันที่ขอลา ${functions.dayTh(widget!.letterDocument!.startDate!)} - ${functions.dayTh(widget!.letterDocument!.endDate!)}',
+                              'วันที่ขอลา ${functions.dateTh(widget!.letterDocument?.startDate)} - ${functions.dateTh(widget!.letterDocument?.endDate)}',
+                              textAlign: TextAlign.start,
+                              maxLines: 1,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    color: FlutterFlowTheme.of(context).error,
+                                    fontSize: 20.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'จำนวน ${functions.countDaysBetween(widget!.letterDocument!.startDate!, widget!.letterDocument!.endDate!).toString()} วัน',
                               textAlign: TextAlign.start,
                               maxLines: 1,
                               style: FlutterFlowTheme.of(context)

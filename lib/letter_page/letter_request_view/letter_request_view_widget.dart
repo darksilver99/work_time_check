@@ -381,10 +381,10 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                                             color: FlutterFlowTheme
                                                                     .of(context)
                                                                 .primaryText,
-                                                            fontSize: 22.0,
+                                                            fontSize: 20.0,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
-                                                                FontWeight.bold,
+                                                                FontWeight.w500,
                                                           ),
                                                     ),
                                                   ),
@@ -395,7 +395,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      'วันที่ขอลา ${functions.dayTh(listViewLetterListRecord.startDate!)} - ${functions.dayTh(listViewLetterListRecord.endDate!)}',
+                                                      'วันที่ขอลา ${functions.dateTh(listViewLetterListRecord.startDate)} - ${functions.dateTh(listViewLetterListRecord.endDate)}',
                                                       textAlign:
                                                           TextAlign.start,
                                                       maxLines: 1,
@@ -406,7 +406,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                                             fontFamily: 'Kanit',
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .error,
+                                                                .secondaryText,
                                                             fontSize: 18.0,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
