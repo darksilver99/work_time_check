@@ -108,7 +108,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
               children: [
                 Expanded(
                   child: Text(
-                    'คำของลางาน',
+                    'คำขอลางาน',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Kanit',
                           fontSize: 24.0,
@@ -147,6 +147,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                             functions.getDateByMonthAndYear(
                                 _model.dropDownValue2!,
                                 _model.dropDownValue1!));
+                        _model.isLoading = false;
                         setState(() {});
                       },
                       width: 300.0,
@@ -202,6 +203,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                             functions.getDateByMonthAndYear(
                                 _model.dropDownValue2!,
                                 _model.dropDownValue1!));
+                        _model.isLoading = false;
                         setState(() {});
                       },
                       width: 300.0,
