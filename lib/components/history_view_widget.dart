@@ -102,6 +102,25 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
             ),
           ),
           Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Text(
+                    'ประวัติลงเวลา',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Kanit',
+                          fontSize: 20.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
             padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,

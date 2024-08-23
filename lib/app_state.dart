@@ -167,6 +167,42 @@ class FFAppState extends ChangeNotifier {
   void updateMemberDataStruct(Function(MemberDataStruct) updateFn) {
     updateFn(_memberData);
   }
+
+  List<StatusDataStruct> _letterStatusList = [
+    StatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"รออนุมัติ\"}')),
+    StatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"อนุมัติ\"}')),
+    StatusDataStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"2\",\"subject\":\"ไม่อนุมัติ\"}'))
+  ];
+  List<StatusDataStruct> get letterStatusList => _letterStatusList;
+  set letterStatusList(List<StatusDataStruct> value) {
+    _letterStatusList = value;
+  }
+
+  void addToLetterStatusList(StatusDataStruct value) {
+    letterStatusList.add(value);
+  }
+
+  void removeFromLetterStatusList(StatusDataStruct value) {
+    letterStatusList.remove(value);
+  }
+
+  void removeAtIndexFromLetterStatusList(int index) {
+    letterStatusList.removeAt(index);
+  }
+
+  void updateLetterStatusListAtIndex(
+    int index,
+    StatusDataStruct Function(StatusDataStruct) updateFn,
+  ) {
+    letterStatusList[index] = updateFn(_letterStatusList[index]);
+  }
+
+  void insertAtIndexInLetterStatusList(int index, StatusDataStruct value) {
+    letterStatusList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
