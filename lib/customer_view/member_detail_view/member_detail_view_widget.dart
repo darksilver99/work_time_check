@@ -649,46 +649,52 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                   onPressed: () async {
                                     var _shouldSetState = false;
                                     if (_model.dropDownValue == 'member') {
-                                      _model.totalAdmin =
-                                          await queryMemberListRecordCount(
-                                        parent:
-                                            widget!.memberDoc?.parentReference,
-                                        queryBuilder: (memberListRecord) =>
-                                            memberListRecord.where(
-                                          'permission',
-                                          isEqualTo: 'admin',
-                                        ),
-                                      );
-                                      _shouldSetState = true;
-                                      if (_model.totalAdmin! <= 1) {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (dialogContext) {
-                                            return Dialog(
-                                              elevation: 0,
-                                              insetPadding: EdgeInsets.zero,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              child: WebViewAware(
-                                                child: InfoCustomViewWidget(
-                                                  title:
-                                                      'ไม่สามารถบันทึกข้อมูลได้',
-                                                  detail:
-                                                      'จำเป็นต้องมีเจ้าหน้าที่อย่างน้อย 1 คน',
-                                                  status: 'error',
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-
+                                      if (widget!.memberDoc?.permission ==
+                                          _model.dropDownValue) {
+                                        Navigator.pop(context, 'update');
                                         if (_shouldSetState) setState(() {});
                                         return;
+                                      } else {
+                                        _model.totalAdmin =
+                                            await queryMemberListRecordCount(
+                                          parent: widget!
+                                              .memberDoc?.parentReference,
+                                          queryBuilder: (memberListRecord) =>
+                                              memberListRecord.where(
+                                            'permission',
+                                            isEqualTo: 'admin',
+                                          ),
+                                        );
+                                        _shouldSetState = true;
+                                        if (_model.totalAdmin! <= 1) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title:
+                                                        'ไม่สามารถบันทึกข้อมูลได้',
+                                                    detail:
+                                                        'จำเป็นต้องมีเจ้าหน้าที่อย่างน้อย 1 คน',
+                                                    status: 'error',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        }
                                       }
                                     }
 
