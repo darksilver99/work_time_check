@@ -216,6 +216,16 @@ Future<String> exportExcel(
                     ? dateTimeFormat('Hm',
                         transactionInThisMember[k].data()["date_out"].toDate())
                     : "-";
+
+            if (dateOut != "-") {
+              if (functions.checkIsDateAfter(
+                  transactionInThisMember[k].data()["date_out"].toDate(),
+                  transactionInThisMember[k].data()["date_in"].toDate())) {
+                dateOut = functions.dateTimeTh(
+                    transactionInThisMember[k].data()["date_out"].toDate())!;
+              }
+            }
+
             var startEndTimeText = "เข้างาน : $dateIn | ออกงาน : $dateOut";
 
             //รายละเอียด
@@ -230,6 +240,13 @@ Future<String> exportExcel(
             var startEndDetailText =
                 "รายละเอียด(เข้างาน) : ${(detailIn != '') ? detailIn : " -"}\n รายละเอียด(ออกงาน) : ${(detailOut != '') ? detailOut : " -"}";
 
+            //ระยะเวลา
+            var durationText = "";
+            if (transactionInThisMember[k].data().containsKey("date_out")) {
+              durationText =
+                  "ระยะเวลาทำงาน : ${functions.formatDuration(functions.millisecondsBetween(transactionInThisMember[k].data()["date_in"].toDate(), transactionInThisMember[k].data()["date_out"].toDate()))}";
+            }
+
             //รูป
             //ไม่ได้ hyper link ไม่ร้องรับ บางส่วนของ string ใน 1 ช่อง อาจต้องเป็นทั้งช่องไปเลย
             /*var photoIn = transactionInThisMember[k].data().containsKey("photo_in") ? transactionInThisMember[k].data()["photo_in"] : "";
@@ -237,7 +254,8 @@ Future<String> exportExcel(
             String hyperlinkIn = (photoIn != '') ? '=HYPERLINK("$photoIn", "ดูรูป")' : " -";
             String hyperlinkOut = (photoOut != '') ? '=HYPERLINK("$photoOut", "ดูรูป")' : " -";
             var startEndPhotoText = "รูป(เข้างาน) : $hyperlinkIn\n รูป(ออกงาน) : $hyperlinkOut";*/
-            data = "$data$line$startEndTimeText\n$startEndDetailText\n";
+            data =
+                "$data$line$startEndTimeText\n$startEndDetailText\n$durationText\n";
           }
           //}
         }
