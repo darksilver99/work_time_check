@@ -337,7 +337,21 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                           ),
                                         );
                                       },
-                                    );
+                                    ).then((value) => safeSetState(
+                                        () => _model.isUpdate = value));
+
+                                    if ((_model.isUpdate != null &&
+                                            _model.isUpdate != '') &&
+                                        (_model.isUpdate == 'update')) {
+                                      _model.isLoading = true;
+                                      setState(() {});
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 1000));
+                                      _model.isLoading = false;
+                                      setState(() {});
+                                    }
+
+                                    setState(() {});
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,

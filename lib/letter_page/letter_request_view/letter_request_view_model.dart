@@ -32,6 +32,8 @@ class LetterRequestViewModel extends FlutterFlowModel<LetterRequestViewWidget> {
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in Row widget.
+  String? isUpdate;
 
   @override
   void initState(BuildContext context) {}
