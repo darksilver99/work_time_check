@@ -323,10 +323,15 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                             future: queryTransacationListRecordCount(
                               parent: widget!.customerDoc?.reference,
                               queryBuilder: (transacationListRecord) =>
-                                  transacationListRecord.where(
-                                'status',
-                                isEqualTo: 3,
-                              ),
+                                  transacationListRecord
+                                      .where(
+                                        'status',
+                                        isEqualTo: 3,
+                                      )
+                                      .where(
+                                        'member_ref',
+                                        isEqualTo: widget!.memberDoc?.reference,
+                                      ),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
