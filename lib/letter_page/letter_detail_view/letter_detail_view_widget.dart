@@ -465,7 +465,7 @@ class _LetterDetailViewWidgetState extends State<LetterDetailViewWidget>
                                               widget!.userDocument?.reference,
                                           status: 3,
                                           detailIn:
-                                              '${widget!.letterDocument?.status?.toString()} : ${widget!.letterDocument?.detail}',
+                                              '${widget!.letterDocument?.subject} : ${widget!.letterDocument?.detail}',
                                           dateIn: functions.getStartDayTime(
                                               _model.dateLeave!),
                                           dateOut: functions
