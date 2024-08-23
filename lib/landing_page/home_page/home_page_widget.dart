@@ -822,96 +822,109 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  1.0, -1.0),
-                                              child: StreamBuilder<UsersRecord>(
-                                                stream: UsersRecord.getDocument(
-                                                    currentUserReference!),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          valueColor:
-                                                              AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
+                                            if (FFAppState()
+                                                        .customerData
+                                                        .subject !=
+                                                    null &&
+                                                FFAppState()
+                                                        .customerData
+                                                        .subject !=
+                                                    '')
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.0, -1.0),
+                                                child: FutureBuilder<int>(
+                                                  future:
+                                                      queryLetterListRecordCount(
+                                                    parent: FFAppState()
+                                                        .customerData
+                                                        .customerRef,
+                                                    queryBuilder:
+                                                        (letterListRecord) =>
+                                                            letterListRecord
+                                                                .where(
+                                                      'status',
+                                                      isEqualTo: 0,
+                                                    ),
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  }
+                                                      );
+                                                    }
+                                                    int columnCount =
+                                                        snapshot.data!;
 
-                                                  final columnUsersRecord =
-                                                      snapshot.data!;
-
-                                                  return Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      if (columnUsersRecord
-                                                              .totalNotification >
-                                                          0)
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      16.0,
-                                                                      16.0,
-                                                                      0.0),
-                                                          child: Container(
-                                                            width: 42.0,
-                                                            height: 42.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      0.0, 0.0),
-                                                              child: Text(
-                                                                columnUsersRecord
-                                                                    .totalNotification
-                                                                    .toString(),
-                                                                style: FlutterFlowTheme.of(
+                                                    return Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        if (columnCount > 0)
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        16.0,
+                                                                        16.0,
+                                                                        0.0),
+                                                            child: Container(
+                                                              width: 42.0,
+                                                              height: 42.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Kanit',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .info,
-                                                                      fontSize:
-                                                                          18.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                    ),
+                                                                    .error,
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                              child: Align(
+                                                                alignment:
+                                                                    AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0),
+                                                                child: Text(
+                                                                  '!',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Kanit',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .info,
+                                                                        fontSize:
+                                                                            18.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                    ],
-                                                  );
-                                                },
+                                                      ],
+                                                    );
+                                                  },
+                                                ),
                                               ),
-                                            ),
                                           ],
                                         ),
                                       ),
