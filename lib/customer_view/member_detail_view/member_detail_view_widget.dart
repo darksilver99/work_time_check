@@ -696,6 +696,13 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                           return;
                                         }
                                       }
+                                    } else {
+                                      if (widget!.memberDoc?.permission ==
+                                          _model.dropDownValue) {
+                                        Navigator.pop(context, 'update');
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
                                     }
 
                                     await widget!.memberDoc!.reference
