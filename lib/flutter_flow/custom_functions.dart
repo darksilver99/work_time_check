@@ -198,3 +198,15 @@ String? fullThaiDate(DateTime? date) {
   // ประกอบเป็นวันที่ที่ต้องการ
   return '${days[date.weekday - 1]}ที่ ${date.day} $month $buddhistYear';
 }
+
+String getStatusText(
+  int status,
+  List<StatusDataStruct> statusList,
+) {
+  for (var dataStatus in statusList) {
+    if (dataStatus.status == status) {
+      return dataStatus.subject;
+    }
+  }
+  return '-';
+}

@@ -572,8 +572,9 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                               subject: _model.dropDownValue,
                               detail: _model.textController.text,
                               memberRef: FFAppState().memberData.memberRef,
-                              startDate: _model.startDate,
-                              endDate: _model.endDate,
+                              startDate:
+                                  functions.getStartDayTime(_model.startDate!),
+                              endDate: functions.getEndDayTime(_model.endDate!),
                             ));
                             await showDialog(
                               context: context,

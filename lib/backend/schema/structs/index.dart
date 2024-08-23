@@ -5,3 +5,4 @@ export 'custom_data_struct.dart';
 export 'member_data_struct.dart';
 export 'month_data_struct.dart';
 export 'permission_data_struct.dart';
+export 'status_data_struct.dart';
