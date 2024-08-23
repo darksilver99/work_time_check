@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/component/no_data_view/no_data_view_widget.dart';
 import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/customer_view/customer_member_view/customer_member_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -180,6 +181,9 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
                 }
                 List<MemberListRecord> listViewMemberListRecordList =
                     snapshot.data!;
+                if (listViewMemberListRecordList.isEmpty) {
+                  return NoDataViewWidget();
+                }
 
                 return ListView.separated(
                   padding: EdgeInsets.fromLTRB(
