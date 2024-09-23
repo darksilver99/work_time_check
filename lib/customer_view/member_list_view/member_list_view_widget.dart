@@ -273,12 +273,12 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                           if ((_model.isUpdate != null &&
                                   _model.isUpdate != '') &&
                               (_model.isUpdate == 'update')) {
-                            setState(
+                            safeSetState(
                                 () => _model.firestoreRequestCompleter = null);
                             await _model.waitForFirestoreRequestCompleted();
                           }
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         child: Material(
                           color: Colors.transparent,

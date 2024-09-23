@@ -38,7 +38,7 @@ class _SwtichCustomerViewWidgetState extends State<SwtichCustomerViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.startDate = functions.getFirstDayOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getLastDayOfMonth(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
     });
   }
 

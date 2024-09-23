@@ -48,7 +48,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
       _model.startDate = functions.getFirstDayOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getLastDayOfMonth(getCurrentTimestamp);
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
     });
   }
 
@@ -136,9 +136,9 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                       ),
                       options: functions.getYearFromCurrent(4),
                       onChanged: (val) async {
-                        setState(() => _model.dropDownValue1 = val);
+                        safeSetState(() => _model.dropDownValue1 = val);
                         _model.isLoading = true;
-                        setState(() {});
+                        safeSetState(() {});
                         _model.startDate = functions.getFirstDayOfMonth(
                             functions.getDateByMonthAndYear(
                                 _model.dropDownValue2!,
@@ -148,7 +148,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                 _model.dropDownValue2!,
                                 _model.dropDownValue1!));
                         _model.isLoading = false;
-                        setState(() {});
+                        safeSetState(() {});
                       },
                       width: 300.0,
                       height: 56.0,
@@ -192,9 +192,9 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                       optionLabels:
                           FFAppState().monthList.map((e) => e.name).toList(),
                       onChanged: (val) async {
-                        setState(() => _model.dropDownValue2 = val);
+                        safeSetState(() => _model.dropDownValue2 = val);
                         _model.isLoading = true;
-                        setState(() {});
+                        safeSetState(() {});
                         _model.startDate = functions.getFirstDayOfMonth(
                             functions.getDateByMonthAndYear(
                                 _model.dropDownValue2!,
@@ -204,7 +204,7 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                 _model.dropDownValue2!,
                                 _model.dropDownValue1!));
                         _model.isLoading = false;
-                        setState(() {});
+                        safeSetState(() {});
                       },
                       width: 300.0,
                       height: 56.0,
@@ -347,14 +347,14 @@ class _LetterRequestViewWidgetState extends State<LetterRequestViewWidget> {
                                             _model.isUpdate != '') &&
                                         (_model.isUpdate == 'update')) {
                                       _model.isLoading = true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       await Future.delayed(
                                           const Duration(milliseconds: 1000));
                                       _model.isLoading = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,

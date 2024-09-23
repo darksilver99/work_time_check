@@ -286,7 +286,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                         null,
                                       );
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     text: 'สร้างขององค์กร',
                                     icon: Icon(

@@ -295,7 +295,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primaryBackground,
                                           suffixIcon: InkWell(
-                                            onTap: () => setState(
+                                            onTap: () => safeSetState(
                                               () => _model.password2Visibility =
                                                   !_model.password2Visibility,
                                             ),
@@ -391,7 +391,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primaryBackground,
                                           suffixIcon: InkWell(
-                                            onTap: () => setState(
+                                            onTap: () => safeSetState(
                                               () => _model.passwordVisibility =
                                                   !_model.passwordVisibility,
                                             ),
@@ -755,7 +755,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                             value: _model.checkboxValue ??=
                                                 false,
                                             onChanged: (newValue) async {
-                                              setState(() => _model
+                                              safeSetState(() => _model
                                                   .checkboxValue = newValue!);
                                             },
                                             side: BorderSide(
@@ -798,7 +798,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                               }.withoutNulls,
                                             );
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           child: Text(
                                             'Terms and Condition',

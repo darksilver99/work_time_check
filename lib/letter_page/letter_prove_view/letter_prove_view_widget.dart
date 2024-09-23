@@ -57,7 +57,7 @@ class _LetterProveViewWidgetState extends State<LetterProveViewWidget>
       _model.totalLeaveDay = functions.countDaysBetween(
           widget!.letterDocument!.startDate!, widget!.letterDocument!.endDate!);
       _model.dateLeave = widget!.letterDocument?.startDate;
-      setState(() {});
+      safeSetState(() {});
     });
 
     animationsMap.addAll({
@@ -484,7 +484,7 @@ class _LetterProveViewWidgetState extends State<LetterProveViewWidget>
                                       Navigator.pop(context, 'update');
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: 'ไม่อนุมัติ',
                                   icon: Icon(
@@ -628,7 +628,7 @@ class _LetterProveViewWidgetState extends State<LetterProveViewWidget>
                                       }
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: 'อนุมัติ',
                                   icon: Icon(

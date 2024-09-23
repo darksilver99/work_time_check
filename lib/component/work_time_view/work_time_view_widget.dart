@@ -35,7 +35,7 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await _model.initData(context);
-      setState(() {});
+      safeSetState(() {});
     });
   }
 
@@ -102,7 +102,7 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                               Expanded(
                                 child: wrapWithModel(
                                   model: _model.timerViewModel,
-                                  updateCallback: () => setState(() {}),
+                                  updateCallback: () => safeSetState(() {}),
                                   child: TimerViewWidget(
                                     milliseconds: functions.millisecondsBetween(
                                         _model.transactionDoc!.dateIn!,
@@ -127,9 +127,9 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           _model.isLoading = true;
-                          setState(() {});
+                          safeSetState(() {});
                           await _model.initData(context);
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         child: FaIcon(
                           FontAwesomeIcons.redo,

@@ -1,9 +1,9 @@
 import '/backend/backend.dart';
-import '/components/payment_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/payment/payment_view/payment_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'promotion_view_widget.dart' show PromotionViewWidget;
 import 'package:flutter/material.dart';

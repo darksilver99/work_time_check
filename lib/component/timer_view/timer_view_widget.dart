@@ -43,7 +43,7 @@ class _TimerViewWidgetState extends State<TimerViewWidget> {
         callback: (timer) async {
           _model.tmpMilliseconds = _model.tmpMilliseconds! + 1000;
           _model.duration = functions.formatDuration(_model.tmpMilliseconds!);
-          setState(() {});
+          safeSetState(() {});
         },
         startImmediately: true,
       );

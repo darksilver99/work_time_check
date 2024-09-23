@@ -50,16 +50,6 @@ class FFAppState extends ChangeNotifier {
     prefs.setInt('ff_appBuildVersion', value);
   }
 
-  ConfigDataStruct _configData = ConfigDataStruct();
-  ConfigDataStruct get configData => _configData;
-  set configData(ConfigDataStruct value) {
-    _configData = value;
-  }
-
-  void updateConfigDataStruct(Function(ConfigDataStruct) updateFn) {
-    updateFn(_configData);
-  }
-
   CustomDataStruct _customerData = CustomDataStruct();
   CustomDataStruct get customerData => _customerData;
   set customerData(CustomDataStruct value) {
@@ -68,6 +58,16 @@ class FFAppState extends ChangeNotifier {
 
   void updateCustomerDataStruct(Function(CustomDataStruct) updateFn) {
     updateFn(_customerData);
+  }
+
+  ConfigDataStruct _configData = ConfigDataStruct();
+  ConfigDataStruct get configData => _configData;
+  set configData(ConfigDataStruct value) {
+    _configData = value;
+  }
+
+  void updateConfigDataStruct(Function(ConfigDataStruct) updateFn) {
+    updateFn(_configData);
   }
 
   List<MonthDataStruct> _monthList = [

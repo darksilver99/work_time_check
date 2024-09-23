@@ -51,7 +51,7 @@ class _SelectMonthAndYearToExportViewWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.startDate = functions.getFirstDayOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getLastDayOfMonth(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
     });
 
     animationsMap.addAll({
@@ -153,7 +153,7 @@ class _SelectMonthAndYearToExportViewWidgetState
                             ),
                             options: functions.getYearFromCurrent(4),
                             onChanged: (val) async {
-                              setState(() => _model.dropDownValue1 = val);
+                              safeSetState(() => _model.dropDownValue1 = val);
                               _model.startDate = functions.getFirstDayOfMonth(
                                   functions.getDateByMonthAndYear(
                                       _model.dropDownValue2!,
@@ -209,7 +209,7 @@ class _SelectMonthAndYearToExportViewWidgetState
                                 .map((e) => e.name)
                                 .toList(),
                             onChanged: (val) async {
-                              setState(() => _model.dropDownValue2 = val);
+                              safeSetState(() => _model.dropDownValue2 = val);
                               _model.startDate = functions.getFirstDayOfMonth(
                                   functions.getDateByMonthAndYear(
                                       _model.dropDownValue2!,
@@ -263,7 +263,7 @@ class _SelectMonthAndYearToExportViewWidgetState
                                     _model.path,
                                   );
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: 'Export Excel',
                                 options: FFButtonOptions(
