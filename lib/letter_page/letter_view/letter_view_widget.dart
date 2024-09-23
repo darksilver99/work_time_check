@@ -43,7 +43,7 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.startDate = getCurrentTimestamp;
       _model.endDate = getCurrentTimestamp;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
@@ -267,7 +267,7 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                                 if (_model.datePicked1 != null) {
                                   _model.startDate = _model.datePicked1;
                                   _model.endDate = _model.datePicked1;
-                                  setState(() {});
+                                  safeSetState(() {});
                                 }
                               },
                               child: Container(
@@ -415,7 +415,7 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                                 }
                                 if (_model.datePicked2 != null) {
                                   _model.endDate = _model.datePicked2;
-                                  setState(() {});
+                                  safeSetState(() {});
                                 }
                               },
                               child: Container(
@@ -494,7 +494,7 @@ class _LetterViewWidgetState extends State<LetterViewWidget> {
                           ),
                           options: ['ลากิจ', 'ลาป่วย', 'อื่นๆ'],
                           onChanged: (val) =>
-                              setState(() => _model.dropDownValue = val),
+                              safeSetState(() => _model.dropDownValue = val),
                           width: double.infinity,
                           height: 56.0,
                           textStyle:

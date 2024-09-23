@@ -382,7 +382,7 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                     }
                                   }
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 child: Builder(
                                   builder: (context) {

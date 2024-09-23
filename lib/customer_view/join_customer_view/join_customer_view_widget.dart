@@ -254,7 +254,7 @@ class _JoinCustomerViewWidgetState extends State<JoinCustomerViewWidget>
                                         );
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     text: 'สแกน QR Code',
                                     icon: Icon(

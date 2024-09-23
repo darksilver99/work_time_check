@@ -48,7 +48,7 @@ class _CheckOutViewWidgetState extends State<CheckOutViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.currentDate = getCurrentTimestamp;
       _model.addToTmpPhotoList(widget!.photoOut!);
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
@@ -417,7 +417,7 @@ class _CheckOutViewWidgetState extends State<CheckOutViewWidget> {
                               null,
                             );
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: 'ลงเวลาออกงาน',
                           options: FFButtonOptions(

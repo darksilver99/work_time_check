@@ -206,7 +206,7 @@ class _PaymentViewWidgetState extends State<PaymentViewWidget> {
                                       selectedMedia.every((m) =>
                                           validateFileFormat(
                                               m.storagePath, context))) {
-                                    setState(
+                                    safeSetState(
                                         () => _model.isDataUploading = true);
                                     var selectedUploadedFiles =
                                         <FFUploadedFile>[];
@@ -241,14 +241,14 @@ class _PaymentViewWidgetState extends State<PaymentViewWidget> {
                                             selectedMedia.length &&
                                         downloadUrls.length ==
                                             selectedMedia.length) {
-                                      setState(() {
+                                      safeSetState(() {
                                         _model.uploadedLocalFile =
                                             selectedUploadedFiles.first;
                                         _model.uploadedFileUrl =
                                             downloadUrls.first;
                                       });
                                     } else {
-                                      setState(() {});
+                                      safeSetState(() {});
                                       return;
                                     }
                                   }
@@ -257,9 +257,9 @@ class _PaymentViewWidgetState extends State<PaymentViewWidget> {
                                       _model.uploadedFileUrl != '') {
                                     _model.tmpImageList =
                                         _model.uploadedFileUrl;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   }
-                                  setState(() {
+                                  safeSetState(() {
                                     _model.isDataUploading = false;
                                     _model.uploadedLocalFile = FFUploadedFile(
                                         bytes: Uint8List.fromList([]));
@@ -367,7 +367,7 @@ class _PaymentViewWidgetState extends State<PaymentViewWidget> {
                                                     if (_model.isConfirm!) {
                                                       _model.tmpImageList =
                                                           null;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                       await FirebaseStorage
                                                           .instance
                                                           .refFromURL(_model
@@ -375,7 +375,7 @@ class _PaymentViewWidgetState extends State<PaymentViewWidget> {
                                                           .delete();
                                                     }
 
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                   child: Icon(
                                                     Icons.cancel_rounded,

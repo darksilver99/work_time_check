@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
-import '/components/promotion_view_widget.dart';
 import '/customer_view/customer_q_r_code_view/customer_q_r_code_view_widget.dart';
 import '/customer_view/edit_customer_view/edit_customer_view_widget.dart';
 import '/customer_view/member_list_view/member_list_view_widget.dart';
@@ -10,6 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/letter_page/letter_request_view/letter_request_view_widget.dart';
+import '/payment/promotion_view/promotion_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -53,7 +53,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.checkIsExpire = await _model.checkIsCustomerExpire(context);
       _model.isExpire = _model.checkIsExpire!;
-      setState(() {});
+      safeSetState(() {});
     });
   }
 
@@ -220,52 +220,54 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Builder(
-                            builder: (context) {
-                              if (getCurrentTimestamp >
-                                  widget!.customerDoc!.expireDate!) {
-                                return Text(
-                                  'บัญชีของท่านหมดอายุการใช้งานแล้ว',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                );
-                              } else {
-                                return Text(
-                                  'ใช้งานได้ถึงวันที่ ${functions.dateTh(widget!.customerDoc?.expireDate)}',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        fontSize: 18.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                );
-                              }
-                            },
+                  if (currentUserEmail != 'test@test.com')
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Builder(
+                              builder: (context) {
+                                if (getCurrentTimestamp >
+                                    widget!.customerDoc!.expireDate!) {
+                                  return Text(
+                                    'บัญชีของท่านหมดอายุการใช้งานแล้ว',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  );
+                                } else {
+                                  return Text(
+                                    'ใช้งานได้ถึงวันที่ ${functions.dateTh(widget!.customerDoc?.expireDate)}',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  );
+                                }
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -334,7 +336,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                       Navigator.pop(context);
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Icon(
                                     Icons.edit_rounded,
@@ -722,86 +724,87 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                               );
                             },
                           ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              await showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                enableDrag: false,
-                                useSafeArea: true,
-                                context: context,
-                                builder: (context) {
-                                  return WebViewAware(
-                                    child: Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: PromotionViewWidget(
-                                        customerDoc: widget!.customerDoc!,
+                          if (currentUserEmail != 'test@test.com')
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  useSafeArea: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return WebViewAware(
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: PromotionViewWidget(
+                                          customerDoc: widget!.customerDoc!,
+                                        ),
                                       ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
+                              },
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    height: 60.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
                                     ),
-                                  );
-                                },
-                              ).then((value) => safeSetState(() {}));
-                            },
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 60.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 8.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 4.0, 0.0),
-                                            child: Text(
-                                              'ต่ออายุการใช้งาน',
-                                              maxLines: 2,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 18.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 8.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 4.0, 0.0),
+                                              child: Text(
+                                                'ต่ออายุการใช้งาน',
+                                                maxLines: 2,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          fontSize: 18.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Icon(
-                                          Icons.navigate_next_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
-                                        ),
-                                      ],
+                                          Icon(
+                                            Icons.navigate_next_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 1.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                  Container(
+                                    width: double.infinity,
+                                    height: 1.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
                           Builder(
                             builder: (context) => InkWell(
                               splashColor: Colors.transparent,
@@ -851,7 +854,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                   );
                                 }
 
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,

@@ -46,7 +46,7 @@ class _CheckInViewWidgetState extends State<CheckInViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.currentDate = getCurrentTimestamp;
       _model.addToTmpPhotoList(widget!.photoIn!);
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
@@ -317,7 +317,7 @@ class _CheckInViewWidgetState extends State<CheckInViewWidget> {
                               null,
                             );
 
-                            setState(() {});
+                            safeSetState(() {});
                           },
                           text: 'ลงเวลาเข้างาน',
                           options: FFButtonOptions(

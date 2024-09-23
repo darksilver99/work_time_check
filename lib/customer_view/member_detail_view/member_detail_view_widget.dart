@@ -521,7 +521,7 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                       Navigator.pop(context, 'update');
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Text(
                                     'ลบสมาชิกคนนี้',
@@ -608,7 +608,7 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                               .map((e) => e.name)
                               .toList(),
                           onChanged: (val) =>
-                              setState(() => _model.dropDownValue = val),
+                              safeSetState(() => _model.dropDownValue = val),
                           width: double.infinity,
                           height: 56.0,
                           textStyle:
@@ -652,7 +652,8 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                       if (widget!.memberDoc?.permission ==
                                           _model.dropDownValue) {
                                         Navigator.pop(context, 'update');
-                                        if (_shouldSetState) setState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                         return;
                                       } else {
                                         _model.totalAdmin =
@@ -692,7 +693,8 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                             },
                                           );
 
-                                          if (_shouldSetState) setState(() {});
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         }
                                       }
@@ -700,7 +702,8 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                       if (widget!.memberDoc?.permission ==
                                           _model.dropDownValue) {
                                         Navigator.pop(context, 'update');
-                                        if (_shouldSetState) setState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                         return;
                                       }
                                     }
@@ -738,12 +741,13 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                           context,
                                           null,
                                         );
-                                        if (_shouldSetState) setState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                         return;
                                       }
                                     }
                                     Navigator.pop(context, 'update');
-                                    if (_shouldSetState) setState(() {});
+                                    if (_shouldSetState) safeSetState(() {});
                                   },
                                   text: 'บันทึกข้อมูล',
                                   options: FFButtonOptions(

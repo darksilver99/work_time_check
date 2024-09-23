@@ -273,7 +273,7 @@ class _SuggestViewWidgetState extends State<SuggestViewWidget>
                                   if (_model.formKey.currentState == null ||
                                       !_model.formKey.currentState!
                                           .validate()) {
-                                    setState(() => _model.isValid = false);
+                                    safeSetState(() => _model.isValid = false);
                                     return;
                                   }
                                   if (_model.isValid!) {
@@ -313,7 +313,7 @@ class _SuggestViewWidgetState extends State<SuggestViewWidget>
                                     Navigator.pop(context);
                                   }
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: 'ส่งข้อมูล',
                                 options: FFButtonOptions(

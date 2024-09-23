@@ -48,7 +48,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.startDate = functions.getFirstDayOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getLastDayOfMonth(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
     });
   }
 
@@ -136,7 +136,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                       ),
                       options: functions.getYearFromCurrent(4),
                       onChanged: (val) async {
-                        setState(() => _model.dropDownValue1 = val);
+                        safeSetState(() => _model.dropDownValue1 = val);
                         _model.startDate = functions.getFirstDayOfMonth(
                             functions.getDateByMonthAndYear(
                                 _model.dropDownValue2!,
@@ -145,7 +145,8 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                             functions.getDateByMonthAndYear(
                                 _model.dropDownValue2!,
                                 _model.dropDownValue1!));
-                        setState(() => _model.firestoreRequestCompleter = null);
+                        safeSetState(
+                            () => _model.firestoreRequestCompleter = null);
                         await _model.waitForFirestoreRequestCompleted();
                       },
                       width: 300.0,
@@ -190,7 +191,7 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                       optionLabels:
                           FFAppState().monthList.map((e) => e.name).toList(),
                       onChanged: (val) async {
-                        setState(() => _model.dropDownValue2 = val);
+                        safeSetState(() => _model.dropDownValue2 = val);
                         _model.startDate = functions.getFirstDayOfMonth(
                             functions.getDateByMonthAndYear(
                                 _model.dropDownValue2!,
@@ -199,7 +200,8 @@ class _HistoryViewWidgetState extends State<HistoryViewWidget> {
                             functions.getDateByMonthAndYear(
                                 _model.dropDownValue2!,
                                 _model.dropDownValue1!));
-                        setState(() => _model.firestoreRequestCompleter = null);
+                        safeSetState(
+                            () => _model.firestoreRequestCompleter = null);
                         await _model.waitForFirestoreRequestCompleted();
                       },
                       width: 300.0,

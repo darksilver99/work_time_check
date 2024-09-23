@@ -61,7 +61,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
       await action_blocks.initConfig(context);
       await action_blocks.initCustomer(context);
       _model.isLoading = false;
-      setState(() {});
+      safeSetState(() {});
       currentUserLocationValue =
         await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       FFAppState().currentLocation = currentUserLocationValue;
@@ -178,7 +178,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
             children: [
               wrapWithModel(
                 model: _model.backgroundViewModel,
-                updateCallback: () => setState(() {}),
+                updateCallback: () => safeSetState(() {}),
                 child: BackgroundViewWidget(),
               ),
               if (!_model.isLoading)
@@ -424,7 +424,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ?.show(context: context);
                                         }
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -1128,12 +1128,12 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 context.goNamedAuth('LoginPage',
                                                     context.mounted);
                                           } else {
-                                            setState(() {});
+                                            safeSetState(() {});
                                           }
 
                                           _navigate();
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -1186,14 +1186,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   alignment: AlignmentDirectional(0.0, 1.0),
                   child: wrapWithModel(
                     model: _model.workTimeViewModel,
-                    updateCallback: () => setState(() {}),
+                    updateCallback: () => safeSetState(() {}),
                     child: WorkTimeViewWidget(),
                   ),
                 ),
               if (_model.isLoading)
                 wrapWithModel(
                   model: _model.loadingViewModel,
-                  updateCallback: () => setState(() {}),
+                  updateCallback: () => safeSetState(() {}),
                   child: LoadingViewWidget(),
                 ),
             ],

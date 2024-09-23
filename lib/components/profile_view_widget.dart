@@ -263,7 +263,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                           validateFileFormat(
                                                               m.storagePath,
                                                               context))) {
-                                                    setState(() =>
+                                                    safeSetState(() =>
                                                         _model.isDataUploading =
                                                             true);
                                                     var selectedUploadedFiles =
@@ -298,13 +298,13 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                     if (selectedUploadedFiles
                                                             .length ==
                                                         selectedMedia.length) {
-                                                      setState(() {
+                                                      safeSetState(() {
                                                         _model.uploadedLocalFile =
                                                             selectedUploadedFiles
                                                                 .first;
                                                       });
                                                     } else {
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                       return;
                                                     }
                                                   }
@@ -319,7 +319,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                     _model.tmpImage = [];
                                                     _model.addToTmpImage(_model
                                                         .uploadedLocalFile);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
                                                 },
                                                 child: Material(
@@ -766,7 +766,7 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
 
                                           Navigator.pop(context);
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         text: 'บันทึกข้อมูล',
                                         options: FFButtonOptions(

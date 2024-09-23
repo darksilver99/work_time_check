@@ -279,7 +279,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .primaryBackground,
                                           suffixIcon: InkWell(
-                                            onTap: () => setState(
+                                            onTap: () => safeSetState(
                                               () => _model.passwordVisibility =
                                                   !_model.passwordVisibility,
                                             ),
