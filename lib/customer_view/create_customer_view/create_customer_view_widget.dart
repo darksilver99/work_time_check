@@ -71,6 +71,8 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -257,30 +259,33 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                         displayName:
                                             '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.lastName, '')} (${currentUserDisplayName})',
                                       ));
-                                      await showDialog(
-                                        context: context,
-                                        builder: (dialogContext) {
-                                          return Dialog(
-                                            elevation: 0,
-                                            insetPadding: EdgeInsets.zero,
-                                            backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            child: WebViewAware(
-                                              child: InfoCustomViewWidget(
-                                                title:
-                                                    'สร้างองค์กรเรียบร้อยแล้ว',
-                                                status: 'success',
-                                                detail:
-                                                    'ทดลองใช้งานฟรี 30 วันสำหรับองค์กร \"${_model.textController.text}\" สามารถเชิญสมาชิกเข้าร่วมองค์กรได้ที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"เชิญสมาชิก\"',
+                                      if (!FFAppState().configData.isReview) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title:
+                                                      'สร้างองค์กรเรียบร้อยแล้ว',
+                                                  status: 'success',
+                                                  detail:
+                                                      'ทดลองใช้งานฟรี 30 วันสำหรับองค์กร \"${_model.textController.text}\" สามารถเชิญสมาชิกเข้าร่วมองค์กรได้ที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"เชิญสมาชิก\"',
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      );
-
+                                            );
+                                          },
+                                        );
+                                      }
                                       await actions.pushReplacement(
                                         context,
                                         null,
