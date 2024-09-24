@@ -223,7 +223,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                     ),
                   ),
                   if ((currentUserEmail != 'test@test.com') &&
-                      FFAppState().configData.isReview)
+                      !FFAppState().configData.isReview)
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
@@ -728,7 +728,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                             },
                           ),
                           if ((currentUserEmail != 'test@test.com') &&
-                              FFAppState().configData.isReview)
+                              !FFAppState().configData.isReview)
                             InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
