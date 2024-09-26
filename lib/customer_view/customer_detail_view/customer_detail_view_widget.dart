@@ -727,87 +727,97 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                               );
                             },
                           ),
-                          if ((currentUserEmail != 'test@test.com') ||
-                              !FFAppState().configData.isReview)
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  useSafeArea: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return WebViewAware(
-                                      child: Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: PromotionViewWidget(
-                                          customerDoc: widget!.customerDoc!,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => safeSetState(() {}));
-                              },
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    height: 60.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 8.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
+                          if (!FFAppState().configData.isReview)
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                if (currentUserEmail != 'test@test.com')
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        useSafeArea: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return WebViewAware(
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 4.0, 0.0),
-                                              child: Text(
-                                                'ต่ออายุการใช้งาน',
-                                                maxLines: 2,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          fontSize: 18.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: PromotionViewWidget(
+                                                customerDoc:
+                                                    widget!.customerDoc!,
                                               ),
                                             ),
-                                          ),
-                                          Icon(
-                                            Icons.navigate_next_rounded,
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: 60.0,
+                                          decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
+                                                .secondaryBackground,
                                           ),
-                                        ],
-                                      ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8.0, 0.0, 8.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                4.0, 0.0),
+                                                    child: Text(
+                                                      'ต่ออายุการใช้งาน',
+                                                      maxLines: 2,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            fontSize: 18.0,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.navigate_next_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  size: 24.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 1.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Container(
-                                    width: double.infinity,
-                                    height: 1.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              ],
                             ),
                           Builder(
                             builder: (context) => InkWell(
