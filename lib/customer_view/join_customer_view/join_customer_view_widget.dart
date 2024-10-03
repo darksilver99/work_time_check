@@ -211,7 +211,7 @@ class _JoinCustomerViewWidgetState extends State<JoinCustomerViewWidget>
                                               isEqualTo: currentUserReference,
                                             ),
                                           );
-                                          if (_model.totalMember! <= 0) {
+                                          if (_model.totalThisMember! <= 0) {
                                             await MemberListRecord.createDoc(
                                                     _model.customerDocResult!
                                                         .reference)
