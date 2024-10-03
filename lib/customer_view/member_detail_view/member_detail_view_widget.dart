@@ -491,9 +491,29 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                       context,
                                       title: 'ต้องการลบสมาชิกคนนี้?',
                                       detail:
-                                          'หากลบแล้วจะไม่สามารถเรียกคืนข้อมูลได้รวมถึงข้อมูลการเข้าออกงาน',
+                                          'หากลบแล้วจะไม่สามารถเรียกคืนข้อมูลได้รวมถึงข้อมูลการเข้าออกงาน, ข้อมูลการลา',
                                     );
                                     if (_model.isConfirm!) {
+                                      _model.letterListResult =
+                                          await queryLetterListRecordOnce(
+                                        parent: widget!.customerDoc?.reference,
+                                        queryBuilder: (letterListRecord) =>
+                                            letterListRecord.where(
+                                          'member_ref',
+                                          isEqualTo:
+                                              widget!.memberDoc?.reference,
+                                        ),
+                                      );
+                                      while (_model.letterIndex <
+                                          _model.letterListResult!.length) {
+                                        await _model
+                                            .letterListResult![
+                                                _model.letterIndex]
+                                            .reference
+                                            .delete();
+                                        _model.letterIndex =
+                                            _model.letterIndex + 1;
+                                      }
                                       await widget!.memberDoc!.reference
                                           .delete();
                                       await showDialog(
