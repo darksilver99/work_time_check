@@ -66,6 +66,11 @@ class CustomerRecord extends FirestoreRecord {
   DocumentReference? get deleteBy => _deleteBy;
   bool hasDeleteBy() => _deleteBy != null;
 
+  // "max_person" field.
+  int? _maxPerson;
+  int get maxPerson => _maxPerson ?? 0;
+  bool hasMaxPerson() => _maxPerson != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -77,6 +82,7 @@ class CustomerRecord extends FirestoreRecord {
     _isFirstTime = snapshotData['is_first_time'] as bool?;
     _deleteDate = snapshotData['delete_date'] as DateTime?;
     _deleteBy = snapshotData['delete_by'] as DocumentReference?;
+    _maxPerson = castToType<int>(snapshotData['max_person']);
   }
 
   static CollectionReference get collection =>
@@ -124,6 +130,7 @@ Map<String, dynamic> createCustomerRecordData({
   bool? isFirstTime,
   DateTime? deleteDate,
   DocumentReference? deleteBy,
+  int? maxPerson,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -137,6 +144,7 @@ Map<String, dynamic> createCustomerRecordData({
       'is_first_time': isFirstTime,
       'delete_date': deleteDate,
       'delete_by': deleteBy,
+      'max_person': maxPerson,
     }.withoutNulls,
   );
 
@@ -157,7 +165,8 @@ class CustomerRecordDocumentEquality implements Equality<CustomerRecord> {
         e1?.subject == e2?.subject &&
         e1?.isFirstTime == e2?.isFirstTime &&
         e1?.deleteDate == e2?.deleteDate &&
-        e1?.deleteBy == e2?.deleteBy;
+        e1?.deleteBy == e2?.deleteBy &&
+        e1?.maxPerson == e2?.maxPerson;
   }
 
   @override
@@ -171,7 +180,8 @@ class CustomerRecordDocumentEquality implements Equality<CustomerRecord> {
         e?.subject,
         e?.isFirstTime,
         e?.deleteDate,
-        e?.deleteBy
+        e?.deleteBy,
+        e?.maxPerson
       ]);
 
   @override

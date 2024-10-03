@@ -228,6 +228,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                         expireDate: functions.getEndDayTime(
                                             functions.getNextDay(30)),
                                         subject: _model.textController.text,
+                                        maxPerson: 10,
                                       ));
                                       _model.insertCustomer =
                                           CustomerRecord.getDocumentFromData(
@@ -240,6 +241,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                         .getNextDay(30)),
                                                 subject:
                                                     _model.textController.text,
+                                                maxPerson: 10,
                                               ),
                                               customerRecordReference);
 

@@ -27,6 +27,8 @@ class JoinCustomerViewModel extends FlutterFlowModel<JoinCustomerViewWidget> {
   CustomerRecord? customerDocResult;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   int? totalMember;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  int? totalThisMember;
 
   @override
   void initState(BuildContext context) {}

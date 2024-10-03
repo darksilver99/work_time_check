@@ -80,6 +80,7 @@ Future initCustomer(BuildContext context) async {
           expireDate: customerResult?.expireDate,
           subject: customerResult?.subject,
           customerRef: customerResult?.reference,
+          maxPerson: customerResult?.maxPerson,
         );
         await action_blocks.checkIsHasKickFromCustomer(context);
       } else {
