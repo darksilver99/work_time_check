@@ -23,10 +23,16 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
 class MemberDetailViewModel extends FlutterFlowModel<MemberDetailViewWidget> {
+  ///  Local state fields for this component.
+
+  int letterIndex = 0;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Action Block - confirmBlock] action in Text widget.
   bool? isConfirm;
+  // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
+  List<LetterListRecord>? letterListResult;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
