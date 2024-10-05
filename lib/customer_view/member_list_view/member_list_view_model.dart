@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/customer_view/member_detail_view/member_detail_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:async';
 import 'member_list_view_widget.dart' show MemberListViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -26,10 +27,27 @@ class MemberListViewModel extends FlutterFlowModel<MemberListViewWidget> {
   int? totalMemberResult;
   // Stores action output result for [Bottom Sheet - MemberDetailView] action in Container widget.
   String? isUpdate;
+  Completer<List<MemberListRecord>>? firestoreRequestCompleter;
 
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {}
+
+  /// Additional helper methods.
+  Future waitForFirestoreRequestCompleted({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = firestoreRequestCompleter?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
 }
