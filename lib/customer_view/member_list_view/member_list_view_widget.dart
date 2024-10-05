@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,11 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MemberListViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -49,6 +55,8 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
       child: Container(
@@ -237,7 +245,6 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                       0,
                       32.0,
                     ),
-                    shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: listViewMemberListRecordList.length,
                     separatorBuilder: (_, __) => SizedBox(height: 8.0),
