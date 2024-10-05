@@ -348,7 +348,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 isScrollControlled: true,
                                                 backgroundColor:
                                                     Colors.transparent,
-                                                enableDrag: false,
                                                 useSafeArea: true,
                                                 context: context,
                                                 builder: (context) {
@@ -357,11 +356,16 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       padding: MediaQuery
                                                           .viewInsetsOf(
                                                               context),
-                                                      child: CheckOutViewWidget(
-                                                        photoOut: _model
-                                                            .photoResult!.first,
-                                                        transactionDoc: _model
-                                                            .transactionDoc!,
+                                                      child: Container(
+                                                        height: double.infinity,
+                                                        child:
+                                                            CheckOutViewWidget(
+                                                          photoOut: _model
+                                                              .photoResult!
+                                                              .first,
+                                                          transactionDoc: _model
+                                                              .transactionDoc!,
+                                                        ),
                                                       ),
                                                     ),
                                                   );
@@ -373,7 +377,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 isScrollControlled: true,
                                                 backgroundColor:
                                                     Colors.transparent,
-                                                enableDrag: false,
                                                 useSafeArea: true,
                                                 context: context,
                                                 builder: (context) {
@@ -382,9 +385,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                       padding: MediaQuery
                                                           .viewInsetsOf(
                                                               context),
-                                                      child: CheckInViewWidget(
-                                                        photoIn: _model
-                                                            .photoResult!.first,
+                                                      child: Container(
+                                                        height: double.infinity,
+                                                        child:
+                                                            CheckInViewWidget(
+                                                          photoIn: _model
+                                                              .photoResult!
+                                                              .first,
+                                                        ),
                                                       ),
                                                     ),
                                                   );
@@ -744,42 +752,42 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 220.0,
-                                        child: Stack(
-                                          children: [
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    enableDrag: false,
-                                                    useSafeArea: true,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return WebViewAware(
-                                                        child: Padding(
-                                                          padding: MediaQuery
-                                                              .viewInsetsOf(
-                                                                  context),
-                                                          child:
-                                                              MyCustomerViewWidget(),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            useSafeArea: true,
+                                            context: context,
+                                            builder: (context) {
+                                              return WebViewAware(
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: Container(
+                                                    height: double.infinity,
+                                                    child:
+                                                        MyCustomerViewWidget(),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        },
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 220.0,
+                                          child: Stack(
+                                            children: [
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -821,115 +829,118 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   ],
                                                 ),
                                               ),
-                                            ),
-                                            if (FFAppState()
-                                                        .customerData
-                                                        .subject !=
-                                                    null &&
-                                                FFAppState()
-                                                        .customerData
-                                                        .subject !=
-                                                    '')
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    1.0, -1.0),
-                                                child: FutureBuilder<int>(
-                                                  future:
-                                                      queryLetterListRecordCount(
-                                                    parent: FFAppState()
-                                                        .customerData
-                                                        .customerRef,
-                                                    queryBuilder:
-                                                        (letterListRecord) =>
-                                                            letterListRecord
-                                                                .where(
-                                                      'status',
-                                                      isEqualTo: 0,
+                                              if (FFAppState()
+                                                          .customerData
+                                                          .subject !=
+                                                      null &&
+                                                  FFAppState()
+                                                          .customerData
+                                                          .subject !=
+                                                      '')
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          1.0, -1.0),
+                                                  child: FutureBuilder<int>(
+                                                    future:
+                                                        queryLetterListRecordCount(
+                                                      parent: FFAppState()
+                                                          .customerData
+                                                          .customerRef,
+                                                      queryBuilder:
+                                                          (letterListRecord) =>
+                                                              letterListRecord
+                                                                  .where(
+                                                        'status',
+                                                        isEqualTo: 0,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    int columnCount =
-                                                        snapshot.data!;
+                                                        );
+                                                      }
+                                                      int columnCount =
+                                                          snapshot.data!;
 
-                                                    return Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        if ((columnCount > 0) &&
-                                                            (FFAppState()
-                                                                    .memberData
-                                                                    .permission ==
-                                                                'admin'))
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        16.0,
-                                                                        16.0,
-                                                                        0.0),
-                                                            child: Container(
-                                                              width: 42.0,
-                                                              height: 42.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                              ),
-                                                              child: Align(
-                                                                alignment:
-                                                                    AlignmentDirectional(
-                                                                        0.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  '!',
-                                                                  style: FlutterFlowTheme.of(
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          if ((columnCount >
+                                                                  0) &&
+                                                              (FFAppState()
+                                                                      .memberData
+                                                                      .permission ==
+                                                                  'admin'))
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          16.0,
+                                                                          16.0,
+                                                                          0.0),
+                                                              child: Container(
+                                                                width: 42.0,
+                                                                height: 42.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Kanit',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .info,
-                                                                        fontSize:
-                                                                            18.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                      ),
+                                                                      .error,
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                ),
+                                                                child: Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    '!',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Kanit',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).info,
+                                                                          fontSize:
+                                                                              18.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                      ],
-                                                    );
-                                                  },
+                                                        ],
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
-                                              ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -958,7 +969,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           await showModalBottomSheet(
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
-                                            enableDrag: false,
                                             useSafeArea: true,
                                             context: context,
                                             builder: (context) {
@@ -967,8 +977,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   padding:
                                                       MediaQuery.viewInsetsOf(
                                                           context),
-                                                  child:
-                                                      SwtichCustomerViewWidget(),
+                                                  child: Container(
+                                                    height: double.infinity,
+                                                    child:
+                                                        SwtichCustomerViewWidget(),
+                                                  ),
                                                 ),
                                               );
                                             },
@@ -1038,7 +1051,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           await showModalBottomSheet(
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
-                                            enableDrag: false,
                                             useSafeArea: true,
                                             context: context,
                                             builder: (context) {
@@ -1047,7 +1059,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   padding:
                                                       MediaQuery.viewInsetsOf(
                                                           context),
-                                                  child: OtherViewWidget(),
+                                                  child: Container(
+                                                    height: double.infinity,
+                                                    child: OtherViewWidget(),
+                                                  ),
                                                 ),
                                               );
                                             },
