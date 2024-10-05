@@ -3,7 +3,6 @@ import '/backend/backend.dart';
 import '/customer_view/member_detail_view/member_detail_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +100,7 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                       child: Icon(
                         Icons.close_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 32.0,
+                        size: 24.0,
                       ),
                     ),
                   ],
@@ -149,15 +148,12 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                 ),
               ),
               Expanded(
-                child: FutureBuilder<List<MemberListRecord>>(
-                  future: (_model.firestoreRequestCompleter ??=
-                          Completer<List<MemberListRecord>>()
-                            ..complete(queryMemberListRecordOnce(
-                              parent: widget!.customerDoc?.reference,
-                              queryBuilder: (memberListRecord) =>
-                                  memberListRecord.orderBy('create_date'),
-                            )))
-                      .future,
+                child: StreamBuilder<List<MemberListRecord>>(
+                  stream: queryMemberListRecord(
+                    parent: widget!.customerDoc?.reference,
+                    queryBuilder: (memberListRecord) =>
+                        memberListRecord.orderBy('create_date'),
+                  ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
@@ -217,14 +213,6 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                                 },
                               ).then((value) =>
                                   safeSetState(() => _model.isUpdate = value));
-
-                              if ((_model.isUpdate != null &&
-                                      _model.isUpdate != '') &&
-                                  (_model.isUpdate == 'update')) {
-                                safeSetState(() =>
-                                    _model.firestoreRequestCompleter = null);
-                                await _model.waitForFirestoreRequestCompleted();
-                              }
 
                               safeSetState(() {});
                             },
