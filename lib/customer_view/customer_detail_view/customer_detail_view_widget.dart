@@ -367,6 +367,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
+                                    isDismissible: false,
                                     useSafeArea: true,
                                     context: context,
                                     builder: (context) {
@@ -596,6 +597,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
+                                        isDismissible: false,
                                         useSafeArea: true,
                                         context: context,
                                         builder: (context) {
@@ -760,6 +762,7 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                         await showModalBottomSheet(
                                           isScrollControlled: true,
                                           backgroundColor: Colors.transparent,
+                                          isDismissible: false,
                                           useSafeArea: true,
                                           context: context,
                                           builder: (context) {

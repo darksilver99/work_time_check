@@ -271,7 +271,7 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,
-                                      enableDrag: false,
+                                      isDismissible: false,
                                       useSafeArea: true,
                                       context: context,
                                       builder: (context) {
@@ -279,8 +279,12 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: CustomerDetailViewWidget(
-                                              customerDoc: columnCustomerRecord,
+                                            child: Container(
+                                              height: double.infinity,
+                                              child: CustomerDetailViewWidget(
+                                                customerDoc:
+                                                    columnCustomerRecord,
+                                              ),
                                             ),
                                           ),
                                         );
