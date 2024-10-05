@@ -1,10 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/customer_view/customer_q_r_code_view/customer_q_r_code_view_widget.dart';
 import '/customer_view/member_detail_view/member_detail_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -51,6 +49,8 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
       _model.totalMember = _model.totalMemberResult!;
       _model.isLoading = false;
       safeSetState(() {});
+
+      FFAppState().update(() {});
     });
   }
 
@@ -63,6 +63,8 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
       child: Container(
@@ -83,7 +85,7 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -99,7 +101,7 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                       child: Icon(
                         Icons.close_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
+                        size: 32.0,
                       ),
                     ),
                   ],
@@ -122,50 +124,6 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
                             ),
-                      ),
-                    ),
-                    Builder(
-                      builder: (context) => FFButtonWidget(
-                        onPressed: () async {
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: WebViewAware(
-                                  child: CustomerQRCodeViewWidget(
-                                    customerDoc: widget!.customerDoc!,
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        text: 'เชิญสมาชิก',
-                        options: FFButtonOptions(
-                          height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Kanit',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                  ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
                       ),
                     ),
                   ],
