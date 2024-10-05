@@ -367,7 +367,6 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
-                                    enableDrag: false,
                                     useSafeArea: true,
                                     context: context,
                                     builder: (context) {
@@ -375,8 +374,11 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                         child: Padding(
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
-                                          child: MemberListViewWidget(
-                                            customerDoc: widget!.customerDoc!,
+                                          child: Container(
+                                            height: double.infinity,
+                                            child: MemberListViewWidget(
+                                              customerDoc: widget!.customerDoc!,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -594,7 +596,6 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
-                                        enableDrag: false,
                                         useSafeArea: true,
                                         context: context,
                                         builder: (context) {
@@ -602,9 +603,12 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
-                                              child: LetterRequestViewWidget(
-                                                customerRef: widget!
-                                                    .customerDoc!.reference,
+                                              child: Container(
+                                                height: double.infinity,
+                                                child: LetterRequestViewWidget(
+                                                  customerRef: widget!
+                                                      .customerDoc!.reference,
+                                                ),
                                               ),
                                             ),
                                           );
@@ -756,7 +760,6 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                         await showModalBottomSheet(
                                           isScrollControlled: true,
                                           backgroundColor: Colors.transparent,
-                                          enableDrag: false,
                                           useSafeArea: true,
                                           context: context,
                                           builder: (context) {
@@ -765,9 +768,12 @@ class _CustomerDetailViewWidgetState extends State<CustomerDetailViewWidget> {
                                                 padding:
                                                     MediaQuery.viewInsetsOf(
                                                         context),
-                                                child: PromotionViewWidget(
-                                                  customerDoc:
-                                                      widget!.customerDoc!,
+                                                child: Container(
+                                                  height: double.infinity,
+                                                  child: PromotionViewWidget(
+                                                    customerDoc:
+                                                        widget!.customerDoc!,
+                                                  ),
                                                 ),
                                               ),
                                             );
