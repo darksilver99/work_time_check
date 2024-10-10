@@ -47,7 +47,7 @@ class _LoadingViewWidgetState extends State<LoadingViewWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset(
-              'assets/lottie_animations/Animation_-_1702952235302.json',
+              'assets/jsons/Animation_-_1702952235302.json',
               width: 120.0,
               height: 120.0,
               fit: BoxFit.cover,

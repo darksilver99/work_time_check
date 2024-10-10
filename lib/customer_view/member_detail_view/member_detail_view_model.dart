@@ -32,6 +32,8 @@ class MemberDetailViewModel extends FlutterFlowModel<MemberDetailViewWidget> {
   // Stores action output result for [Action Block - confirmBlock] action in Text widget.
   bool? isConfirm;
   // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
+  int? totalMember;
+  // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
   List<LetterListRecord>? letterListResult;
   // State field(s) for DropDown widget.
   String? dropDownValue;
