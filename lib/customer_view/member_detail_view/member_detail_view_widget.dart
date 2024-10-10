@@ -504,54 +504,83 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                             'หากลบแล้วจะไม่สามารถเรียกคืนข้อมูลได้รวมถึงข้อมูลการเข้าออกงาน, ข้อมูลการลา',
                                       );
                                       if (_model.isConfirm!) {
-                                        _model.letterListResult =
-                                            await queryLetterListRecordOnce(
+                                        _model.totalMember =
+                                            await queryMemberListRecordCount(
                                           parent:
                                               widget!.customerDoc?.reference,
-                                          queryBuilder: (letterListRecord) =>
-                                              letterListRecord.where(
-                                            'member_ref',
-                                            isEqualTo:
-                                                widget!.memberDoc?.reference,
-                                          ),
                                         );
-                                        while (_model.letterIndex <
-                                            _model.letterListResult!.length) {
-                                          await _model
-                                              .letterListResult![
-                                                  _model.letterIndex]
-                                              .reference
+                                        if (_model.totalMember! > 1) {
+                                          _model.letterListResult =
+                                              await queryLetterListRecordOnce(
+                                            parent:
+                                                widget!.customerDoc?.reference,
+                                            queryBuilder: (letterListRecord) =>
+                                                letterListRecord.where(
+                                              'member_ref',
+                                              isEqualTo:
+                                                  widget!.memberDoc?.reference,
+                                            ),
+                                          );
+                                          while (_model.letterIndex <
+                                              _model.letterListResult!.length) {
+                                            await _model
+                                                .letterListResult![
+                                                    _model.letterIndex]
+                                                .reference
+                                                .delete();
+                                            _model.letterIndex =
+                                                _model.letterIndex + 1;
+                                          }
+                                          await widget!.memberDoc!.reference
                                               .delete();
-                                          _model.letterIndex =
-                                              _model.letterIndex + 1;
-                                        }
-                                        await widget!.memberDoc!.reference
-                                            .delete();
-                                        await showDialog(
-                                          context: context,
-                                          builder: (dialogContext) {
-                                            return Dialog(
-                                              elevation: 0,
-                                              insetPadding: EdgeInsets.zero,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              child: WebViewAware(
-                                                child: InfoCustomViewWidget(
-                                                  title:
-                                                      'ลบข้อมูลสมาชิกเรียบร้อยแล้ว',
-                                                  status: 'success',
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title:
+                                                        'ลบข้อมูลสมาชิกเรียบร้อยแล้ว',
+                                                    status: 'success',
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        );
+                                              );
+                                            },
+                                          );
 
-                                        Navigator.pop(context, 'update');
+                                          Navigator.pop(context, 'update');
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title:
+                                                        'ไม่สามารถลบสมาชิกได้ จำเป็นต้องมีสมาชิกอย่างน้อย 1 คนในองค์กร',
+                                                    status: 'error',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
                                       }
 
                                       safeSetState(() {});
