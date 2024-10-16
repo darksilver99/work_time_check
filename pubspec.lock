@@ -470,15 +470,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.0"
-  flutter_barcode_scanner:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "603ea693b43575dafa4c6672e6232f5a99e261ef"
-      url: "https://github.com/FlutterFlow/flutter_barcode_scanner"
-    source: git
-    version: "2.0.0"
   flutter_cache_manager:
     dependency: "direct main"
     description:
@@ -1182,6 +1173,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  qr_code_scanner:
+    dependency: "direct main"
+    description:
+      name: qr_code_scanner
+      sha256: f23b68d893505a424f0bd2e324ebea71ed88465d572d26bb8d2e78a4749591fd
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   quiver:
     dependency: transitive
     description:
@@ -1206,6 +1205,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  scan:
+    dependency: "direct main"
+    description:
+      name: scan
+      sha256: b343ec36f863a88d41eb4c174b810c055c6bd1f1822b2188ab31aab684fb7cdb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.0"
   share_extend:
     dependency: "direct main"
     description:

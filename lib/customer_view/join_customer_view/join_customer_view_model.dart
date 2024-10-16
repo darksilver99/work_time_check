@@ -38,8 +38,9 @@ class JoinCustomerViewModel extends FlutterFlowModel<JoinCustomerViewWidget> {
 
   /// Action blocks.
   Future<String?> qrCodeBlock(BuildContext context) async {
-    context.pushNamed('ScanAndUploadQRCodePage');
+    //context.pushNamed('ScanAndUploadQRCodePage');
+    String qrcode = await context.pushNamed('ScanAndUploadQRCodePage') ?? '';
 
-    return 'qrcode';
+    return qrcode;
   }
 }

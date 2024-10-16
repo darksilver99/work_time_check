@@ -1,3 +1,5 @@
+import 'package:work_time_check/solo/CustomQRCodeView.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -82,6 +84,7 @@ class _ScanAndUploadQRCodePageWidgetState
               decoration: BoxDecoration(
                 color: Color(0x00FFFFFF),
               ),
+              child: CustomQRCodeView(),
             ),
             Align(
               alignment: AlignmentDirectional(0.0, 1.0),
@@ -135,9 +138,9 @@ class _ScanAndUploadQRCodePageWidgetState
 
                         _model.qrcode =
                             await actions.getQRCodeDataFromImagePath(
-                          'qrcode',
+                           selectedMedia!.first.filePath!,
                         );
-                        context.pop();
+                        context.pop(_model.qrcode);
 
                         safeSetState(() {});
                       },
