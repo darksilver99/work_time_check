@@ -99,7 +99,7 @@ class _CustomerQRCodeViewWidgetState extends State<CustomerQRCodeViewWidget>
                         child: Icon(
                           Icons.close_rounded,
                           color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 24.0,
+                          size: 32.0,
                         ),
                       ),
                     ],

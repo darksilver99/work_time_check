@@ -63,187 +63,208 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).secondaryBackground,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(0.0),
+          bottomRight: Radius.circular(0.0),
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.close_rounded,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
-                    ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 0.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.close_rounded,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    size: 32.0,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
-                child: StreamBuilder<UsersRecord>(
-                  stream: UsersRecord.getDocument(widget!.memberDoc!.createBy!),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
+              child: StreamBuilder<UsersRecord>(
+                stream: UsersRecord.getDocument(widget!.memberDoc!.createBy!),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).primary,
                           ),
                         ),
-                      );
-                    }
+                      ),
+                    );
+                  }
 
-                    final columnUsersRecord = snapshot.data!;
+                  final columnUsersRecord = snapshot.data!;
 
-                    return SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'ข้อมูลสมาชิก',
-                                    textAlign: TextAlign.start,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 24.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
+                  return SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'ข้อมูลสมาชิก',
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 24.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Builder(
-                                  builder: (context) {
-                                    if (columnUsersRecord.photoUrl != null &&
-                                        columnUsersRecord.photoUrl != '') {
-                                      return InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child:
-                                                  FlutterFlowExpandedImageView(
-                                                image: Image.network(
-                                                  columnUsersRecord.photoUrl,
-                                                  fit: BoxFit.contain,
-                                                ),
-                                                allowRotation: false,
-                                                tag: columnUsersRecord.photoUrl,
-                                                useHeroAnimation: true,
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Builder(
+                                builder: (context) {
+                                  if (columnUsersRecord.photoUrl != null &&
+                                      columnUsersRecord.photoUrl != '') {
+                                    return InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: FlutterFlowExpandedImageView(
+                                              image: Image.network(
+                                                columnUsersRecord.photoUrl,
+                                                fit: BoxFit.contain,
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: columnUsersRecord.photoUrl,
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(100.0),
-                                            child: Image.network(
-                                              columnUsersRecord.photoUrl,
-                                              width: 100.0,
-                                              height: 100.0,
-                                              fit: BoxFit.cover,
+                                              allowRotation: false,
+                                              tag: columnUsersRecord.photoUrl,
+                                              useHeroAnimation: true,
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    } else {
-                                      return Container(
-                                        width: 100.0,
-                                        height: 100.0,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFEBEBEB),
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 1.0,
+                                        );
+                                      },
+                                      child: Hero(
+                                        tag: columnUsersRecord.photoUrl,
+                                        transitionOnUserGestures: true,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(100.0),
+                                          child: Image.network(
+                                            columnUsersRecord.photoUrl,
+                                            width: 100.0,
+                                            height: 100.0,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(0.0, 0.0),
-                                          child: FaIcon(
-                                            FontAwesomeIcons.userAlt,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 36.0,
-                                          ),
+                                      ),
+                                    );
+                                  } else {
+                                    return Container(
+                                      width: 100.0,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFEBEBEB),
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
                                         ),
-                                      );
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.userAlt,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 36.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    widget!.memberDoc?.displayName,
+                                    '-',
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 20.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 8.0, 0.0),
                                   child: Text(
-                                    valueOrDefault<String>(
-                                      widget!.memberDoc?.displayName,
-                                      '-',
-                                    ),
+                                    'เบอร์โทรศัพท์ : ${columnUsersRecord.phoneNumber}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -253,21 +274,88 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                         ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await launchUrl(Uri(
+                                    scheme: 'tel',
+                                    path: columnUsersRecord.phoneNumber,
+                                  ));
+                                },
+                                child: FaIcon(
+                                  FontAwesomeIcons.phone,
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  size: 24.0,
+                                ),
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 8.0, 0.0),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'เข้าองค์กรเมื่อ : ${functions.dateTh(widget!.memberDoc?.createDate)}',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 20.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: FutureBuilder<int>(
+                            future: queryTransacationListRecordCount(
+                              parent: widget!.customerDoc?.reference,
+                              queryBuilder: (transacationListRecord) =>
+                                  transacationListRecord
+                                      .where(
+                                        'status',
+                                        isEqualTo: 3,
+                                      )
+                                      .where(
+                                        'member_ref',
+                                        isEqualTo: widget!.memberDoc?.reference,
+                                      ),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              int rowCount = snapshot.data!;
+
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
                                     child: Text(
-                                      'เบอร์โทรศัพท์ : ${columnUsersRecord.phoneNumber}',
+                                      'ลาทั้งหมด : ${rowCount.toString()} ครั้ง (เฉพาะที่อนุมัติ)',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -277,142 +365,84 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                           ),
                                     ),
                                   ),
-                                ),
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    await launchUrl(Uri(
-                                      scheme: 'tel',
-                                      path: columnUsersRecord.phoneNumber,
-                                    ));
-                                  },
-                                  child: FaIcon(
-                                    FontAwesomeIcons.phone,
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    size: 24.0,
-                                  ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              );
+                            },
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'เข้าองค์กรเมื่อ : ${functions.dateTh(widget!.memberDoc?.createDate)}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 20.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: FutureBuilder<int>(
-                              future: queryTransacationListRecordCount(
-                                parent: widget!.customerDoc?.reference,
-                                queryBuilder: (transacationListRecord) =>
-                                    transacationListRecord
-                                        .where(
-                                          'status',
-                                          isEqualTo: 3,
-                                        )
-                                        .where(
-                                          'member_ref',
-                                          isEqualTo:
-                                              widget!.memberDoc?.reference,
-                                        ),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                int rowCount = snapshot.data!;
-
-                                return Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'ลาทั้งหมด : ${rowCount.toString()} ครั้ง (เฉพาะที่อนุมัติ)',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              fontSize: 20.0,
-                                              letterSpacing: 0.0,
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 4.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        useSafeArea: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return WebViewAware(
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: HistoryViewWidget(
+                                                customerRef: widget!
+                                                    .memberDoc!.parentReference,
+                                                memberRef: widget!
+                                                    .memberDoc!.reference,
+                                              ),
                                             ),
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+                                    },
+                                    text: 'ประวัติลงเวลา',
+                                    options: FFButtonOptions(
+                                      height: 50.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            color: Colors.white,
+                                            fontSize: 20.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
                                       ),
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
                                     ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
+                                  ),
+                                ),
+                              ),
+                              if (false)
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 4.0, 0.0),
+                                        4.0, 0.0, 0.0, 0.0),
                                     child: FFButtonWidget(
-                                      onPressed: () async {
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          useSafeArea: true,
-                                          context: context,
-                                          builder: (context) {
-                                            return WebViewAware(
-                                              child: Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child: HistoryViewWidget(
-                                                  customerRef: widget!
-                                                      .memberDoc!
-                                                      .parentReference,
-                                                  memberRef: widget!
-                                                      .memberDoc!.reference,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => safeSetState(() {}));
+                                      onPressed: () {
+                                        print('Button pressed ...');
                                       },
-                                      text: 'ประวัติลงเวลา',
+                                      text: 'Excel',
                                       options: FFButtonOptions(
                                         height: 50.0,
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -421,7 +451,7 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                             EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
-                                            .secondary,
+                                            .success,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
@@ -441,466 +471,417 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                     ),
                                   ),
                                 ),
-                                if (false)
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 0.0, 0.0, 0.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () {
-                                          print('Button pressed ...');
-                                        },
-                                        text: 'Excel',
-                                        options: FFButtonOptions(
-                                          height: 50.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .success,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Kanit',
-                                                    color: Colors.white,
-                                                    fontSize: 20.0,
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          elevation: 3.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(100.0),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                              ],
-                            ),
+                            ],
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Builder(
-                                  builder: (context) => InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      _model.isConfirm =
-                                          await action_blocks.confirmBlock(
-                                        context,
-                                        title: 'ต้องการลบสมาชิกคนนี้?',
-                                        detail:
-                                            'หากลบแล้วจะไม่สามารถเรียกคืนข้อมูลได้รวมถึงข้อมูลการเข้าออกงาน, ข้อมูลการลา',
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Builder(
+                                builder: (context) => InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    _model.isConfirm =
+                                        await action_blocks.confirmBlock(
+                                      context,
+                                      title: 'ต้องการลบสมาชิกคนนี้?',
+                                      detail:
+                                          'หากลบแล้วจะไม่สามารถเรียกคืนข้อมูลได้รวมถึงข้อมูลการเข้าออกงาน, ข้อมูลการลา',
+                                    );
+                                    if (_model.isConfirm!) {
+                                      _model.totalMember =
+                                          await queryMemberListRecordCount(
+                                        parent: widget!.customerDoc?.reference,
                                       );
-                                      if (_model.isConfirm!) {
-                                        _model.totalMember =
-                                            await queryMemberListRecordCount(
+                                      if (_model.totalMember! > 1) {
+                                        _model.letterListResult =
+                                            await queryLetterListRecordOnce(
                                           parent:
                                               widget!.customerDoc?.reference,
+                                          queryBuilder: (letterListRecord) =>
+                                              letterListRecord.where(
+                                            'member_ref',
+                                            isEqualTo:
+                                                widget!.memberDoc?.reference,
+                                          ),
                                         );
-                                        if (_model.totalMember! > 1) {
-                                          _model.letterListResult =
-                                              await queryLetterListRecordOnce(
-                                            parent:
-                                                widget!.customerDoc?.reference,
-                                            queryBuilder: (letterListRecord) =>
-                                                letterListRecord.where(
-                                              'member_ref',
-                                              isEqualTo:
-                                                  widget!.memberDoc?.reference,
-                                            ),
-                                          );
-                                          while (_model.letterIndex <
-                                              _model.letterListResult!.length) {
-                                            await _model
-                                                .letterListResult![
-                                                    _model.letterIndex]
-                                                .reference
-                                                .delete();
-                                            _model.letterIndex =
-                                                _model.letterIndex + 1;
-                                          }
-                                          await widget!.memberDoc!.reference
+                                        while (_model.letterIndex <
+                                            _model.letterListResult!.length) {
+                                          await _model
+                                              .letterListResult![
+                                                  _model.letterIndex]
+                                              .reference
                                               .delete();
-                                          await showDialog(
-                                            context: context,
-                                            builder: (dialogContext) {
-                                              return Dialog(
-                                                elevation: 0,
-                                                insetPadding: EdgeInsets.zero,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                alignment: AlignmentDirectional(
-                                                        0.0, 0.0)
-                                                    .resolve(Directionality.of(
-                                                        context)),
-                                                child: WebViewAware(
-                                                  child: InfoCustomViewWidget(
-                                                    title:
-                                                        'ลบข้อมูลสมาชิกเรียบร้อยแล้ว',
-                                                    status: 'success',
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          );
-
-                                          Navigator.pop(context, 'update');
-                                        } else {
-                                          await showDialog(
-                                            context: context,
-                                            builder: (dialogContext) {
-                                              return Dialog(
-                                                elevation: 0,
-                                                insetPadding: EdgeInsets.zero,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                alignment: AlignmentDirectional(
-                                                        0.0, 0.0)
-                                                    .resolve(Directionality.of(
-                                                        context)),
-                                                child: WebViewAware(
-                                                  child: InfoCustomViewWidget(
-                                                    title:
-                                                        'ไม่สามารถลบสมาชิกได้ จำเป็นต้องมีสมาชิกอย่างน้อย 1 คนในองค์กร',
-                                                    status: 'error',
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          );
+                                          _model.letterIndex =
+                                              _model.letterIndex + 1;
                                         }
-                                      }
+                                        await widget!.memberDoc!.reference
+                                            .delete();
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title:
+                                                      'ลบข้อมูลสมาชิกเรียบร้อยแล้ว',
+                                                  status: 'success',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
 
-                                      safeSetState(() {});
-                                    },
-                                    child: Text(
-                                      'ลบสมาชิกคนนี้',
-                                      textAlign: TextAlign.end,
-                                      style: FlutterFlowTheme.of(context)
+                                        Navigator.pop(context, 'update');
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title:
+                                                      'ไม่สามารถลบสมาชิกได้ จำเป็นต้องมีสมาชิกอย่างน้อย 1 คนในองค์กร',
+                                                  status: 'error',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    }
+
+                                    safeSetState(() {});
+                                  },
+                                  child: Text(
+                                    'ลบสมาชิกคนนี้',
+                                    textAlign: TextAlign.end,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          letterSpacing: 0.0,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 32.0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(8.0),
+                                bottomRight: Radius.circular(8.0),
+                                topLeft: Radius.circular(8.0),
+                                topRight: Radius.circular(8.0),
+                              ),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).alternate,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'ตั้งค่าสิทธิ์',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 22.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: FlutterFlowDropDown<String>(
+                                      controller:
+                                          _model.dropDownValueController ??=
+                                              FormFieldController<String>(
+                                        _model.dropDownValue ??=
+                                            widget!.memberDoc?.permission,
+                                      ),
+                                      options: List<String>.from(FFAppState()
+                                          .permissionData
+                                          .map((e) => e.val)
+                                          .toList()),
+                                      optionLabels: FFAppState()
+                                          .permissionData
+                                          .map((e) => e.name)
+                                          .toList(),
+                                      onChanged: (val) => safeSetState(
+                                          () => _model.dropDownValue = val),
+                                      width: double.infinity,
+                                      height: 56.0,
+                                      textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Kanit',
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
                                             letterSpacing: 0.0,
-                                            decoration:
-                                                TextDecoration.underline,
                                           ),
+                                      hintText: 'เลือกสิทธิ์',
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      elevation: 2.0,
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      borderWidth: 2.0,
+                                      borderRadius: 100.0,
+                                      margin: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 4.0, 16.0, 4.0),
+                                      hidesUnderline: true,
+                                      isOverButton: true,
+                                      isSearchable: false,
+                                      isMultiSelect: false,
                                     ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 32.0),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(8.0),
-                                  bottomRight: Radius.circular(8.0),
-                                  topLeft: Radius.circular(8.0),
-                                  topRight: Radius.circular(8.0),
-                                ),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'ตั้งค่าสิทธิ์',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 22.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 8.0),
-                                      child: FlutterFlowDropDown<String>(
-                                        controller:
-                                            _model.dropDownValueController ??=
-                                                FormFieldController<String>(
-                                          _model.dropDownValue ??=
-                                              widget!.memberDoc?.permission,
-                                        ),
-                                        options: List<String>.from(FFAppState()
-                                            .permissionData
-                                            .map((e) => e.val)
-                                            .toList()),
-                                        optionLabels: FFAppState()
-                                            .permissionData
-                                            .map((e) => e.name)
-                                            .toList(),
-                                        onChanged: (val) => safeSetState(
-                                            () => _model.dropDownValue = val),
-                                        width: double.infinity,
-                                        height: 56.0,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        hintText: 'เลือกสิทธิ์',
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
-                                        ),
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 2.0,
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .alternate,
-                                        borderWidth: 2.0,
-                                        borderRadius: 100.0,
-                                        margin: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 4.0, 16.0, 4.0),
-                                        hidesUnderline: true,
-                                        isOverButton: true,
-                                        isSearchable: false,
-                                        isMultiSelect: false,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Builder(
-                                              builder: (context) =>
-                                                  FFButtonWidget(
-                                                onPressed: () async {
-                                                  var _shouldSetState = false;
-                                                  if (_model.dropDownValue ==
-                                                      'member') {
-                                                    if (widget!.memberDoc
-                                                            ?.permission ==
-                                                        _model.dropDownValue) {
-                                                      Navigator.pop(
-                                                          context, 'update');
-                                                      if (_shouldSetState)
-                                                        safeSetState(() {});
-                                                      return;
-                                                    } else {
-                                                      _model.totalAdmin =
-                                                          await queryMemberListRecordCount(
-                                                        parent: widget!
-                                                            .memberDoc
-                                                            ?.parentReference,
-                                                        queryBuilder:
-                                                            (memberListRecord) =>
-                                                                memberListRecord
-                                                                    .where(
-                                                          'permission',
-                                                          isEqualTo: 'admin',
-                                                        ),
-                                                      );
-                                                      _shouldSetState = true;
-                                                      if (_model.totalAdmin! <=
-                                                          1) {
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (dialogContext) {
-                                                            return Dialog(
-                                                              elevation: 0,
-                                                              insetPadding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              alignment: AlignmentDirectional(
-                                                                      0.0, 0.0)
-                                                                  .resolve(
-                                                                      Directionality.of(
-                                                                          context)),
-                                                              child:
-                                                                  WebViewAware(
-                                                                child:
-                                                                    InfoCustomViewWidget(
-                                                                  title:
-                                                                      'ไม่สามารถบันทึกข้อมูลได้',
-                                                                  detail:
-                                                                      'จำเป็นต้องมีเจ้าหน้าที่อย่างน้อย 1 คน',
-                                                                  status:
-                                                                      'error',
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-
-                                                        if (_shouldSetState)
-                                                          safeSetState(() {});
-                                                        return;
-                                                      }
-                                                    }
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Builder(
+                                            builder: (context) =>
+                                                FFButtonWidget(
+                                              onPressed: () async {
+                                                var _shouldSetState = false;
+                                                if (_model.dropDownValue ==
+                                                    'member') {
+                                                  if (widget!.memberDoc
+                                                          ?.permission ==
+                                                      _model.dropDownValue) {
+                                                    Navigator.pop(
+                                                        context, 'update');
+                                                    if (_shouldSetState)
+                                                      safeSetState(() {});
+                                                    return;
                                                   } else {
-                                                    if (widget!.memberDoc
-                                                            ?.permission ==
-                                                        _model.dropDownValue) {
-                                                      Navigator.pop(
-                                                          context, 'update');
-                                                      if (_shouldSetState)
-                                                        safeSetState(() {});
-                                                      return;
-                                                    }
-                                                  }
-
-                                                  await widget!
-                                                      .memberDoc!.reference
-                                                      .update(
-                                                          createMemberListRecordData(
-                                                    permission:
-                                                        _model.dropDownValue,
-                                                  ));
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (dialogContext) {
-                                                      return Dialog(
-                                                        elevation: 0,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        alignment:
-                                                            AlignmentDirectional(
+                                                    _model.totalAdmin =
+                                                        await queryMemberListRecordCount(
+                                                      parent: widget!.memberDoc
+                                                          ?.parentReference,
+                                                      queryBuilder:
+                                                          (memberListRecord) =>
+                                                              memberListRecord
+                                                                  .where(
+                                                        'permission',
+                                                        isEqualTo: 'admin',
+                                                      ),
+                                                    );
+                                                    _shouldSetState = true;
+                                                    if (_model.totalAdmin! <=
+                                                        1) {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (dialogContext) {
+                                                          return Dialog(
+                                                            elevation: 0,
+                                                            insetPadding:
+                                                                EdgeInsets.zero,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            alignment: AlignmentDirectional(
                                                                     0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
                                                                         context)),
-                                                        child: WebViewAware(
-                                                          child:
-                                                              InfoCustomViewWidget(
-                                                            title:
-                                                                'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                                            status: 'success',
-                                                          ),
-                                                        ),
+                                                            child: WebViewAware(
+                                                              child:
+                                                                  InfoCustomViewWidget(
+                                                                title:
+                                                                    'ไม่สามารถบันทึกข้อมูลได้',
+                                                                detail:
+                                                                    'จำเป็นต้องมีเจ้าหน้าที่อย่างน้อย 1 คน',
+                                                                status: 'error',
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
                                                       );
-                                                    },
-                                                  );
 
-                                                  if (_model.dropDownValue ==
-                                                      'member') {
-                                                    if (widget!.memberDoc
-                                                            ?.createBy ==
-                                                        currentUserReference) {
-                                                      await actions
-                                                          .pushReplacement(
-                                                        context,
-                                                        null,
-                                                      );
                                                       if (_shouldSetState)
                                                         safeSetState(() {});
                                                       return;
                                                     }
                                                   }
-                                                  Navigator.pop(
-                                                      context, 'update');
-                                                  if (_shouldSetState)
-                                                    safeSetState(() {});
-                                                },
-                                                text: 'บันทึกข้อมูล',
-                                                options: FFButtonOptions(
-                                                  height: 50.0,
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          24.0, 0.0, 24.0, 0.0),
-                                                  iconPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              0.0, 0.0),
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .info,
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
+                                                } else {
+                                                  if (widget!.memberDoc
+                                                          ?.permission ==
+                                                      _model.dropDownValue) {
+                                                    Navigator.pop(
+                                                        context, 'update');
+                                                    if (_shouldSetState)
+                                                      safeSetState(() {});
+                                                    return;
+                                                  }
+                                                }
+
+                                                await widget!
+                                                    .memberDoc!.reference
+                                                    .update(
+                                                        createMemberListRecordData(
+                                                  permission:
+                                                      _model.dropDownValue,
+                                                ));
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child: WebViewAware(
+                                                        child:
+                                                            InfoCustomViewWidget(
+                                                          title:
+                                                              'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                                          status: 'success',
+                                                        ),
                                                       ),
-                                                  elevation: 3.0,
-                                                  borderSide: BorderSide(
-                                                    color: Colors.transparent,
-                                                    width: 1.0,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100.0),
+                                                    );
+                                                  },
+                                                );
+
+                                                if (_model.dropDownValue ==
+                                                    'member') {
+                                                  if (widget!.memberDoc
+                                                          ?.createBy ==
+                                                      currentUserReference) {
+                                                    await actions
+                                                        .pushReplacement(
+                                                      context,
+                                                      null,
+                                                    );
+                                                    if (_shouldSetState)
+                                                      safeSetState(() {});
+                                                    return;
+                                                  }
+                                                }
+                                                Navigator.pop(
+                                                    context, 'update');
+                                                if (_shouldSetState)
+                                                  safeSetState(() {});
+                                              },
+                                              text: 'บันทึกข้อมูล',
+                                              options: FFButtonOptions(
+                                                height: 50.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .info,
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
                                                 ),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        100.0),
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        ),
+                      ].addToEnd(SizedBox(height: 180.0)),
+                    ),
+                  );
+                },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

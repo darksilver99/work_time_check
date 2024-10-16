@@ -69,7 +69,7 @@ class _TransactionDetailViewWidgetState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(32.0, 16.0, 32.0, 16.0),
+      padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -98,7 +98,7 @@ class _TransactionDetailViewWidgetState
                       child: Icon(
                         Icons.close_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
+                        size: 32.0,
                       ),
                     ),
                   ],
