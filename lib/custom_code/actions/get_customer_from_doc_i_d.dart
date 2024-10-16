@@ -16,6 +16,10 @@ Future<CustomerRecord?> getCustomerFromDocID(String? docID) async {
     return null;
   }
 
+  if (docID == '') {
+    return null;
+  }
+
   try {
     return await CustomerRecord.getDocumentOnce(
         FirebaseFirestore.instance.doc("customer/$docID"));
