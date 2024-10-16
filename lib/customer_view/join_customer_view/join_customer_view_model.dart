@@ -35,4 +35,9 @@ class JoinCustomerViewModel extends FlutterFlowModel<JoinCustomerViewWidget> {
 
   @override
   void dispose() {}
+
+  /// Action blocks.
+  Future<String?> qrCodeBlock(BuildContext context) async {
+    return null;
+  }
 }

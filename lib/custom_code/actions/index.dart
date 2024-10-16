@@ -8,3 +8,4 @@ export 'set_app_version.dart' show setAppVersion;
 export 'share_file.dart' show shareFile;
 export 'custom_camera.dart' show customCamera;
 export 'get_customer_from_doc_i_d.dart' show getCustomerFromDocID;
+export 'get_q_r_code_data_from_image_path.dart' show getQRCodeDataFromImagePath;

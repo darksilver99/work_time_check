@@ -8,3 +8,5 @@ export '/authen_page/reset_password_page/reset_password_page_widget.dart'
 export '/other_page/web_view_page/web_view_page_widget.dart'
     show WebViewPageWidget;
 export '/other_page/test_page/test_page_widget.dart' show TestPageWidget;
+export '/other_page/scan_and_upload_q_r_code_page/scan_and_upload_q_r_code_page_widget.dart'
+    show ScanAndUploadQRCodePageWidget;
