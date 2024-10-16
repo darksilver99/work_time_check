@@ -21,9 +21,20 @@ class MyCustomerViewModel extends FlutterFlowModel<MyCustomerViewWidget> {
 
   DateTime? endDate;
 
-  @override
-  void initState(BuildContext context) {}
+  ///  State fields for stateful widgets in this component.
+
+  // Models for CustomerMemberView dynamic component.
+  late FlutterFlowDynamicModels<CustomerMemberViewModel>
+      customerMemberViewModels;
 
   @override
-  void dispose() {}
+  void initState(BuildContext context) {
+    customerMemberViewModels =
+        FlutterFlowDynamicModels(() => CustomerMemberViewModel());
+  }
+
+  @override
+  void dispose() {
+    customerMemberViewModels.dispose();
+  }
 }
