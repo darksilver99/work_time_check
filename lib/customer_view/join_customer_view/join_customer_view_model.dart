@@ -14,7 +14,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -22,7 +21,8 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class JoinCustomerViewModel extends FlutterFlowModel<JoinCustomerViewWidget> {
   ///  State fields for stateful widgets in this component.
 
-  var qrCodeResult = '';
+  // Stores action output result for [Action Block - qrCodeBlock] action in Button widget.
+  String? qrCodeResult;
   // Stores action output result for [Custom Action - getCustomerFromDocID] action in Button widget.
   CustomerRecord? customerDocResult;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
@@ -35,4 +35,9 @@ class JoinCustomerViewModel extends FlutterFlowModel<JoinCustomerViewWidget> {
 
   @override
   void dispose() {}
+
+  /// Action blocks.
+  Future<String?> qrCodeBlock(BuildContext context) async {
+    return null;
+  }
 }

@@ -13,7 +13,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -157,14 +156,7 @@ class _JoinCustomerViewWidgetState extends State<JoinCustomerViewWidget>
                                   builder: (context) => FFButtonWidget(
                                     onPressed: () async {
                                       _model.qrCodeResult =
-                                          await FlutterBarcodeScanner
-                                              .scanBarcode(
-                                        '#C62828', // scanning line color
-                                        'Cancel', // cancel button text
-                                        true, // whether to show the flash icon
-                                        ScanMode.QR,
-                                      );
-
+                                          await _model.qrCodeBlock(context);
                                       _model.customerDocResult =
                                           await actions.getCustomerFromDocID(
                                         _model.qrCodeResult,
