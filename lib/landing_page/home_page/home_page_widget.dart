@@ -842,9 +842,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   alignment:
                                                       AlignmentDirectional(
                                                           1.0, -1.0),
-                                                  child: FutureBuilder<int>(
-                                                    future:
-                                                        queryLetterListRecordCount(
+                                                  child: StreamBuilder<
+                                                      List<LetterListRecord>>(
+                                                    stream:
+                                                        queryLetterListRecord(
                                                       parent: FFAppState()
                                                           .customerData
                                                           .customerRef,
@@ -855,6 +856,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         'status',
                                                         isEqualTo: 0,
                                                       ),
+                                                      singleRecord: true,
                                                     ),
                                                     builder:
                                                         (context, snapshot) {
@@ -877,15 +879,27 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                           ),
                                                         );
                                                       }
-                                                      int columnCount =
+                                                      List<LetterListRecord>
+                                                          columnLetterListRecordList =
                                                           snapshot.data!;
+                                                      // Return an empty Container when the item does not exist.
+                                                      if (snapshot
+                                                          .data!.isEmpty) {
+                                                        return Container();
+                                                      }
+                                                      final columnLetterListRecord =
+                                                          columnLetterListRecordList
+                                                                  .isNotEmpty
+                                                              ? columnLetterListRecordList
+                                                                  .first
+                                                              : null;
 
                                                       return Column(
                                                         mainAxisSize:
                                                             MainAxisSize.min,
                                                         children: [
-                                                          if ((columnCount >
-                                                                  0) &&
+                                                          if ((columnLetterListRecord !=
+                                                                  null) &&
                                                               (FFAppState()
                                                                       .memberData
                                                                       .permission ==
