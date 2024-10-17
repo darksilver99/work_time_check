@@ -18,7 +18,7 @@ class WorkTimeViewWidget extends StatefulWidget {
   State<WorkTimeViewWidget> createState() => _WorkTimeViewWidgetState();
 }
 
-class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
+class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> with WidgetsBindingObserver {
   late WorkTimeViewModel _model;
 
   @override
@@ -37,13 +37,29 @@ class _WorkTimeViewWidgetState extends State<WorkTimeViewWidget> {
       await _model.initData(context);
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     _model.maybeDispose();
-
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (state == AppLifecycleState.resumed) {
+        await _model.initData(context);
+        safeSetState(() {});
+      }
+    });
+
+
   }
 
   @override
