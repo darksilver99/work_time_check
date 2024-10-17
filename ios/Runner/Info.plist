@@ -58,7 +58,7 @@
 	<key>NSCameraUsageDescription</key>
     <string>The application needs access to the camera to take member photos for recording check-in and check-out work times.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>In order to upload data, this app requires permission to access the photo library.</string>
+    <string>The application needs access to the photo library to upload member profile pictures.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>We need access to your microphone to record voice notes within the app.</string>
     <key>NSContactsUsageDescription</key>
