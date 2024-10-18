@@ -76,7 +76,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
                     splashColor: Colors.transparent,
@@ -87,7 +87,7 @@ class _CustomerDetailPageWidgetState extends State<CustomerDetailPageWidget> {
                       context.safePop();
                     },
                     child: Icon(
-                      Icons.chevron_left_rounded,
+                      Icons.close_rounded,
                       color: FlutterFlowTheme.of(context).secondaryText,
                       size: 32.0,
                     ),
