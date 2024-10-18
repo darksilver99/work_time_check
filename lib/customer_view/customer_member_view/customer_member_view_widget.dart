@@ -277,6 +277,12 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                       }.withoutNulls,
                                       extra: <String, dynamic>{
                                         'customerDoc': columnCustomerRecord,
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.bottomToTop,
+                                          duration: Duration(milliseconds: 300),
+                                        ),
                                       },
                                     );
                                   } else {

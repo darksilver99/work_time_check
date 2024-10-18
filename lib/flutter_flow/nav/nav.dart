@@ -382,7 +382,11 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(
+        hasTransition: true,
+        transitionType: PageTransitionType.bottomToTop,
+        duration: Duration(milliseconds: 300),
+      );
 }
 
 class RootPageContext {
