@@ -131,6 +131,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ScanAndUploadQRCodePage',
           path: '/scanAndUploadQRCodePage',
           builder: (context, params) => ScanAndUploadQRCodePageWidget(),
+        ),
+        FFRoute(
+          name: 'CustomerDetailPage',
+          path: '/customerDetailPage',
+          asyncParams: {
+            'customerDoc': getDoc(['customer'], CustomerRecord.fromSnapshot),
+          },
+          builder: (context, params) => CustomerDetailPageWidget(
+            customerDoc: params.getParam(
+              'customerDoc',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -13,7 +13,7 @@ import '/payment/promotion_view/promotion_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'customer_detail_view_widget.dart' show CustomerDetailViewWidget;
+import 'customer_detail_page_widget.dart' show CustomerDetailPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -21,17 +21,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
-class CustomerDetailViewModel
-    extends FlutterFlowModel<CustomerDetailViewWidget> {
-  ///  Local state fields for this component.
+class CustomerDetailPageModel
+    extends FlutterFlowModel<CustomerDetailPageWidget> {
+  ///  Local state fields for this page.
 
   DateTime? currentDate;
 
   bool isExpire = true;
 
-  ///  State fields for stateful widgets in this component.
+  ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Action Block - checkIsCustomerExpire] action in CustomerDetailView widget.
+  // Stores action output result for [Action Block - checkIsCustomerExpire] action in CustomerDetailPage widget.
   bool? checkIsExpire;
   // Stores action output result for [Alert Dialog - Custom Dialog] action in Icon widget.
   String? isUpdate;
