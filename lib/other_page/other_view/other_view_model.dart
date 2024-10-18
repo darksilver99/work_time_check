@@ -1,9 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/issue_view_widget.dart';
-import '/components/profile_view_widget.dart';
-import '/components/suggest_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/other_page/issue_view/issue_view_widget.dart';
+import '/other_page/profile_view/profile_view_widget.dart';
+import '/other_page/suggest_view/suggest_view_widget.dart';
 import 'other_view_widget.dart' show OtherViewWidget;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

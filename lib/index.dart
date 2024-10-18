@@ -10,3 +10,5 @@ export '/other_page/web_view_page/web_view_page_widget.dart'
 export '/other_page/test_page/test_page_widget.dart' show TestPageWidget;
 export '/other_page/scan_and_upload_q_r_code_page/scan_and_upload_q_r_code_page_widget.dart'
     show ScanAndUploadQRCodePageWidget;
+export '/customer_view/customer_detail_page/customer_detail_page_widget.dart'
+    show CustomerDetailPageWidget;

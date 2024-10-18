@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
-import '/customer_view/customer_detail_view/customer_detail_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
@@ -268,28 +267,18 @@ class _CustomerMemberViewWidgetState extends State<CustomerMemberViewWidget> {
                                 onTap: () async {
                                   if (widget!.memberDoc?.permission ==
                                       'admin') {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      isDismissible: false,
-                                      useSafeArea: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return WebViewAware(
-                                          child: Padding(
-                                            padding: MediaQuery.viewInsetsOf(
-                                                context),
-                                            child: Container(
-                                              height: double.infinity,
-                                              child: CustomerDetailViewWidget(
-                                                customerDoc:
-                                                    columnCustomerRecord,
-                                              ),
-                                            ),
-                                          ),
-                                        );
+                                    context.pushNamed(
+                                      'CustomerDetailPage',
+                                      queryParameters: {
+                                        'customerDoc': serializeParam(
+                                          columnCustomerRecord,
+                                          ParamType.Document,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        'customerDoc': columnCustomerRecord,
                                       },
-                                    ).then((value) => safeSetState(() {}));
+                                    );
                                   } else {
                                     await showDialog(
                                       context: context,
