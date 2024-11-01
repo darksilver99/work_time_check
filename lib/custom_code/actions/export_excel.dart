@@ -67,7 +67,7 @@ Future<String> exportExcel(
   Sheet sheetObject = excel['Sheet1'];
 
   CellStyle cellStyle = CellStyle(
-    backgroundColorHex: '#1AFF1A',
+    backgroundColorHex: ExcelColor.fromHexString('#1AFF1A'),
     horizontalAlign: HorizontalAlign.Center,
     bold: true,
     leftBorder: exBorder.Border(borderStyle: exBorder.BorderStyle.Thin),
@@ -103,72 +103,6 @@ Future<String> exportExcel(
     cell.cellStyle = cellStyle;
   }
 
-  // Add body
-  for (int i = 0; i < rs.size; i++) {
-    break;
-    var rsUser = await FirebaseFirestore.instance
-        .doc(rs.docs[i].data()["create_by"].path)
-        .get();
-
-    for (int j = 0; j < header.length; j++) {
-      var cell = sheetObject
-          .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: i + 2));
-      cell.cellStyle = CellStyle(horizontalAlign: HorizontalAlign.Left);
-      cell.value = TextCellValue(
-          '${rsUser.data()!["first_name"]} ${rsUser.data()!["last_name"]}(${rsUser.data()!["display_name"]})');
-
-      // if (dateTimeFormat('dd/MM/yyyy', rs.docs[i].data()["date_in"].toDate()) == header[j]) {
-      if (functions.dateTh(rs.docs[i].data()["date_in"].toDate()) ==
-          header[j]) {
-        var cell = sheetObject
-            .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2));
-        var dateIn =
-            dateTimeFormat('Hm', rs.docs[i].data()["date_in"].toDate());
-        var dateOut = rs.docs[i].data().containsKey("date_out")
-            ? dateTimeFormat('Hm', rs.docs[i].data()["date_out"].toDate())
-            : "-";
-
-        cell.cellStyle = CellStyle(textWrapping: TextWrapping.WrapText);
-
-        /*DateTime? tmpUpdateDate = rs.docs[i].data().containsKey("date_out") ? rs.docs[i].data()["date_out"].toDate() : null;
-        if (isLate(rsCompany, rs.docs[i].data()["create_date"].toDate(), tmpUpdateDate)) {
-          cell.cellStyle = CellStyle(fontColorHex: "#ff0000", textWrapping: TextWrapping.WrapText);
-        }*/
-
-        var detailIn = rs.docs[i].data().containsKey("detail_in")
-            ? rs.docs[i].data()["detail_in"]
-            : " -";
-        var detailOut = rs.docs[i].data().containsKey("detail_out")
-            ? rs.docs[i].data()["detail_out"]
-            : " -";
-
-        var startEndTimeText = "เข้างาน : $dateIn | ออกงาน : $dateOut";
-        var startEndDetailText =
-            "รายละเอียด(เข้างาน) : ${(detailIn != '') ? detailIn : " -"}\n รายละเอียด(ออกงาน) :${(detailOut != '') ? detailOut : " -"}";
-        var durationText = "";
-        if (rs.docs[i].data().containsKey("date_out")) {
-          durationText =
-              "ระยะเวลาทำงาน : ${functions.formatDuration(functions.millisecondsBetween(rs.docs[i].data()["date_in"].toDate(), rs.docs[i].data()["date_out"].toDate()))}";
-        }
-        //var photoIn = "รูปเข้างาน : ${rs.docs[i].data()["photo_in"]}";
-        //var photoOut = "รูปออกงาน : ${rs.docs[i].data().containsKey("photo_out") && rs.docs[i].data()["photo_out"].trim() != "" ? rs.docs[i].data()["photo_out"] : " -"}";
-        if (rs.docs[i].data()["status"] == 3) {
-          cell.value = TextCellValue("ลางาน");
-        } else {
-          cell.value = TextCellValue(
-              "$startEndTimeText\n$startEndDetailText\n$durationText");
-        }
-      }
-
-      //เสาทิตใส่สี
-      if (isWeekend2(header[j])) {
-        var cell2 = sheetObject
-            .cell(CellIndex.indexByColumnRow(columnIndex: j, rowIndex: i + 2));
-        cell2.cellStyle = CellStyle(backgroundColorHex: "#ffdfdf");
-      }
-    }
-  }
-
   // new body
   for (int i = 0; i < rsMember.size; i++) {
     var cell = sheetObject
@@ -186,7 +120,8 @@ Future<String> exportExcel(
 
       //เสาทิตใส่สี
       if (isWeekend2('${functions.dateTh(dateRange[j])}')) {
-        cell.cellStyle = CellStyle(backgroundColorHex: "#ffdfdf");
+        cell.cellStyle =
+            CellStyle(backgroundColorHex: ExcelColor.fromHexString("#ffdfdf"));
       }
 
       var transactionInThisDate = filterSnapshotByDate(rs,
