@@ -95,47 +95,47 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
           ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Text(
-                    'จัดการองค์กร',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Kanit',
-                          fontSize: 24.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
+            child: FutureBuilder<int>(
+              future: queryCustomerRecordCount(
+                queryBuilder: (customerRecord) => customerRecord.where(
+                  'create_by',
+                  isEqualTo: currentUserReference,
                 ),
-                if (true /* Warning: Trying to access variable not yet defined. */)
-                  Builder(
-                    builder: (context) => FutureBuilder<int>(
-                      future: queryCustomerRecordCount(
-                        queryBuilder: (customerRecord) => customerRecord.where(
-                          'create_by',
-                          isEqualTo: currentUserReference,
+              ),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          FlutterFlowTheme.of(context).primary,
                         ),
                       ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        int buttonCount = snapshot.data!;
+                    ),
+                  );
+                }
+                int rowCount = snapshot.data!;
 
-                        return FFButtonWidget(
+                return Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'จัดการองค์กร',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              fontSize: 24.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                    if (rowCount < FFAppState().configData.limitCustomerCreate)
+                      Builder(
+                        builder: (context) => FFButtonWidget(
                           onPressed: () async {
                             await showDialog(
                               context: context,
@@ -179,11 +179,11 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                        );
-                      },
-                    ),
-                  ),
-              ],
+                        ),
+                      ),
+                  ],
+                );
+              },
             ),
           ),
           Expanded(
