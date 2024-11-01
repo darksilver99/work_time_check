@@ -281,7 +281,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                       'สร้างองค์กรเรียบร้อยแล้ว',
                                                   status: 'success',
                                                   detail:
-                                                      'ทดลองใช้งานฟรี 30 วันสำหรับองค์กร \"${_model.textController.text}\" สามารถเชิญสมาชิกเข้าร่วมองค์กรได้ที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"เชิญสมาชิก\"',
+                                                      'ทดลองใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วันท่านสามารถเชิญสมาชิกเข้าร่วมองค์กรได้ที่เมนู จัดการองค์กร > ตั้งค่าองค์กร > เชิญสมาชิก',
                                                 ),
                                               ),
                                             );
