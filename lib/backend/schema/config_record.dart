@@ -66,6 +66,11 @@ class ConfigRecord extends FirestoreRecord {
   bool get isReview => _isReview ?? false;
   bool hasIsReview() => _isReview != null;
 
+  // "limit_customer_create" field.
+  int? _limitCustomerCreate;
+  int get limitCustomerCreate => _limitCustomerCreate ?? 0;
+  bool hasLimitCustomerCreate() => _limitCustomerCreate != null;
+
   void _initializeFields() {
     _storeVersion = castToType<int>(snapshotData['store_version']);
     _storeIosLink = snapshotData['store_ios_link'] as String?;
@@ -77,6 +82,8 @@ class ConfigRecord extends FirestoreRecord {
     _promotionDetailImage = snapshotData['promotion_detail_image'] as String?;
     _contact = getDataList(snapshotData['contact']);
     _isReview = snapshotData['isReview'] as bool?;
+    _limitCustomerCreate =
+        castToType<int>(snapshotData['limit_customer_create']);
   }
 
   static CollectionReference get collection =>
@@ -121,6 +128,7 @@ Map<String, dynamic> createConfigRecordData({
   String? paymentDetailImage,
   String? promotionDetailImage,
   bool? isReview,
+  int? limitCustomerCreate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -132,6 +140,7 @@ Map<String, dynamic> createConfigRecordData({
       'payment_detail_image': paymentDetailImage,
       'promotion_detail_image': promotionDetailImage,
       'isReview': isReview,
+      'limit_customer_create': limitCustomerCreate,
     }.withoutNulls,
   );
 
@@ -153,7 +162,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e1?.paymentDetailImage == e2?.paymentDetailImage &&
         e1?.promotionDetailImage == e2?.promotionDetailImage &&
         listEquality.equals(e1?.contact, e2?.contact) &&
-        e1?.isReview == e2?.isReview;
+        e1?.isReview == e2?.isReview &&
+        e1?.limitCustomerCreate == e2?.limitCustomerCreate;
   }
 
   @override
@@ -167,7 +177,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.paymentDetailImage,
         e?.promotionDetailImage,
         e?.contact,
-        e?.isReview
+        e?.isReview,
+        e?.limitCustomerCreate
       ]);
 
   @override

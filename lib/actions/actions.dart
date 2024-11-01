@@ -63,6 +63,7 @@ Future initConfig(BuildContext context) async {
     promotionDetailImage: configResult?.promotionDetailImage,
     contact: configResult?.contact,
     isReview: configResult?.isReview,
+    limitCustomerCreate: configResult?.limitCustomerCreate,
   );
   await action_blocks.checkAppVersion(context);
 }
