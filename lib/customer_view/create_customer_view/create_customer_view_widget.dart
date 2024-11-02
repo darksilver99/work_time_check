@@ -226,7 +226,9 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                         createBy: currentUserReference,
                                         status: 1,
                                         expireDate: functions.getEndDayTime(
-                                            functions.getNextDay(30)),
+                                            functions.getNextDay(FFAppState()
+                                                .configData
+                                                .freeDay)),
                                         subject: _model.textController.text,
                                         maxPerson: 10,
                                       ));
@@ -236,9 +238,12 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                 createDate: getCurrentTimestamp,
                                                 createBy: currentUserReference,
                                                 status: 1,
-                                                expireDate: functions
-                                                    .getEndDayTime(functions
-                                                        .getNextDay(30)),
+                                                expireDate:
+                                                    functions.getEndDayTime(
+                                                        functions.getNextDay(
+                                                            FFAppState()
+                                                                .configData
+                                                                .freeDay)),
                                                 subject:
                                                     _model.textController.text,
                                                 maxPerson: 10,

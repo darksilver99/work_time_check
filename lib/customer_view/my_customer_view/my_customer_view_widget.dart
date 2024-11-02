@@ -97,10 +97,15 @@ class _MyCustomerViewWidgetState extends State<MyCustomerViewWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),
             child: FutureBuilder<int>(
               future: queryCustomerRecordCount(
-                queryBuilder: (customerRecord) => customerRecord.where(
-                  'create_by',
-                  isEqualTo: currentUserReference,
-                ),
+                queryBuilder: (customerRecord) => customerRecord
+                    .where(
+                      'create_by',
+                      isEqualTo: currentUserReference,
+                    )
+                    .where(
+                      'status',
+                      isEqualTo: 1,
+                    ),
               ),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
