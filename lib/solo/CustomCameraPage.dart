@@ -128,8 +128,12 @@ class _CustomCameraPageState extends State<CustomCameraPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            Expanded(
-              child: CameraPreview(controller),
+            Center(
+              child: Container(
+                color: Colors.black,
+                width: MediaQuery.of(context).size.width,
+                child: CameraPreview(controller),
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
