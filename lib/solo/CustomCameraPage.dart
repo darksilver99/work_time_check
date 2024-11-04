@@ -130,6 +130,7 @@ class _CustomCameraPageState extends State<CustomCameraPage> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               child: CameraPreview(controller),
             ),
             Align(
