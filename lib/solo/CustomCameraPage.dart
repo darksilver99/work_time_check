@@ -130,9 +130,11 @@ class _CustomCameraPageState extends State<CustomCameraPage> {
         top: true,
         child: Stack(
           children: [
-            Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: AspectRatio(
+                aspectRatio: controller.value.aspectRatio,
                 child: CameraPreview(controller),
               ),
             ),
