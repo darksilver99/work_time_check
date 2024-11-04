@@ -71,6 +71,11 @@ class ConfigRecord extends FirestoreRecord {
   int get limitCustomerCreate => _limitCustomerCreate ?? 0;
   bool hasLimitCustomerCreate() => _limitCustomerCreate != null;
 
+  // "store_link" field.
+  String? _storeLink;
+  String get storeLink => _storeLink ?? '';
+  bool hasStoreLink() => _storeLink != null;
+
   void _initializeFields() {
     _storeVersion = castToType<int>(snapshotData['store_version']);
     _storeIosLink = snapshotData['store_ios_link'] as String?;
@@ -84,6 +89,7 @@ class ConfigRecord extends FirestoreRecord {
     _isReview = snapshotData['isReview'] as bool?;
     _limitCustomerCreate =
         castToType<int>(snapshotData['limit_customer_create']);
+    _storeLink = snapshotData['store_link'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -129,6 +135,7 @@ Map<String, dynamic> createConfigRecordData({
   String? promotionDetailImage,
   bool? isReview,
   int? limitCustomerCreate,
+  String? storeLink,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -141,6 +148,7 @@ Map<String, dynamic> createConfigRecordData({
       'promotion_detail_image': promotionDetailImage,
       'isReview': isReview,
       'limit_customer_create': limitCustomerCreate,
+      'store_link': storeLink,
     }.withoutNulls,
   );
 
@@ -163,7 +171,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e1?.promotionDetailImage == e2?.promotionDetailImage &&
         listEquality.equals(e1?.contact, e2?.contact) &&
         e1?.isReview == e2?.isReview &&
-        e1?.limitCustomerCreate == e2?.limitCustomerCreate;
+        e1?.limitCustomerCreate == e2?.limitCustomerCreate &&
+        e1?.storeLink == e2?.storeLink;
   }
 
   @override
@@ -178,7 +187,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.promotionDetailImage,
         e?.contact,
         e?.isReview,
-        e?.limitCustomerCreate
+        e?.limitCustomerCreate,
+        e?.storeLink
       ]);
 
   @override

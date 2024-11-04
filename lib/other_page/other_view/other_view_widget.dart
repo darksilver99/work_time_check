@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 import 'other_view_model.dart';
@@ -405,10 +406,77 @@ class _OtherViewWidgetState extends State<OtherViewWidget> {
                                             ],
                                           ),
                                         ),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 1.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
                                 ),
+                                if (!FFAppState().configData.isReview)
+                                  Builder(
+                                    builder: (context) => InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await Share.share(
+                                          FFAppState().configData.storeLink,
+                                          sharePositionOrigin:
+                                              getWidgetBoundingBox(context),
+                                        );
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          if (FFAppState()
+                                                      .configData
+                                                      .storeLink !=
+                                                  null &&
+                                              FFAppState()
+                                                      .configData
+                                                      .storeLink !=
+                                                  '')
+                                            Container(
+                                              width: double.infinity,
+                                              height: 60.0,
+                                              decoration: BoxDecoration(),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      'แชร์ลิงก์ดาวน์โหลด',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            fontSize: 22.0,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                  Icon(
+                                                    Icons.navigate_next_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                               ],
                             ),
                           ),

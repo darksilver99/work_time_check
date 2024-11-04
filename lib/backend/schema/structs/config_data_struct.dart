@@ -21,6 +21,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
     List<String>? contact,
     bool? isReview,
     int? limitCustomerCreate,
+    String? storeLink,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _storeVersion = storeVersion,
         _storeIosLink = storeIosLink,
@@ -33,6 +34,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         _contact = contact,
         _isReview = isReview,
         _limitCustomerCreate = limitCustomerCreate,
+        _storeLink = storeLink,
         super(firestoreUtilData);
 
   // "store_version" field.
@@ -128,6 +130,13 @@ class ConfigDataStruct extends FFFirebaseStruct {
 
   bool hasLimitCustomerCreate() => _limitCustomerCreate != null;
 
+  // "store_link" field.
+  String? _storeLink;
+  String get storeLink => _storeLink ?? '';
+  set storeLink(String? val) => _storeLink = val;
+
+  bool hasStoreLink() => _storeLink != null;
+
   static ConfigDataStruct fromMap(Map<String, dynamic> data) =>
       ConfigDataStruct(
         storeVersion: castToType<int>(data['store_version']),
@@ -141,6 +150,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         contact: getDataList(data['contact']),
         isReview: data['isReview'] as bool?,
         limitCustomerCreate: castToType<int>(data['limit_customer_create']),
+        storeLink: data['store_link'] as String?,
       );
 
   static ConfigDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -159,6 +169,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'contact': _contact,
         'isReview': _isReview,
         'limit_customer_create': _limitCustomerCreate,
+        'store_link': _storeLink,
       }.withoutNulls;
 
   @override
@@ -208,6 +219,10 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'limit_customer_create': serializeParam(
           _limitCustomerCreate,
           ParamType.int,
+        ),
+        'store_link': serializeParam(
+          _storeLink,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -268,6 +283,11 @@ class ConfigDataStruct extends FFFirebaseStruct {
           ParamType.int,
           false,
         ),
+        storeLink: deserializeParam(
+          data['store_link'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -287,7 +307,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         promotionDetailImage == other.promotionDetailImage &&
         listEquality.equals(contact, other.contact) &&
         isReview == other.isReview &&
-        limitCustomerCreate == other.limitCustomerCreate;
+        limitCustomerCreate == other.limitCustomerCreate &&
+        storeLink == other.storeLink;
   }
 
   @override
@@ -302,7 +323,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         promotionDetailImage,
         contact,
         isReview,
-        limitCustomerCreate
+        limitCustomerCreate,
+        storeLink
       ]);
 }
 
@@ -316,6 +338,7 @@ ConfigDataStruct createConfigDataStruct({
   String? promotionDetailImage,
   bool? isReview,
   int? limitCustomerCreate,
+  String? storeLink,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -331,6 +354,7 @@ ConfigDataStruct createConfigDataStruct({
       promotionDetailImage: promotionDetailImage,
       isReview: isReview,
       limitCustomerCreate: limitCustomerCreate,
+      storeLink: storeLink,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
