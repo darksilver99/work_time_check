@@ -96,6 +96,7 @@ class _CustomCameraPageState extends State<CustomCameraPage> {
       return Container();
     }
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
@@ -126,11 +127,11 @@ class _CustomCameraPageState extends State<CustomCameraPage> {
         elevation: 2.0,
       ),
       body: SafeArea(
+        top: true,
         child: Stack(
           children: [
             Center(
               child: Container(
-                color: Colors.black,
                 width: MediaQuery.of(context).size.width,
                 child: CameraPreview(controller),
               ),
