@@ -15,6 +15,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 import 'join_customer_view_model.dart';
 export 'join_customer_view_model.dart';
@@ -68,6 +69,8 @@ class _JoinCustomerViewWidgetState extends State<JoinCustomerViewWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -421,6 +424,75 @@ class _JoinCustomerViewWidgetState extends State<JoinCustomerViewWidget>
                             ),
                           ],
                         ),
+                        if (!FFAppState().configData.isReview)
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              if (FFAppState().configData.storeLink != null &&
+                                  FFAppState().configData.storeLink != '')
+                                Builder(
+                                  builder: (context) => InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await Share.share(
+                                        FFAppState().configData.storeLink,
+                                        sharePositionOrigin:
+                                            getWidgetBoundingBox(context),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 60.0,
+                                      decoration: BoxDecoration(),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 4.0, 0.0),
+                                            child: Icon(
+                                              Icons.share_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              size: 16.0,
+                                            ),
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              'แชร์ลิงก์ดาวน์โหลด',
+                                              textAlign: TextAlign.center,
+                                              maxLines: 2,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                       ],
                     ),
                   ),

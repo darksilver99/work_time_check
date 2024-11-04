@@ -419,31 +419,30 @@ class _OtherViewWidgetState extends State<OtherViewWidget> {
                                   ),
                                 ),
                                 if (!FFAppState().configData.isReview)
-                                  Builder(
-                                    builder: (context) => InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        await Share.share(
-                                          FFAppState().configData.storeLink,
-                                          sharePositionOrigin:
-                                              getWidgetBoundingBox(context),
-                                        );
-                                      },
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          if (FFAppState()
-                                                      .configData
-                                                      .storeLink !=
-                                                  null &&
-                                              FFAppState()
-                                                      .configData
-                                                      .storeLink !=
-                                                  '')
-                                            Container(
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      if (FFAppState().configData.storeLink !=
+                                              null &&
+                                          FFAppState().configData.storeLink !=
+                                              '')
+                                        Builder(
+                                          builder: (context) => InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await Share.share(
+                                                FFAppState()
+                                                    .configData
+                                                    .storeLink,
+                                                sharePositionOrigin:
+                                                    getWidgetBoundingBox(
+                                                        context),
+                                              );
+                                            },
+                                            child: Container(
                                               width: double.infinity,
                                               height: 60.0,
                                               decoration: BoxDecoration(),
@@ -473,9 +472,9 @@ class _OtherViewWidgetState extends State<OtherViewWidget> {
                                                 ],
                                               ),
                                             ),
-                                        ],
-                                      ),
-                                    ),
+                                          ),
+                                        ),
+                                    ],
                                   ),
                               ],
                             ),
