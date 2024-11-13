@@ -244,3 +244,22 @@ bool checkIsDateAfter(
   // Check if dateTime1's date is after dateTime2's date
   return dateOnly1.isAfter(dateOnly2);
 }
+
+double? getLatLng(
+  LatLng? location,
+  String type,
+) {
+  if (location == null) {
+    return null;
+  }
+
+  if (location.latitude == 0) {
+    return null;
+  }
+
+  if (type == "lat") {
+    return location.latitude;
+  } else {
+    return location.longitude;
+  }
+}

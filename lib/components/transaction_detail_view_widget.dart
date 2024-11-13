@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'transaction_detail_view_model.dart';
 export 'transaction_detail_view_model.dart';
 
@@ -367,6 +369,122 @@ class _TransactionDetailViewWidgetState
                                             ],
                                           ),
                                         ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Flexible(
+                                                child: RichText(
+                                                  textScaler:
+                                                      MediaQuery.of(context)
+                                                          .textScaler,
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: 'ตำแหน่ง : ',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
+                                                      ),
+                                                      TextSpan(
+                                                        text: 'ดูในแผนที่ ',
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xFF160DFF),
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 22.0,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
+                                                        mouseCursor:
+                                                            SystemMouseCursors
+                                                                .click,
+                                                        recognizer:
+                                                            TapGestureRecognizer()
+                                                              ..onTap =
+                                                                  () async {
+                                                                if (functions.getLatLng(
+                                                                        widget!
+                                                                            .transactionDocument
+                                                                            ?.locationIn,
+                                                                        'lat') !=
+                                                                    null) {
+                                                                  await launchURL(
+                                                                      'https://www.google.com/maps/search/?api=1&query=${functions.getLatLng(widget!.transactionDocument?.locationIn, 'lat')?.toString()},${functions.getLatLng(widget!.transactionDocument?.locationIn, 'lng')?.toString()}');
+                                                                } else {
+                                                                  await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (dialogContext) {
+                                                                      return Dialog(
+                                                                        elevation:
+                                                                            0,
+                                                                        insetPadding:
+                                                                            EdgeInsets.zero,
+                                                                        backgroundColor:
+                                                                            Colors.transparent,
+                                                                        alignment:
+                                                                            AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                        child:
+                                                                            WebViewAware(
+                                                                          child:
+                                                                              InfoCustomViewWidget(
+                                                                            title:
+                                                                                'ไม่สามารถหาตำแหน่งบนแผนที่ได้',
+                                                                            detail:
+                                                                                'เนื่องจากตอนบันทึกเข้า-ออกลงเวลาไม่ได้เปิดการตั้งค่าการเข้าถึงตำแหน่งที่โทรศัพท์',
+                                                                            status:
+                                                                                'error',
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                }
+                                                              },
+                                                      )
+                                                    ],
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Icon(
+                                                Icons.location_on_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                size: 24.0,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                         if (widget!.transactionDocument
                                                     ?.detailIn !=
                                                 null &&
@@ -544,6 +662,118 @@ class _TransactionDetailViewWidgetState
                                                           ),
                                                     ),
                                                   ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 8.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Flexible(
+                                                  child: RichText(
+                                                    textScaler:
+                                                        MediaQuery.of(context)
+                                                            .textScaler,
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text: 'ตำแหน่ง : ',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Kanit',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                fontSize: 20.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                              ),
+                                                        ),
+                                                        TextSpan(
+                                                          text: 'ดูในแผนที่ ',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFF160DFF),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            fontSize: 22.0,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                          mouseCursor:
+                                                              SystemMouseCursors
+                                                                  .click,
+                                                          recognizer:
+                                                              TapGestureRecognizer()
+                                                                ..onTap =
+                                                                    () async {
+                                                                  if (functions.getLatLng(
+                                                                          widget!
+                                                                              .transactionDocument
+                                                                              ?.locationOut,
+                                                                          'lat') !=
+                                                                      null) {
+                                                                    await launchURL(
+                                                                        'https://www.google.com/maps/search/?api=1&query=${functions.getLatLng(widget!.transactionDocument?.locationOut, 'lat')?.toString()},${functions.getLatLng(widget!.transactionDocument?.locationOut, 'lng')?.toString()}');
+                                                                  } else {
+                                                                    await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (dialogContext) {
+                                                                        return Dialog(
+                                                                          elevation:
+                                                                              0,
+                                                                          insetPadding:
+                                                                              EdgeInsets.zero,
+                                                                          backgroundColor:
+                                                                              Colors.transparent,
+                                                                          alignment:
+                                                                              AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                          child:
+                                                                              WebViewAware(
+                                                                            child:
+                                                                                InfoCustomViewWidget(
+                                                                              title: 'ไม่สามารถหาตำแหน่งบนแผนที่ได้',
+                                                                              detail: 'เนื่องจากตอนบันทึกเข้า-ออกลงเวลาไม่ได้เปิดการตั้งค่าการเข้าถึงตำแหน่งที่โทรศัพท์',
+                                                                              status: 'error',
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    );
+                                                                  }
+                                                                },
+                                                        )
+                                                      ],
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.location_on_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  size: 24.0,
                                                 ),
                                               ],
                                             ),
