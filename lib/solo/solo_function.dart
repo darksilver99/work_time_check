@@ -157,3 +157,23 @@ List<QueryDocumentSnapshot<Map<String, dynamic>>> filterSnapshotByMemberRef(List
     return docMemberRef == memberRef;
   }).toList();
 }
+
+String locationLink(dynamic location){
+  if(location == null){
+    return "-";
+  }
+
+  LatLng latLng;
+  if (location is GeoPoint) {
+    latLng = LatLng(location.latitude, location.longitude);
+  } else if (location is LatLng) {
+    latLng = location;
+  } else {
+    return "-";
+  }
+
+  if(latLng.latitude == 0){
+    return "-";
+  }
+  return "https://www.google.com/maps/search/?api=1&query=${latLng.latitude},${latLng.longitude}";
+}
