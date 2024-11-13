@@ -173,7 +173,19 @@ Future<String> exportExcel(
                     ? transactionInThisMember[k].data()["detail_out"]
                     : "";
             var startEndDetailText =
-                "รายละเอียด(เข้างาน) : ${(detailIn != '') ? detailIn : " -"}\n รายละเอียด(ออกงาน) : ${(detailOut != '') ? detailOut : " -"}";
+                "รายละเอียด(เข้างาน) : ${(detailIn != '') ? detailIn : " -"}\nรายละเอียด(ออกงาน) : ${(detailOut != '') ? detailOut : " -"}";
+
+            //ตำแหน่ง
+            /*var locationIn =
+            transactionInThisMember[k].data().containsKey("location_in")
+                ? transactionInThisMember[k].data()["location_in"]
+                : "";
+            var locationOut =
+            transactionInThisMember[k].data().containsKey("location_out")
+                ? transactionInThisMember[k].data()["location_out"]
+                : "";
+            var inOutLocationText =
+                "ตำแหน่ง(เข้างาน) : ${(locationIn != "") ? locationLink(locationIn) : ' -'}\nตำแหน่ง(ออกงาน) : ${(locationOut != '') ? locationLink(locationOut) : " -"}";*/
 
             //ระยะเวลา
             var durationText = "";
@@ -194,7 +206,12 @@ Future<String> exportExcel(
           }
           //}
         }
-        cell.value = TextCellValue(data);
+        cell
+          ..value = TextCellValue(data)
+          ..cellStyle = CellStyle(
+              textWrapping: TextWrapping.WrapText,
+              verticalAlign: VerticalAlign.Top,
+              horizontalAlign: HorizontalAlign.Left);
       }
     }
   }
