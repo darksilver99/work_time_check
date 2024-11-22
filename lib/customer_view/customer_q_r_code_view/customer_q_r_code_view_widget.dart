@@ -125,13 +125,13 @@ class _CustomerQRCodeViewWidgetState extends State<CustomerQRCodeViewWidget>
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'แสดง QR Code ให้สมาชิกที่ต้องการเข้าร่วมองค์กร',
+                                    'แสดง QR Code ให้สมาชิกที่ต้องการเข้าร่วมองค์กร โดยการเลือกเมนู \"เข้าร่วมองค์กร\" > \"สแกน QR Code\"',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Kanit',
-                                          fontSize: 20.0,
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
                                         ),
                                   ),
