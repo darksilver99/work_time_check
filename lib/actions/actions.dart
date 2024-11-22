@@ -65,6 +65,8 @@ Future initConfig(BuildContext context) async {
     isReview: configResult?.isReview,
     limitCustomerCreate: configResult?.limitCustomerCreate,
     storeLink: configResult?.storeLink,
+    appSuggestList: configResult?.appSuggestList,
+    appOtherList: configResult?.appOtherList,
   );
   await action_blocks.checkAppVersion(context);
 }
