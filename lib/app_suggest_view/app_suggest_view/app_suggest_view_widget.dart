@@ -105,7 +105,7 @@ class _AppSuggestViewWidgetState extends State<AppSuggestViewWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Kanit',
-                                      fontSize: 22.0,
+                                      fontSize: 24.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
