@@ -76,6 +76,16 @@ class ConfigRecord extends FirestoreRecord {
   String get storeLink => _storeLink ?? '';
   bool hasStoreLink() => _storeLink != null;
 
+  // "app_suggest_list" field.
+  List<AppSuggestDataStruct>? _appSuggestList;
+  List<AppSuggestDataStruct> get appSuggestList => _appSuggestList ?? const [];
+  bool hasAppSuggestList() => _appSuggestList != null;
+
+  // "app_other_list" field.
+  List<AppSuggestDataStruct>? _appOtherList;
+  List<AppSuggestDataStruct> get appOtherList => _appOtherList ?? const [];
+  bool hasAppOtherList() => _appOtherList != null;
+
   void _initializeFields() {
     _storeVersion = castToType<int>(snapshotData['store_version']);
     _storeIosLink = snapshotData['store_ios_link'] as String?;
@@ -90,6 +100,14 @@ class ConfigRecord extends FirestoreRecord {
     _limitCustomerCreate =
         castToType<int>(snapshotData['limit_customer_create']);
     _storeLink = snapshotData['store_link'] as String?;
+    _appSuggestList = getStructList(
+      snapshotData['app_suggest_list'],
+      AppSuggestDataStruct.fromMap,
+    );
+    _appOtherList = getStructList(
+      snapshotData['app_other_list'],
+      AppSuggestDataStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -172,7 +190,9 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         listEquality.equals(e1?.contact, e2?.contact) &&
         e1?.isReview == e2?.isReview &&
         e1?.limitCustomerCreate == e2?.limitCustomerCreate &&
-        e1?.storeLink == e2?.storeLink;
+        e1?.storeLink == e2?.storeLink &&
+        listEquality.equals(e1?.appSuggestList, e2?.appSuggestList) &&
+        listEquality.equals(e1?.appOtherList, e2?.appOtherList);
   }
 
   @override
@@ -188,7 +208,9 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.contact,
         e?.isReview,
         e?.limitCustomerCreate,
-        e?.storeLink
+        e?.storeLink,
+        e?.appSuggestList,
+        e?.appOtherList
       ]);
 
   @override

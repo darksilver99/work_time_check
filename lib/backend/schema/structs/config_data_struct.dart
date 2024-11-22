@@ -22,6 +22,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
     bool? isReview,
     int? limitCustomerCreate,
     String? storeLink,
+    List<AppSuggestDataStruct>? appSuggestList,
+    List<AppSuggestDataStruct>? appOtherList,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _storeVersion = storeVersion,
         _storeIosLink = storeIosLink,
@@ -35,6 +37,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         _isReview = isReview,
         _limitCustomerCreate = limitCustomerCreate,
         _storeLink = storeLink,
+        _appSuggestList = appSuggestList,
+        _appOtherList = appOtherList,
         super(firestoreUtilData);
 
   // "store_version" field.
@@ -137,6 +141,28 @@ class ConfigDataStruct extends FFFirebaseStruct {
 
   bool hasStoreLink() => _storeLink != null;
 
+  // "app_suggest_list" field.
+  List<AppSuggestDataStruct>? _appSuggestList;
+  List<AppSuggestDataStruct> get appSuggestList => _appSuggestList ?? const [];
+  set appSuggestList(List<AppSuggestDataStruct>? val) => _appSuggestList = val;
+
+  void updateAppSuggestList(Function(List<AppSuggestDataStruct>) updateFn) {
+    updateFn(_appSuggestList ??= []);
+  }
+
+  bool hasAppSuggestList() => _appSuggestList != null;
+
+  // "app_other_list" field.
+  List<AppSuggestDataStruct>? _appOtherList;
+  List<AppSuggestDataStruct> get appOtherList => _appOtherList ?? const [];
+  set appOtherList(List<AppSuggestDataStruct>? val) => _appOtherList = val;
+
+  void updateAppOtherList(Function(List<AppSuggestDataStruct>) updateFn) {
+    updateFn(_appOtherList ??= []);
+  }
+
+  bool hasAppOtherList() => _appOtherList != null;
+
   static ConfigDataStruct fromMap(Map<String, dynamic> data) =>
       ConfigDataStruct(
         storeVersion: castToType<int>(data['store_version']),
@@ -151,6 +177,14 @@ class ConfigDataStruct extends FFFirebaseStruct {
         isReview: data['isReview'] as bool?,
         limitCustomerCreate: castToType<int>(data['limit_customer_create']),
         storeLink: data['store_link'] as String?,
+        appSuggestList: getStructList(
+          data['app_suggest_list'],
+          AppSuggestDataStruct.fromMap,
+        ),
+        appOtherList: getStructList(
+          data['app_other_list'],
+          AppSuggestDataStruct.fromMap,
+        ),
       );
 
   static ConfigDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -170,6 +204,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'isReview': _isReview,
         'limit_customer_create': _limitCustomerCreate,
         'store_link': _storeLink,
+        'app_suggest_list': _appSuggestList?.map((e) => e.toMap()).toList(),
+        'app_other_list': _appOtherList?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -223,6 +259,16 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'store_link': serializeParam(
           _storeLink,
           ParamType.String,
+        ),
+        'app_suggest_list': serializeParam(
+          _appSuggestList,
+          ParamType.DataStruct,
+          isList: true,
+        ),
+        'app_other_list': serializeParam(
+          _appOtherList,
+          ParamType.DataStruct,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -288,6 +334,18 @@ class ConfigDataStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        appSuggestList: deserializeStructParam<AppSuggestDataStruct>(
+          data['app_suggest_list'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: AppSuggestDataStruct.fromSerializableMap,
+        ),
+        appOtherList: deserializeStructParam<AppSuggestDataStruct>(
+          data['app_other_list'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: AppSuggestDataStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -308,7 +366,9 @@ class ConfigDataStruct extends FFFirebaseStruct {
         listEquality.equals(contact, other.contact) &&
         isReview == other.isReview &&
         limitCustomerCreate == other.limitCustomerCreate &&
-        storeLink == other.storeLink;
+        storeLink == other.storeLink &&
+        listEquality.equals(appSuggestList, other.appSuggestList) &&
+        listEquality.equals(appOtherList, other.appOtherList);
   }
 
   @override
@@ -324,7 +384,9 @@ class ConfigDataStruct extends FFFirebaseStruct {
         contact,
         isReview,
         limitCustomerCreate,
-        storeLink
+        storeLink,
+        appSuggestList,
+        appOtherList
       ]);
 }
 
