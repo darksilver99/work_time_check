@@ -475,6 +475,14 @@ class _OtherViewWidgetState extends State<OtherViewWidget> {
                                             ),
                                           ),
                                         ),
+                                      Container(
+                                        width: double.infinity,
+                                        height: 1.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 if (!FFAppState().configData.isReview)
