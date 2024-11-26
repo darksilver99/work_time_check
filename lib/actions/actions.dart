@@ -386,7 +386,7 @@ Future<bool?> checkIsExpire(BuildContext context) async {
               .resolve(Directionality.of(context)),
           child: WebViewAware(
             child: InfoCustomViewWidget(
-              title: 'ขอบัญชีองค์กรของท่านหมดอายุการใช้งาน',
+              title: 'บัญชีองค์กรของท่านหมดอายุการใช้งาน',
               detail:
                   'กรุณาติดต่อเจ้าหน้าที่องค์กรหรือต่ออายุการใช้งาน ดูรายละเอียดเพิ่มเติมได้ที่เมนู \"จัดการองค์กร\" > \"ต่ออายุการใช้งาน\"',
               status: 'error',
