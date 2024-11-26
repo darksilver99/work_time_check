@@ -62,10 +62,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
       await action_blocks.initCustomer(context);
       _model.isLoading = false;
       safeSetState(() {});
+      await action_blocks.checkCloseExpire(context);
       currentUserLocationValue =
         await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       FFAppState().currentLocation = currentUserLocationValue;
-      await action_blocks.checkCloseExpire(context);
     });
 
     animationsMap.addAll({
