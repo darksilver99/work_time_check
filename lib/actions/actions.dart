@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/component/confirm_custom_view/confirm_custom_view_widget.dart';
 import '/component/expire_alert_view/expire_alert_view_widget.dart';
+import '/component/expire_already_view/expire_already_view_widget.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/customer_view/join_customer_view/join_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -385,10 +386,10 @@ Future<bool?> checkIsExpire(BuildContext context) async {
           alignment: AlignmentDirectional(0.0, 0.0)
               .resolve(Directionality.of(context)),
           child: WebViewAware(
-            child: InfoCustomViewWidget(
+            child: ExpireAlreadyViewWidget(
               title: 'บัญชีองค์กรของท่านหมดอายุการใช้งาน',
               detail:
-                  'กรุณาติดต่อเจ้าหน้าที่องค์กรหรือต่ออายุการใช้งาน ดูรายละเอียดเพิ่มเติมได้ที่เมนู \"จัดการองค์กร\" > \"ต่ออายุการใช้งาน\"',
+                  'กรุณาติดต่อเจ้าหน้าที่องค์กรหรือต่ออายุการใช้งาน ดูรายละเอียดเพิ่มเติมได้ที่เมนู \"จัดการองค์กร\" > \"ตั้งค่าองค์กร\" > \"ต่ออายุการใช้งาน\"',
               status: 'error',
             ),
           ),
@@ -396,6 +397,10 @@ Future<bool?> checkIsExpire(BuildContext context) async {
       },
     );
 
+    await actions.pushReplacement(
+      context,
+      null,
+    );
     return true;
   } else {
     return false;
