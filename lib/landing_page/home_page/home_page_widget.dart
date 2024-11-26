@@ -65,6 +65,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
       currentUserLocationValue =
         await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       FFAppState().currentLocation = currentUserLocationValue;
+      await action_blocks.checkCloseExpire(context);
     });
 
     animationsMap.addAll({
