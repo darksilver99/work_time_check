@@ -43,6 +43,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   TutorialCoachMark? joinAndCreateCustomerController;
   // Model for BackgroundView component.
   late BackgroundViewModel backgroundViewModel;
+  // Stores action output result for [Action Block - checkIsExpire] action in Column widget.
+  bool? isExpire;
   // Stores action output result for [Custom Action - customCamera] action in Column widget.
   List<FFUploadedFile>? photoResult;
   // Stores action output result for [Firestore Query - Query a collection] action in Column widget.

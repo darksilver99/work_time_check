@@ -2,12 +2,14 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/component/confirm_custom_view/confirm_custom_view_widget.dart';
+import '/component/expire_alert_view/expire_alert_view_widget.dart';
 import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/customer_view/join_customer_view/join_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -333,5 +335,69 @@ Future checkAppVersion(BuildContext context) async {
     }
 
     await actions.closeApp();
+  }
+}
+
+Future checkCloseExpire(BuildContext context) async {
+  if ((currentUserDocument?.currentCustomerRef != null) &&
+      (FFAppState().customerData.subject != null &&
+          FFAppState().customerData.subject != '')) {
+    if (functions.getStartDayTime(FFAppState().currentDate!) !=
+        functions.getStartDayTime(getCurrentTimestamp)) {
+      FFAppState().isSkipExpireAlert = false;
+      FFAppState().currentDate = functions.getStartDayTime(getCurrentTimestamp);
+    }
+    if (getCurrentTimestamp >
+        functions.getBeforeDay(3, FFAppState().customerData.expireDate!)) {
+      if (!FFAppState().isSkipExpireAlert) {
+        if (functions.getStartDayTime(getCurrentTimestamp) <=
+            functions.getStartDayTime(FFAppState().customerData.expireDate!)) {
+          await showDialog(
+            context: context,
+            builder: (dialogContext) {
+              return Dialog(
+                elevation: 0,
+                insetPadding: EdgeInsets.zero,
+                backgroundColor: Colors.transparent,
+                alignment: AlignmentDirectional(0.0, 0.0)
+                    .resolve(Directionality.of(context)),
+                child: WebViewAware(
+                  child: ExpireAlertViewWidget(),
+                ),
+              );
+            },
+          );
+        }
+      }
+    }
+  }
+}
+
+Future<bool?> checkIsExpire(BuildContext context) async {
+  if (getCurrentTimestamp > FFAppState().customerData.expireDate!) {
+    await showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return Dialog(
+          elevation: 0,
+          insetPadding: EdgeInsets.zero,
+          backgroundColor: Colors.transparent,
+          alignment: AlignmentDirectional(0.0, 0.0)
+              .resolve(Directionality.of(context)),
+          child: WebViewAware(
+            child: InfoCustomViewWidget(
+              title: 'ขอบัญชีองค์กรของท่านหมดอายุการใช้งาน',
+              detail:
+                  'กรุณาติดต่อเจ้าหน้าที่องค์กรหรือต่ออายุการใช้งาน ดูรายละเอียดเพิ่มเติมได้ที่เมนู \"จัดการองค์กร\" > \"ต่ออายุการใช้งาน\"',
+              status: 'error',
+            ),
+          ),
+        );
+      },
+    );
+
+    return true;
+  } else {
+    return false;
   }
 }

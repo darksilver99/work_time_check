@@ -311,13 +311,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        var _shouldSetState = false;
                                         if (currentUserDocument
                                                 ?.currentCustomerRef !=
                                             null) {
+                                          _model.isExpire = await action_blocks
+                                              .checkIsExpire(context);
+                                          _shouldSetState = true;
+                                          if (_model.isExpire!) {
+                                            if (_shouldSetState)
+                                              safeSetState(() {});
+                                            return;
+                                          }
+
                                           _model.photoResult =
                                               await actions.customCamera(
                                             context,
                                           );
+                                          _shouldSetState = true;
                                           if (_model.photoResult != null &&
                                               (_model.photoResult)!
                                                   .isNotEmpty) {
@@ -343,6 +354,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                               descending: true),
                                               singleRecord: true,
                                             ).then((s) => s.firstOrNull);
+                                            _shouldSetState = true;
                                             if (_model.transactionDoc != null) {
                                               await showModalBottomSheet(
                                                 isScrollControlled: true,
@@ -432,7 +444,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               ?.show(context: context);
                                         }
 
-                                        safeSetState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
