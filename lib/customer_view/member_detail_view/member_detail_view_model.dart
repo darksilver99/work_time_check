@@ -55,6 +55,27 @@ class MemberDetailViewModel extends FlutterFlowModel<MemberDetailViewWidget> {
         updateBy: currentUserReference,
         createBy: currentUserReference,
       ));
+      if (widget!.memberDoc?.createBy != currentUserReference) {
+        await showDialog(
+          context: context,
+          builder: (dialogContext) {
+            return Dialog(
+              elevation: 0,
+              insetPadding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              alignment: AlignmentDirectional(0.0, 0.0)
+                  .resolve(Directionality.of(context)),
+              child: WebViewAware(
+                child: InfoCustomViewWidget(
+                  title: 'เนื่องจากสมาชิกคนนี้เป็นผู้สร้างองค์กร',
+                  detail: 'ระบบจะเปลี่ยนให้ท่านเป็นผู้สร้างองค์กรแทน',
+                  status: 'warning',
+                ),
+              ),
+            );
+          },
+        );
+      }
     }
   }
 }
