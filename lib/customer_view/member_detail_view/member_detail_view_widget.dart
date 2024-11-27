@@ -520,6 +520,8 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                           _model.letterIndex =
                                               _model.letterIndex + 1;
                                         }
+                                        await _model
+                                            .checkIsCreateCustomer(context);
                                         await widget!.memberDoc!.reference
                                             .delete();
                                         await showDialog(

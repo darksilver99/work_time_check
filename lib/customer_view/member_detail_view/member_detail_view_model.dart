@@ -46,4 +46,15 @@ class MemberDetailViewModel extends FlutterFlowModel<MemberDetailViewWidget> {
 
   @override
   void dispose() {}
+
+  /// Action blocks.
+  Future checkIsCreateCustomer(BuildContext context) async {
+    if (widget!.memberDoc?.createBy == widget!.customerDoc?.createBy) {
+      await widget!.customerDoc!.reference.update(createCustomerRecordData(
+        updateDate: getCurrentTimestamp,
+        updateBy: currentUserReference,
+        createBy: currentUserReference,
+      ));
+    }
+  }
 }
